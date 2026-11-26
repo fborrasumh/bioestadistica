@@ -29,6 +29,7 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 | 20 | Representación de datos clínicos en Python: tipos numéricos, cadenas de texto y estructuras de datos | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_020_Representacion_de_datos_clinicos_en_Python.ipynb) |
 | 30 | Lógica booleana y estructuras condicionales aplicadas a la clasificación clínica | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_030_Logica_booleana_y_estructuras_condicionales.ipynb) |
 | 40 | Estructuras iterativas para el procesamiento de series de pacientes | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_040_Estructuras_iterativas_series_de_pacientes.ipynb) |
+| 50 | Funciones en Python para la implementación de índices y escalas clínicas | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_050_Funciones_indices_y_escalas_clinicas.ipynb) |
 
 ## Licencia
 
