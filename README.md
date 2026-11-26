@@ -43,6 +43,7 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 | 160 | Evaluación de pruebas diagnósticas y de cribado: sensibilidad, especificidad y valores predictivos | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_160_Evaluacion_de_pruebas_diagnosticas_y_de_cribado.ipynb) |
 | 170 | Variables aleatorias discretas: distribuciones binomial y de Poisson | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_170_Variables_aleatorias_discretas_binomial_y_Poisson.ipynb) |
 | 180 | Variables aleatorias continuas y distribución normal: intervalos de referencia clínicos | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_180_Variables_continuas_distribucion_normal_e_intervalos_de_referencia.ipynb) |
+| 190 | Simulación de Monte Carlo y distribuciones muestrales | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_190_Simulacion_de_Monte_Carlo_y_distribuciones_muestrales.ipynb) |
 
 ## Licencia
 
