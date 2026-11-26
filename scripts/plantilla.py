@@ -42,7 +42,7 @@ class Cuaderno:
 
 # <font color='{COLOR}'>Tema {numero}. {titulo}</font>
 
-**Bioestadística (1964) · Grado en Medicina · 2.º curso · Curso 2026-2027**
+**Bioestadística (1964) · Grado en Medicina · 2.º curso · Curso 2027-2028**
 
 **{modulo}**
 
