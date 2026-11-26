@@ -34,6 +34,7 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 | 70 | Gestión de ficheros y formatos de intercambio de datos sanitarios: CSV y JSON | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_070_Ficheros_y_formatos_de_datos_sanitarios_CSV_y_JSON.ipynb) |
 | 80 | Fundamentos de los modelos de lenguaje de gran tamaño: funcionamiento, limitaciones y uso seguro mediante API | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_080_Modelos_de_lenguaje_funcionamiento_limitaciones_y_API.ipynb) |
 | 90 | Programación asistida por inteligencia artificial: ciclo de mejora recursiva de generación, verificación y corrección | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_090_Programacion_asistida_por_IA_y_mejora_recursiva.ipynb) |
+| 100 | Estructuras de datos con Pandas: tratamiento de valores perdidos y atípicos en registros clínicos | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_100_Pandas_valores_perdidos_y_atipicos_en_registros_clinicos.ipynb) |
 
 ## Licencia
 
