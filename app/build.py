@@ -88,6 +88,9 @@ def main():
     html = sustituye(html, "Son ejercicios para aprender a programar y no sustituyen a las guías clínicas.",
                      "Son ejercicios para aprender bioestadística y no sustituyen a las guías clínicas.")
 
+    # ── Word y ZIP escritos en el propio navegador, sin librerías de internet (módulo 70-report de Forja) ──
+    html = entre(html, "/* ── salidas: Word desde Markdown y ZIP", "/* csv con BOM", open(os.path.join(AQUI, "base", "70-report_forja.js"), encoding="utf-8").read() + "\n")
+
     # ── temas y misiones ──
     html = entre(html, "/* ── mapa de temas del Módulo 1", "/* ══ runner.js", misiones_js() + "\n\n")
     html = sustituye(html, "const VERSION_APP = '1.0.1';", f"const VERSION_APP = '{VERSION}';")

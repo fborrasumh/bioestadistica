@@ -41,6 +41,8 @@ Práctica de los 30 temas, con **tres misiones por tema** (90 en total), como se
 
 El motor (ejecución, corrección, informes y panel del profesorado) es el de [PyMedIA](https://github.com/fborrasumh/pymedia) 1.0.1, del mismo autor; `app/build.py` cambia la marca, los temas y las misiones, y añade los niveles de ayuda y los campos del informe.
 
+**Descargas sin conexión:** el Word, el JSON, el CSV y el ZIP se escriben en el propio navegador, sin librerías de internet.
+
 **Límites:** la interfaz y las misiones están solo en español en esta versión. La primera carga necesita internet (Pyodide unos 14 MB; SciPy y pandas, varios MB más). Las soluciones de referencia viajan dentro del fichero: la app no es un sistema de examen vigilado. Las fórmulas y umbrales clínicos son didácticos. Las misiones se han probado con CPython y las versiones de pandas, NumPy y SciPy de Pyodide 0.27.7 (90 misiones × 8 semillas); no se han probado dentro de Pyodide en el navegador ni con una clave real de IA.
 
 ```bash
