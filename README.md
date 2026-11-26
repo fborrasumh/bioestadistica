@@ -45,6 +45,7 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 | 180 | Variables aleatorias continuas y distribución normal: intervalos de referencia clínicos | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_180_Variables_continuas_distribucion_normal_e_intervalos_de_referencia.ipynb) |
 | 190 | Simulación de Monte Carlo y distribuciones muestrales | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_190_Simulacion_de_Monte_Carlo_y_distribuciones_muestrales.ipynb) |
 | 200 | Estimación puntual e intervalos de confianza | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_200_Estimacion_puntual_e_intervalos_de_confianza.ipynb) |
+| 210 | Fundamentos del contraste de hipótesis: significación estadística, errores y potencia | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_210_Contraste_de_hipotesis_significacion_errores_y_potencia.ipynb) |
 
 ## Licencia
 
