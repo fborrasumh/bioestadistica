@@ -47,6 +47,7 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 | 200 | Estimación puntual e intervalos de confianza | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_200_Estimacion_puntual_e_intervalos_de_confianza.ipynb) |
 | 210 | Fundamentos del contraste de hipótesis: significación estadística, errores y potencia | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_210_Contraste_de_hipotesis_significacion_errores_y_potencia.ipynb) |
 | 220 | Inferencia sobre proporciones en una y dos poblaciones | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_220_Inferencia_sobre_proporciones_en_una_y_dos_poblaciones.ipynb) |
+| 230 | Análisis de tablas de contingencia y medidas de asociación epidemiológica: riesgo relativo, odds ratio y número necesario a tratar | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_230_Tablas_de_contingencia_y_medidas_de_asociacion_RR_OR_y_NNT.ipynb) |
 
 ## Licencia
 
