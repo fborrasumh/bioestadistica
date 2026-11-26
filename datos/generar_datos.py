@@ -80,7 +80,8 @@ analiticas = pd.DataFrame({
     "hba1c_pct": np.where(
         pd.Series(con_analitica).map(dict(zip(ids, diabetes))).to_numpy(),
         rng.normal(7.4, 1.2, 360), rng.normal(5.4, 0.35, 360)).round(1).clip(4.5, 12),
-    "creatinina_mg_dl": rng.lognormal(np.log(0.95), 0.25, 360).round(2),
+    "creatinina_mg_dl": (rng.lognormal(np.log(0.92), 0.22, 360)
+                         * np.where(rng.random(360) < 0.1, rng.uniform(1.6, 3.2, 360), 1)).round(2),
     "ldl_mg_dl": rng.normal(125, 33, 360).round(0),
 })
 extra = pd.DataFrame({"id": ["CV-9001", "CV-9002"], "hba1c_pct": [6.1, 7.4],

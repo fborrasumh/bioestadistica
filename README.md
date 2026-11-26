@@ -36,6 +36,7 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 | 90 | Programación asistida por inteligencia artificial: ciclo de mejora recursiva de generación, verificación y corrección | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_090_Programacion_asistida_por_IA_y_mejora_recursiva.ipynb) |
 | 100 | Estructuras de datos con Pandas: tratamiento de valores perdidos y atípicos en registros clínicos | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_100_Pandas_valores_perdidos_y_atipicos_en_registros_clinicos.ipynb) |
 | 110 | Integración de fuentes de datos clínicos y elaboración de tablas de frecuencias | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_110_Integracion_de_datos_clinicos_y_tablas_de_frecuencias.ipynb) |
+| 120 | Estadística descriptiva univariante: medidas de tendencia central, dispersión y forma | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_120_Estadistica_descriptiva_univariante.ipynb) |
 
 ## Licencia
 
