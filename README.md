@@ -6,7 +6,8 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 
 ## Contenido del repositorio
 
-- `cuadernos/`: los 30 cuadernos de Google Colab, uno por tema (Tema 10 a Tema 300), cada uno para una sesión de 50 minutos.
+- `cuadernos/`: el Tema 0 (guía de Colab, lectura previa) y los 30 cuadernos de Google Colab, uno por tema (Tema 10 a Tema 300), cada uno para una sesión de 50 minutos.
+- `scripts/`: los scripts que generan cada cuaderno a partir de una plantilla común.
 - App **Bioestadística**: unidades prácticas de cada tema (en preparación).
 
 ## Temario
@@ -23,6 +24,7 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 
 | Tema | Título | Abrir |
 | --- | --- | --- |
+| 0 | Guía del entorno de trabajo: cuadernos Jupyter y Google Colab (lectura previa obligatoria) | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_000_Guia_del_entorno_Google_Colab.ipynb) |
 | 10 | Introducción a la bioestadística computacional en ciencias de la salud: entorno Google Colab y asistentes de inteligencia artificial | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_010_Introduccion_bioestadistica_computacional.ipynb) |
 
 ## Licencia
