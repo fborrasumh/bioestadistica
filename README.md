@@ -1,0 +1,30 @@
+# Bioestadística (1964) · Grado en Medicina · UMH
+
+Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina de la Universidad Miguel Hernández de Elche, curso 2026-2027.
+
+**Autor:** Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · ORCID [0000-0002-5519-4573](https://orcid.org/0000-0002-5519-4573)
+
+## Contenido del repositorio
+
+- `cuadernos/`: los 30 cuadernos de Google Colab, uno por tema (Tema 10 a Tema 300), cada uno para una sesión de 50 minutos.
+- App **Bioestadística**: unidades prácticas de cada tema (en preparación).
+
+## Temario
+
+| Módulo | Temas |
+| --- | --- |
+| Módulo 1. Descubriendo Python | 10-40 |
+| Módulo 2. Programando con IA | 50-80 |
+| Módulo 3. Procesado inicial de datos | 90-130 |
+| Módulo 4. Probabilidad | 140-190 |
+| Módulo 5. Generalización de conclusiones | 200-300 |
+
+## Cuadernos disponibles
+
+| Tema | Título | Abrir |
+| --- | --- | --- |
+| 10 | Introducción a la bioestadística computacional en ciencias de la salud: entorno Google Colab y asistentes de inteligencia artificial | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_010_Introduccion_bioestadistica_computacional.ipynb) |
+
+## Licencia
+
+Cuadernos: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.es). Todos los pacientes y datos son sintéticos.
