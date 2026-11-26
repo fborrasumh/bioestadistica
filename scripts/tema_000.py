@@ -284,6 +284,8 @@ Para usar modelos de IA desde el código, o desde la app de la asignatura, se ne
 - Guárdala en el panel **Secretos** (icono de la llave en la barra lateral): pulsa *Añadir nuevo secreto*, escribe un nombre (por ejemplo `GEMINI_API_KEY`) y pega la clave en el valor.
 - Activa el acceso del cuaderno a ese secreto con el interruptor correspondiente.
 
+Cómo conseguir una clave gratuita de Google Gemini, o una de pago de OpenAI, se explica paso a paso en el Tema 10.
+
 La celda siguiente comprueba si la clave existe **sin mostrarla**.
 """)
 c.code("""

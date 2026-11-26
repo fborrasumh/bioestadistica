@@ -242,15 +242,61 @@ pacientes.groupby("fumador")["pas_mmHg"].describe().round(1)
 
 c.titulo(3, "4.7 La clave de acceso, sin exponerla")
 c.md("""
-Si guardaste tu clave en **Secretos** siguiendo el Tema 0, esta celda lo comprueba sin mostrarla.
+Si ya guardaste tu clave en **Secretos** (apartado siguiente), esta celda comprueba si existe sin mostrarla. Busca los dos nombres que usaremos en el curso: `GEMINI_API_KEY` y `OPENAI_API_KEY`.
 """)
 c.code("""
-try:
-    from google.colab import userdata
-    clave = userdata.get("GEMINI_API_KEY")
-    print("Clave configurada:", clave is not None)
-except Exception as error:
-    print("No hay clave configurada o el cuaderno no se ejecuta en Colab:", type(error).__name__)
+for nombre in ["GEMINI_API_KEY", "OPENAI_API_KEY"]:
+    try:
+        from google.colab import userdata
+        clave = userdata.get(nombre)
+        print(f"{nombre}: configurada")
+    except Exception as error:
+        print(f"{nombre}: no configurada ({type(error).__name__})")
+""")
+
+c.titulo(3, "Ampliación: cómo obtener una clave de acceso (API key)")
+c.md("""
+Para la asignatura basta con **una** clave. Recomendamos la de **Google Gemini**, que tiene un nivel gratuito sin tarjeta de crédito. La de **OpenAI** es de pago y es opcional.
+
+| | Google Gemini | OpenAI |
+| --- | --- | --- |
+| Coste | Nivel gratuito con límites de uso; no pide tarjeta | De pago: se compran créditos por adelantado (mínimo 5 dólares) |
+| Dónde se obtiene | Google AI Studio (aistudio.google.com) | Plataforma de OpenAI (platform.openai.com) |
+| Nombre del secreto en Colab | `GEMINI_API_KEY` | `OPENAI_API_KEY` |
+| Requisito de edad | 18 años | Según sus condiciones de uso |
+
+#### Opción A. Clave gratuita de Google Gemini
+
+1. Entra en [Google AI Studio](https://aistudio.google.com/) con tu cuenta de Google y acepta las condiciones de uso.
+2. Pulsa **Get API key** (Obtener clave de API) en el menú lateral.
+3. Pulsa **Create API key** (Crear clave de API). Si te lo pide, elige crearla en un proyecto nuevo: AI Studio lo prepara solo.
+4. Copia la clave y guárdala en el panel **Secretos** de Colab con el nombre `GEMINI_API_KEY` (pasos al final de este apartado).
+5. Comprueba en la lista de claves que el proyecto aparece como gratuito (*Free*). No actives la facturación: no es necesaria para la asignatura.
+
+Si aparece un aviso de que el nivel gratuito no está disponible para tu proyecto, crea la clave en otro proyecto nuevo o consulta al profesor. No actives la facturación para resolverlo.
+
+#### Opción B. Clave de pago de OpenAI
+
+1. Entra en la [plataforma de OpenAI](https://platform.openai.com/) con tu cuenta. La cuenta de ChatGPT sirve para entrar, pero la API se paga aparte: una suscripción a ChatGPT no incluye uso de la API.
+2. En la sección de facturación (**Billing**), añade un método de pago y compra el mínimo de créditos.
+3. **Desactiva la recarga automática** (*auto-reload*), que viene activada por defecto, para no hacer cargos sin darte cuenta. Los créditos caducan al año y no se devuelven.
+4. En **API keys**, pulsa **Create new secret key**, ponle un nombre y cópiala en ese momento: después no se vuelve a mostrar.
+5. Guárdala en **Secretos** de Colab con el nombre `OPENAI_API_KEY`.
+
+#### Guardar la clave en Colab
+
+1. Abre el panel **Secretos** (icono de la llave en la barra lateral izquierda).
+2. Pulsa **Añadir nuevo secreto**.
+3. Escribe el nombre exacto (`GEMINI_API_KEY` o `OPENAI_API_KEY`) y pega la clave en el valor.
+4. Activa el interruptor de acceso del cuaderno.
+5. Ejecuta la celda del apartado 4.7 para comprobarlo.
+
+#### Normas de seguridad
+
+- La clave es personal: no se comparte, no se escribe en el código y no se envía por correo ni por mensajería.
+- Si crees que alguien ha visto tu clave, **bórrala** en AI Studio o en la plataforma de OpenAI y crea otra.
+- Las condiciones de estos servicios prohíben usarlos en la práctica clínica real o para dar consejo médico. En la asignatura los usamos solo para aprender, con datos sintéticos.
+- Ni el nivel gratuito ni el de pago autorizan a enviar datos de pacientes.
 """)
 
 c.titulo(3, "4.8 Pedir ayuda al asistente con seguridad")
