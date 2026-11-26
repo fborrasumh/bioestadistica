@@ -1,6 +1,6 @@
 # Bioestadística (1964) · Grado en Medicina · UMH
 
-Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina de la Universidad Miguel Hernández de Elche, curso 2026-2027.
+Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina de la Universidad Miguel Hernández de Elche, curso 2027-2028.
 
 **Autor:** Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · ORCID [0000-0002-5519-4573](https://orcid.org/0000-0002-5519-4573)
 
