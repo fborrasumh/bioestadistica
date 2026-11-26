@@ -8,7 +8,9 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 
 - `cuadernos/`: el Tema 0 (guía de Colab, lectura previa) y los 30 cuadernos de Google Colab, uno por tema (Tema 10 a Tema 300), cada uno para una sesión de 50 minutos.
 - `scripts/`: los scripts que generan cada cuaderno a partir de una plantilla común.
-- App **Bioestadística**: unidades prácticas de cada tema (en preparación).
+- `index.html`: la app **Bioestadística** (se publica en https://fborrasumh.github.io/bioestadistica/ al activar GitHub Pages).
+- `app/`: fuentes de la app (`src/` con las misiones de cada módulo), el script que la monta (`build.py`) y sus pruebas (`tests/`).
+- `datos/`: los ficheros de datos sintéticos que usan los cuadernos.
 
 ## Temario
 
@@ -19,6 +21,32 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 | Módulo 3. Procesado inicial de datos | 90-130 |
 | Módulo 4. Probabilidad | 140-190 |
 | Módulo 5. Generalización de conclusiones | 200-300 |
+
+## App Bioestadística
+
+Práctica de los 30 temas, con **tres misiones por tema** (90 en total), como se anuncia en el apartado «Práctica en la app» de cada cuaderno:
+
+| Misión | Ayuda | Tipo |
+| --- | --- | --- |
+| Básica | Ninguna, como en el examen | Test o código |
+| Clínica | Pistas fijas | Código con datos clínicos sintéticos |
+| Reto | Pistas y tutor de IA opcional (con la clave de cada estudiante) | Casi siempre: verificar y corregir un código que «ha propuesto el asistente» |
+
+- **Python real en el navegador** (Pyodide 0.27.7 en un Web Worker): pandas, NumPy, SciPy y matplotlib se descargan solo en las misiones que los usan. No hay servidor.
+- **El código corrige; la IA no.** Cada misión ejecuta una solución de referencia con los mismos datos, prueba casos ocultos y reconoce los errores típicos (umbrales con `<` en vez de `<=`, *n* en lugar de *n* − 1, Wald en lugar de Wilson, prueba *t* independiente con datos apareados, OR por 10 años mal calculada…).
+- **Datos por semilla:** cada estudiante recibe datos distintos y el profesorado puede reproducirlos.
+- **Informe de evaluación continua (EC)** en Word, JSON y CSV. El CSV incluye, por misión, `primer_intento` (resuelta en el primer intento, sin ayudas) y `tras_pista` (resuelta al final), los datos que se analizan en el Tema 300. El reto del Tema 300 usa los informes del propio estudiante cuando ha intentado al menos 15 misiones.
+- **Profesorado:** verificación del JSON de un estudiante (registro encadenado SHA-256 y recálculo de cada solución con su semilla) y exámenes individualizados.
+
+El motor (ejecución, corrección, informes y panel del profesorado) es el de [PyMedIA](https://github.com/fborrasumh/pymedia) 1.0.1, del mismo autor; `app/build.py` cambia la marca, los temas y las misiones, y añade los niveles de ayuda y los campos del informe.
+
+**Límites:** la interfaz y las misiones están solo en español en esta versión. La primera carga necesita internet (Pyodide unos 14 MB; SciPy y pandas, varios MB más). Las soluciones de referencia viajan dentro del fichero: la app no es un sistema de examen vigilado. Las fórmulas y umbrales clínicos son didácticos. Las misiones se han probado con CPython y las versiones de pandas, NumPy y SciPy de Pyodide 0.27.7 (90 misiones × 8 semillas); no se han probado dentro de Pyodide en el navegador ni con una clave real de IA.
+
+```bash
+cd app
+python3 build.py              # monta ../index.html
+python3 tests/logic_test.py 8 # 90 misiones × 8 semillas: la solución aprueba, cada error típico suspende y se reconoce
+```
 
 ## Cuadernos disponibles
 
