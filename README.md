@@ -52,6 +52,7 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 | 250 | Inferencia sobre medias: pruebas t para muestras independientes y relacionadas | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_250_Inferencia_sobre_medias_pruebas_t_independientes_y_relacionadas.ipynb) |
 | 260 | Comparación de más de dos grupos: análisis de la varianza y pruebas no paramétricas | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_260_Comparacion_de_mas_de_dos_grupos_ANOVA_y_pruebas_no_parametricas.ipynb) |
 | 270 | Modelos de regresión lineal simple y múltiple | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_270_Modelos_de_regresion_lineal_simple_y_multiple.ipynb) |
+| 280 | Modelo de regresión logística | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_280_Modelo_de_regresion_logistica.ipynb) |
 
 ## Licencia
 
