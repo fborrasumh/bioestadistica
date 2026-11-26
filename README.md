@@ -26,6 +26,9 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 | --- | --- | --- |
 | 0 | Guía del entorno de trabajo: cuadernos Jupyter y Google Colab (lectura previa obligatoria) | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_000_Guia_del_entorno_Google_Colab.ipynb) |
 | 10 | Introducción a la bioestadística computacional en ciencias de la salud: entorno Google Colab y asistentes de inteligencia artificial | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_010_Introduccion_bioestadistica_computacional.ipynb) |
+| 20 | Representación de datos clínicos en Python: tipos numéricos, cadenas de texto y estructuras de datos | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_020_Representacion_de_datos_clinicos_en_Python.ipynb) |
+| 30 | Lógica booleana y estructuras condicionales aplicadas a la clasificación clínica | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_030_Logica_booleana_y_estructuras_condicionales.ipynb) |
+| 40 | Estructuras iterativas para el procesamiento de series de pacientes | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_040_Estructuras_iterativas_series_de_pacientes.ipynb) |
 
 ## Licencia
 
