@@ -38,6 +38,7 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 | 110 | Integración de fuentes de datos clínicos y elaboración de tablas de frecuencias | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_110_Integracion_de_datos_clinicos_y_tablas_de_frecuencias.ipynb) |
 | 120 | Estadística descriptiva univariante: medidas de tendencia central, dispersión y forma | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_120_Estadistica_descriptiva_univariante.ipynb) |
 | 130 | Análisis bivariante y representación gráfica de datos clínicos: asociación y correlación | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_130_Analisis_bivariante_asociacion_y_correlacion.ipynb) |
+| 140 | Fundamentos de la teoría de la probabilidad y técnicas de recuento | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_140_Fundamentos_de_probabilidad_y_tecnicas_de_recuento.ipynb) |
 
 ## Licencia
 
