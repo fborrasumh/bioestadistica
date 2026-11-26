@@ -49,6 +49,7 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 | 220 | Inferencia sobre proporciones en una y dos poblaciones | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_220_Inferencia_sobre_proporciones_en_una_y_dos_poblaciones.ipynb) |
 | 230 | Análisis de tablas de contingencia y medidas de asociación epidemiológica: riesgo relativo, odds ratio y número necesario a tratar | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_230_Tablas_de_contingencia_y_medidas_de_asociacion_RR_OR_y_NNT.ipynb) |
 | 240 | Análisis de datos apareados y de concordancia: prueba de McNemar e índice kappa de Cohen | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_240_Datos_apareados_y_concordancia_McNemar_y_kappa_de_Cohen.ipynb) |
+| 250 | Inferencia sobre medias: pruebas t para muestras independientes y relacionadas | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_250_Inferencia_sobre_medias_pruebas_t_independientes_y_relacionadas.ipynb) |
 
 ## Licencia
 
