@@ -31,6 +31,7 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 | 40 | Estructuras iterativas para el procesamiento de series de pacientes | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_040_Estructuras_iterativas_series_de_pacientes.ipynb) |
 | 50 | Funciones en Python para la implementación de índices y escalas clínicas | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_050_Funciones_indices_y_escalas_clinicas.ipynb) |
 | 60 | Módulos científicos, generación de números aleatorios y visualización básica con Matplotlib | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_060_Modulos_aleatoriedad_y_visualizacion_con_Matplotlib.ipynb) |
+| 70 | Gestión de ficheros y formatos de intercambio de datos sanitarios: CSV y JSON | [Colab](https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_070_Ficheros_y_formatos_de_datos_sanitarios_CSV_y_JSON.ipynb) |
 
 ## Licencia
 

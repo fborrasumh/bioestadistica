@@ -5,7 +5,8 @@ cd "$(dirname "$0")"
 for n in "$@"; do
   salida=$(python3 "tema_$n.py")
   cuaderno="${salida#../}"
-  jupyter nbconvert --to notebook --execute "../$cuaderno" --output "/tmp/exec_$n.ipynb" >/dev/null 2>&1
+  mkdir -p /tmp/ejecucion && cp "../$cuaderno" /tmp/ejecucion/
+  (cd /tmp/ejecucion && jupyter nbconvert --to notebook --execute "$(basename "$cuaderno")" --output "/tmp/exec_$n.ipynb" >/dev/null 2>&1)
   python3 - "$n" <<'EOF'
 import sys, nbformat
 n = sys.argv[1]
