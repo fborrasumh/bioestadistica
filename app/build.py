@@ -115,6 +115,17 @@ def main():
     html = sustituye(html, '<div class="card" id="profVer"></div>', '<div class="card" id="profLote"></div>\n  <div class="card" id="profVer"></div>')
     html = sustituye(html, "  $('btnExam').onclick = generaExamenes;\n}", "  $('btnExam').onclick = generaExamenes;\n  pintaLote();\n}")
 
+    # ── nombre de los informes: 1964_apellidos_nombre_fecha ──
+    html = sustituye(html, """<div class="field"><label for="inAlumno">${esc(t('Nombre o identificador (aparece en el informe)'))}</label><input type="text" id="inAlumno" value="${esc(S.alumno)}" autocomplete="off"></div>""",
+                     """<div class="field"><label for="inApe">${esc(t('Apellidos'))}</label><input type="text" id="inApe" value="${esc(partesAlumno().ape)}" autocomplete="family-name"></div><div class="field"><label for="inNom">${esc(t('Nombre'))}</label><input type="text" id="inNom" value="${esc(partesAlumno().nom)}" autocomplete="given-name"><p class="help">${esc(t('Aparecen en el informe y en el nombre del fichero: 1964_apellidos_nombre_fecha.'))}</p></div>""")
+    html = sustituye(html, "  $('inAlumno').oninput = () => { S.alumno = $('inAlumno').value; guarda(); };",
+                     "  const alNombre = () => { S.apellidos = $('inApe').value.trim(); S.nombre = $('inNom').value.trim(); S.alumno = [S.apellidos, S.nombre].filter(Boolean).join(', '); guarda(); };\n  $('inApe').oninput = alNombre; $('inNom').oninput = alNombre;")
+    html = sustituye(html, "$('btnJsonP').onclick = () => dl(`pymedia_${slug(S.alumno || 'informe')}.json`, JSON.stringify(informeJSON(), null, 1), 'application/json');",
+                     "$('btnJsonP').onclick = () => { if (exigeNombre()) dl(nombreInforme('json'), JSON.stringify(informeJSON(), null, 1), 'application/json'); };")
+    html = sustituye(html, "async function exportaWord() { try { dl(`pymedia_${slug(S.alumno || 'informe')}.docx`,", "async function exportaWord() { if (!exigeNombre()) return; try { dl(nombreInforme('docx'),")
+    html = sustituye(html, "function exportaCsv() { dl(`pymedia_${slug(S.alumno || 'informe')}.csv`,", "function exportaCsv() { if (!exigeNombre()) return; dl(nombreInforme('csv'),")
+    html = sustituye(html, "alumno: S.alumno, sem: S.sem, puntos: S.puntos,", "alumno: S.alumno, apellidos: partesAlumno().ape, nombre: partesAlumno().nom, sem: S.sem, puntos: S.puntos,")
+
     # ── informe: primer intento (sin ayudas) y resuelta tras la pista ──
     html = sustituye(html, "  const ej = RUN.ejemplo, p = P(m.id); if (!ej) p.intentos++;\n  const ok = !res.timeout && !res.err && !!res.ok;",
                      "  const ej = RUN.ejemplo, p = P(m.id); if (!ej) p.intentos++;\n  const ok = !res.timeout && !res.err && !!res.ok;\n  if (!ej) marcaPrimero(p, ok);")
@@ -126,7 +137,6 @@ def main():
                      "p.pistas || 0, p.ia || 0, p.totV || 0, m.id, NOM_NIVEL[m.nivel], p.prim === undefined ? '' : p.prim ? 1 : 0, p.prim === undefined ? '' : p.done ? 1 : 0]; })), 'text/csv;charset=utf-8'); }")
     html = sustituye(html, "const FMT = 'pymedia-informe';", "const FMT = 'bioestadistica-informe';")
     html = html.replace("no es un informe de PyMedIA", "no es un informe de Bioestadística").replace("No es un informe de PyMedIA", "No es un informe de Bioestadística")
-    html = html.replace("`pymedia_${slug(", "`bioestadistica_${slug(")
     html = html.replace("'examenes_pymedia.zip'", "'examenes_bioestadistica.zip'")
     html = html.replace("`PyMedIA ${m.id}", "`${APP_NAME} ${m.id}").replace("$course$/top/PyMedIA", "$course$/top/Bioestadistica")
     html = html.replace("· PyMedIA v${VERSION_APP}", "· ${APP_NAME} v${VERSION_APP}")

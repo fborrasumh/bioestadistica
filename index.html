@@ -4300,6 +4300,23 @@ function refuerzos() {
 const EJEMPLO = {id: 'm10-2', code: 'imc = round(peso / (talla_cm / 100) * 2, 1)\npam = round((pas + 2 * pad) / 3, 1)\nsc = round((talla_cm * peso / 3600) ** 0.5, 2)\nobesidad = imc >= 30\n'};
 /* primer intento: la primera vez que se comprueba una misión, ¿se resuelve sin pistas, sin IA y sin ver el resultado? */
 function marcaPrimero(p, ok) { if (p.prim === undefined && !p.k) p.prim = !!ok && !p.pistas && !p.ia && !p.vista; }
+/* nombre de los informes: 1964_apellidos_nombre_AAAAMMDD-HHMM.ext (minúsculas, sin tildes, con guiones bajos) */
+function partesAlumno() {
+  if (S.apellidos !== undefined || S.nombre !== undefined) return {ape: S.apellidos || '', nom: S.nombre || ''};
+  const [a, n] = String(S.alumno || '').split(',').map(x => x.trim());
+  return n !== undefined ? {ape: a, nom: n} : {ape: '', nom: ''};
+}
+function nombreInforme(ext) {
+  const {ape, nom} = partesAlumno(), d = new Date(), p = n => String(n).padStart(2, '0');
+  return `1964_${slug(ape)}_${slug(nom)}_${d.getFullYear()}${p(d.getMonth() + 1)}${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}.${ext}`;
+}
+function exigeNombre() {
+  const {ape, nom} = partesAlumno();
+  if (ape.trim() && nom.trim()) return true;
+  toast(t('Escribe tus apellidos y tu nombre antes de descargar el informe'));
+  const c = document.getElementById(ape.trim() ? 'inNom' : 'inApe'); if (c) c.focus();
+  return false;
+}
 
 
 /* ══ runner.js — ejecuta Python real en el navegador (Pyodide en un Web Worker) y corrige.
@@ -5082,18 +5099,19 @@ function pintaProgreso() {
   const dg = diagsTotales().slice(0, 6);
   $('progTabla').innerHTML = `<h3>${esc(t('Por tema'))}</h3><div class="pm-tbl"><table><thead><tr><th>${esc(t('Tema'))}</th><th>${esc(t('Misiones'))}</th><th>${esc(t('Estrellas'))}</th><th>${esc(t('Intentos'))}</th><th>${esc(t('Fallos'))}</th><th>${esc(t('Ayudas'))}</th></tr></thead><tbody>${filas}</tbody></table></div>
     <h3 style="margin-top:16px">${esc(t('Tus errores más frecuentes'))}</h3>${dg.length ? `<ul class="pm-chk">${dg.map(([k, n]) => `<li><b>${n}×</b> ${esc(etiquetaDiag(k))}</li>`).join('')}</ul>` : `<p class="help">${esc(t('Aún no hay errores registrados. ¡Bien!'))}</p>`}`;
-  $('progAjustes').innerHTML = `<h3>${esc(t('Informe para entregar'))}</h3><div class="grid2"><div class="field"><label for="inAlumno">${esc(t('Nombre o identificador (aparece en el informe)'))}</label><input type="text" id="inAlumno" value="${esc(S.alumno)}" autocomplete="off"></div><div class="field"><label for="inSem">${esc(t('Semilla personal'))}</label><input type="text" id="inSem" value="${esc(S.sem)}" autocomplete="off"><p class="help">${esc(t('Determina tus datos. El profesorado puede indicarte una; si la cambias, los ejercicios nuevos cambian.'))}</p></div></div>
+  $('progAjustes').innerHTML = `<h3>${esc(t('Informe para entregar'))}</h3><div class="grid2"><div class="field"><label for="inApe">${esc(t('Apellidos'))}</label><input type="text" id="inApe" value="${esc(partesAlumno().ape)}" autocomplete="family-name"></div><div class="field"><label for="inNom">${esc(t('Nombre'))}</label><input type="text" id="inNom" value="${esc(partesAlumno().nom)}" autocomplete="given-name"><p class="help">${esc(t('Aparecen en el informe y en el nombre del fichero: 1964_apellidos_nombre_fecha.'))}</p></div><div class="field"><label for="inSem">${esc(t('Semilla personal'))}</label><input type="text" id="inSem" value="${esc(S.sem)}" autocomplete="off"><p class="help">${esc(t('Determina tus datos. El profesorado puede indicarte una; si la cambias, los ejercicios nuevos cambian.'))}</p></div></div>
     <div class="actions"><button class="btn btn-word" id="btnWordP" type="button"><svg class="i"><use href="#i-doc"/></svg>Word</button><button class="btn btn-ghost" id="btnJsonP" type="button">JSON</button><button class="btn btn-ghost" id="btnCsvP" type="button">CSV</button><button class="btn btn-ghost" id="btnImpP" type="button"><svg class="i"><use href="#i-upload"/></svg>${esc(t('Importar mi JSON'))}</button><button class="btn btn-ghost" id="btnBorrar" type="button"><svg class="i"><use href="#i-trash"/></svg>${esc(t('Borrar mi progreso'))}</button></div>
     <input type="file" id="fileImp" accept=".json,application/json" class="hidden"><p class="help" id="progEstado"></p>
     <p class="help">${esc(t('El informe lleva un registro encadenado con huellas SHA-256: detecta que el fichero se haya editado a mano, pero no es una prueba definitiva. La comprobación importante es que el profesorado recalcule tus soluciones con tu semilla.'))}</p>`;
-  $('inAlumno').oninput = () => { S.alumno = $('inAlumno').value; guarda(); };
+  const alNombre = () => { S.apellidos = $('inApe').value.trim(); S.nombre = $('inNom').value.trim(); S.alumno = [S.apellidos, S.nombre].filter(Boolean).join(', '); guarda(); };
+  $('inApe').oninput = alNombre; $('inNom').oninput = alNombre;
   $('inSem').onchange = () => { const v = $('inSem').value.trim(); if (!v || v === S.sem) { $('inSem').value = S.sem; return; } if (!confirm(t('Cambiar la semilla cambia los datos de las misiones que abras desde ahora. Las ya completadas conservan la suya. ¿Continuar?'))) { $('inSem').value = S.sem; return; } S.sem = v; guarda(); toast(t('Semilla actualizada')); };
-  $('btnWordP').onclick = exportaWord; $('btnJsonP').onclick = () => dl(`bioestadistica_${slug(S.alumno || 'informe')}.json`, JSON.stringify(informeJSON(), null, 1), 'application/json'); $('btnCsvP').onclick = exportaCsv;
+  $('btnWordP').onclick = exportaWord; $('btnJsonP').onclick = () => { if (exigeNombre()) dl(nombreInforme('json'), JSON.stringify(informeJSON(), null, 1), 'application/json'); }; $('btnCsvP').onclick = exportaCsv;
   $('btnImpP').onclick = () => $('fileImp').click();
   $('fileImp').onchange = async ev => { const f = ev.target.files[0]; if (!f) return; try { await importaJSON(JSON.parse(await f.text())); } catch (e) { $('progEstado').textContent = t('No se pudo leer el fichero: {0}', e.message); } ev.target.value = ''; };
   $('btnBorrar').onclick = () => { if (!confirm(t('Se borrará todo tu progreso y tu código de este navegador. ¿Seguro?'))) return; S = {sem: Math.random().toString(36).slice(2, 8), alumno: '', prog: {}, cadena: [], puntos: 0, racha: {d: '', n: 0}, cur: 'm10-2', ret: null, borr: {}, ajustes: S.ajustes}; RUN.last = null; guardaYa().then(() => { toast(t('Progreso borrado')); pintaProgreso(); }); };
 }
-function informeJSON() { return {fmt: FMT, v: VERSION_APP, creado: new Date().toISOString(), alumno: S.alumno, sem: S.sem, puntos: S.puntos, prog: S.prog, cadena: S.cadena}; }
+function informeJSON() { return {fmt: FMT, v: VERSION_APP, creado: new Date().toISOString(), alumno: S.alumno, apellidos: partesAlumno().ape, nombre: partesAlumno().nom, sem: S.sem, puntos: S.puntos, prog: S.prog, cadena: S.cadena}; }
 async function importaJSON(j) {
   if (j.fmt !== FMT) throw new Error(t('no es un informe de Bioestadística'));
   const rot = await verificaCadena(j.cadena || []);
@@ -5111,8 +5129,8 @@ function informeMd() {
   md += `\n\n## ${t('Verificación')}\n- ${t('Eventos en el registro')}: ${S.cadena.length}\n- ${t('Huella final')}: ${fin}\n- ${t('El profesorado puede recalcular cada solución con la semilla indicada.')}`;
   return md;
 }
-async function exportaWord() { try { dl(`bioestadistica_${slug(S.alumno || 'informe')}.docx`, await wordDeMarkdown(informeMd(), {titulo: APP_NAME + ' · ' + t('Informe de progreso'), subtitulo: new Date().toLocaleDateString(locale()), pie: t('Informe generado por {0}. Las soluciones se recalculan con la semilla; el registro encadenado detecta ediciones del fichero.', APP_NAME)})); } catch (e) { toast(e.message, 7000); } }
-function exportaCsv() { dl(`bioestadistica_${slug(S.alumno || 'informe')}.csv`, csvDe([t('mision'), t('tema'), t('nivel'), t('completada'), t('estrellas'), t('intentos'), t('fallos'), t('pistas'), t('ia'), t('resultado_visto'), 'id', 'tipo', 'primer_intento', 'tras_pista'], MIS.map(m => { const p = S.prog[m.id] || {}; return [txt(m.t), m.tema, m.nivel, p.done ? t('sí') : t('no'), p.stars || 0, p.intentos || 0, p.totF || 0, p.pistas || 0, p.ia || 0, p.totV || 0, m.id, NOM_NIVEL[m.nivel], p.prim === undefined ? '' : p.prim ? 1 : 0, p.prim === undefined ? '' : p.done ? 1 : 0]; })), 'text/csv;charset=utf-8'); }
+async function exportaWord() { if (!exigeNombre()) return; try { dl(nombreInforme('docx'), await wordDeMarkdown(informeMd(), {titulo: APP_NAME + ' · ' + t('Informe de progreso'), subtitulo: new Date().toLocaleDateString(locale()), pie: t('Informe generado por {0}. Las soluciones se recalculan con la semilla; el registro encadenado detecta ediciones del fichero.', APP_NAME)})); } catch (e) { toast(e.message, 7000); } }
+function exportaCsv() { if (!exigeNombre()) return; dl(nombreInforme('csv'), csvDe([t('mision'), t('tema'), t('nivel'), t('completada'), t('estrellas'), t('intentos'), t('fallos'), t('pistas'), t('ia'), t('resultado_visto'), 'id', 'tipo', 'primer_intento', 'tras_pista'], MIS.map(m => { const p = S.prog[m.id] || {}; return [txt(m.t), m.tema, m.nivel, p.done ? t('sí') : t('no'), p.stars || 0, p.intentos || 0, p.totF || 0, p.pistas || 0, p.ia || 0, p.totV || 0, m.id, NOM_NIVEL[m.nivel], p.prim === undefined ? '' : p.prim ? 1 : 0, p.prim === undefined ? '' : p.done ? 1 : 0]; })), 'text/csv;charset=utf-8'); }
 
 /* ── pantalla 4: profesorado ── */
 let PF = {res: null, ex: {}};
