@@ -65,6 +65,39 @@ from jupyterquiz import display_quiz
 print("Cuaderno configurado")
 """, oculta=True)
 
+    def conexion_ia(self):
+        """Celdas de conexión con Gemini y función preguntar(); sin clave, cliente = None."""
+        self.md("""
+Esta celda prepara la conexión con el modelo de lenguaje (Tema 80). Lee la clave de Secretos sin mostrarla. Si no hay clave, el cuaderno funciona con respuestas de ejemplo. Si el modelo indicado ya no existe, cambia la variable `MODELO`.
+""")
+        self.code('''
+%pip install -q google-genai
+
+MODELO = "gemini-2.5-flash"
+
+try:
+    from google.colab import userdata
+    from google import genai
+    from google.genai import types
+    cliente = genai.Client(api_key=userdata.get("GEMINI_API_KEY"))
+    print("Conexión preparada con el modelo", MODELO)
+except Exception as error:
+    cliente = None
+    print("Sin clave o fuera de Colab: se usarán respuestas de ejemplo.", type(error).__name__)
+
+
+def preguntar(prompt, temperatura=0.2):
+    """Envía un prompt al modelo y devuelve su texto (None si no hay conexión)."""
+    if cliente is None:
+        return None
+    respuesta = cliente.models.generate_content(
+        model=MODELO,
+        contents=prompt,
+        config=types.GenerateContentConfig(temperature=temperatura),
+    )
+    return respuesta.text
+''')
+
     def quiz(self, preguntas):
         """preguntas: lista de (enunciado, [(respuesta, correcta, explicacion), ...]),
         con una sola respuesta correcta por pregunta."""
