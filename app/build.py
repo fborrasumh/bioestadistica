@@ -111,6 +111,10 @@ def main():
     html = sustituye(html, "$('mSub').textContent = t('Tema {0} · {1} · Nivel {2}', m.tema, txt(tm.t), m.nivel);",
                      "$('mSub').textContent = t('Tema {0} · {1} · {2}', m.tema, txt(tm.t), t(NOM_NIVEL[m.nivel]));")
 
+    # ── profesorado: corrección por lotes ──
+    html = sustituye(html, '<div class="card" id="profVer"></div>', '<div class="card" id="profLote"></div>\n  <div class="card" id="profVer"></div>')
+    html = sustituye(html, "  $('btnExam').onclick = generaExamenes;\n}", "  $('btnExam').onclick = generaExamenes;\n  pintaLote();\n}")
+
     # ── informe: primer intento (sin ayudas) y resuelta tras la pista ──
     html = sustituye(html, "  const ej = RUN.ejemplo, p = P(m.id); if (!ej) p.intentos++;\n  const ok = !res.timeout && !res.err && !!res.ok;",
                      "  const ej = RUN.ejemplo, p = P(m.id); if (!ej) p.intentos++;\n  const ok = !res.timeout && !res.err && !!res.ok;\n  if (!ej) marcaPrimero(p, ok);")
