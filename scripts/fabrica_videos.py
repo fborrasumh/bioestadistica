@@ -32,7 +32,7 @@ CARPETA = "Bioestadistica_videos"  #@param {type:"string"}
 INSTRUCCIONES = "Habla en español de España, como un profesor universitario cercano y claro que explica a estudiantes de Medicina. Ritmo pausado, entonación natural, pequeñas pausas tras cada idea."  #@param {type:"string"}
 """),
     nbf.v4.new_code_cell(f"""#@title Preparar: Drive, repositorio y clave
-import os, sys, subprocess, hashlib
+import os, sys, subprocess
 from google.colab import drive, userdata
 drive.mount("/content/drive")
 if os.path.isdir("/content/bioestadistica"):
@@ -50,23 +50,8 @@ print("Temas:", temas, "· voz:", VOZ, "· carpeta:", SALIDA)
 """),
     nbf.v4.new_code_cell("""#@title Generar los vídeos
 from IPython.display import display, Audio
-
-def voz(texto, ruta):
-    with cliente.audio.speech.with_streaming_response.create(
-            model="gpt-4o-mini-tts", voice=VOZ, input=texto, instructions=INSTRUCCIONES,
-            response_format="mp3") as r:
-        r.stream_to_file(ruta)
-
 for tema in temas:
-    g = video.guion(tema)
-    audios = []
-    for i, e in enumerate(g["escenas"], 1):
-        huella = hashlib.sha256((VOZ + INSTRUCCIONES + e["texto"]).encode()).hexdigest()[:10]
-        ruta = f"{SALIDA}/audio/tema_{tema:03d}_{i:02d}_{huella}.mp3"
-        if not os.path.exists(ruta):
-            voz(e["texto"], ruta)
-            print(f"Tema {tema}, escena {i}: voz generada")
-        audios.append(ruta)
+    audios = video.locuta(tema, cliente, f"{SALIDA}/audio", VOZ, INSTRUCCIONES)
     if tema == temas[0]:
         display(Audio(audios[0]))                 # muestra de la primera escena
     mp4, srt = video.monta(tema, audios, f"{SALIDA}/Tema_{tema:03d}.mp4")

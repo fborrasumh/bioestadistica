@@ -106,6 +106,7 @@ Cada tema puede tener un vídeo de unos 3 minutos con voz, diapositivas y subtí
 
 - `videos/guiones/tema_NNN.json`: el guion, escena a escena (texto locutado, título, ideas y figura).
 - `scripts/video.py`: dibuja las diapositivas 1920×1080 (`python3 video.py diapos 150`) y monta el vídeo con ffmpeg; `python3 video.py ensayo 150` lo ensaya con silencio en lugar de voz.
+- `.github/workflows/videos.yml`: GitHub Actions → «Vídeos locutados» → *Run workflow*, con los temas (`150 160` o `todos`) y la voz. Necesita el secreto `OPENAI_API_KEY` en Settings → Secrets and variables → Actions. Sube `Tema_NNN.mp4` y `Tema_NNN.srt` a la release `videos` y guarda la voz en caché para no pagarla dos veces.
 - `videos/fabrica_videos.ipynb`: se abre en Colab, genera la voz con OpenAI (clave en Secrets como `OPENAI_API_KEY`) y guarda `Tema_NNN.mp4` y `Tema_NNN.srt` en Drive. El modelo de voz de OpenAI deja de funcionar el 6 de enero de 2027.
 
 Piloto: Tema 150.

@@ -221,6 +221,33 @@ def monta(tema, audios, salida, tmp="/tmp/video_tmp"):
     return salida, srt
 
 
+INSTRUCCIONES = ("Habla en español de España, como un profesor universitario cercano y claro que explica a "
+                 "estudiantes de Medicina. Ritmo pausado, entonación natural, pequeñas pausas tras cada idea.")
+
+
+def locuta(tema, cliente, carpeta_audio, voz="coral", instrucciones=INSTRUCCIONES):
+    """Voz de cada escena con OpenAI. Reutiliza el audio ya generado si el texto, la voz y las instrucciones no cambian."""
+    import hashlib
+    os.makedirs(carpeta_audio, exist_ok=True)
+    audios = []
+    for i, e in enumerate(guion(tema)["escenas"], 1):
+        huella = hashlib.sha256((voz + instrucciones + e["texto"]).encode()).hexdigest()[:10]
+        ruta = os.path.join(carpeta_audio, f"tema_{tema:03d}_{i:02d}_{huella}.mp3")
+        if not os.path.exists(ruta):
+            with cliente.audio.speech.with_streaming_response.create(
+                    model="gpt-4o-mini-tts", voice=voz, input=e["texto"], instructions=instrucciones,
+                    response_format="mp3") as r:
+                r.stream_to_file(ruta + ".tmp")
+            os.replace(ruta + ".tmp", ruta)
+            print(f"Tema {tema}, escena {i}: voz generada", flush=True)
+        audios.append(ruta)
+    return audios
+
+
+def temas_con_guion():
+    return sorted(int(f[5:8]) for f in os.listdir(GUIONES) if re.fullmatch(r"tema_\d{3}\.json", f))
+
+
 def ensayo(tema):
     """Montaje con silencio de la duración estimada (2,6 palabras por segundo) en lugar de voz."""
     g = guion(tema)
@@ -235,7 +262,19 @@ def ensayo(tema):
     return monta(tema, audios, f"/tmp/ensayo_tema_{tema:03d}.mp4")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__" and sys.argv[1] == "locutar":
+    from openai import OpenAI
+    pedidos, voz, salida = sys.argv[2], sys.argv[3], sys.argv[4]
+    temas = temas_con_guion() if pedidos.strip() == "todos" else [int(t) for t in pedidos.replace(",", " ").split()]
+    faltan = [t for t in temas if t not in temas_con_guion()]
+    if faltan:
+        sys.exit(f"Sin guion en videos/guiones: {faltan}")
+    cliente = OpenAI()                                   # lee OPENAI_API_KEY del entorno
+    os.makedirs(salida, exist_ok=True)
+    for t in temas:
+        mp4, _ = monta(t, locuta(t, cliente, os.path.join(salida, "..", "audio_cache"), voz), os.path.join(salida, f"Tema_{t:03d}.mp4"))
+        print(f"Tema {t}: {mp4} ({_duracion(mp4):.0f} s)", flush=True)
+elif __name__ == "__main__":
     accion, tema = sys.argv[1], int(sys.argv[2])
     if accion == "diapos":
         print("\n".join(dibuja(tema)))

@@ -1,0 +1,63 @@
+name: Vídeos locutados
+
+on:
+  workflow_dispatch:
+    inputs:
+      temas:
+        description: 'Temas separados por espacios (p. ej. "150 160") o "todos"'
+        default: "150"
+        required: true
+      voz:
+        description: "Voz de OpenAI"
+        default: coral
+        type: choice
+        options: [coral, marin, cedar, ash, sage, verse, ballad, alloy, echo, shimmer]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: videos
+  cancel-in-progress: false
+
+jobs:
+  videos:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar ffmpeg y openai
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          pip install -q openai
+
+      - name: Recuperar la voz ya generada
+        uses: actions/cache@v4
+        with:
+          path: audio_cache
+          key: voz-${{ inputs.voz }}-${{ hashFiles('videos/guiones/*.json') }}
+          restore-keys: voz-${{ inputs.voz }}-
+
+      - name: Locutar y montar
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          TEMAS: ${{ inputs.temas }}
+          VOZ: ${{ inputs.voz }}
+        run: |
+          test -n "$OPENAI_API_KEY" || { echo "Falta el secreto OPENAI_API_KEY (Settings → Secrets and variables → Actions)"; exit 1; }
+          python3 scripts/video.py locutar "$TEMAS" "$VOZ" salida
+
+      - name: Subir a la release «videos»
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release view videos >/dev/null 2>&1 || gh release create videos --title "Vídeos locutados" \
+            --notes "Vídeos de unos 3 minutos por tema, con subtítulos (.srt). Voz generada con inteligencia artificial (OpenAI). CC BY 4.0 · Fernando Borrás Rocher, UMH."
+          gh release upload videos salida/*.mp4 salida/*.srt --clobber
+          echo "### Vídeos subidos" >> "$GITHUB_STEP_SUMMARY"
+          for f in salida/*.mp4; do n=$(basename "$f"); echo "- [$n](https://github.com/${{ github.repository }}/releases/download/videos/$n)" >> "$GITHUB_STEP_SUMMARY"; done
