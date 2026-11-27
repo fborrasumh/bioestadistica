@@ -22,6 +22,14 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 | Módulo 4. Probabilidad | 140-190 |
 | Módulo 5. Generalización de conclusiones | 200-300 |
 
+## Dar la clase con el cuaderno
+
+Cada cuaderno se puede proyectar en lugar de una presentación. Al principio de cada bloque hay una **diapositiva** (celda con borde azul): título, una figura y dos o tres ideas, a veces con una pregunta para la clase. Debajo, en la sección «Desarrollo para el estudio», está el detalle, que se puede plegar con la flecha de su título.
+
+- Antes de empezar: **Entorno de ejecución → Ejecutar todo**, para que se dibujen los gráficos de las celdas ocultas.
+- Hay 94 diapositivas en los 30 temas. Los esquemas fijos están en `figuras/` (PNG) y se generan con `python3 scripts/figuras.py`; las diapositivas se definen en `scripts/diapositivas/` (una por módulo) y se insertan solas al generar cada cuaderno.
+- Las figuras son propias, salvo el diagrama de Florence Nightingale (1858, dominio público, Wikimedia Commons) del Tema 60.
+
 ## App Bioestadística
 
 Práctica de los 30 temas, con **tres misiones por tema** (90 en total), como se anuncia en el apartado «Práctica en la app» de cada cuaderno:
