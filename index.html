@@ -398,7 +398,7 @@ table{border-collapse:collapse;width:100%;font-size:13.8px}th{background:var(--p
 .pm-ed:focus{outline:none;border-color:var(--brasa)}
 .pm-bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .pm-st{color:#E0A800;letter-spacing:1px;font-size:15px;white-space:nowrap}.pm-st .v{color:#C9D3DD}
-.pm-tema{margin-bottom:14px}.pm-tema h3{display:block;margin:0 0 4px}
+.pm-tema{margin-bottom:14px;scroll-margin-top:124px}.pm-tema.destaca{outline:3px solid var(--accent,#E4572E);outline-offset:3px}.pm-tema h3{display:block;margin:0 0 4px}
 .pm-tema .links{display:flex;gap:12px;flex-wrap:wrap;font-size:13px;margin-bottom:8px}.pm-tema .links a{color:var(--acero);font-weight:600}
 .pm-ms{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
 .pm-m{display:flex;align-items:center;gap:10px;justify-content:space-between;text-align:left;border:1.5px solid var(--linea);background:#fff;border-radius:12px;padding:10px 12px;cursor:pointer;font:600 14px var(--texto);color:var(--tinta)}
@@ -4902,7 +4902,7 @@ function pintaRuta() {
   $('rutaRepaso').innerHTML = rep.length ? `<div class="card"><h3>${esc(t('Toca repasar'))}</h3><p class="help">${esc(t('Repasar a los 1, 3, 7 y 21 días fija lo aprendido. Recibes datos nuevos.'))}</p><div class="pm-ms">${rep.map(m => `<button class="pm-m" type="button" data-abre="${m.id}" data-rep="1"><span><span class="pm-tag rep">${esc(t('repaso'))}</span>${esc(txt(m.t))}<small>${esc(t('Tema {0}', m.tema))}</small></span></button>`).join('')}</div></div>` : '';
   const sig = siguienteMision();
   $('rutaTemas').innerHTML = UNIDADES.map(u => `<h2 class="sec-title" style="margin-top:22px">${esc(t('Módulo {0}', u.u))} · ${esc(txt(u.t))} <a class="muted" style="font-size:13px;font-weight:600" href="${u.url}" target="_blank" rel="noopener">↗</a></h2>` +
-    TEMAS.filter(x => x.u === u.u).map(x => `<div class="card pm-tema"><h3 class="pm-h3">${esc(t('Tema {0}', x.n))} · ${esc(txt(x.t))}</h3>
+    TEMAS.filter(x => x.u === u.u).map(x => `<div class="card pm-tema" id="tema-${x.n}" tabindex="-1"><h3 class="pm-h3">${esc(t('Tema {0}', x.n))} · ${esc(txt(x.t))}</h3>
       <div class="links"><a href="${x.cuaderno}" target="_blank" rel="noopener">${esc(t('Cuaderno de Colab'))} ↗</a></div>
       <div class="pm-ms">${misionesDeTema(x.n).map(m => { const p = S.prog[m.id]; const hecha = p && p.done; return `<button class="pm-m ${hecha ? 'hecha' : ''} ${sig && sig.id === m.id ? 'sig' : ''}" type="button" data-abre="${m.id}"><span>${m.k === 'quiz' ? '<span class="pm-tag">' + esc(t('test')) + '</span>' : m.k === 'predict' ? '<span class="pm-tag">' + esc(t('predice')) + '</span>' : ''}${esc(txt(m.t))}<small>${esc(t('Nivel {0}', m.nivel))}</small></span><span class="pm-st" aria-label="${hecha ? p.stars : 0}/3">${ESTRELLAS(hecha ? p.stars : 0)}</span></button>`; }).join('')}</div></div>`).join('')).join('');
 }
@@ -5307,12 +5307,23 @@ async function generaExamenes() {
   finally { $('btnExam').disabled = false; }
 }
 
+/* ── enlace directo por tema (#tema-150) ── */
+function abreTemaDeHash() {
+  const h = /^#tema-(\d+)$/.exec(location.hash); if (!h) return;
+  if (!misionesDeTema(+h[1]).length) return;
+  go(1);
+  setTimeout(() => { const c = document.getElementById('tema-' + h[1]); if (!c) return;
+    c.scrollIntoView({block: 'start'}); c.focus({preventScroll: true}); c.classList.add('destaca');
+    setTimeout(() => c.classList.remove('destaca'), 2500); }, 60);
+}
+
 /* ── arranque ── */
 (async () => {
   const p = await cargaEstado(); if (p) S = {...S, ...p};
   if (!S.sem) { S.sem = Math.random().toString(36).slice(2, 8); guarda(); }
   if (!misionPorId(S.cur)) S.cur = 'm10-2';
-  iniciaUI(); go(0);
+  iniciaUI(); go(0); abreTemaDeHash();
+  addEventListener('hashchange', abreTemaDeHash);
 })();
 
 </script>

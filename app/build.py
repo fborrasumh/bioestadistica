@@ -152,6 +152,23 @@ def main():
     html = sustituye(html, "Eres un tutor de programación en Python para estudiantes de Medicina",
                      "Eres un tutor de bioestadística y de Python para estudiantes de 2.º de Medicina")
 
+    # Enlace directo por tema: index.html#tema-150 abre la ruta en las misiones de ese tema
+    html = sustituye(html, '<div class="card pm-tema"><h3', '<div class="card pm-tema" id="tema-${x.n}" tabindex="-1"><h3')
+    html = sustituye(html, ".pm-tema{margin-bottom:14px}", ".pm-tema{margin-bottom:14px;scroll-margin-top:124px}.pm-tema.destaca{outline:3px solid var(--accent,#E4572E);outline-offset:3px}")
+    html = sustituye(html, "  iniciaUI(); go(0);\n", """  iniciaUI(); go(0); abreTemaDeHash();
+  addEventListener('hashchange', abreTemaDeHash);
+""")
+    html = sustituye(html, "/* ── arranque ── */", """/* ── enlace directo por tema (#tema-150) ── */
+function abreTemaDeHash() {
+  const h = /^#tema-(\\d+)$/.exec(location.hash); if (!h) return;
+  if (!misionesDeTema(+h[1]).length) return;
+  go(1);
+  setTimeout(() => { const c = document.getElementById('tema-' + h[1]); if (!c) return;
+    c.scrollIntoView({block: 'start'}); c.focus({preventScroll: true}); c.classList.add('destaca');
+    setTimeout(() => c.classList.remove('destaca'), 2500); }, 60);
+}
+
+/* ── arranque ── */""")
     restos = [l for l in html.split("\n") if re.search(r"PyMedIA|pymedia", l) and "Motor de corrección basado en PyMedIA" not in l]
     for l in restos:
         print("Aviso, queda una mención:", l.strip()[:120])

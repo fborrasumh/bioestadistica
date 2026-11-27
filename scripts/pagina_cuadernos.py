@@ -33,7 +33,7 @@ def tarjeta(n, titulo, fichero, diapos):
     colab = f"https://colab.research.google.com/github/{REPO}/blob/main/cuadernos/{fichero}"
     github = f"https://github.com/{REPO}/blob/main/cuadernos/{fichero}"
     extra = f'<span class="chip">{diapos} diapositivas</span>' if diapos else '<span class="chip">Lectura previa</span>'
-    practica = '<a class="btn ghost" href="./">Practicar en la app</a>' if n else ""
+    practica = f'<a class="btn ghost" href="./#tema-{n}">Practicar en la app</a>' if n else ""
     return f"""<article class="card" data-busca="{html.escape(f'tema {n} {titulo}'.lower())}">
   <p class="num">Tema {n}</p>
   <h3>{html.escape(titulo)}</h3>
