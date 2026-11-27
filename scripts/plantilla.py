@@ -3,18 +3,27 @@
 Autor: Fernando Borrás Rocher. Cada script tema_XXX.py usa estas funciones
 para generar su cuaderno en cuadernos/.
 """
+import html
 import pprint
 import nbformat as nbf
+
+try:
+    from diapositivas import DIAPOS
+except ImportError:  # sin diapositivas, el cuaderno se genera igual
+    DIAPOS = {}
 
 REPO = "fborrasumh/bioestadistica"
 APP = "https://fborrasumh.github.io/bioestadistica/"
 COLOR = "steelblue"
+FIGURAS = f"https://raw.githubusercontent.com/{REPO}/main/figuras"
 
 
 class Cuaderno:
     def __init__(self, fichero):
         self.fichero = fichero
         self.celdas = []
+        self.numero = None
+        self.usadas = set()
 
     def md(self, texto):
         self.celdas.append(nbf.v4.new_markdown_cell(texto.strip()))
@@ -27,6 +36,33 @@ class Cuaderno:
 
     def titulo(self, nivel, texto):
         self.md(f"{'#' * nivel} <font color='{COLOR}'>{texto}</font>")
+        for i, d in enumerate(DIAPOS.get(self.numero, [])):
+            if i not in self.usadas and texto.startswith(d["ancla"]):
+                self.usadas.add(i)
+                self.diapositiva(d)
+                if d.get("desarrollo", True):
+                    self.md("#### Desarrollo para el estudio")
+
+    def diapositiva(self, d):
+        """Celda grande para proyectar: título, figura (PNG del repo, foto con licencia libre o gráfico
+        de una celda oculta) y 2-4 ideas. El desarrollo queda debajo, en una sección plegable."""
+        partes = [f'<p style="font-size:30px;font-weight:700;color:#1F3B57;margin:0 0 12px 0">{d["titulo"]}</p>']
+        if d.get("fig"):
+            partes.append(f'<img src="{FIGURAS}/tema_{self.numero:03d}_{d["fig"]}.png" width="{d.get("ancho", 780)}" '
+                          f'alt="{html.escape(d.get("alt", d["titulo"]))}">')
+        if d.get("foto"):
+            url, credito, ancho = d["foto"]
+            partes.append(f'<img src="{url}" width="{ancho}" alt="{html.escape(d.get("alt", d["titulo"]))}">'
+                          f'<p style="font-size:13px;color:#667;margin:4px 0 0 0">{credito}</p>')
+        if d.get("ideas"):
+            items = "".join(f"<li>{x}</li>" for x in d["ideas"])
+            partes.append(f'<ul style="font-size:21px;line-height:1.55;margin:14px 0 0 0">{items}</ul>')
+        if d.get("pregunta"):
+            partes.append(f'<p style="font-size:21px;margin:14px 0 0 0;color:#8A4B08"><b>Pregunta para la clase:</b> {d["pregunta"]}</p>')
+        self.md('<div style="border-left:8px solid #4682B4;background:#F3F7FB;padding:18px 26px;border-radius:8px">'
+                + "".join(partes) + "</div>")
+        if d.get("codigo"):
+            self.code(f"#@title {d.get('titulo_codigo', 'Figura: ' + d['titulo'])}\n" + d["codigo"].strip(), oculta=True)
 
     def cabecera(self, numero, titulo, modulo, duracion, practica=True, nota=""):
         badge = (
@@ -37,6 +73,7 @@ class Cuaderno:
         linea_practica = (
             f"**Práctica:** [unidad {numero} de la app Bioestadística]({APP})\n\n" if practica else ""
         )
+        self.numero = numero
         self.md(f"""
 {badge}
 
@@ -57,7 +94,10 @@ class Cuaderno:
 
     def configuracion(self):
         self.titulo(2, "Configuración del cuaderno")
-        self.md("Ejecuta esta celda al empezar. Instala el módulo de preguntas interactivas y prepara el cuaderno.")
+        self.md("Ejecuta esta celda al empezar. Instala el módulo de preguntas interactivas y prepara el cuaderno.\n\n"
+                "**Para dar la clase con el cuaderno:** usa **Entorno de ejecución → Ejecutar todo** antes de empezar, para que se dibujen los gráficos. "
+                "Las celdas con borde azul son las diapositivas; el desarrollo de cada bloque está debajo y se puede plegar con la flecha de su título. "
+                "El índice (☰, a la izquierda) sirve para saltar de un bloque a otro.")
         self.code("""
 #@title Ejecutar configuración
 %pip install -q jupyterquiz==2.9.6.4
