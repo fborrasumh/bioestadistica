@@ -8,6 +8,7 @@ Materiales de la asignatura Bioestadística (código 1964) del Grado en Medicina
 
 - `cuadernos/`: el Tema 0 (guía de Colab, lectura previa) y los 30 cuadernos de Google Colab, uno por tema (Tema 10 a Tema 300), cada uno para una sesión de 50 minutos.
 - `scripts/`: los scripts que generan cada cuaderno a partir de una plantilla común.
+- `cuadernos.html`: página con los 31 cuadernos (abrir en Colab, ver en GitHub, practicar en la app), con buscador; se enlaza desde la barra superior y la portada de la app y se regenera con `scripts/pagina_cuadernos.py`.
 - `index.html`: la app **Bioestadística** (se publica en https://fborrasumh.github.io/bioestadistica/ al activar GitHub Pages).
 - `app/`: fuentes de la app (`src/` con las misiones de cada módulo), el script que la monta (`build.py`) y sus pruebas (`tests/`).
 - `datos/`: los ficheros de datos sintéticos que usan los cuadernos.

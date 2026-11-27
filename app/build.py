@@ -91,6 +91,12 @@ def main():
     # ── Word y ZIP escritos en el propio navegador, sin librerías de internet (módulo 70-report de Forja) ──
     html = entre(html, "/* ── salidas: Word desde Markdown y ZIP", "/* csv con BOM", open(os.path.join(AQUI, "base", "70-report_forja.js"), encoding="utf-8").read() + "\n")
 
+    # ── enlaces a la página de cuadernos ──
+    html = sustituye(html, '<button class="tb-btn" id="btnIA" type="button">',
+                     '<a class="tb-btn" href="cuadernos.html" style="text-decoration:none"><svg class="i"><use href="#i-doc"/></svg><span class="lbl">Cuadernos</span></a><button class="tb-btn" id="btnIA" type="button">')
+    html = sustituye(html, '<span data-i18n="s.ejemplo">Ver un ejemplo</span></button>',
+                     '<span data-i18n="s.ejemplo">Ver un ejemplo</span></button><a class="btn btn-ghost btn-big" href="cuadernos.html" style="text-decoration:none"><svg class="i"><use href="#i-doc"/></svg><span>Cuadernos de Colab</span></a>')
+
     # ── temas y misiones ──
     html = entre(html, "/* ── mapa de temas del Módulo 1", "/* ══ runner.js", misiones_js() + "\n\n")
     html = sustituye(html, "const VERSION_APP = '1.0.1';", f"const VERSION_APP = '{VERSION}';")
