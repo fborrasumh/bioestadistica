@@ -99,3 +99,13 @@ python3 tests/logic_test.py 8 # 90 misiones × 8 semillas: la solución aprueba,
 ## Licencia
 
 Cuadernos: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.es). Todos los pacientes y datos son sintéticos.
+
+## Vídeos locutados por tema
+
+Cada tema puede tener un vídeo de unos 3 minutos con voz, diapositivas y subtítulos.
+
+- `videos/guiones/tema_NNN.json`: el guion, escena a escena (texto locutado, título, ideas y figura).
+- `scripts/video.py`: dibuja las diapositivas 1920×1080 (`python3 video.py diapos 150`) y monta el vídeo con ffmpeg; `python3 video.py ensayo 150` lo ensaya con silencio en lugar de voz.
+- `videos/fabrica_videos.ipynb`: se abre en Colab, genera la voz con OpenAI (clave en Secrets como `OPENAI_API_KEY`) y guarda `Tema_NNN.mp4` y `Tema_NNN.srt` en Drive. El modelo de voz de OpenAI deja de funcionar el 6 de enero de 2027.
+
+Piloto: Tema 150.

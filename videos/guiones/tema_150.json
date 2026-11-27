@@ -1,0 +1,71 @@
+{
+  "tema": 150,
+  "titulo": "Probabilidad condicionada, independencia y teorema de Bayes en el razonamiento clínico",
+  "escenas": [
+    {
+      "tipo": "portada",
+      "titulo": "Bayes en la consulta",
+      "subtitulo": "Probabilidad condicionada, independencia y teorema de Bayes en el razonamiento clínico",
+      "texto": "Hola. En este tema vas a aprender a responder una de las preguntas más importantes de la consulta: si una prueba sale positiva, ¿qué probabilidad hay de que el paciente esté enfermo? Parece fácil. No lo es, y equivocarse tiene consecuencias."
+    },
+    {
+      "titulo": "Lucía tiene una mamografía positiva",
+      "ideas": [
+        "Prevalencia: 1 %",
+        "Sensibilidad: 90 %",
+        "Falsos positivos en sanas: 9 %"
+      ],
+      "pregunta": "¿Qué probabilidad hay de cáncer?",
+      "texto": "Empecemos con Lucía. Tiene cincuenta años, no tiene síntomas y su mamografía de cribado sale positiva. Sabemos tres cosas: en mujeres de su edad, el uno por ciento tiene cáncer de mama; la mamografía detecta el noventa por ciento de los cánceres; y en las mujeres sanas da un falso positivo en el nueve por ciento de los casos. Antes de seguir, piensa tu respuesta. ¿Qué probabilidad hay de que Lucía tenga cáncer?"
+    },
+    {
+      "titulo": "Condicionar es cambiar el universo",
+      "ideas": [
+        "P(A | B) = P(A y B) / P(B)",
+        "P(positivo | cáncer) = 0,90",
+        "P(cáncer | positivo) ≈ 0,09"
+      ],
+      "fig": "tema_150_condicionada.png",
+      "texto": "Mucha gente responde noventa por ciento. Es un error tan frecuente que tiene nombre. El noventa por ciento es la probabilidad de dar positivo si tienes cáncer. Pero a Lucía le interesa lo contrario: la probabilidad de tener cáncer si ha dado positivo. Condicionar es cambiar el universo: ya no miramos a todas las mujeres, solo a las que han dado positivo. Y dar la vuelta a una probabilidad condicionada cambia el resultado."
+    },
+    {
+      "titulo": "1.000 mujeres que se criban",
+      "ideas": [
+        "10 con cáncer → 9 positivas",
+        "990 sanas → 89 positivas",
+        "9 de 98 positivas: ≈ 9 %"
+      ],
+      "fig": "tema_150_iconos.png",
+      "texto": "Hagámoslo con personas en lugar de fórmulas. Imagina mil mujeres como Lucía. Diez tienen cáncer, y la mamografía detecta a nueve. Las otras novecientas noventa están sanas, pero ochenta y nueve dan positivo por error. En total hay noventa y ocho positivas, y solo nueve tienen cáncer. Eso es alrededor del nueve por ciento. No el noventa. Esto es exactamente lo que calcula el teorema de Bayes, y las frecuencias naturales lo hacen visible."
+    },
+    {
+      "titulo": "De la probabilidad previa a la posterior",
+      "ideas": [
+        "Odds posterior = odds previa × CP",
+        "Con una previa muy baja, un positivo pesa poco"
+      ],
+      "fig": "video_150_cp.png",
+      "codigo_de": "2.5 Odds",
+      "texto": "En la clínica se usa otra forma de decir lo mismo: las odds y el cociente de probabilidad. Multiplicas las odds previas por el cociente de probabilidad de la prueba y obtienes las odds posteriores. El gráfico enseña la lección clave: el mismo resultado vale mucho cuando la sospecha previa es intermedia, y poco cuando la enfermedad es rara, como en el cribado de Lucía."
+    },
+    {
+      "titulo": "Cuidado con la falacia de la tasa base",
+      "ideas": [
+        "Ignorar la prevalencia es el error típico",
+        "También lo cometen los asistentes de IA",
+        "Compruébalo siempre con frecuencias naturales"
+      ],
+      "texto": "Ignorar la prevalencia se llama falacia de la tasa base. La cometen pacientes, profesionales y también los asistentes de inteligencia artificial. Por eso, en este tema no basta con pedirle la respuesta a una IA: tienes que saber comprobarla. Un truco sencillo es rehacer el cálculo con mil personas imaginarias. Si los números no cuadran, desconfía."
+    },
+    {
+      "tipo": "cierre",
+      "titulo": "Ahora te toca a ti",
+      "ideas": [
+        "Cuaderno del Tema 150 en Colab",
+        "Tres retos en la app Bioestadística",
+        "Reto 3: ¿comete la IA la falacia?"
+      ],
+      "texto": "Ahora te toca a ti. Abre el cuaderno del tema ciento cincuenta y repite el caso de Lucía con Python. Después, en la app Bioestadística, tienes tres retos: Bayes con frecuencias naturales, la probabilidad posprueba de una trombosis con un dímero D positivo, y un último reto en el que decidirás si un asistente de inteligencia artificial cae en la falacia de la tasa base. Nos vemos en el próximo tema."
+    }
+  ]
+}
