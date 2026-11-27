@@ -3,6 +3,7 @@
 Autor: Fernando Borrás Rocher. Cada script tema_XXX.py usa estas funciones
 para generar su cuaderno en cuadernos/.
 """
+import os
 import html
 import pprint
 import nbformat as nbf
@@ -14,6 +15,20 @@ except ImportError:  # sin diapositivas, el cuaderno se genera igual
 
 REPO = "fborrasumh/bioestadistica"
 APP = "https://fborrasumh.github.io/bioestadistica/"
+
+
+def retos_app(numero):
+    """Títulos de las tres misiones del tema, leídos de app/src (la app es la fuente)."""
+    import glob, re
+    raiz = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "app", "src")
+    tit = {}
+    for f in sorted(glob.glob(os.path.join(raiz, "[1-5]0_*.js"))):
+        s = open(f, encoding="utf-8").read()
+        for m in re.finditer(r"QZ\('m(\d+)-(\d)', \d+, \d, '((?:[^'\\]|\\.)*)'", s):
+            tit[(int(m[1]), int(m[2]))] = m[3]
+        for m in re.finditer(r"M\(\{id: 'm(\d+)-(\d)'.*?\n\s*t: E\('((?:[^'\\]|\\.)*)'\)", s):
+            tit[(int(m[1]), int(m[2]))] = m[3]
+    return [tit[(numero, k)].replace("\\'", "'") for k in (1, 2, 3)]
 COLOR = "steelblue"
 FIGURAS = f"https://raw.githubusercontent.com/{REPO}/main/figuras"
 
@@ -71,9 +86,10 @@ class Cuaderno:
             'alt="Abrir en Colab"/></a>'
         )
         linea_practica = (
-            f"**Práctica:** [unidad {numero} de la app Bioestadística]({APP})\n\n" if practica else ""
+            f"**Retos en la app:** [las tres misiones del Tema {numero}]({APP}#tema-{numero})\n\n" if practica else ""
         )
         self.numero = numero
+        self.practica = practica
         self.md(f"""
 {badge}
 
@@ -159,6 +175,19 @@ def preguntar(prompt, temperatura=0.2):
         )
 
     def pie(self, numero):
+        if getattr(self, "practica", False):
+            r = retos_app(numero)
+            self.md(f"""
+## <font color='{COLOR}'>Retos de este tema en la app</font>
+
+Practica lo que has visto con las tres misiones del Tema {numero} en la app **Bioestadística**. Cuentan para la evaluación continua.
+
+1. **Básica (sin ayuda):** {r[0]}
+2. **Clínica (con pistas):** {r[1]}
+3. **Reto (con asistente de IA):** {r[2]}
+
+<a href="{APP}#tema-{numero}" target="_blank" style="display:inline-block;padding:10px 18px;background:#C8461F;color:#fff;border-radius:8px;font-weight:bold;text-decoration:none">Abrir los retos del Tema {numero} en la app ↗</a>
+""")
         self.md(f"""
 ---
 *Tema {numero} · Bioestadística (1964) · Grado en Medicina · Universidad Miguel Hernández de Elche · Fernando Borrás Rocher · CC BY 4.0*
