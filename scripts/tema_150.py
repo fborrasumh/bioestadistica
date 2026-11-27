@@ -88,7 +88,7 @@ $$P(E \\mid +) = \\frac{P(+ \\mid E)\\,P(E)}{P(+ \\mid E)\\,P(E) + P(+ \\mid \\b
 """)
 c.titulo(3, "2.4 Frecuencias naturales")
 c.md("""
-El teorema de Bayes se entiende mucho mejor con **frecuencias naturales**, como propone Gerd Gigerenzer: en lugar de probabilidades, se imaginan 1.000 personas concretas.
+El teorema de Bayes se entiende mucho mejor con **frecuencias naturales**, como propone Gerd Gigerenzer. En lugar de probabilidades, imagina 1.000 personas concretas.
 
 ```
                          1.000 mujeres
@@ -229,8 +229,9 @@ print(f"LR+ = {lr_positivo:.0f} · odds posprueba = {odds_post:.3f} · probabili
 """)
 
 c.titulo(3, "3.7 Dos pruebas seguidas")
+c.diagrama('Cadena: preprueba 1 %, tras la mamografía positiva 9 %, tras la ecografía positiva 45 %.')
 c.md("""
-Si a Lucía se le hace una segunda prueba independiente y también es positiva, la probabilidad posprueba de la primera se convierte en la preprueba de la segunda. Supongamos una ecografía con LR+ = 8:
+Supón que a Lucía se le hace una segunda prueba independiente y también es positiva. Entonces la probabilidad posprueba de la primera es la preprueba de la segunda. Supongamos una ecografía con LR+ = 8:
 """)
 c.code("""
 odds_tras_ecografia = odds_post * 8
@@ -242,7 +243,7 @@ Encadenar pruebas así solo es válido si son **condicionalmente independientes*
 
 c.titulo(3, "Ampliación: la falacia del fiscal")
 c.md("""
-Confundir P(A | B) con P(B | A) no es un error exclusivo de la medicina. En juicios se ha confundido «la probabilidad de esta coincidencia de ADN si el acusado es inocente» con «la probabilidad de que el acusado sea inocente dada la coincidencia». En clínica, es confundir:
+Confundir P(A | B) con P(B | A) no es un error exclusivo de la medicina. En algunos juicios se han confundido dos probabilidades. Una es «la probabilidad de esta coincidencia de ADN si el acusado es inocente». La otra es «la probabilidad de que el acusado sea inocente dada la coincidencia». En clínica, es confundir:
 
 - «El 90 % de los pacientes con infarto tiene dolor torácico», P(dolor | infarto), con
 - «El 90 % de los pacientes con dolor torácico tiene un infarto», P(infarto | dolor), que es mucho menor.
@@ -266,8 +267,8 @@ c.md("""
 Abre la **[unidad 150 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:
 
 1. **Misión básica (sin asistente):** resolver a mano tres problemas de Bayes con frecuencias naturales y árbol.
-2. **Misión clínica (con pistas):** calcular la probabilidad posprueba de trombosis venosa profunda con un dímero D positivo, en pacientes con probabilidad clínica baja y alta.
-3. **Misión reto (con asistente):** pedir al asistente que resuelva el caso de Lucía, comprobar si comete la falacia de la tasa base y verificar su resultado por simulación.
+2. **Misión clínica (con pistas):** calcular la probabilidad posprueba de trombosis venosa profunda con un dímero D positivo. Hacerlo en pacientes con probabilidad clínica baja y alta.
+3. **Misión reto (con asistente):** pedir al asistente que resuelva el caso de Lucía. Comprobar si comete la falacia de la tasa base y verificar su resultado por simulación.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

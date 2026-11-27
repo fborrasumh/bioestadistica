@@ -49,7 +49,7 @@ Estos cálculos se repiten cada día con cientos de pacientes. Escribirlos una s
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Qué es una función")
 c.md("""
-Una **función** es un bloque de código con nombre que recibe datos (**parámetros**), hace un cálculo y devuelve un resultado (**valor de retorno**). Ya has usado funciones de Python: `print()`, `len()`, `round()`, `max()`. Ahora escribirás las tuyas.
+Una **función** es un bloque de código con nombre. Recibe datos (**parámetros**), hace un cálculo y devuelve un resultado (**valor de retorno**). Ya has usado funciones de Python: `print()`, `len()`, `round()`, `max()`. Ahora escribirás las tuyas.
 
 ```python
 def nombre_de_la_funcion(parametro_1, parametro_2):
@@ -75,7 +75,7 @@ c.md("""
 """)
 c.titulo(3, "2.3 Casos de prueba")
 c.md("""
-Un **caso de prueba** compara el resultado de la función con un valor que conocemos de antemano, calculado a mano o tomado de una fuente fiable. La instrucción `assert condición` no hace nada si la condición es verdadera y detiene el programa con `AssertionError` si es falsa.
+Un **caso de prueba** compara el resultado de la función con un valor conocido. Ese valor se calcula a mano o se toma de una fuente fiable. La instrucción `assert condición` no hace nada si la condición es verdadera y detiene el programa con `AssertionError` si es falsa.
 
 ```python
 assert round(imc(68, 1.63), 1) == 25.6
@@ -161,7 +161,7 @@ c.md("""
 
 La guía europea de fibrilación auricular de 2024 propone una versión sin el criterio de sexo (CHA₂DS₂-VA). Aquí programamos la clásica, todavía muy citada, y en la práctica se adapta en una línea.
 
-Los criterios ausentes tienen valor por defecto `False`, así que al llamar a la función solo hace falta indicar los presentes, **por su nombre**.
+Los criterios ausentes tienen el valor por defecto `False`. Por eso, al llamar a la función, indica solo los presentes, **por su nombre**.
 """)
 c.code('''
 def cha2ds2_vasc(edad, mujer, insuficiencia_cardiaca=False, hipertension=False,
@@ -231,10 +231,11 @@ except ValueError as error:
     print("Dato rechazado:", error)
 """)
 c.md("""
-**Comprobación a mano del primer caso:** (140 − 60) × 72 / (72 × 1,0) = 80 mL/min; en una mujer, 80 × 0,85 = 68 mL/min.
+**Comprobación a mano del primer caso:** (140 − 60) × 72 / (72 × 1,0) = 80 mL/min. En una mujer, 80 × 0,85 = 68 mL/min.
 """)
 
 c.titulo(3, "3.6 Verificar una función escrita por el asistente")
+c.diagrama('Flujo: la función del asistente da 100 con 120/80; el valor esperado es 93,3; se corrige con pad + (pas − pad) / 3.')
 c.md("""
 Supón que pides al asistente de IA: *«Escribe en Python una función que calcule la presión arterial media a partir de la sistólica y la diastólica»* y te devuelve esto:
 """)
@@ -252,7 +253,7 @@ print(f"Resultado de la función: {resultado:.1f} mmHg")
 # assert round(resultado, 1) == 93.3
 """)
 c.md("""
-La función devuelve 100 mmHg: calcula la **media aritmética** de las dos cifras, no la presión arterial media fisiológica, que pondera más la diastólica porque el corazón pasa más tiempo en diástole. **El código se ejecutaba sin error y el resultado era clínicamente incorrecto.** Solo el caso de prueba lo ha descubierto. La versión correcta:
+La función devuelve 100 mmHg. Calcula la **media aritmética** de las dos cifras, no la presión arterial media fisiológica. La fisiológica pondera más la diastólica, porque el corazón pasa más tiempo en diástole. **El código se ejecutaba sin error y el resultado era clínicamente incorrecto.** Solo el caso de prueba lo ha descubierto. La versión correcta:
 """)
 c.code('''
 def presion_arterial_media(pas, pad):
@@ -287,7 +288,7 @@ def fge_ckd_epi_2021(creatinina_mg_dl, edad, mujer):
 print(f"FGe de Rosa: {fge_ckd_epi_2021(1.3, 78, mujer=True):.0f} mL/min/1,73 m²")
 ''')
 c.md("""
-Cuando no se dispone de valores de referencia publicados, se pueden comprobar **propiedades** que la función debe cumplir: a más creatinina, menos filtrado; a más edad, menos filtrado.
+Si no hay valores de referencia publicados, comprueba **propiedades** que la función debe cumplir. Por ejemplo: a más creatinina, menos filtrado; a más edad, menos filtrado.
 """)
 c.code("""
 assert fge_ckd_epi_2021(2.0, 60, mujer=False) < fge_ckd_epi_2021(1.0, 60, mujer=False)
@@ -314,7 +315,7 @@ Abre la **[unidad 50 de la app Bioestadística](https://fborrasumh.github.io/bio
 
 1. **Misión básica (sin asistente):** completar la función de superficie corporal de Mosteller y escribir sus casos de prueba.
 2. **Misión clínica (con pistas):** programar la escala CURB-65 como función y comprobar sus valores frontera.
-3. **Misión reto (con asistente):** pedir al asistente la escala de Glasgow como función, escribir tú los casos de prueba y corregir lo que falle.
+3. **Misión reto (con asistente):** pedir al asistente la escala de Glasgow como función. Escribir tú los casos de prueba y corregir lo que falle.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

@@ -37,17 +37,17 @@ c.md("""
 
 c.titulo(2, "1. Caso clínico de partida (5 min)")
 c.md("""
-Un estudiante de sexto curso prepara una sesión clínica sobre el tratamiento de la hiponatremia y pide a un asistente de IA «las cinco referencias más importantes, con su DOI». El asistente responde al instante con cinco artículos bien formateados: autores, revista, año, volumen y DOI.
+Un estudiante de sexto curso prepara una sesión clínica sobre el tratamiento de la hiponatremia. Pide a un asistente de IA «las cinco referencias más importantes, con su DOI». El asistente responde al instante con cinco artículos bien formateados: autores, revista, año, volumen y DOI.
 
 Al buscarlos, dos no existen. Los autores son reales, las revistas también, pero esos artículos nunca se publicaron. Un tercero existe, pero no dice lo que el asistente afirma.
 
-El asistente no ha «mentido»: ha hecho exactamente aquello para lo que está construido, **generar el texto más probable** a continuación de la pregunta. Una referencia bibliográfica plausible es un texto muy probable, exista o no. Entender cómo funciona un modelo de lenguaje es la mejor protección frente a sus errores.
+El asistente no ha «mentido». Ha hecho exactamente aquello para lo que está construido: **generar el texto más probable** después de la pregunta. Una referencia bibliográfica plausible es un texto muy probable, exista o no. Entender cómo funciona un modelo de lenguaje es la mejor protección frente a sus errores.
 """)
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Cómo genera texto un LLM")
 c.md("""
-Un **modelo de lenguaje de gran tamaño** (LLM, *large language model*) es una red neuronal entrenada con enormes cantidades de texto para una tarea aparentemente simple: **predecir el siguiente fragmento de texto**.
+Un **modelo de lenguaje de gran tamaño** (LLM, *large language model*) es una red neuronal entrenada con enormes cantidades de texto. Su tarea parece simple: **predecir el siguiente fragmento de texto**.
 
 1. El texto se divide en **tokens**: palabras, partes de palabras o signos. En español, una palabra equivale de media a algo más de un token.
 2. Para cada posición, el modelo calcula una **distribución de probabilidad** sobre todos los tokens posibles.
@@ -68,6 +68,7 @@ La **temperatura** controla cómo se elige el siguiente token:
 Por eso **la misma pregunta puede recibir respuestas distintas**. En el Tema 190 mediremos esa variabilidad con métodos estadísticos.
 """)
 c.titulo(3, "2.3 Limitaciones")
+c.diagrama('Seis limitaciones (alucinación, fecha de corte, variabilidad, sesgos, complacencia, cálculo poco fiable) llevan a una regla: toda respuesta se verifica.')
 c.md("""
 | Limitación | Qué significa | Ejemplo clínico |
 | --- | --- | --- |
@@ -134,7 +135,7 @@ c.titulo(3, "3.2 Preparar la conexión con la API")
 c.md("""
 Usaremos la API de **Google Gemini** con la biblioteca oficial `google-genai`. La celda lee la clave de Secretos **sin mostrarla**. Si no hay clave, el resto del cuaderno usará respuestas de ejemplo.
 
-El nombre del modelo cambia con el tiempo: si la petición falla porque el modelo no existe, ejecuta la celda de ampliación «Ver los modelos disponibles» y cambia la variable `MODELO`.
+El nombre del modelo cambia con el tiempo. Si la petición falla porque el modelo no existe, ejecuta la celda de ampliación «Ver los modelos disponibles». Después, cambia la variable `MODELO`.
 """)
 c.code("""
 %pip install -q google-genai
@@ -300,7 +301,7 @@ c.md("""
 Abre la **[unidad 80 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:
 
 1. **Misión básica (sin asistente):** predecir el efecto de la temperatura sobre distribuciones de probabilidad de juguete.
-2. **Misión clínica (con pistas):** pedir al modelo que clasifique cinco valores de IMC en JSON y comprobar cada clasificación con la función del Tema 50.
+2. **Misión clínica (con pistas):** pedir al modelo que clasifique cinco valores de IMC en JSON. Comprobar cada clasificación con la función del Tema 50.
 3. **Misión reto (con asistente):** pedir tres referencias sobre un tema clínico, verificar cada DOI y calcular la proporción de referencias correctas.
 
 Al terminar, exporta el **informe de la unidad**.

@@ -9,6 +9,7 @@ import sys
 import matplotlib.pyplot as plt
 
 from diapositivas import DIAPOS, FIGS
+from diapositivas.diagramas import TEMAS as ESQUEMAS
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SALIDA = os.path.join(AQUI, "..", "figuras")
@@ -30,5 +31,13 @@ for tema, lista in sorted(DIAPOS.items()):
         fig.savefig(ruta, facecolor="white")
         plt.close(fig)
         print(ruta.split("/")[-1])
+for tema in ESQUEMAS:  # un diagrama por tema (tema_XXX_esquema.png)
+    if temas and tema not in temas:
+        continue
+    fig = FIGS[(tema, "esquema")]()
+    ruta = os.path.join(SALIDA, f"tema_{tema:03d}_esquema.png")
+    fig.savefig(ruta, facecolor="white")
+    plt.close(fig)
+    print(ruta.split("/")[-1])
 if faltan:
     sys.exit("Faltan funciones de figura: " + ", ".join(faltan))

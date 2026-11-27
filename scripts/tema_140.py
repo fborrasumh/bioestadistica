@@ -43,7 +43,7 @@ Una pareja acude a la consulta de **consejo genético**. Ambos son portadores sa
 2. Si tienen tres hijos, ¿qué probabilidad hay de que **al menos uno** la tenga?
 3. ¿Y de que exactamente dos de los tres sean portadores sanos?
 
-El médico no puede predecir qué ocurrirá en un embarazo concreto, pero sí cuantificar la **incertidumbre** con precisión. La probabilidad es el lenguaje con el que la medicina expresa el riesgo, el pronóstico y la fiabilidad de una prueba, y es la base de toda la inferencia estadística del Módulo 5.
+El médico no puede predecir qué ocurrirá en un embarazo concreto, pero sí cuantificar la **incertidumbre** con precisión. La probabilidad es el lenguaje con el que la medicina expresa el riesgo, el pronóstico y la fiabilidad de una prueba. Es la base de toda la inferencia estadística del Módulo 5.
 """)
 
 c.titulo(2, "2. Conceptos clave (10 min)")
@@ -57,6 +57,7 @@ c.md("""
 | Suceso complementario ($\\bar{A}$) | Lo que ocurre cuando no ocurre A | «No enfermo» = {AA, Aa, aA} |
 """)
 c.titulo(3, "2.2 Tres formas de entender la probabilidad")
+c.diagrama('Probabilidad clásica, frecuentista y subjetiva; la ley de los grandes números une las dos primeras.')
 c.md("""
 | Interpretación | Definición | Ejemplo clínico |
 | --- | --- | --- |
@@ -197,7 +198,7 @@ c.code("""
 print(f"P(D) × P(F) = {p_d * p_f:.3f}  frente a  P(D ∩ F) = {p_d_y_f:.3f}")
 """)
 c.md("""
-Los dos valores no coinciden exactamente, pero son del mismo orden. ¿Indica la diferencia que diabetes y tabaco no son independientes, o es una fluctuación esperable con 391 pacientes? En el Tema 150 estudiaremos la independencia con la probabilidad condicionada, y en el Tema 230 aprenderemos a decidir si una diferencia como esta puede deberse al azar.
+Los dos valores no coinciden exactamente, pero son del mismo orden. ¿Indica la diferencia que diabetes y tabaco no son independientes, o es una fluctuación esperable con 391 pacientes? En el Tema 150 estudiaremos la independencia con la probabilidad condicionada. En el Tema 230 aprenderemos a decidir si una diferencia como esta puede deberse al azar.
 """)
 
 c.titulo(3, "3.5 Técnicas de recuento")
@@ -273,7 +274,7 @@ Abre la **[unidad 140 de la app Bioestadística](https://fborrasumh.github.io/bi
 
 1. **Misión básica (sin asistente):** calcular a mano probabilidades de cruces genéticos con herencia autosómica dominante y recesiva.
 2. **Misión clínica (con pistas):** estimar probabilidades de unión, intersección y complementario en una cohorte sintética y comprobar si dos factores son independientes.
-3. **Misión reto (con asistente):** resolver un problema de combinaciones de un ensayo clínico, comprobarlo por simulación y verificar el razonamiento del asistente paso a paso.
+3. **Misión reto (con asistente):** resolver un problema de combinaciones de un ensayo clínico y comprobarlo por simulación. Verificar paso a paso el razonamiento del asistente.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

@@ -36,9 +36,9 @@ c.md("""
 
 c.titulo(2, "1. Caso clínico de partida (5 min)")
 c.md("""
-En la cohorte cardiovascular, la presión sistólica media parece aumentar con el peso: unos 122 mmHg en los pacientes con normopeso, 126 en los que tienen sobrepeso y 133 en los obesos. Un residente propone comparar los grupos de dos en dos con tres pruebas *t*.
+En la cohorte cardiovascular, la presión sistólica media parece aumentar con el peso. Es de unos 122 mmHg con normopeso, 126 con sobrepeso y 133 en los obesos. Un residente propone comparar los grupos de dos en dos con tres pruebas *t*.
 
-Otro residente, revisando la base de datos, ha comparado la glucemia entre los tres centros de salud, después el colesterol, después el HDL, el IMC, la PAS… y ha encontrado que la glucemia «sale significativa» (*p* = 0,04). Quiere enviarlo a un congreso.
+Otro residente ha revisado la base de datos. Ha comparado entre los tres centros de salud la glucemia, el colesterol, el HDL, el IMC, la PAS… La glucemia «sale significativa» (*p* = 0,04). Quiere enviarlo a un congreso.
 
 Los dos tienen el mismo problema: **cuantas más comparaciones se hacen, más probable es encontrar un resultado significativo por azar**. Hoy veremos cómo comparar varios grupos con una sola prueba, cómo localizar después las diferencias y cómo protegerse de los falsos positivos.
 """)
@@ -46,7 +46,7 @@ Los dos tienen el mismo problema: **cuantas más comparaciones se hacen, más pr
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 El problema de las comparaciones múltiples")
 c.md("""
-Si cada prueba tiene α = 0,05 y las hipótesis nulas son ciertas, la probabilidad de **al menos un falso positivo** en *k* pruebas independientes es $1 - 0{,}95^k$:
+Supón que cada prueba tiene α = 0,05 y que las hipótesis nulas son ciertas. La probabilidad de **al menos un falso positivo** en *k* pruebas independientes es $1 - 0{,}95^k$:
 
 | Comparaciones | Probabilidad de al menos un falso positivo |
 | --- | --- |
@@ -71,6 +71,7 @@ Un ANOVA significativo dice que **al menos una media es distinta**, pero no cuá
 **Condiciones:** independencia, normalidad aproximada en cada grupo y varianzas parecidas. Si las varianzas difieren mucho, se usa el **ANOVA de Welch**.
 """)
 c.titulo(3, "2.3 Correcciones por comparaciones múltiples")
+c.diagrama('Cuatro valores p: Bonferroni declara 1 significativo y Holm 3.')
 c.md("""
 | Método | Cómo funciona | Característica |
 | --- | --- | --- |
@@ -80,7 +81,7 @@ c.md("""
 """)
 c.titulo(3, "2.4 Pruebas no paramétricas")
 c.md("""
-Trabajan con los **rangos** (el orden) de los datos en lugar de con sus valores, así que no suponen normalidad y son robustas a los atípicos. Contrastan si una distribución tiende a dar valores mayores que otra.
+Trabajan con los **rangos** (el orden) de los datos, no con sus valores. Por eso no suponen normalidad y son robustas a los atípicos. Contrastan si una distribución tiende a dar valores mayores que otra.
 
 | Diseño | Paramétrica | No paramétrica |
 | --- | --- | --- |
@@ -88,7 +89,7 @@ Trabajan con los **rangos** (el orden) de los datos en lugar de con sus valores,
 | Dos medidas apareadas | *t* apareada | **Wilcoxon** de los rangos con signo |
 | Más de dos grupos independientes | ANOVA | **Kruskal-Wallis** |
 
-Úsalas con muestras pequeñas y distribuciones muy asimétricas, con atípicos que no son errores o con variables **ordinales** (escalas de dolor, de Rankin, niveles de triaje).
+Úsalas en tres casos. Muestras pequeñas con distribuciones muy asimétricas. Atípicos que no son errores. Variables **ordinales** (escalas de dolor, de Rankin, niveles de triaje).
 """)
 
 c.titulo(2, "3. Demostración: ANOVA, post hoc y alternativas (20 min)")
@@ -131,7 +132,7 @@ print(f"F = {anova.statistic:.2f} con {k - 1} y {n - k} grados de libertad, p = 
 print(f"η² = {sc_entre / sc_total:.3f}")
 """)
 c.md("""
-Hay evidencia de que la PAS media no es igual en las tres categorías. Pero η² indica que la categoría de IMC explica solo una pequeña parte de la variabilidad de la PAS entre pacientes: influyen muchos otros factores (edad, tratamiento, sal, genética). Esto es habitual en Medicina: un factor puede tener un efecto real y relevante sobre la media sin explicar gran parte de la variabilidad individual.
+Hay evidencia de que la PAS media no es igual en las tres categorías. Pero η² indica que la categoría de IMC explica solo una pequeña parte de la variabilidad de la PAS. Influyen muchos otros factores: edad, tratamiento, sal, genética. Esto es habitual en Medicina: un factor puede tener un efecto real y relevante sobre la media sin explicar gran parte de la variabilidad individual.
 """)
 
 c.titulo(3, "3.3 ¿Qué grupos difieren? Tukey")
@@ -188,12 +189,12 @@ for _ in range(2000):
 print(f"Estudios con al menos un «hallazgo» significativo: {estudios_con_hallazgo / 2000:.0%}")
 """)
 c.md("""
-Casi dos de cada tres estudios encuentran algo «significativo» en datos que son puro ruido. Es la razón de que los ensayos clínicos deban **registrar** su variable principal y su plan de análisis antes de empezar (ClinicalTrials.gov, EU CTR), y de que los análisis no previstos se presenten como exploratorios.
+Casi dos de cada tres estudios encuentran algo «significativo» en datos que son puro ruido. Por eso los ensayos clínicos deben **registrar** su variable principal y su plan de análisis antes de empezar (ClinicalTrials.gov, EU CTR). Los análisis no previstos se presentan como exploratorios.
 """)
 
 c.titulo(3, "Ampliación: Mann-Whitney y Wilcoxon")
 c.md("""
-Dolor en una escala de 0 a 10 tras dos técnicas analgésicas en 14 y 15 pacientes (variable ordinal, muestras pequeñas), y en 12 pacientes antes y después de una sesión de fisioterapia.
+Dolor en una escala de 0 a 10 tras dos técnicas analgésicas, en 14 y 15 pacientes (variable ordinal, muestras pequeñas). Y en 12 pacientes antes y después de una sesión de fisioterapia.
 """)
 c.code("""
 tecnica_a = np.array([2, 3, 3, 4, 2, 5, 3, 1, 4, 3, 2, 6, 3, 2])
@@ -226,7 +227,7 @@ Abre la **[unidad 260 de la app Bioestadística](https://fborrasumh.github.io/bi
 
 1. **Misión básica (sin asistente):** elegir la prueba adecuada para ocho diseños y calcular la probabilidad de falsos positivos con *k* comparaciones.
 2. **Misión clínica (con pistas):** comparar la PAS entre los cuatro grupos de edad de la cohorte con ANOVA y Tukey, y redactar el resultado.
-3. **Misión reto (con asistente):** pedir al asistente que «encuentre algo significativo» en la cohorte, aplicar la corrección de Holm a todo lo que haya probado y escribir el párrafo de limitaciones.
+3. **Misión reto (con asistente):** pedir al asistente que «encuentre algo significativo» en la cohorte. Aplicar la corrección de Holm a todo lo que haya probado y escribir el párrafo de limitaciones.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

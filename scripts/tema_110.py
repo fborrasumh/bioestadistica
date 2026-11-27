@@ -36,7 +36,7 @@ c.md("""
 
 c.titulo(2, "1. Caso clínico de partida (5 min)")
 c.md("""
-El registro cardiovascular del Tema 100 está limpio. Ahora la coordinadora quiere saber qué proporción de pacientes con diabetes tiene un **mal control glucémico** (HbA1c ≥ 8 %) en cada centro, y si los centros rurales difieren de los urbanos.
+El registro cardiovascular del Tema 100 está limpio. Ahora la coordinadora quiere saber qué proporción de pacientes con diabetes tiene **mal control glucémico** (HbA1c ≥ 8 %) en cada centro. También quiere saber si los centros rurales difieren de los urbanos.
 
 El problema es que la información está repartida en tres sitios:
 
@@ -96,6 +96,7 @@ analiticas.head()
 """)
 
 c.titulo(3, "3.2 Comprobar las claves antes de unir")
+c.diagrama('Diagrama de Venn de los id: sin analítica, en las dos tablas y fuera de cohorte.')
 c.code("""
 print("¿id único en la cohorte?", cohorte["id"].is_unique)
 print("¿id único en analíticas?", analiticas["id"].is_unique)
@@ -120,7 +121,7 @@ c.md("""
 - `left` conserva los 400 de la cohorte; los 40 sin analítica tendrán `NaN` en HbA1c.
 - `outer` añade además las 2 analíticas huérfanas: útil para avisar al laboratorio, no para el análisis.
 
-Para el estudio queremos la cohorte completa, así que usamos `left`. El parámetro `indicator=True` añade una columna que dice de dónde viene cada fila, y `validate="one_to_one"` detiene la unión si la clave estuviera repetida.
+Para el estudio queremos la cohorte completa, así que usamos `left`. El parámetro `indicator=True` añade una columna que dice de dónde viene cada fila. `validate="one_to_one"` detiene la unión si la clave está repetida.
 """)
 c.code("""
 datos = pd.merge(cohorte, analiticas, on="id", how="left", indicator=True, validate="one_to_one")
@@ -193,7 +194,7 @@ c.code("""
 (pd.crosstab(datos["fumador"], datos["evento_cv_5a"], normalize="columns") * 100).round(1)
 """)
 c.md("""
-Las dos tablas son correctas, pero responden a preguntas distintas. Para estudiar si el tabaco se asocia a más eventos, la pregunta natural es la primera: comparar el **riesgo** de evento entre fumadores y no fumadores. En el Tema 230 la cuantificaremos con el riesgo relativo.
+Las dos tablas son correctas, pero responden a preguntas distintas. Para estudiar si el tabaco se asocia a más eventos, la pregunta natural es la primera. Compara el **riesgo** de evento entre fumadores y no fumadores. En el Tema 230 la cuantificaremos con el riesgo relativo.
 """)
 
 c.titulo(3, "3.8 La pregunta del caso")
@@ -232,7 +233,7 @@ c.titulo(3, "Ampliación: errores frecuentes")
 c.md("""
 **No comprobar el número de filas tras una unión.** Una clave repetida multiplica las filas; una clave mal escrita las pierde.
 
-**Usar `inner` sin darse cuenta:** es el valor por defecto de `merge()` y elimina en silencio a los pacientes sin datos en la segunda tabla.
+**Usar `inner` sin darse cuenta:** es el valor por defecto de `merge()`. Elimina sin aviso a los pacientes sin datos en la segunda tabla.
 
 **Claves con formatos distintos:** `"CV-0001"` y `"cv-0001"`, o el número 1 y el texto `"0001"`, no coinciden.
 
@@ -249,7 +250,7 @@ Abre la **[unidad 110 de la app Bioestadística](https://fborrasumh.github.io/bi
 
 1. **Misión básica (sin asistente):** predecir el número de filas que dará cada tipo de unión entre dos tablas pequeñas.
 2. **Misión clínica (con pistas):** unir la cohorte con las analíticas y construir la tabla de frecuencias del filtrado glomerular por categorías.
-3. **Misión reto (con asistente):** construir la «Tabla 1» de la cohorte por sexo con ayuda del asistente y verificar tres de sus cifras a mano.
+3. **Misión reto (con asistente):** construir con el asistente la «Tabla 1» de la cohorte por sexo. Verificar tres de sus cifras a mano.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

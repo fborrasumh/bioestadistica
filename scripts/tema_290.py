@@ -63,7 +63,7 @@ Un modelo predictivo no necesita que sus variables sean causas: basta con que pr
 """)
 c.titulo(3, "2.2 Rendimiento aparente y validación")
 c.md("""
-Un modelo evaluado con los mismos datos con que se ajustó se ha adaptado también a su **ruido**: su rendimiento **aparente** es optimista (sobreajuste, Tema 280). Hay que medirlo en pacientes que el modelo no ha visto:
+Si se evalúa un modelo con los mismos datos con que se ajustó, el modelo se ha adaptado también a su **ruido**. Su rendimiento **aparente** es optimista (sobreajuste, Tema 280). Hay que medirlo en pacientes que el modelo no ha visto:
 
 | Validación | Cómo | Qué evalúa |
 | --- | --- | --- |
@@ -106,7 +106,7 @@ La declaración **TRIPOD+AI** (*BMJ*, 2024) es la guía internacional para comun
 c.titulo(2, "3. Demostración: desarrollar y validar un modelo (20 min)")
 c.titulo(3, "3.1 Los datos: un hospital de desarrollo y uno externo")
 c.md("""
-Simulamos un registro de 600 pacientes del hospital donde se desarrolla el modelo (con 6 predictores reales y 10 variables que no tienen relación con el evento) y 2.000 pacientes de otro hospital, con una población mayor, más hipertensa y con más riesgo por factores que el modelo no incluye (por ejemplo, más dislipemia familiar o peor acceso a la atención primaria).
+Simulamos dos grupos de pacientes. El primero es un registro de 600 pacientes del hospital donde se desarrolla el modelo. Tiene 6 predictores reales y 10 variables sin relación con el evento. El segundo son 2.000 pacientes de otro hospital. Su población es mayor y más hipertensa. Además, tiene más riesgo por factores que el modelo no incluye (por ejemplo, más dislipemia familiar o peor acceso a la atención primaria).
 """)
 c.code("""
 import numpy as np
@@ -168,6 +168,7 @@ El bosque aleatorio, un algoritmo de aprendizaje automático muy flexible, **mem
 """)
 
 c.titulo(3, "3.4 Validación cruzada")
+c.diagrama('Cinco rondas: en cada una se evalúa una partición distinta y se ajusta con las otras cuatro; se obtienen 5 AUC.')
 c.code("""
 logistica = LogisticRegression(max_iter=1000)
 auc_cv = cross_val_score(logistica, desarrollo[PREDICTORES], desarrollo["evento"], cv=5, scoring="roc_auc")
@@ -175,7 +176,7 @@ print("AUC en cada una de las 5 particiones:", auc_cv.round(3))
 print(f"AUC medio por validación cruzada: {auc_cv.mean():.3f}")
 """)
 c.md("""
-La validación cruzada divide los datos en 5 partes, entrena con 4 y evalúa con la quinta, rotando. Aprovecha todos los datos y muestra cuánto varía el rendimiento de una partición a otra: con 600 pacientes y unos 60 eventos, el AUC va de menos de 0,60 a más de 0,80 según la partición: la estimación es imprecisa.
+La validación cruzada divide los datos en 5 partes, entrena con 4 y evalúa con la quinta, rotando. Aprovecha todos los datos y muestra cuánto varía el rendimiento de una partición a otra. Con 600 pacientes y unos 60 eventos, el AUC va de menos de 0,60 a más de 0,80 según la partición. La estimación es imprecisa.
 """)
 
 c.titulo(3, "3.5 Validación externa: discriminación y calibración")
@@ -204,7 +205,7 @@ c.md("""
 En el hospital externo:
 
 - La **discriminación** se mantiene parecida (AUC alrededor de 0,70): el modelo sigue ordenando a los pacientes por su riesgo.
-- La **calibración** empeora: ocurren unos 480 eventos donde el modelo esperaba unos 420 (O/E = 1,15), y los puntos del gráfico quedan por encima de la diagonal en los riesgos altos. El modelo **infraestima** el riesgo de esta población, porque no incluye factores que aquí son más frecuentes. Usado sin ajustar, dejaría sin tratar a pacientes de alto riesgo.
+- La **calibración** empeora: ocurren unos 480 eventos donde el modelo esperaba unos 420 (O/E = 1,15). En los riesgos altos, los puntos del gráfico quedan por encima de la diagonal. El modelo **infraestima** el riesgo de esta población, porque no incluye factores que aquí son más frecuentes. Usado sin ajustar, dejaría sin tratar a pacientes de alto riesgo.
 
 La solución habitual es **recalibrar** el modelo con datos locales antes de usarlo. Es lo que se hizo con SCORE2, que tiene versiones distintas para regiones europeas de riesgo bajo, moderado, alto y muy alto.
 """)
@@ -217,7 +218,7 @@ for nombre, grupo in [("Hombres", externo[externo["mujer"] == 0]), ("Mujeres", e
           f"O/E {grupo['evento'].sum() / grupo['p'].sum():.2f}")
 """)
 c.md("""
-En conjunto, el error de calibración parecía moderado (O/E = 1,15), pero por sexos es muy distinto: el modelo **infraestima** el riesgo de los hombres (O/E ≈ 1,5) y **sobrestima** el de las mujeres (O/E ≈ 0,85). Los errores se compensaban en el total. TRIPOD+AI pide dar el rendimiento por subgrupos. Un modelo puede funcionar bien en conjunto y mal en un grupo infrarrepresentado en los datos de desarrollo, y reproducir o ampliar desigualdades en la atención.
+En conjunto, el error de calibración parecía moderado (O/E = 1,15). Pero por sexos es muy distinto. El modelo **infraestima** el riesgo de los hombres (O/E ≈ 1,5) y **sobrestima** el de las mujeres (O/E ≈ 0,85). Los errores se compensaban en el total. TRIPOD+AI pide dar el rendimiento por subgrupos. Un modelo puede funcionar bien en conjunto y mal en un grupo con poca representación en los datos de desarrollo. Así puede reproducir o ampliar desigualdades en la atención.
 """)
 
 c.titulo(3, "Ampliación: comunicar el riesgo al paciente")
@@ -255,8 +256,8 @@ c.md("""
 Abre la **[unidad 290 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:
 
 1. **Misión básica (sin asistente):** clasificar diez afirmaciones de folletos y resúmenes de modelos de IA como discriminación, calibración, rendimiento aparente o validado.
-2. **Misión clínica (con pistas):** desarrollar un modelo con la cohorte cardiovascular, validarlo con una partición reservada y presentar su AUC y su gráfico de calibración.
-3. **Misión reto (con asistente):** evaluar con la lista TRIPOD+AI el resumen de un artículo sobre un modelo de IA y redactar las cinco preguntas que harías a la empresa del caso.
+2. **Misión clínica (con pistas):** desarrollar un modelo con la cohorte cardiovascular y validarlo con una partición reservada. Presentar su AUC y su gráfico de calibración.
+3. **Misión reto (con asistente):** evaluar con la lista TRIPOD+AI el resumen de un artículo sobre un modelo de IA. Redactar las cinco preguntas que harías a la empresa del caso.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

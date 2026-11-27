@@ -36,11 +36,11 @@ c.md("""
 
 c.titulo(2, "1. Caso clínico de partida (5 min)")
 c.md("""
-La supervisora de una planta de Endocrinología pide un informe al final del turno: de los 8 pacientes con diabetes ingresados, ¿cuántos han tenido alguna **hipoglucemia** (glucemia < 70 mg/dL) en las últimas 24 horas, y cuál ha sido la glucemia media de cada uno?
+La supervisora de una planta de Endocrinología pide un informe al final del turno. Hay 8 pacientes con diabetes ingresados. ¿Cuántos han tenido alguna **hipoglucemia** (glucemia < 70 mg/dL) en las últimas 24 horas? ¿Cuál ha sido la glucemia media de cada uno?
 
 Cada paciente tiene entre 4 y 6 glucemias capilares. Revisarlas una a una es lento y propenso a errores, y mañana habrá que repetirlo. Lo que se necesita es una instrucción que diga: **para cada paciente**, y **para cada glucemia** de ese paciente, comprueba si es menor de 70.
 
-Repetir la misma operación sobre todos los elementos de una serie es lo que hace un **bucle**, y es la base de cualquier análisis de datos.
+Un **bucle** repite la misma operación sobre todos los elementos de una serie. Es la base de cualquier análisis de datos.
 """)
 
 c.titulo(2, "2. Conceptos clave (10 min)")
@@ -56,6 +56,7 @@ for elemento in serie:
 - Las acciones van sangradas, como en un `if`.
 """)
 c.titulo(3, "2.2 Acumuladores y contadores")
+c.diagrama('Acumulador y contador con las glucemias 110, 65 y 140: total llega a 315, n_hipo a 1 y la media es 105.')
 c.md("""
 Para resumir una serie se usa una variable que se inicializa **antes** del bucle y se actualiza **dentro** de él:
 
@@ -74,7 +75,7 @@ while condición:
     acciones
 ```
 
-Repite las acciones **mientras** la condición sea verdadera. Se usa cuando no se sabe de antemano cuántas repeticiones harán falta, por ejemplo, cuántas vidas medias tarda un fármaco en bajar de un nivel. Dentro del bucle algo tiene que cambiar para que la condición acabe siendo falsa; si no, el bucle no termina nunca.
+Repite las acciones **mientras** la condición sea verdadera. Se usa cuando no se sabe de antemano cuántas repeticiones hacen falta. Por ejemplo, cuántas vidas medias tarda un fármaco en bajar de un nivel. Dentro del bucle algo tiene que cambiar para que la condición acabe siendo falsa; si no, el bucle no termina nunca.
 """)
 c.titulo(3, "2.4 Prevalencia")
 c.md("""
@@ -259,7 +260,7 @@ Abre la **[unidad 40 de la app Bioestadística](https://fborrasumh.github.io/bio
 
 1. **Misión básica (sin asistente):** predecir cuántas veces se ejecuta un bucle y qué valor final tiene un acumulador.
 2. **Misión clínica (con pistas):** calcular la prevalencia de hipertensión en una cohorte sintética y el IMC de cada paciente.
-3. **Misión reto (con asistente):** programar con `while` cuántas dosis de mantenimiento hacen falta para alcanzar el estado estacionario de un fármaco, y verificar el código que proponga el asistente.
+3. **Misión reto (con asistente):** programar con `while` cuántas dosis de mantenimiento hacen falta para llegar al estado estacionario de un fármaco. Verificar el código que proponga el asistente.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

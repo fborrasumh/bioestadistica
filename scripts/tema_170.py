@@ -39,9 +39,9 @@ c.titulo(2, "1. Caso clínico de partida (5 min)")
 c.md("""
 El servicio de Medicina Preventiva de un hospital registra una media de **3 infecciones de herida quirúrgica al mes** en Cirugía General. En marzo se registran **8**.
 
-La supervisora pregunta si hay que activar el protocolo de **brote**. Ocho casos son más que tres, pero el número de infecciones varía de un mes a otro por puro azar: algunos meses habrá 1 y otros 5. La pregunta correcta es: **si nada hubiera cambiado, ¿con qué frecuencia veríamos 8 o más casos en un mes?**
+La supervisora pregunta si hay que activar el protocolo de **brote**. Ocho casos son más que tres. Pero el número de infecciones varía de un mes a otro por puro azar: algunos meses habrá 1 y otros 5. La pregunta correcta es: **si nada hubiera cambiado, ¿con qué frecuencia veríamos 8 o más casos en un mes?**
 
-Para responderla necesitamos un **modelo de probabilidad para recuentos**. Los recuentos (casos, ingresos, respuestas a un tratamiento, efectos adversos) son variables aleatorias discretas, y dos distribuciones describen la mayoría de ellos en medicina: la **binomial** y la de **Poisson**.
+Para responderla necesitamos un **modelo de probabilidad para recuentos**. Los recuentos son variables aleatorias discretas: casos, ingresos, respuestas a un tratamiento, efectos adversos. Dos distribuciones describen la mayoría de ellos en medicina: la **binomial** y la de **Poisson**.
 """)
 
 c.titulo(2, "2. Conceptos clave (10 min)")
@@ -67,7 +67,7 @@ Cuenta el número de **éxitos** en *n* ensayos cuando:
 
 $$P(X = k) = \\binom{n}{k}\\, p^k\\, (1-p)^{n-k} \\qquad E(X) = np \\qquad \\text{Var}(X) = np(1-p)$$
 
-**Ejemplos clínicos:** número de pacientes que responden a un tratamiento entre 20 tratados; número de hijos enfermos entre 3 de una pareja de portadores; número de preguntas acertadas por un modelo de IA entre 50.
+**Ejemplos clínicos:** pacientes que responden a un tratamiento entre 20 tratados. Hijos enfermos entre 3 de una pareja de portadores. Preguntas acertadas por un modelo de IA entre 50.
 """)
 c.titulo(3, "2.3 La distribución de Poisson")
 c.md("""
@@ -81,7 +81,7 @@ $$P(X = k) = \\frac{e^{-\\lambda}\\, \\lambda^k}{k!} \\qquad E(X) = \\lambda \\q
 
 **Ejemplos clínicos:** infecciones al mes en un servicio, ingresos en la UCI por noche, casos anuales de una enfermedad rara en una provincia.
 
-Cuando *n* es grande y *p* pequeña (por ejemplo, *n* ≥ 50 y *np* ≤ 5), la binomial se aproxima por una Poisson con λ = *np*.
+Si *n* es grande y *p* pequeña (por ejemplo, *n* ≥ 50 y *np* ≤ 5), la binomial se aproxima por una Poisson con λ = *np*.
 """)
 
 c.titulo(2, "3. Demostración: binomial y Poisson (20 min)")
@@ -204,6 +204,7 @@ Observa que la media y la varianza simuladas son casi iguales, como corresponde 
 """)
 
 c.titulo(3, "3.6 La aproximación de Poisson a la binomial")
+c.diagrama('Decisión: éxitos en n ensayos fijos, binomial; sucesos con tasa λ, Poisson; con n ≥ 50 y np ≤ 5, λ = np.')
 c.md("""
 Un fármaco produce una reacción adversa grave en 1 de cada 1.000 pacientes. En un hospital se trata a 2.000. ¿Qué probabilidad hay de ver al menos un caso?
 """)
@@ -246,8 +247,8 @@ c.md("""
 Abre la **[unidad 170 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:
 
 1. **Misión básica (sin asistente):** decidir si cada recuento clínico es binomial, de Poisson o ninguno de los dos, y justificarlo.
-2. **Misión clínica (con pistas):** calcular a mano y con `scipy.stats` la probabilidad de 4 o más ingresos en la UCI en una noche con λ = 1,8.
-3. **Misión reto (con asistente):** simular el número de aciertos de un modelo de IA en 40 preguntas y comparar la distribución simulada con la binomial teórica.
+2. **Misión clínica (con pistas):** calcular la probabilidad de 4 o más ingresos en la UCI en una noche con λ = 1,8. Hacerlo a mano y con `scipy.stats`.
+3. **Misión reto (con asistente):** simular los aciertos de un modelo de IA en 40 preguntas. Comparar la distribución simulada con la binomial teórica.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

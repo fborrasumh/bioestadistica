@@ -37,13 +37,13 @@ c.md("""
 
 c.titulo(2, "1. Caso clínico de partida (5 min)")
 c.md("""
-**Javier**, de 35 años, se hace una analítica de empresa. Está asintomático y se encuentra bien. El informe del laboratorio marca en negrita dos de los 20 parámetros analizados: la bilirrubina total y el volumen corpuscular medio, ambos ligeramente por encima del **intervalo de referencia**.
+**Javier**, de 35 años, se hace una analítica de empresa. Está asintomático y se encuentra bien. El informe del laboratorio marca en negrita dos de los 20 parámetros: la bilirrubina total y el volumen corpuscular medio. Los dos están ligeramente por encima del **intervalo de referencia**.
 
 Javier está preocupado. ¿Está enfermo?
 
 Lo primero es entender qué es un intervalo de referencia. Por convenio, el laboratorio lo define como el rango en el que se encuentra el **95 % central de las personas sanas**. Es decir, **una de cada 20 personas sanas** tendrá cada parámetro fuera del intervalo. Con 20 parámetros independientes, lo raro sería que Javier los tuviera **todos** dentro.
 
-La distribución normal y los intervalos de referencia explican por qué un valor «fuera de rango» no equivale a enfermedad, y cómo se construyen esos rangos.
+La distribución normal explica cómo se construyen los intervalos de referencia. También explica por qué un valor «fuera de rango» no equivale a enfermedad.
 """)
 
 c.titulo(2, "2. Conceptos clave (10 min)")
@@ -61,9 +61,9 @@ La distribución **normal** o de Gauss, $N(\\mu, \\sigma)$, tiene forma de campa
 
 - Es simétrica respecto a la media μ; media, mediana y moda coinciden.
 - Su anchura depende de la desviación típica σ.
-- **Regla 68-95-99,7:** entre μ ± σ queda el 68 % de los valores; entre μ ± 2σ, el 95 % (exactamente, μ ± 1,96σ); entre μ ± 3σ, el 99,7 %.
+- **Regla 68-95-99,7:** entre μ ± σ queda el 68 % de los valores. Entre μ ± 2σ queda el 95 % (exactamente, μ ± 1,96σ). Entre μ ± 3σ queda el 99,7 %.
 
-Muchas variables biológicas se aproximan a la normal (talla, presión arterial, hemoglobina en una población sana), pero muchas otras **no** (creatinina, triglicéridos, estancia hospitalaria). La normal es además central en la inferencia, como veremos en el Tema 190.
+Muchas variables biológicas se aproximan a la normal: talla, presión arterial, hemoglobina en una población sana. Pero muchas otras **no**: creatinina, triglicéridos, estancia hospitalaria. La normal es además central en la inferencia, como veremos en el Tema 190.
 """)
 c.titulo(3, "2.3 Tipificación")
 c.md("""
@@ -152,7 +152,7 @@ print(f"Percentil 95: {talla.ppf(0.95):.1f} cm")
 print(f"Percentiles 2,5 y 97,5: {talla.ppf(0.025):.1f} y {talla.ppf(0.975):.1f} cm")
 """)
 c.md("""
-Las **gráficas de crecimiento** de Pediatría se basan en esta idea: un niño en el percentil 3 de talla está a unas 1,88 desviaciones típicas por debajo de la media de su edad y sexo.
+Las **gráficas de crecimiento** de Pediatría usan esta idea. Un niño en el percentil 3 de talla está unas 1,88 desviaciones típicas por debajo de la media de su edad y sexo.
 """)
 
 c.titulo(3, "3.4 ¿Son normales los datos? El gráfico cuantil-cuantil")
@@ -188,6 +188,7 @@ En una variable normal, los dos métodos dan resultados muy parecidos.
 """)
 
 c.titulo(3, "3.6 Intervalo de referencia de una variable asimétrica")
+c.diagrama('Flujo: muestra de sanos; si la variable es normal, media ± 1,96 DE; si no, percentiles 2,5 y 97,5.')
 c.code("""
 media, de = creatinina.mean(), creatinina.std()
 p025, p975 = creatinina.quantile([0.025, 0.975])
@@ -199,7 +200,7 @@ print(f"Percentiles 2,5 y 97,5:        {p025:.2f} a {p975:.2f} mg/dL")
 print(f"Transformación logarítmica:    {li_log:.2f} a {ls_log:.2f} mg/dL")
 """)
 c.md("""
-El método paramétrico aplicado a una variable asimétrica da un límite inferior demasiado bajo, que puede llegar a ser imposible, y deja fuera de lo «normal» una proporción distinta del 5 %. Comprobamos qué porcentaje de la cohorte queda fuera de cada intervalo:
+Si se aplica el método paramétrico a una variable asimétrica, el límite inferior sale demasiado bajo, incluso imposible. Además, deja fuera de lo «normal» una proporción distinta del 5 %. Comprobamos qué porcentaje de la cohorte queda fuera de cada intervalo:
 """)
 c.code("""
 for nombre, (li, ls) in {"Paramétrico": (media - 1.96 * de, media + 1.96 * de),
@@ -209,12 +210,12 @@ for nombre, (li, ls) in {"Paramétrico": (media - 1.96 * de, media + 1.96 * de),
     print(f"{nombre:>12}: {fuera:.1%} fuera · por debajo {(creatinina < li).mean():.1%} · por encima {(creatinina > ls).mean():.1%}")
 """)
 c.md("""
-**Advertencia:** la cohorte no está formada solo por personas sanas (incluye pacientes con enfermedad renal), así que ninguno de estos intervalos sería válido como intervalo de referencia de un laboratorio. Para construirlo hay que seleccionar una muestra de **individuos de referencia sanos**.
+**Advertencia:** la cohorte no está formada solo por personas sanas; incluye pacientes con enfermedad renal. Por eso, ninguno de estos intervalos sirve como intervalo de referencia de un laboratorio. Para construirlo hay que seleccionar una muestra de **individuos de referencia sanos**.
 """)
 
 c.titulo(3, "3.7 El caso de Javier: muchas pruebas, algún resultado fuera de rango")
 c.md("""
-Si cada uno de 20 parámetros independientes deja fuera al 5 % de los sanos, la probabilidad de que una persona sana tenga **al menos uno** fuera de rango es, por el complementario (Tema 140):
+Supón 20 parámetros independientes; cada uno deja fuera al 5 % de los sanos. Por el complementario (Tema 140), la probabilidad de que una persona sana tenga **al menos uno** fuera de rango es:
 
 $$1 - 0{,}95^{20} \\approx 0{,}64$$
 """)
@@ -223,7 +224,7 @@ for n_pruebas in [1, 5, 10, 20, 40]:
     print(f"{n_pruebas:>2} pruebas: P(al menos una fuera de rango en un sano) = {1 - 0.95 ** n_pruebas:.2f}")
 """)
 c.md("""
-**Casi dos de cada tres personas sanas** con una analítica de 20 parámetros tendrán algún resultado «anormal». Un valor ligeramente fuera de rango en un paciente asintomático debe interpretarse en su contexto clínico, y a menudo repetirse, antes de iniciar más estudios. Es el mismo problema de las **comparaciones múltiples** que veremos en el Tema 260.
+**Casi dos de cada tres personas sanas** con una analítica de 20 parámetros tendrán algún resultado «anormal». Interpreta un valor ligeramente fuera de rango en un paciente asintomático según su contexto clínico. A menudo conviene repetirlo antes de pedir más estudios. Es el mismo problema de las **comparaciones múltiples** que veremos en el Tema 260.
 """)
 
 c.titulo(3, "Ampliación: otras distribuciones continuas")
@@ -248,7 +249,7 @@ c.md("""
 
 **Interpretar un valor fuera del intervalo de referencia como enfermedad.** El 5 % de los sanos está fuera, por definición.
 
-**Confundir el intervalo de referencia** (dónde está el 95 % de los individuos sanos) **con el intervalo de confianza** (Tema 200), que expresa la precisión de una estimación.
+**Confundir el intervalo de referencia con el intervalo de confianza** (Tema 200). El de referencia dice dónde está el 95 % de los individuos sanos. El de confianza expresa la precisión de una estimación.
 
 **Equivocar el sentido de la tabla:** P(Z > *z*) = 1 − P(Z ≤ *z*).
 """)
@@ -258,8 +259,8 @@ c.md("""
 Abre la **[unidad 180 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:
 
 1. **Misión básica (sin asistente):** calcular a mano, con la tabla de la normal, probabilidades y percentiles de la hemoglobina en mujeres sanas.
-2. **Misión clínica (con pistas):** construir el intervalo de referencia de la TSH en una muestra sintética de sanos y decidir qué método es el adecuado.
-3. **Misión reto (con asistente):** pedir al asistente el intervalo de referencia de los triglicéridos, comprobar si ha tenido en cuenta la asimetría y corregirlo si no.
+2. **Misión clínica (con pistas):** construir el intervalo de referencia de la TSH en una muestra sintética de sanos. Decidir qué método es el adecuado.
+3. **Misión reto (con asistente):** pedir al asistente el intervalo de referencia de los triglicéridos. Comprobar si ha tenido en cuenta la asimetría y corregirlo si no.
 
 Al terminar, exporta el **informe de la unidad**.
 """)
@@ -304,7 +305,7 @@ c.md("""
 - En una variable continua, la probabilidad es el área bajo la curva de densidad.
 - La normal es simétrica; el 95 % de los valores está entre μ ± 1,96σ.
 - Tipificar ($z = (x - μ) / σ$) permite usar una única tabla para cualquier normal.
-- El intervalo de referencia deja fuera al 5 % de los sanos por definición; se calcula con media ± 1,96 DE solo si la variable es normal.
+- Por definición, el intervalo de referencia deja fuera al 5 % de los sanos. Se calcula con media ± 1,96 DE solo si la variable es normal.
 - Con muchas pruebas, casi todo el mundo tiene algún resultado «fuera de rango».
 """)
 

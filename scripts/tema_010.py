@@ -53,7 +53,7 @@ En una consulta de Atención Primaria se atiende a **Carmen**, de 58 años (paci
 | Grado de disnea (escala mMRC, de 0 a 4) | 1 |
 | Ingresos hospitalarios en el último año | 0 |
 
-Con estos datos, el médico decide con su juicio clínico: la presión arterial está en rango de hipertensión (≥ 140/90 mmHg) y la glucemia en ayunas, entre 100 y 125 mg/dL, indica glucemia basal alterada.
+Con estos datos, el médico decide con su juicio clínico. La presión arterial está en rango de hipertensión (≥ 140/90 mmHg). La glucemia en ayunas, entre 100 y 125 mg/dL, indica glucemia basal alterada.
 
 Pero el centro de salud atiende a **3.000 personas con hipertensión**, y las preguntas cambian de escala:
 
@@ -74,7 +74,7 @@ La **bioestadística** es la aplicación de los métodos estadísticos a las cie
 - **Medir la incertidumbre** de cualquier conclusión que se extraiga de datos.
 - **Generalizar** lo observado en un grupo a la población de la que procede.
 
-La **medicina basada en la evidencia** integra la mejor evidencia científica disponible con la experiencia clínica y los valores del paciente. Casi toda esa evidencia (la eficacia de un fármaco, la fiabilidad de una prueba diagnóstica, los valores de referencia de un análisis) se apoya en métodos bioestadísticos. Sin bioestadística no se puede leer críticamente un artículo científico.
+La **medicina basada en la evidencia** integra la mejor evidencia científica disponible con la experiencia clínica y los valores del paciente. Casi toda esa evidencia se apoya en métodos bioestadísticos. Por ejemplo: la eficacia de un fármaco, la fiabilidad de una prueba diagnóstica o los valores de referencia de un análisis. Sin bioestadística no se puede leer críticamente un artículo científico.
 """)
 c.titulo(3, "2.2 Población, muestra, parámetro y estadístico")
 c.md("""
@@ -137,7 +137,7 @@ c.titulo(2, "3. Recorrido por el cuaderno (5 min)")
 c.md("""
 Repaso rápido de lo trabajado en el Tema 0:
 
-1. Comprueba que estás en **tu copia** (el nombre del cuaderno no debe empezar por *Copia de* si ya lo has renombrado, y debe estar en tu Drive).
+1. Comprueba que estás en **tu copia**. Debe estar en tu Drive. Si ya la has renombrado, su nombre no empieza por *Copia de*.
 2. Abre el **índice** en la barra lateral y localiza el apartado 4.
 3. Ejecuta la celda siguiente y observa el número que aparece a su izquierda.
 4. Vuelve a ejecutarla: el número aumenta, porque indica el orden de ejecución.
@@ -224,7 +224,7 @@ round(imc, 1) == 25.6
 
 c.titulo(3, "4.6 Una mirada al destino del curso")
 c.md("""
-La celda siguiente genera **200 pacientes sintéticos** y compara la presión arterial sistólica de fumadores y no fumadores. **No hace falta entender este código todavía**: al final del Módulo 3 sabrás escribirlo, y en el Módulo 5 sabrás decidir si la diferencia es real o fruto del azar.
+La celda siguiente genera **200 pacientes sintéticos** y compara la presión arterial sistólica de fumadores y no fumadores. **No hace falta entender este código todavía.** Al final del Módulo 3 sabrás escribirlo. En el Módulo 5 sabrás decidir si la diferencia es real o fruto del azar.
 """)
 c.code("""
 import numpy as np
@@ -273,14 +273,14 @@ Para la asignatura basta con **una** clave. Recomendamos la de **Google Gemini**
 4. Copia la clave y guárdala en el panel **Secretos** de Colab con el nombre `GEMINI_API_KEY` (pasos al final de este apartado).
 5. Comprueba en la lista de claves que el proyecto aparece como gratuito (*Free*). No actives la facturación: no es necesaria para la asignatura.
 
-Si aparece un aviso de que el nivel gratuito no está disponible para tu proyecto, crea la clave en otro proyecto nuevo o consulta al profesor. No actives la facturación para resolverlo.
+Si un aviso dice que el nivel gratuito no está disponible para tu proyecto, crea la clave en otro proyecto. Si el problema sigue, consulta al profesor. No actives la facturación para resolverlo.
 
 #### Opción B. Clave de pago de OpenAI
 
-1. Entra en la [plataforma de OpenAI](https://platform.openai.com/) con tu cuenta. La cuenta de ChatGPT sirve para entrar, pero la API se paga aparte: una suscripción a ChatGPT no incluye uso de la API.
+1. Entra en la [plataforma de OpenAI](https://platform.openai.com/) con tu cuenta. La cuenta de ChatGPT sirve para entrar, pero la API se paga aparte. La suscripción a ChatGPT no incluye el uso de la API.
 2. En la sección de facturación (**Billing**), añade un método de pago y compra el mínimo de créditos.
 3. **Desactiva la recarga automática** (*auto-reload*), que viene activada por defecto, para no hacer cargos sin darte cuenta. Los créditos caducan al año y no se devuelven.
-4. En **API keys**, pulsa **Create new secret key**, ponle un nombre y cópiala en ese momento: después no se vuelve a mostrar.
+4. En **API keys**, pulsa **Create new secret key** y ponle un nombre. Cópiala en ese momento: después no se vuelve a mostrar.
 5. Guárdala en **Secretos** de Colab con el nombre `OPENAI_API_KEY`.
 
 #### Guardar la clave en Colab
@@ -294,19 +294,20 @@ Si aparece un aviso de que el nivel gratuito no está disponible para tu proyect
 #### Normas de seguridad
 
 - La clave es personal: no se comparte, no se escribe en el código y no se envía por correo ni por mensajería.
-- Si crees que alguien ha visto tu clave, **bórrala** en AI Studio o en la plataforma de OpenAI y crea otra.
+- ¿Crees que alguien ha visto tu clave? **Bórrala** en AI Studio o en la plataforma de OpenAI y crea otra.
 - Las condiciones de estos servicios prohíben usarlos en la práctica clínica real o para dar consejo médico. En la asignatura los usamos solo para aprender, con datos sintéticos.
 - Ni el nivel gratuito ni el de pago autorizan a enviar datos de pacientes.
 """)
 
 c.titulo(3, "4.8 Pedir ayuda al asistente con seguridad")
+c.diagrama('Flujo: escribe la petición; si identifica a alguien, quita los datos; pide código y explicación; compara con un caso conocido.')
 c.md("""
 | Petición inadecuada | Petición adecuada |
 | --- | --- |
 | «Calcula el IMC de Carmen López, NHC 123456, que pesa 68 kg y mide 1,63 m» | «Escribe en Python el cálculo del IMC a partir de dos variables, peso_kg y talla_m, y explica cada línea» |
 | Identifica a una persona y pide solo un número | No identifica a nadie, pide código y explicación, y el resultado se puede verificar |
 
-**Prueba:** abre el asistente de Colab, pídele el cálculo de la superficie corporal con la fórmula de Mosteller y compara su resultado con el del apartado 4.3. Si no coinciden, averigua por qué antes de dar por buena ninguna de las dos versiones.
+**Prueba:** abre el asistente de Colab y pídele la superficie corporal con la fórmula de Mosteller. Compara su resultado con el del apartado 4.3. Si no coinciden, averigua por qué antes de dar por buena ninguna de las dos versiones.
 """)
 
 c.titulo(3, "Ampliación: errores frecuentes")
@@ -388,7 +389,7 @@ c.md("""
 - Se estudia una **muestra** para conocer una **población**; el **estadístico** estima el **parámetro**.
 - El tipo de variable decide cómo se resume y se analiza.
 - En Python, el separador decimal es el punto y las variables deben llevar la unidad en el nombre.
-- El asistente de IA ayuda, pero no sustituye la verificación ni el juicio propio, y nunca recibe datos de pacientes ni la clave de acceso.
+- El asistente de IA ayuda, pero no sustituye la verificación ni tu juicio. Nunca le envíes datos de pacientes ni la clave de acceso.
 """)
 
 c.titulo(2, "Glosario")

@@ -38,13 +38,14 @@ c.titulo(2, "1. Caso clínico de partida (5 min)")
 c.md("""
 Un grupo de investigación de un hospital participa en un **registro multicéntrico** de insuficiencia cardiaca. Cada mes debe enviar los datos de sus pacientes (seudonimizados) en un fichero **CSV**. Al mismo tiempo, el laboratorio del hospital entrega los resultados analíticos al sistema de historia clínica en **JSON**, siguiendo el estándar internacional **HL7 FHIR**.
 
-Una residente abre el CSV en una hoja de cálculo y descubre que todas las columnas aparecen juntas en una sola, que los pesos han perdido los decimales y que las tildes se ven como símbolos extraños.
+Una residente abre el CSV en una hoja de cálculo. Todas las columnas aparecen juntas en una sola. Los pesos han perdido los decimales. Las tildes se ven como símbolos extraños.
 
-Los datos no se transmiten en el vacío: viajan en **formatos de fichero**. Conocerlos evita perder información por el camino, y es imprescindible para el Tema 80, en el que un modelo de IA nos responderá en JSON.
+Los datos no se transmiten en el vacío: viajan en **formatos de fichero**. Conocerlos evita perder información por el camino. Además, son imprescindibles para el Tema 80, donde un modelo de IA responderá en JSON.
 """)
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Ficheros de texto")
+c.diagrama('Modos de open: "r" lee, "a" añade al final y "w" borra lo anterior. En Colab los ficheros se borran al cerrar la sesión.')
 c.md("""
 Un fichero se abre con `open(nombre, modo, encoding="utf-8")`:
 
@@ -72,7 +73,7 @@ En España, muchas hojas de cálculo usan el **punto y coma** como separador y l
 """)
 c.titulo(3, "2.3 JSON")
 c.md("""
-**JSON** (*JavaScript Object Notation*) representa datos estructurados en texto. Su sintaxis es casi idéntica a la de los diccionarios y listas de Python, y admite datos **anidados**: diccionarios dentro de listas dentro de diccionarios.
+**JSON** (*JavaScript Object Notation*) representa datos estructurados en texto. Su sintaxis es casi igual a la de los diccionarios y listas de Python. Admite datos **anidados**: diccionarios dentro de listas dentro de diccionarios.
 
 | JSON | Python |
 | --- | --- |
@@ -83,7 +84,7 @@ c.md("""
 | `true` / `false` | `True` / `False` |
 | `null` | `None` |
 
-Es el formato de las **API** web, de los modelos de IA y del estándar sanitario **HL7 FHIR**, con el que se intercambian historias clínicas, resultados de laboratorio y prescripciones.
+Es el formato de las **API** web y de los modelos de IA. También es el del estándar sanitario **HL7 FHIR**, que intercambia historias clínicas, resultados de laboratorio y prescripciones.
 """)
 
 c.titulo(2, "3. Demostración: ficheros, CSV y JSON (20 min)")
@@ -295,8 +296,8 @@ c.md("""
 Abre la **[unidad 70 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:
 
 1. **Misión básica (sin asistente):** identificar el separador, la coma decimal y los datos ausentes de varios CSV.
-2. **Misión clínica (con pistas):** leer un CSV de un registro sintético y calcular la edad media y el número de pacientes sin FEVI registrada.
-3. **Misión reto (con asistente):** extraer de un recurso FHIR *Observation* el valor, la unidad y la fecha, y verificar el código que proponga el asistente con un segundo recurso distinto.
+2. **Misión clínica (con pistas):** leer un CSV de un registro sintético. Calcular la edad media y el número de pacientes sin FEVI registrada.
+3. **Misión reto (con asistente):** extraer el valor, la unidad y la fecha de un recurso FHIR *Observation*. Verificar el código que proponga el asistente con un segundo recurso distinto.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

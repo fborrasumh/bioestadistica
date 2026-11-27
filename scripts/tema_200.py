@@ -41,7 +41,7 @@ Un centro de salud quiere conocer qué proporción de sus pacientes con hiperten
 
 El coordinador lo presenta así: «El 61,7 % de nuestros hipertensos está controlado». Pero esa cifra procede de una muestra. Si hubieran elegido otros 120 pacientes, el resultado habría sido distinto (Tema 190). La pregunta honesta es: **¿entre qué valores está, con una confianza razonable, el porcentaje real de los 3.000?**
 
-Con los métodos de hoy la respuesta es: entre el 52,7 % y el 69,9 %, con una confianza del 95 %. Ese intervalo dice algo que el 61,7 % solo no dice: que la estimación es **imprecisa**, y que con 120 pacientes no se puede afirmar si el control supera el objetivo del 65 % fijado por la gerencia.
+Con los métodos de hoy la respuesta es: entre el 52,7 % y el 69,9 %, con una confianza del 95 %. Ese intervalo dice algo que el 61,7 % solo no dice: la estimación es **imprecisa**. Con 120 pacientes no se puede afirmar si el control supera el objetivo del 65 % de la gerencia.
 """)
 
 c.titulo(2, "2. Conceptos clave (10 min)")
@@ -54,27 +54,28 @@ c.md("""
 | Estimación puntual | Valor que da el estimador en una muestra concreta | $\\hat{p}$ = 74/120 = 0,617 |
 | Estimación por intervalo | Rango de valores compatibles con los datos | IC 95 %: 0,527 a 0,699 |
 
-Un buen estimador es **insesgado** (su distribución muestral está centrada en el parámetro), **eficiente** (tiene poca variabilidad) y **consistente** (se acerca al parámetro al aumentar *n*). La media y la proporción muestrales cumplen las tres propiedades.
+Un buen estimador tiene tres propiedades. Es **insesgado**: su distribución muestral está centrada en el parámetro. Es **eficiente**: tiene poca variabilidad. Es **consistente**: se acerca al parámetro al aumentar *n*. La media y la proporción muestrales cumplen las tres propiedades.
 """)
 c.titulo(3, "2.2 Intervalo de confianza de una media")
 c.md("""
-Como no se conoce σ, se usa *s* y la distribución ***t* de Student** con *n* − 1 grados de libertad, que tiene colas algo más gruesas que la normal para compensar esa incertidumbre adicional:
+Como no se conoce σ, se usa *s* y la distribución ***t* de Student** con *n* − 1 grados de libertad. Sus colas son algo más gruesas que las de la normal, para compensar esa incertidumbre adicional:
 
 $$IC_{95\\%} = \\bar{x} \\pm t_{0{,}975;\\, n-1} \\cdot \\frac{s}{\\sqrt{n}}$$
 
 Con *n* grande, $t_{0,975}$ se acerca a 1,96. Con *n* = 10 vale 2,26.
 """)
 c.titulo(3, "2.3 Intervalo de confianza de una proporción")
+c.diagrama('Con 1 caso de 20, Wald va de −0,046 a 0,146 y Wilson de 0,009 a 0,236.')
 c.md("""
 **Método de Wald** (el de los libros clásicos):
 
 $$IC_{95\\%} = \\hat{p} \\pm 1{,}96\\sqrt{\\frac{\\hat{p}(1-\\hat{p})}{n}}$$
 
-Funciona mal con muestras pequeñas o proporciones cercanas a 0 o a 1: puede dar límites negativos o mayores de 1, y su cobertura real es inferior al 95 %. El **método de Wilson** corrige estos problemas y es el recomendado en general.
+Funciona mal con muestras pequeñas o con proporciones cercanas a 0 o a 1. Puede dar límites negativos o mayores de 1, y su cobertura real es inferior al 95 %. El **método de Wilson** corrige estos problemas y es el recomendado en general.
 """)
 c.titulo(3, "2.4 Qué significa «confianza del 95 %»")
 c.md("""
-El 95 % se refiere al **método**, no a un intervalo concreto: si se repitiera el estudio muchas veces y se calculara cada vez el intervalo, **alrededor del 95 % de esos intervalos contendría el parámetro**.
+El 95 % se refiere al **método**, no a un intervalo concreto. Si se repitiera el estudio muchas veces, con un intervalo cada vez, **alrededor del 95 % de esos intervalos contendría el parámetro**.
 
 | Interpretación | ¿Correcta? |
 | --- | --- |
@@ -154,7 +155,7 @@ for metodo in ["normal", "wilson"]:
     print(f"IC 95 % {nombre:>6}: {li:.3f} a {ls:.3f}")
 """)
 c.md("""
-Con 120 pacientes y una proporción intermedia, los dos métodos casi coinciden. El objetivo del 65 % queda **dentro** del intervalo: los datos son compatibles tanto con un control inferior al objetivo como con uno superior.
+Con 120 pacientes y una proporción intermedia, los dos métodos casi coinciden. El objetivo del 65 % queda **dentro** del intervalo. Los datos son compatibles con un control inferior al objetivo y también con uno superior.
 """)
 
 c.titulo(3, "3.4 Cuando Wald falla: proporciones extremas")
@@ -181,7 +182,7 @@ li, ls = proportion_confint(41, 50, method="wilson")
 print(f"Exactitud: 82 % (IC 95 %: {li:.1%} a {ls:.1%})")
 """)
 c.md("""
-Un 82 % de exactitud sobre 50 preguntas es compatible con una exactitud real de entre el 69 % y el 90 %. Cuando un artículo o un fabricante dé la exactitud de un modelo de IA **sin intervalo y sin el número de preguntas**, la cifra no permite saber cuánta incertidumbre tiene.
+Un 82 % de exactitud sobre 50 preguntas es compatible con una exactitud real de entre el 69 % y el 90 %. A veces, un artículo o un fabricante da la exactitud de un modelo de IA **sin intervalo y sin el número de preguntas**. Con esa cifra no se puede saber cuánta incertidumbre tiene.
 """)
 
 c.titulo(3, "3.6 La anchura depende del tamaño muestral")
@@ -254,8 +255,8 @@ c.md("""
 Abre la **[unidad 200 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:
 
 1. **Misión básica (sin asistente):** interpretar correctamente cinco intervalos de confianza tomados de resúmenes de artículos.
-2. **Misión clínica (con pistas):** estimar con su IC 95 % la prevalencia de obesidad y el colesterol LDL medio de la cohorte, y calcular el tamaño muestral para repetir el estudio con más precisión.
-3. **Misión reto (con asistente):** evaluar un modelo de IA con 30 preguntas, dar su exactitud con IC de Wilson y calcular cuántas preguntas harían falta para un margen de ±5 puntos.
+2. **Misión clínica (con pistas):** estimar con su IC 95 % la prevalencia de obesidad y el colesterol LDL medio de la cohorte. Calcular el tamaño muestral para repetir el estudio con más precisión.
+3. **Misión reto (con asistente):** evaluar un modelo de IA con 30 preguntas y dar su exactitud con IC de Wilson. Calcular cuántas preguntas harían falta para un margen de ±5 puntos.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

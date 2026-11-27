@@ -137,6 +137,7 @@ El IC dice que la diferencia real podría ser pequeña (2 puntos) o considerable
 """)
 
 c.titulo(3, "3.4 Frecuencias pequeñas: la prueba exacta de Fisher")
+c.diagrama('Tabla 2 × 2 del ensayo piloto con observados y esperados; dos esperadas de 3,5, menores de 5: prueba exacta de Fisher.')
 c.md("""
 En un ensayo piloto con 15 pacientes por grupo, presentan náuseas 1 con la pauta A y 6 con la pauta B.
 """)
@@ -153,7 +154,7 @@ print(f"Exacta de Fisher: p = {p_fisher:.3f}")
 print(f"Ji cuadrado (no fiable aquí): p = {p_chi:.3f}")
 """)
 c.md("""
-Hay casillas con frecuencias esperadas menores de 5, así que la aproximación de la ji cuadrado no es fiable: daría un valor p más pequeño del que corresponde. La prueba de Fisher calcula la probabilidad exacta y es la que se debe usar.
+Hay casillas con frecuencias esperadas menores de 5. Por eso, la aproximación de la ji cuadrado no es fiable: daría un valor p más pequeño del que corresponde. La prueba de Fisher calcula la probabilidad exacta y es la que se debe usar.
 """)
 
 c.titulo(3, "3.5 Dos modelos de IA con preguntas distintas")
@@ -168,7 +169,7 @@ print(f"Exactitud: A {41 / 50:.0%} · B {33 / 50:.0%}")
 print(f"Diferencia: {41 / 50 - 33 / 50:.0%} (IC 95 %: {li:.1%} a {ls:.1%}) · p = {p_valor:.3f}")
 """)
 c.md("""
-Una diferencia de 16 puntos en exactitud **no** alcanza la significación con 50 preguntas por modelo: el IC va desde una diferencia ligeramente negativa hasta más de 30 puntos. Además, con preguntas distintas la diferencia puede deberse a que un conjunto era más fácil. El diseño correcto es evaluar los dos modelos con **las mismas** preguntas y analizarlo como datos apareados (Tema 240).
+Una diferencia de 16 puntos en exactitud **no** alcanza la significación con 50 preguntas por modelo. El IC va desde una diferencia ligeramente negativa hasta más de 30 puntos. Además, con preguntas distintas la diferencia puede deberse a que un conjunto era más fácil. El diseño correcto es evaluar los dos modelos con **las mismas** preguntas y analizarlo como datos apareados (Tema 240).
 """)
 
 c.titulo(3, "3.6 ¿Cuántos pacientes hacen falta para comparar dos proporciones?")
@@ -188,7 +189,7 @@ Detectar diferencias pequeñas entre proporciones exige muestras grandes: pasar 
 
 c.titulo(3, "Ampliación: la prueba de una proporción por simulación")
 c.md("""
-El valor p de la prueba binomial se puede obtener simulando muchas cohortes en las que la prevalencia real fuera exactamente del 22 % (Tema 190).
+El valor p de la prueba binomial se puede obtener por simulación (Tema 190). Simula muchas cohortes con una prevalencia real del 22 % exacto.
 """)
 c.code("""
 rng = np.random.default_rng(seed=220)
@@ -218,8 +219,8 @@ c.md("""
 Abre la **[unidad 220 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:
 
 1. **Misión básica (sin asistente):** elegir la prueba adecuada para seis situaciones clínicas con proporciones.
-2. **Misión clínica (con pistas):** comparar la prevalencia de diabetes entre el centro rural y los urbanos, con la diferencia, su IC 95 % y el valor p.
-3. **Misión reto (con asistente):** pedir al asistente el código para comparar la incidencia de eventos cardiovasculares entre fumadores y no fumadores, comprobar que elige bien la prueba y redactar el resultado como en un artículo.
+2. **Misión clínica (con pistas):** comparar la prevalencia de diabetes entre el centro rural y los urbanos. Dar la diferencia, su IC 95 % y el valor p.
+3. **Misión reto (con asistente):** pedir al asistente el código para comparar la incidencia de eventos cardiovasculares entre fumadores y no fumadores. Comprobar que elige bien la prueba y redactar el resultado como en un artículo.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

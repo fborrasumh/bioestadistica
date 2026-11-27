@@ -50,6 +50,7 @@ El **contraste de hipótesis** es el método que usan casi todos los ensayos cl�
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Las hipótesis")
+c.diagrama('Flujo del contraste: plantear H₀ y H₁, suponer H₀, calcular p, comparar con α y decidir.')
 c.md("""
 | Hipótesis | Qué afirma | En el caso |
 | --- | --- | --- |
@@ -151,7 +152,7 @@ print(f"Valor p por permutación: {p_permutacion:.3f}")
 print(f"Diferencia: {diferencia_observada:.1f} mmHg (IC 95 %: {ic.low:.1f} a {ic.high:.1f})")
 """)
 c.md("""
-**Interpretación completa:** el fármaco redujo la PAS una media de unos 5 mmHg más que el placebo. Si en realidad no hubiera diferencia, una diferencia así de grande ocurriría en pocos ensayos de cada cien. El IC 95 % indica que el efecto real podría estar entre algo más de 0 y unos 10 mmHg: compatible con un efecto clínicamente pequeño o con uno relevante.
+**Interpretación completa:** el fármaco redujo la PAS una media de unos 5 mmHg más que el placebo. Si en realidad no hubiera diferencia, una diferencia así de grande ocurriría en pocos ensayos de cada cien. El IC 95 % indica que el efecto real podría estar entre algo más de 0 y unos 10 mmHg. Es compatible con un efecto clínicamente pequeño y con uno relevante.
 """)
 
 c.titulo(3, "3.4 Si H₀ es cierta, el 5 % de los estudios sale «significativo»")
@@ -235,7 +236,7 @@ Una diferencia de menos de 1 mmHg es estadísticamente significativa, pero **cl�
 
 c.titulo(3, "Ampliación: comparaciones múltiples")
 c.md("""
-Si un estudio compara 20 variables entre dos grupos sin ninguna diferencia real, la probabilidad de encontrar **al menos una** con *p* < 0,05 es $1 - 0{,}95^{20} \\approx 0{,}64$ (Temas 140 y 180). Buscar hasta encontrar algo significativo se llama *p-hacking*. Lo veremos en el Tema 260, junto con las correcciones.
+Supón un estudio que compara 20 variables entre dos grupos sin ninguna diferencia real. La probabilidad de encontrar **al menos una** con *p* < 0,05 es $1 - 0{,}95^{20} \\approx 0{,}64$ (Temas 140 y 180). Buscar hasta encontrar algo significativo se llama *p-hacking*. Lo veremos en el Tema 260, junto con las correcciones.
 """)
 
 c.titulo(3, "Ampliación: errores frecuentes")
@@ -258,8 +259,8 @@ c.md("""
 Abre la **[unidad 210 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:
 
 1. **Misión básica (sin asistente):** identificar interpretaciones correctas e incorrectas del valor p en frases tomadas de artículos.
-2. **Misión clínica (con pistas):** calcular por permutación y con la prueba *t* el valor p de una diferencia de HbA1c entre dos pautas, e interpretar su IC.
-3. **Misión reto (con asistente):** calcular con el asistente el tamaño muestral de un ensayo, comprobarlo por simulación de la potencia y redactar la justificación para el comité de ética.
+2. **Misión clínica (con pistas):** calcular el valor p de una diferencia de HbA1c entre dos pautas, por permutación y con la prueba *t*. Interpretar su IC.
+3. **Misión reto (con asistente):** calcular con el asistente el tamaño muestral de un ensayo y comprobarlo por simulación de la potencia. Redactar la justificación para el comité de ética.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

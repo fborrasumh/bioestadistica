@@ -40,13 +40,14 @@ Un paciente llega a la consulta con este titular en el móvil: «Un estudio demu
 
 > *Estudio de cohortes prospectivo con 52.000 adultos seguidos 10 años. Los que tomaban 3 o más cafés al día tuvieron una mortalidad menor que los que no tomaban café (HR ajustado 0,70; IC 95 %: 0,62 a 0,79). Los resultados se ajustaron por edad, sexo y tabaco.*
 
-Con lo aprendido en el curso, puedes responder con criterio: es un **estudio observacional**, así que no demuestra causalidad; se ha ajustado por algunos confusores, pero pueden quedar otros (los que toman café pueden tener más salud, más ingresos u otros hábitos); el 30 % es una reducción **relativa**, y falta saber el riesgo absoluto; y el IC indica un efecto preciso, pero precisión no es validez.
+Con lo aprendido en el curso, puedes responder con criterio. Es un **estudio observacional**: no demuestra causalidad. Se ha ajustado por algunos confusores, pero pueden quedar otros; quien toma café puede tener más salud, más ingresos u otros hábitos. El 30 % es una reducción **relativa**; falta el riesgo absoluto. Y el IC indica un efecto preciso, pero precisión no es validez.
 
-Esta última sesión reúne todo el curso: leer la evidencia con criterio y aplicar ese mismo criterio a la mejora de los modelos de IA **y a tu propio aprendizaje**, usando los informes de la app.
+Esta última sesión reúne todo el curso. Lee la evidencia con criterio. Aplica ese mismo criterio a la mejora de los modelos de IA **y a tu propio aprendizaje**, con los informes de la app.
 """)
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 La pregunta PICO y el diseño")
+c.diagrama('Decisión: si el investigador asigna la exposición al azar, ensayo aleatorizado; si no, estudio observacional, como el del café.')
 c.md("""
 | Elemento | Pregunta | En el caso del café |
 | --- | --- | --- |
@@ -98,7 +99,7 @@ En el Tema 090 vimos la **mejora recursiva**: generar, evaluar, corregir y volve
 | Tu acierto en el primer intento y tras la pista del asistente | Acierto/fallo apareado por misión | McNemar |
 | Evolución de tu nota de una unidad a otra | Proporciones a lo largo del tiempo | IC de cada proporción, tendencia |
 
-Y la advertencia de Goodhart: si se mejora una y otra vez frente a **los mismos** casos de prueba, la mejora medida en ellos es optimista. La mejora real solo se mide con **pruebas reservadas** que no se han usado para decidir.
+Y recuerda la advertencia de Goodhart. Si se mejora una y otra vez frente a **los mismos** casos de prueba, la mejora medida en ellos es optimista. La mejora real solo se mide con **pruebas reservadas** que no se han usado para decidir.
 """)
 
 c.titulo(2, "3. Demostración: leer un resumen y evaluar una mejora (20 min)")
@@ -176,7 +177,7 @@ La versión 2 acierta 8 puntos más, y entre los 22 informes en que discrepan, a
 
 c.titulo(3, "3.4 Goodhart: mejorar contra la misma prueba")
 c.md("""
-Ahora simulamos un error frecuente: el equipo prueba 30 variantes de *prompt* que en realidad son **todas igual de buenas** (exactitud real del 80 %), las evalúa con los mismos 40 casos y se queda con la mejor.
+Ahora simulamos un error frecuente. El equipo prueba 30 variantes de *prompt* que en realidad son **todas igual de buenas** (exactitud real del 80 %). Las evalúa con los mismos 40 casos y se queda con la mejor.
 """)
 c.code("""
 rng = np.random.default_rng(seed=300)
@@ -194,12 +195,12 @@ print(f"Exactitud de la «mejor» en los 40 casos de desarrollo: {np.mean(mejor_
 print(f"Exactitud de esa misma variante en 400 casos reservados: {np.mean(misma_en_reservados):.1%}")
 """)
 c.md("""
-Elegir la mejor de 30 variantes con los mismos casos produce una «mejora» de unos 12 puntos que no existe: es la selección del máximo del azar, la misma lógica de las comparaciones múltiples (Tema 260). La mejora recursiva necesita **dos** conjuntos de casos: uno para mejorar y otro, reservado, para medir.
+Si se elige la mejor de 30 variantes con los mismos casos, aparece una «mejora» de unos 12 puntos que no existe. Es la selección del máximo del azar, la misma lógica de las comparaciones múltiples (Tema 260). La mejora recursiva necesita **dos** conjuntos de casos: uno para mejorar y otro, reservado, para medir.
 """)
 
 c.titulo(3, "3.5 Tu propia mejora recursiva: los informes de la app")
 c.md("""
-Cada informe de la app Bioestadística registra, para cada misión, si la resolviste en el **primer intento** y si la resolviste **tras la pista** del asistente. Con los informes de las 30 unidades se puede analizar tu aprendizaje igual que el de un modelo. Aquí, con datos simulados de un estudiante; en la misión reto lo harás con los tuyos.
+Cada informe de la app Bioestadística registra dos datos por misión. Si la resolviste en el **primer intento** y si la resolviste **tras la pista** del asistente. Con los informes de las 30 unidades se puede analizar tu aprendizaje igual que el de un modelo. Aquí, con datos simulados de un estudiante; en la misión reto lo harás con los tuyos.
 """)
 c.code("""
 unidades = np.repeat(np.arange(10, 310, 10), 3)
@@ -257,7 +258,7 @@ print(f"OR de acertar al primer intento por cada 100 temas de avance: {np.exp(10
       f"(IC 95 %: {np.exp(100 * li):.2f} a {np.exp(100 * ls):.2f}), ajustada por el tipo de misión")
 """)
 c.md("""
-Con un modelo logístico (Tema 280) ajustado por la dificultad de la misión, se estima si la probabilidad de resolverla sin ayuda aumenta a lo largo del curso. Con solo 90 misiones el IC es ancho: un estudiante es una muestra pequeña. Agregando los informes de toda la clase, el profesor puede ver qué unidades necesitan mejorarse: la asignatura también está sometida a mejora recursiva.
+Un modelo logístico (Tema 280) ajustado por la dificultad de la misión estima una tendencia: si resuelves más misiones sin ayuda a lo largo del curso. Con solo 90 misiones el IC es ancho: un estudiante es una muestra pequeña. Agregando los informes de toda la clase, el profesor puede ver qué unidades necesitan mejorarse: la asignatura también está sometida a mejora recursiva.
 """)
 
 c.titulo(3, "Ampliación: la pirámide no lo es todo")
@@ -266,7 +267,7 @@ Las revisiones sistemáticas de ensayos están en lo alto de la jerarquía de la
 
 - Un metanálisis de ensayos sesgados es un resultado sesgado más preciso.
 - Para muchas preguntas (efectos adversos raros, pronóstico, factores de riesgo que no se pueden asignar) los estudios observacionales son la mejor evidencia disponible.
-- Los sistemas como **GRADE** valoran la certeza de la evidencia según el riesgo de sesgo, la imprecisión, la inconsistencia, la evidencia indirecta y el sesgo de publicación, no solo según el diseño.
+- Los sistemas como **GRADE** valoran la certeza de la evidencia por más criterios que el diseño. Son el riesgo de sesgo, la imprecisión, la inconsistencia, la evidencia indirecta y el sesgo de publicación.
 """)
 
 c.titulo(3, "Ampliación: errores frecuentes")
@@ -290,7 +291,7 @@ Abre la **[unidad 300 de la app Bioestadística](https://fborrasumh.github.io/bi
 
 1. **Misión básica (sin asistente):** aplicar las diez preguntas de lectura crítica a tres resúmenes (un ensayo, una cohorte y un modelo de IA).
 2. **Misión clínica (con pistas):** reescribir con medidas absolutas y lenguaje no causal la nota de prensa de un estudio observacional.
-3. **Misión reto (con asistente):** cargar tus informes de las 30 unidades, comparar con McNemar tu acierto en el primer intento y tras la pista, estimar tu tendencia a lo largo del curso y escribir un párrafo de autoevaluación.
+3. **Misión reto (con asistente):** cargar tus informes de las 30 unidades y comparar con McNemar tu acierto en el primer intento y tras la pista. Estimar tu tendencia a lo largo del curso y escribir un párrafo de autoevaluación.
 
 Al terminar, exporta el **informe final** y súbelo junto con los anteriores: forman la evaluación continua (EC) de la asignatura.
 """)

@@ -38,15 +38,15 @@ c.titulo(2, "1. Caso clínico de partida (5 min)")
 c.md("""
 En el Tema 230 vimos que, en la cohorte, los diabéticos tienen más eventos cardiovasculares a 5 años (OR cruda 1,77). Pero los diabéticos son, de media, algo mayores que los no diabéticos, y la edad es el factor de riesgo cardiovascular más potente. ¿Cuánto de ese exceso de riesgo se debe a la diabetes y cuánto a la edad?
 
-Además, el equipo querría una herramienta sencilla: introducir la edad, el sexo, la presión arterial, el tabaco y la diabetes de un paciente, y obtener su **probabilidad** de evento a 5 años. Es la lógica de las escalas de riesgo como SCORE2 o Framingham.
+Además, el equipo quiere una herramienta sencilla. Se introducen la edad, el sexo, la presión arterial, el tabaco y la diabetes de un paciente. La herramienta da su **probabilidad** de evento a 5 años. Es la lógica de las escalas de riesgo como SCORE2 o Framingham.
 
-Las dos cosas (estimar efectos ajustados de factores de riesgo y predecir la probabilidad de un evento binario) se hacen con la **regresión logística**, el modelo multivariante más usado en la investigación clínica.
+Las dos tareas se hacen con la **regresión logística**: estimar efectos ajustados de factores de riesgo y predecir la probabilidad de un evento binario. Es el modelo multivariante más usado en la investigación clínica.
 """)
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Por qué no una recta")
 c.md("""
-Si la respuesta es 0/1 (evento sí o no), una recta puede predecir «probabilidades» negativas o mayores de 1, y el efecto de cada factor no puede ser el mismo en toda la escala: pasar del 1 % al 2 % de riesgo no es lo mismo que pasar del 50 % al 51 %.
+Si la respuesta es 0/1 (evento sí o no), una recta no sirve, por dos razones. Puede predecir «probabilidades» negativas o mayores de 1. Y el efecto de cada factor no puede ser igual en toda la escala. Pasar del 1 % al 2 % de riesgo no es lo mismo que pasar del 50 % al 51 %.
 
 La regresión logística modela el **logaritmo de la odds** (logit) como una combinación lineal de los predictores:
 
@@ -135,7 +135,7 @@ print("\\nOR ajustada por edad:")
 print(tabla_or(ajustada))
 """)
 c.md("""
-La OR de la diabetes baja de 1,77 a 1,48 al ajustar por edad: parte del exceso de riesgo de los diabéticos de la cohorte se debía a que eran mayores. Con 48 eventos, el IC sigue siendo muy ancho y no permite confirmar el efecto propio de la diabetes, que en estudios grandes está bien establecido.
+La OR de la diabetes baja de 1,77 a 1,48 al ajustar por edad. Parte del exceso de riesgo de los diabéticos de la cohorte se debía a que eran mayores. Con 48 eventos, el IC sigue siendo muy ancho. No permite confirmar el efecto propio de la diabetes, que en estudios grandes está bien establecido.
 """)
 
 c.titulo(3, "3.4 El modelo multivariante")
@@ -154,15 +154,16 @@ for variable, k, unidad in [("edad", 10, "10 años"), ("pas_mmHg", 10, "10 mmHg"
     print(f"{variable:>10}: OR por {unidad} = {np.exp(k * b):.2f} (IC 95 %: {np.exp(k * li):.2f} a {np.exp(k * ls):.2f})")
 """)
 c.md("""
-**Cómo se comunica:** «En el análisis multivariante, la edad (OR 2,06 por cada 10 años), la PAS (OR 1,55 por cada 10 mmHg) y el sexo masculino (OR para mujeres 0,34) se asociaron de forma independiente con el evento cardiovascular a 5 años».
+**Cómo se comunica:** «En el análisis multivariante, tres variables se asociaron de forma independiente con el evento cardiovascular a 5 años. Fueron la edad (OR 2,06 por cada 10 años), la PAS (OR 1,55 por cada 10 mmHg) y el sexo masculino (OR para mujeres 0,34)».
 
 Dos advertencias:
 
 - Con unos 7 eventos por variable, el modelo está por debajo de la regla de 10 EPV: los coeficientes pueden estar **sobrestimados**. La OR de la PAS es probablemente mayor que la real.
-- Que el tabaco o el HDL no salgan significativos **no** significa que no sean factores de riesgo: con 43 eventos el modelo no tiene potencia para detectarlos.
+- El tabaco o el HDL no salen significativos, pero eso **no** significa que no sean factores de riesgo. Con 43 eventos, el modelo no tiene potencia para detectarlos.
 """)
 
 c.titulo(3, "3.5 La probabilidad de un paciente")
+c.diagrama('Pasos: z = β₀ + β₁x₁ + …, odds = eᶻ, p = odds / (1 + odds); con z = −2, p = 0,119.')
 c.code("""
 pacientes = pd.DataFrame({
     "edad": [52, 72],
@@ -178,12 +179,12 @@ for _, f in pacientes.iterrows():
           f"HDL {f['hdl_mg_dl']}: probabilidad de evento a 5 años {f['probabilidad']:.1%}")
 """)
 c.md("""
-Es lo que hacen las calculadoras de riesgo cardiovascular. Pero este modelo se ha construido con 358 pacientes y 43 eventos, y no se ha **validado** en pacientes distintos de los que se usaron para ajustarlo. Antes de usarlo con un paciente real habría que comprobar su discriminación y su calibración en otra muestra (Tema 290). Las escalas de las guías se han desarrollado con cientos de miles de personas.
+Es lo que hacen las calculadoras de riesgo cardiovascular. Pero este modelo se ha construido con 358 pacientes y 43 eventos. Y no se ha **validado** en pacientes distintos de los que se usaron para ajustarlo. Antes de usarlo con un paciente real habría que comprobar su discriminación y su calibración en otra muestra (Tema 290). Las escalas de las guías se han desarrollado con cientos de miles de personas.
 """)
 
 c.titulo(3, "Ampliación: el sobreajuste con pocos eventos")
 c.md("""
-Simulamos muchas cohortes de distinto tamaño en las que la OR real de la PAS es exactamente 1,20 por 10 mmHg, y vemos qué OR estima el modelo.
+Simulamos muchas cohortes de distinto tamaño, todas con una OR real de la PAS de 1,20 por 10 mmHg. Después, vemos qué OR estima el modelo.
 """)
 c.code("""
 rng = np.random.default_rng(seed=280)
@@ -206,7 +207,7 @@ for n in [300, 1000, 5000]:
           f"rango central del 90 %: {np.percentile(resultados[:, 1], 5):.2f} a {np.percentile(resultados[:, 1], 95):.2f}")
 """)
 c.md("""
-Con pocos eventos por variable, la OR estimada varía muchísimo de una cohorte a otra: con unos 4 EPV, una cohorte puede obtener una OR «protectora» de 0,84 y otra una de 1,60, cuando la real es 1,20. Las que salen significativas suelen ser las más exageradas. Con miles de pacientes, se concentra alrededor del valor real (1,20). El tamaño muestral de un modelo se decide **antes** de ajustarlo.
+Con pocos eventos por variable, la OR estimada varía muchísimo de una cohorte a otra. Con unos 4 EPV, una cohorte puede obtener una OR «protectora» de 0,84 y otra una de 1,60. La real es 1,20. Las que salen significativas suelen ser las más exageradas. Con miles de pacientes, se concentra alrededor del valor real (1,20). El tamaño muestral de un modelo se decide **antes** de ajustarlo.
 """)
 
 c.titulo(3, "Ampliación: errores frecuentes")
@@ -230,7 +231,7 @@ Abre la **[unidad 280 de la app Bioestadística](https://fborrasumh.github.io/bi
 
 1. **Misión básica (sin asistente):** convertir coeficientes en OR, OR por unidad en OR por 10 unidades, y logit en probabilidad.
 2. **Misión clínica (con pistas):** estimar la OR del tabaco sobre el evento, cruda y ajustada por edad y sexo, e interpretar el cambio.
-3. **Misión reto (con asistente):** pedir al asistente un modelo con todas las variables de la cohorte, calcular los eventos por variable y proponer un modelo más sencillo justificado clínicamente.
+3. **Misión reto (con asistente):** pedir al asistente un modelo con todas las variables de la cohorte y calcular los eventos por variable. Proponer un modelo más sencillo, justificado clínicamente.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

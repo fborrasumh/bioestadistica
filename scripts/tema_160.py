@@ -37,11 +37,11 @@ c.md("""
 
 c.titulo(2, "1. Caso clínico de partida (5 min)")
 c.md("""
-En una consulta de Atención Primaria se valora a pacientes con **disnea** de reciente aparición. El péptido natriurético **NT-proBNP** ayuda a decidir si la causa puede ser una **insuficiencia cardiaca**: es un marcador cuantitativo, y valores altos apuntan a esa causa.
+En una consulta de Atención Primaria se valora a pacientes con **disnea** de reciente aparición. El péptido natriurético **NT-proBNP** ayuda a decidir si la causa puede ser una **insuficiencia cardiaca**. Es un marcador cuantitativo: los valores altos apuntan a esa causa.
 
 Pero ¿a partir de qué valor se considera «positivo»? Un punto de corte bajo detecta casi todas las insuficiencias cardiacas, a costa de muchos falsos positivos que irán a una ecocardiografía innecesaria. Un punto de corte alto casi no da falsos positivos, pero deja sin diagnosticar a pacientes que sí la tienen.
 
-Ninguna prueba es perfecta. Evaluarla consiste en **cuantificar sus aciertos y sus errores** frente a un **patrón de referencia** (en este caso, la ecocardiografía y la valoración por Cardiología) y en elegir el punto de corte que mejor sirve a su finalidad clínica.
+Ninguna prueba es perfecta. Evaluar la prueba es **cuantificar sus aciertos y sus errores** frente a un **patrón de referencia**: aquí, la ecocardiografía y la valoración por Cardiología. Después, se elige el punto de corte que mejor sirve a su finalidad clínica.
 """)
 
 c.titulo(2, "2. Conceptos clave (10 min)")
@@ -64,9 +64,10 @@ c.md("""
 | LR+ | Se / (1 − Sp) | ¿Cuánto multiplica un positivo las *odds* de enfermedad? | No |
 | LR− | (1 − Se) / Sp | ¿Cuánto multiplica un negativo las *odds* de enfermedad? | No |
 
-La sensibilidad y la especificidad son propiedades de la **prueba**. Los valores predictivos son lo que le importa al **paciente**, y dependen de la prevalencia, como vimos con el teorema de Bayes en el Tema 150.
+La sensibilidad y la especificidad son propiedades de la **prueba**. Los valores predictivos son lo que le importa al **paciente**. Dependen de la prevalencia, como vimos con el teorema de Bayes en el Tema 150.
 """)
 c.titulo(3, "2.3 Dos reglas para recordar")
+c.diagrama('SnNOut: sensibilidad alta y negativo descarta. SpPIn: especificidad alta y positivo confirma.')
 c.md("""
 - **SpPIn**: una prueba muy **Sp**ecífica, si es **P**ositiva, confirma (*rule **in***). Útil para **confirmar**.
 - **SnNOut**: una prueba muy **S**e**n**sible, si es **N**egativa, descarta (*rule **out***). Útil para **cribar** y descartar.
@@ -216,7 +217,7 @@ from sklearn.metrics import roc_auc_score
 print(f"AUC con scikit-learn: {roc_auc_score(ic, ntprobnp):.3f}")
 """)
 c.md("""
-**¿Qué punto de corte elegir?** Depende de la finalidad. Para **descartar** insuficiencia cardiaca en Atención Primaria interesa una sensibilidad muy alta, aunque baje la especificidad: un corte bajo, como 125 pg/mL. El punto de Youden es un buen equilibrio estadístico, pero no tiene en cuenta que un falso negativo (una insuficiencia cardiaca no diagnosticada) es más grave que un falso positivo (una ecocardiografía de más).
+**¿Qué punto de corte elegir?** Depende de la finalidad. Para **descartar** insuficiencia cardiaca en Atención Primaria interesa una sensibilidad muy alta, aunque baje la especificidad: un corte bajo, como 125 pg/mL. El punto de Youden es un buen equilibrio estadístico. Pero no tiene en cuenta que un falso negativo es más grave que un falso positivo. El falso negativo es una insuficiencia cardiaca sin diagnosticar; el falso positivo, una ecocardiografía de más.
 """)
 
 c.titulo(3, "3.6 Un caso con datos de la cohorte: la HbA1c")
@@ -247,7 +248,7 @@ c.md("""
 | De incorporación | La prueba evaluada forma parte del diagnóstico de referencia | Se sobreestiman Se y Sp |
 | De revisión | Quien interpreta una prueba conoce el resultado de la otra | Se sobreestima el acuerdo |
 
-La guía **STARD** (*Standards for Reporting Diagnostic Accuracy*) establece qué debe comunicar un estudio de exactitud diagnóstica para que se puedan valorar estos sesgos. Fíjate en que el ejemplo de la HbA1c tiene sesgo de incorporación si el diagnóstico registrado de diabetes se basó en la propia HbA1c.
+La guía **STARD** (*Standards for Reporting Diagnostic Accuracy*) establece qué debe comunicar un estudio de exactitud diagnóstica para que se puedan valorar estos sesgos. Fíjate en el ejemplo de la HbA1c. Tiene sesgo de incorporación si el diagnóstico registrado de diabetes se basó en la propia HbA1c.
 """)
 
 c.titulo(3, "Ampliación: errores frecuentes")
@@ -256,7 +257,7 @@ c.md("""
 
 **Trasladar valores predictivos** de un estudio a otra población con distinta prevalencia.
 
-**Usar la exactitud global** como único índice: con una prevalencia del 1 %, una «prueba» que dice siempre «sano» acierta en el 99 % de los casos.
+**Usar la exactitud global** como único índice. Con una prevalencia del 1 %, una «prueba» que dice siempre «sano» acierta en el 99 % de los casos.
 
 **Elegir el punto de corte solo con el índice de Youden**, sin pensar en las consecuencias clínicas de cada tipo de error.
 
@@ -268,8 +269,8 @@ c.md("""
 Abre la **[unidad 160 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:
 
 1. **Misión básica (sin asistente):** completar tablas 2 × 2 a partir de enunciados clínicos y calcular a mano sus índices.
-2. **Misión clínica (con pistas):** evaluar la troponina de alta sensibilidad en un conjunto sintético de dolor torácico y elegir un punto de corte para descartar infarto.
-3. **Misión reto (con asistente):** pedir al asistente la curva ROC de un marcador, comprobar a mano la sensibilidad y la especificidad en dos puntos de corte y justificar el corte elegido.
+2. **Misión clínica (con pistas):** evaluar la troponina de alta sensibilidad en un conjunto sintético de dolor torácico. Elegir un punto de corte para descartar infarto.
+3. **Misión reto (con asistente):** pedir al asistente la curva ROC de un marcador. Comprobar a mano la sensibilidad y la especificidad en dos puntos de corte. Justificar el corte elegido.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

@@ -49,6 +49,7 @@ Elegir bien el **resumen** de una variable no es un detalle técnico: cambia las
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Tendencia central")
+c.diagrama('Decisión: si la variable es simétrica y sin valores extremos, media ± DE; si no, mediana [Q1–Q3].')
 c.md("""
 | Medida | Definición | Ventaja | Inconveniente |
 | --- | --- | --- | --- |
@@ -70,7 +71,7 @@ c.md("""
 
 $$s = \\sqrt{\\frac{1}{n-1}\\sum_{i=1}^{n}(x_i - \\bar{x})^2}$$
 
-Se divide entre $n-1$, y no entre $n$, porque en una muestra la media se calcula con los mismos datos y las desviaciones respecto a ella tienden a ser algo menores que respecto a la media real de la población.
+Se divide entre $n-1$, y no entre $n$, por una razón. En una muestra, la media se calcula con los mismos datos. Por eso, las desviaciones respecto a ella tienden a ser algo menores que respecto a la media real de la población.
 """)
 c.titulo(3, "2.3 Forma")
 c.md("""
@@ -162,7 +163,7 @@ pd.concat([
 ], axis=1)
 """)
 c.md("""
-El coeficiente de **asimetría** es cercano a 0 en distribuciones simétricas, positivo cuando hay cola a la derecha y negativo cuando la cola está a la izquierda. La PAS es casi simétrica (media ≈ mediana); la creatinina y la glucemia son asimétricas a la derecha (media > mediana).
+El coeficiente de **asimetría** es cercano a 0 en distribuciones simétricas. Es positivo si hay cola a la derecha y negativo si la cola está a la izquierda. La PAS es casi simétrica (media ≈ mediana); la creatinina y la glucemia son asimétricas a la derecha (media > mediana).
 """)
 
 c.titulo(3, "3.4 Histograma con media y mediana")
@@ -186,7 +187,7 @@ plt.show()
 
 c.titulo(3, "3.5 Diagrama de caja")
 c.md("""
-El **diagrama de caja** (*boxplot*) resume la distribución en cinco números: la caja va de Q1 a Q3, la línea interior es la mediana, los bigotes llegan hasta el último valor dentro de 1,5 × RIC, y los puntos aislados son los valores atípicos según el criterio de Tukey (Tema 100).
+El **diagrama de caja** (*boxplot*) resume la distribución en cinco números. La caja va de Q1 a Q3 y la línea interior es la mediana. Los bigotes llegan hasta el último valor dentro de 1,5 × RIC. Los puntos aislados son los valores atípicos según el criterio de Tukey (Tema 100).
 """)
 c.code("""
 plt.figure(figsize=(6, 4))
@@ -246,7 +247,7 @@ c.code("""
 print(f"Estancias: media − 2 DE = {estancias.mean() - 2 * estancias.std():.1f} días  ← una estancia negativa no existe")
 """)
 c.md("""
-Ver «media ± DE» en una variable que no puede ser negativa, con una DE mayor que la mitad de la media, es una señal de que la distribución es asimétrica y de que el resumen elegido no es el adecuado.
+Atención a «media ± DE» en una variable que no puede ser negativa. Si la DE es mayor que la mitad de la media, la distribución es asimétrica. Ese resumen no es el adecuado.
 """)
 
 c.titulo(3, "Ampliación: errores frecuentes")

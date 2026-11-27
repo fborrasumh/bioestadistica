@@ -36,15 +36,16 @@ c.md("""
 
 c.titulo(2, "1. Caso clínico de partida (5 min)")
 c.md("""
-Un servicio de Neumología diseña un **ensayo clínico** para comparar dos pautas de fisioterapia respiratoria en pacientes con EPOC. Van a participar 20 pacientes, y el comité de ética exige que la asignación a cada pauta sea **aleatoria**: ni el investigador ni el paciente pueden elegirla.
+Un servicio de Neumología diseña un **ensayo clínico** para comparar dos pautas de fisioterapia respiratoria en pacientes con EPOC. Van a participar 20 pacientes. El comité de ética exige que la asignación a cada pauta sea **aleatoria**: ni el investigador ni el paciente la eligen.
 
-¿Por qué? Si el investigador eligiera, tendería sin querer a dar la pauta nueva a los pacientes que cree que responderán mejor, y la comparación quedaría **sesgada**. El azar reparte por igual, en promedio, todas las características de los pacientes, también las que no se han medido.
+¿Por qué? Si el investigador eligiera, tendería sin querer a dar la pauta nueva a quien cree que responderá mejor. Entonces la comparación quedaría **sesgada**. El azar reparte por igual, en promedio, todas las características de los pacientes, también las que no se han medido.
 
 Además, cuando terminen el estudio querrán ver la evolución de cada paciente de un vistazo. Hoy aprenderemos a usar el azar de forma controlada y reproducible, y a representar datos clínicos con gráficos.
 """)
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Módulos")
+c.diagrama('Módulos que se importan: math, statistics y random vienen con Python; numpy y matplotlib son externos y Colab ya los trae.')
 c.md("""
 Un **módulo** es un archivo con funciones listas para usar. Python incluye muchos de serie y se pueden instalar otros. Para usarlos hay que **importarlos**:
 
@@ -68,7 +69,7 @@ c.titulo(3, "2.2 Aleatoriedad y semilla")
 c.md("""
 Los ordenadores generan números **pseudoaleatorios**: parecen aleatorios, pero salen de un cálculo que parte de un valor inicial, la **semilla**. Con la misma semilla se obtiene siempre la misma secuencia.
 
-Esto es una ventaja en ciencia: fijar la semilla hace que una simulación o una aleatorización sean **reproducibles** y que otra persona pueda comprobarlas.
+En ciencia, esto es una ventaja. Con la semilla fija, una simulación o una aleatorización son **reproducibles**: otra persona puede comprobarlas.
 """)
 c.titulo(3, "2.3 Un buen gráfico clínico")
 c.md("""
@@ -120,7 +121,7 @@ La media (5,9 días) está muy por encima de la mediana (4 días) por un solo pa
 
 c.titulo(3, "3.3 Aleatorizar un ensayo clínico")
 c.md("""
-Para asignar 10 pacientes a cada pauta se crea una lista con 10 etiquetas «A» y 10 «B» y se **baraja** con `random.shuffle()`. La semilla hace que la asignación se pueda reproducir y auditar.
+Para asignar 10 pacientes a cada pauta, crea una lista con 10 etiquetas «A» y 10 «B». Después, **barájala** con `random.shuffle()`. La semilla hace que la asignación se pueda reproducir y auditar.
 """)
 c.code("""
 import random
@@ -148,7 +149,7 @@ print("Muestra de 3 sin repetición:", random.sample(range(1, 101), 3))
 
 c.titulo(3, "3.4 Simular mediciones con numpy")
 c.md("""
-Para simular muchas mediciones se usa el generador de `numpy`. La presión arterial sistólica de una población adulta puede aproximarse por una **distribución normal**, que estudiaremos en el Tema 180, con una media y una desviación típica dadas.
+Para simular muchas mediciones se usa el generador de `numpy`. La presión arterial sistólica de una población adulta se puede aproximar por una **distribución normal** con una media y una desviación típica dadas. La estudiaremos en el Tema 180.
 """)
 c.code("""
 import numpy as np
@@ -270,7 +271,7 @@ Abre la **[unidad 60 de la app Bioestadística](https://fborrasumh.github.io/bio
 
 1. **Misión básica (sin asistente):** elegir el gráfico adecuado para cada pregunta clínica.
 2. **Misión clínica (con pistas):** aleatorizar 30 pacientes en tres brazos con una semilla y comprobar que cada brazo tiene 10.
-3. **Misión reto (con asistente):** pedir al asistente el gráfico de evolución de la glucemia de un paciente y revisar que cumple todas las normas de un buen gráfico clínico.
+3. **Misión reto (con asistente):** pedir al asistente el gráfico de evolución de la glucemia de un paciente. Revisar que cumple todas las normas de un buen gráfico clínico.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

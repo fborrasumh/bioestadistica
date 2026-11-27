@@ -41,7 +41,7 @@ Dos residentes estudian la **estancia hospitalaria** de los pacientes con neumon
 
 ¿Se ha equivocado alguno? No necesariamente. **Cada muestra es distinta**, y por tanto también lo es su media. Si un tercer residente revisara otras 30 historias, obtendría un tercer valor.
 
-Esta variabilidad entre muestras no es un defecto: es inevitable, y se puede **cuantificar**. Saber cuánto varía una media de una muestra a otra es la base de los intervalos de confianza y de los contrastes de hipótesis del Módulo 5. Hoy lo veremos simulando miles de muestras con el ordenador: el método de **Monte Carlo**.
+Esta variabilidad entre muestras no es un defecto: es inevitable, y se puede **cuantificar**. Los intervalos de confianza y los contrastes de hipótesis del Módulo 5 se basan en una idea: cuánto varía una media de una muestra a otra. Hoy lo veremos simulando miles de muestras con el ordenador: el método de **Monte Carlo**.
 """)
 
 c.titulo(2, "2. Conceptos clave (10 min)")
@@ -62,6 +62,7 @@ c.md("""
 La **distribución muestral** de un estadístico es la distribución de los valores que tomaría ese estadístico en todas las muestras posibles del mismo tamaño.
 """)
 c.titulo(3, "2.3 El error estándar")
+c.diagrama('Dos histogramas: la PAS de los pacientes (DE 15 mmHg) y las medias de muestras de 25 (EE 3 mmHg).')
 c.md("""
 | Estadístico | Error estándar |
 | --- | --- |
@@ -74,7 +75,7 @@ El error estándar disminuye con la raíz cuadrada de *n*: para reducirlo a la m
 """)
 c.titulo(3, "2.4 El teorema central del límite")
 c.md("""
-Si se toman muestras de tamaño *n* suficientemente grande de **cualquier** población con media μ y desviación típica σ, la distribución de la media muestral se aproxima a una normal:
+Toma muestras de tamaño *n* suficientemente grande de **cualquier** población con media μ y desviación típica σ. La distribución de la media muestral se aproxima a una normal:
 
 $$\\bar{x} \\approx N\\left(\\mu, \\frac{\\sigma}{\\sqrt{n}}\\right)$$
 
@@ -143,7 +144,7 @@ Tres observaciones fundamentales:
 
 1. Las medias se concentran **alrededor de μ**: la media muestral no tiene sesgo.
 2. Al aumentar *n*, la distribución se **estrecha**: el error estándar simulado coincide con σ/√*n*.
-3. Aunque la población es muy asimétrica, con *n* = 30 o más la distribución de la media ya es **casi normal**: es el teorema central del límite. Con *n* = 5 todavía se aprecia la asimetría.
+3. La población es muy asimétrica. Aun así, con *n* = 30 o más, la distribución de la media ya es **casi normal**: es el teorema central del límite. Con *n* = 5 todavía se aprecia la asimetría.
 """)
 
 c.titulo(3, "3.4 El 95 % de las medias")
@@ -158,7 +159,7 @@ dentro = np.abs(medias - mu) < 1.96 * ee
 print(f"Medias a menos de 1,96 EE de μ: {dentro.mean():.1%}")
 """)
 c.md("""
-Esta es la idea del **intervalo de confianza** del Tema 200: si cada residente construye el intervalo media ± 1,96 EE con su muestra, alrededor del 95 % de esos intervalos contendrá el verdadero valor μ.
+Esta es la idea del **intervalo de confianza** del Tema 200. Si cada residente construye el intervalo media ± 1,96 EE con su muestra, alrededor del 95 % de esos intervalos contiene el verdadero valor μ.
 """)
 
 c.titulo(3, "3.5 Tamaño muestral y precisión")
@@ -182,7 +183,7 @@ c.titulo(3, "3.6 La distribución muestral de una proporción")
 c.md("""
 Lo mismo ocurre con las proporciones. Si la prevalencia real de diabetes en una población es del 18 %, ¿cuánto varía la prevalencia estimada en muestras de 100 pacientes?
 
-**A mano:** $EE = \\sqrt{0{,}18 \\times 0{,}82 / 100} \\approx 0{,}038$. El 95 % de las muestras dará una prevalencia entre 0,18 ± 1,96 × 0,038, es decir, entre el 10,5 % y el 25,5 % aproximadamente.
+**A mano:** $EE = \\sqrt{0{,}18 \\times 0{,}82 / 100} \\approx 0{,}038$. El 95 % de las muestras dará una prevalencia entre 0,18 ± 1,96 × 0,038. Es decir, entre el 10,5 % y el 25,5 % aproximadamente.
 """)
 c.code("""
 p = 0.18
@@ -211,7 +212,7 @@ print(f"Varianza con dificultad desigual: {aciertos_reales.var():.2f}")
 print(f"Varianza de la binomial:          {aciertos_binomial.var():.2f}")
 """)
 c.md("""
-Aquí ocurre algo contraintuitivo: **repitiendo el mismo examen**, la variabilidad es *menor* que la de la binomial, porque las preguntas fáciles se aciertan casi siempre y las difíciles casi nunca. En cambio, si cada repetición es un examen de un **área distinta** (unas áreas le resultan fáciles al modelo y otras difíciles), la probabilidad media de acierto cambia de un examen a otro y la variabilidad es *mayor* que la binomial: es la **sobredispersión**.
+Aquí ocurre algo contraintuitivo: **repitiendo el mismo examen**, la variabilidad es *menor* que la de la binomial. Las preguntas fáciles se aciertan casi siempre y las difíciles casi nunca. En cambio, supón que cada repetición es un examen de un **área distinta**: unas áreas le resultan fáciles al modelo y otras difíciles. Entonces la probabilidad media de acierto cambia de un examen a otro. La variabilidad es *mayor* que la binomial: es la **sobredispersión**.
 """)
 c.code("""
 p_area = rng.beta(a=8, b=2, size=repeticiones)          # acierto medio de cada área: 0,8 en promedio
@@ -221,7 +222,7 @@ print(f"Varianza con exámenes de áreas distintas: {examenes_por_area.var():.2f
 print(f"Varianza de la binomial con p = {p_media:.2f}:    {n_preguntas * p_media * (1 - p_media):.2f}")
 """)
 c.md("""
-**Conclusión práctica:** antes de aplicar un modelo de probabilidad a los resultados de un modelo de IA, hay que preguntarse **qué** se repite (la misma pregunta, el mismo examen o exámenes distintos) y si la probabilidad de acierto es realmente constante.
+**Conclusión práctica:** antes de aplicar un modelo de probabilidad a los resultados de un modelo de IA, responde a dos preguntas. ¿**Qué** se repite: la misma pregunta, el mismo examen o exámenes distintos? ¿Es realmente constante la probabilidad de acierto?
 """)
 
 c.titulo(3, "Ampliación: la misma pregunta, muchas veces, al modelo real")
@@ -244,13 +245,13 @@ else:
 
 c.titulo(3, "Ampliación: errores frecuentes")
 c.md("""
-**Confundir desviación típica y error estándar** al leer un artículo: una media «± 0,4» puede ser una desviación típica muy pequeña o un error estándar con una dispersión grande.
+**Confundir desviación típica y error estándar** al leer un artículo. Una media «± 0,4» puede ser una desviación típica muy pequeña o un error estándar con una dispersión grande.
 
-**Pensar que la muestra debe ser una fracción grande de la población:** la precisión depende sobre todo del tamaño absoluto de la muestra, no del porcentaje de la población que representa.
+**Pensar que la muestra debe ser una fracción grande de la población.** La precisión depende sobre todo del tamaño absoluto de la muestra, no del porcentaje de la población.
 
 **Aplicar el teorema central del límite a muestras muy pequeñas** de variables muy asimétricas.
 
-**Creer que el TCL hace normales los datos:** lo que se aproxima a la normal es la **media** de muchas muestras, no la distribución de los pacientes.
+**Creer que el TCL hace normales los datos.** Lo que se aproxima a la normal es la **media** de muchas muestras, no la distribución de los pacientes.
 
 **Olvidar que la simulación tiene su propio error:** con pocas repeticiones, el resultado de un Monte Carlo también varía.
 """)
@@ -261,7 +262,7 @@ Abre la **[unidad 190 de la app Bioestadística](https://fborrasumh.github.io/bi
 
 1. **Misión básica (sin asistente):** calcular a mano el error estándar de medias y proporciones con distintos tamaños muestrales.
 2. **Misión clínica (con pistas):** simular la distribución muestral de la prevalencia de hipertensión con muestras de 50, 200 y 800 pacientes.
-3. **Misión reto (con asistente):** repetir 20 veces una pregunta clínica a un modelo de IA, registrar las respuestas y discutir si un modelo binomial describe su variabilidad.
+3. **Misión reto (con asistente):** repetir 20 veces una pregunta clínica a un modelo de IA y registrar las respuestas. Discutir si un modelo binomial describe su variabilidad.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

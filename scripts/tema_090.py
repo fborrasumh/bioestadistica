@@ -18,7 +18,7 @@ Al terminar esta sesión serás capaz de:
 
 1. Describir el ciclo de **mejora recursiva**: generar, ejecutar, verificar y corregir.
 2. Escribir una **especificación** y sus **casos de prueba** antes de pedir código a un modelo de IA.
-3. Programar un bucle que pida código al modelo, lo pruebe y le devuelva los fallos hasta que las pruebas se superen o se agote el número de intentos.
+3. Programar un bucle que pide código al modelo, lo prueba y le devuelve los fallos. El bucle para cuando se superan las pruebas o se agotan los intentos.
 4. Registrar cada iteración del ciclo para poder analizarla después.
 5. Explicar por qué superar las pruebas no garantiza que el código sea correcto (ley de Goodhart).
 6. Aplicar las medidas de seguridad necesarias antes de ejecutar código generado por IA.
@@ -47,7 +47,7 @@ El servicio de Urgencias quiere que la historia clínica calcule automáticament
 | Presión arterial (**B**lood pressure) | PAS < 90 mmHg **o** PAD ≤ 60 mmHg |
 | Edad **65** | ≥ 65 años |
 
-Un residente pide al asistente de IA la función. El código se ejecuta sin errores. Pero con una paciente de 65 años y PAD de 60 mmHg, la función da 0 puntos cuando deberían ser 2: el asistente escribió `edad > 65` y `pad < 60`.
+Un residente pide al asistente de IA la función. El código se ejecuta sin errores. Pero con una paciente de 65 años y PAD de 60 mmHg, la función da 0 puntos en lugar de 2. El asistente escribió `edad > 65` y `pad < 60`.
 
 En el Tema 50 aprendimos a descubrir estos errores con casos de prueba. Hoy damos el paso siguiente: **devolver los fallos al modelo** para que corrija su propio código, y repetirlo hasta que todo funcione. Es el **ciclo de mejora recursiva**, la forma en que hoy se programa con IA.
 """)
@@ -82,6 +82,7 @@ El orden correcto, que en ingeniería del software se llama **desarrollo guiado 
 Si las pruebas se escriben después de ver el código, se tiende a escribir pruebas que ese código ya supera.
 """)
 c.titulo(3, "2.3 Criterios de parada")
+c.diagrama('Flujo del ciclo: generar, probar; si todo pasa, fin; si se agotan los intentos o se repite el código, revisar a mano; si no, devolver los fallos.')
 c.md("""
 | Criterio | Para qué sirve |
 | --- | --- |
@@ -91,7 +92,7 @@ c.md("""
 """)
 c.titulo(3, "2.4 La ley de Goodhart")
 c.md("""
-*«Cuando una medida se convierte en objetivo, deja de ser una buena medida.»* Si el único objetivo del ciclo es superar las pruebas, el código acabará superándolas, pero no necesariamente será correcto en los casos que las pruebas no cubren. Por eso:
+*«Cuando una medida se convierte en objetivo, deja de ser una buena medida.»* Supón que el único objetivo del ciclo es superar las pruebas. Entonces el código las superará. Pero puede fallar en los casos que las pruebas no cubren. Por eso:
 
 - Las pruebas deben cubrir los **valores frontera** de cada criterio.
 - Conviene guardar algunas pruebas **reservadas** que el modelo no ve, para comprobar al final. Volveremos sobre esta idea en el Módulo 5.
@@ -293,7 +294,7 @@ c.md("""
 
 c.titulo(3, "Ampliación: pruebas reservadas")
 c.md("""
-Una forma de protegerse frente a Goodhart es separar las pruebas en dos grupos: las que se devuelven al modelo durante el ciclo y unas **pruebas reservadas** que solo se usan al final. Si el código supera las primeras pero falla en las reservadas, el ciclo ha aprendido a superar el examen, no a resolver el problema.
+Para protegerte frente a Goodhart, separa las pruebas en dos grupos. El primero se devuelve al modelo durante el ciclo. El segundo son **pruebas reservadas**, que solo se usan al final. Si el código supera las primeras pero falla en las reservadas, el ciclo ha aprendido a aprobar el examen. No ha aprendido a resolver el problema.
 """)
 c.code("""
 PRUEBAS_RESERVADAS = [
@@ -327,7 +328,7 @@ Abre la **[unidad 90 de la app Bioestadística](https://fborrasumh.github.io/bio
 
 1. **Misión básica (sin asistente):** identificar qué valores frontera faltan en un conjunto de casos de prueba.
 2. **Misión clínica (con pistas):** escribir la especificación y las pruebas de la escala de Wells para trombosis venosa profunda.
-3. **Misión reto (con asistente):** ejecutar el ciclo de mejora recursiva para esa escala, registrar las iteraciones y comprobar el resultado con pruebas reservadas.
+3. **Misión reto (con asistente):** ejecutar el ciclo de mejora recursiva para esa escala. Registrar las iteraciones y comprobar el resultado con pruebas reservadas.
 
 Al terminar, exporta el **informe de la unidad**.
 """)
@@ -369,7 +370,7 @@ c.quiz([
 
 c.titulo(2, "Ideas clave")
 c.md("""
-- El ciclo de mejora recursiva genera código, lo ejecuta, lo verifica con pruebas y devuelve los fallos al modelo hasta que se superan o se agotan los intentos.
+- El ciclo de mejora recursiva genera código, lo ejecuta y lo verifica con pruebas. Devuelve los fallos al modelo hasta que se superan las pruebas o se agotan los intentos.
 - La especificación y las pruebas se escriben **antes** del código, con atención a los valores frontera.
 - Superar las pruebas solo garantiza lo que las pruebas comprueban (ley de Goodhart); las pruebas reservadas ayudan a detectarlo.
 - El código generado por IA se lee antes de ejecutarlo, en un entorno aislado y sin datos de pacientes.

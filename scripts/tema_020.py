@@ -46,9 +46,9 @@ Peso al ingreso: "81,5"
 Fracción de eyección: (no registrada)
 ```
 
-Para un ordenador, cada uno de estos datos es de una naturaleza distinta. La edad es un número entero; el peso aparece como **texto** con coma decimal; el diagnóstico tiene espacios sobrantes y mayúsculas irregulares; las glucemias son una **serie** de valores; y la fracción de eyección **falta**.
+Para un ordenador, cada uno de estos datos es de una naturaleza distinta. La edad es un número entero. El peso aparece como **texto** con coma decimal. El diagnóstico tiene espacios sobrantes y mayúsculas irregulares. Las glucemias son una **serie** de valores. La fracción de eyección **falta**.
 
-Antes de calcular nada hay que **representar cada dato con el tipo adecuado**. Si no, la media de las glucemias, la comparación de diagnósticos o el cálculo del IMC darán errores o, peor, resultados falsos sin aviso.
+Antes de calcular nada hay que **representar cada dato con el tipo adecuado**. Si no se preparan, la media de las glucemias, la comparación de diagnósticos o el IMC darán errores. O, peor, darán resultados falsos sin aviso.
 """)
 
 c.titulo(2, "2. Conceptos clave (10 min)")
@@ -99,8 +99,9 @@ print("Estancia en semanas:", round(dias_ingreso / 7, 1))
 """)
 
 c.titulo(3, "3.2 Convertir texto en números")
+c.diagrama('Flujo: "81,5" pasa a "81.5" con replace y a 81.5 con float. int(81.9) da 81; round(81.9) da 82.')
 c.md("""
-Los datos exportados llegan a menudo como **texto**. El peso `"81,5"` no se puede usar en un cálculo hasta convertirlo: primero se cambia la coma por un punto y después se convierte en `float`.
+Los datos exportados llegan a menudo como **texto**. El peso `"81,5"` no sirve para calcular hasta convertirlo. Primero cambia la coma por un punto; después conviértelo en `float`.
 """)
 c.code("""
 peso_texto = "81,5"
@@ -270,7 +271,7 @@ Abre la **[unidad 20 de la app Bioestadística](https://fborrasumh.github.io/bio
 
 1. **Misión básica (sin asistente):** asignar el tipo de dato de Python adecuado a cada campo de una historia clínica sintética.
 2. **Misión clínica (con pistas):** limpiar un texto exportado de la historia clínica y construir el diccionario del paciente.
-3. **Misión reto (con asistente):** calcular la media de una serie de constantes con valores ausentes sin tratarlos como ceros, y verificar el código que proponga el asistente.
+3. **Misión reto (con asistente):** calcular la media de una serie de constantes con valores ausentes, sin tratarlos como ceros. Después, verificar el código que proponga el asistente.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

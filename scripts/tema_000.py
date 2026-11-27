@@ -15,9 +15,9 @@ c.configuracion()
 
 c.titulo(2, "Presentación")
 c.md("""
-Toda la asignatura se trabaja en **cuadernos de Google Colab** como este. Un cuaderno reúne en un solo documento la explicación, el código que hace los cálculos y sus resultados, de modo que cualquier persona puede repetir el análisis paso a paso.
+Toda la asignatura se trabaja en **cuadernos de Google Colab** como este. Un cuaderno reúne en un solo documento la explicación, el código de los cálculos y sus resultados. Así, cualquier persona puede repetir el análisis paso a paso.
 
-En medicina este es un valor esencial. Un análisis que no se puede repetir no se puede revisar, y un resultado que no se puede revisar no debería guiar decisiones clínicas. El cuaderno cumple la misma función que el protocolo de un laboratorio: documenta qué se hizo, con qué datos y en qué orden.
+En medicina este es un valor esencial. Si un análisis no se puede repetir, no se puede revisar. Y un resultado sin revisar no debe guiar decisiones clínicas. El cuaderno es como el protocolo de un laboratorio: documenta qué se hizo, con qué datos y en qué orden.
 
 Esta guía no exige ningún conocimiento previo de programación. Léela con el cuaderno abierto y **ejecuta cada celda de código** a medida que avances.
 """)
@@ -192,14 +192,16 @@ print("Frecuencia cardiaca:", frecuencia_cardiaca_lpm, "lpm")
 c.md("""
 ### El orden de ejecución
 
-El número que aparece a la izquierda de cada celda, como `[3]`, indica en qué orden se ejecutó. **Lo que cuenta es el orden en que ejecutas las celdas, no el orden en que aparecen.** Si cambias un valor en una celda de arriba y no la vuelves a ejecutar, las celdas de abajo siguen usando el valor antiguo.
+El número que aparece a la izquierda de cada celda, como `[3]`, indica en qué orden se ejecutó. **Lo que cuenta es el orden en que ejecutas las celdas, no el orden en que aparecen.** Si cambias un valor en una celda de arriba y no la ejecutas otra vez, las celdas de abajo usan el valor antiguo.
 
-Si el cuaderno se comporta de forma extraña, usa el menú **Entorno de ejecución** para reiniciar la sesión y después **ejecutar todas** las celdas desde el principio.
+Si el cuaderno se comporta de forma extraña, reinicia la sesión en el menú **Entorno de ejecución**. Después, **ejecuta todas** las celdas desde el principio.
 
 ### Las celdas muestran el último resultado
 
 Si la última línea de una celda es una expresión, Colab muestra su valor sin necesidad de `print`.
 """)
+c.diagrama('Tres celdas numeradas [1], [3] y [2]: la celda [3] muestra 250 porque se ejecutó después de la [2]. Si algo falla, reinicia y ejecuta todo.')
+
 c.code("""
 # Presión arterial media (PAM) aproximada a partir de 148/92 mmHg
 92 + (148 - 92) / 3
@@ -213,7 +215,7 @@ c.code("""
 # print(saturacion_oxigeno)
 """)
 c.md("""
-El mensaje `NameError: name 'saturacion_oxigeno' is not defined` indica que se usa una variable que no existe: nunca se definió o la celda que la define no se ha ejecutado.
+El mensaje `NameError: name 'saturacion_oxigeno' is not defined` indica que la variable no existe. O nunca se definió, o no se ha ejecutado la celda que la define.
 """)
 
 # 7
@@ -272,19 +274,19 @@ c.md("""
 
 Colab incluye un asistente de inteligencia artificial que puede generar, explicar y corregir código. Es una ayuda muy útil, con tres normas que se aplican en toda la asignatura:
 
-1. **Nunca** introduzcas datos reales de pacientes, ni nombres, ni números de historia clínica, ni ningún dato que permita identificar a una persona. Lo prohíbe el Reglamento General de Protección de Datos (Reglamento (UE) 2016/679) y el deber de secreto profesional.
+1. **Nunca** introduzcas datos reales de pacientes: ni nombres, ni números de historia clínica, ni ningún dato que identifique a una persona. Lo prohíbe el Reglamento General de Protección de Datos (Reglamento (UE) 2016/679) y el deber de secreto profesional.
 2. **Verifica siempre** lo que propone: ejecútalo, compruébalo con un caso cuyo resultado conozcas y asegúrate de entender cada línea.
 3. **El responsable eres tú.** El asistente puede equivocarse con total seguridad; un error en un análisis clínico tiene consecuencias.
 
 ### Las claves de acceso (API keys)
 
-Para usar modelos de IA desde el código, o desde la app de la asignatura, se necesita una **clave de acceso** personal. Es como una contraseña: quien la tenga puede usarla en tu nombre y consumir tu cuota.
+Para usar modelos de IA desde el código o desde la app de la asignatura, necesitas una **clave de acceso** personal. Es como una contraseña: quien la tenga puede usarla en tu nombre y consumir tu cuota.
 
 - Nunca la escribas en una celda de código ni la compartas.
-- Guárdala en el panel **Secretos** (icono de la llave en la barra lateral): pulsa *Añadir nuevo secreto*, escribe un nombre (por ejemplo `GEMINI_API_KEY`) y pega la clave en el valor.
+- Guárdala en el panel **Secretos** (icono de la llave en la barra lateral). Pulsa *Añadir nuevo secreto* y escribe un nombre (por ejemplo `GEMINI_API_KEY`). Pega la clave en el valor.
 - Activa el acceso del cuaderno a ese secreto con el interruptor correspondiente.
 
-Cómo conseguir una clave gratuita de Google Gemini, o una de pago de OpenAI, se explica paso a paso en el Tema 10.
+El Tema 10 explica paso a paso cómo conseguir una clave gratuita de Google Gemini o una de pago de OpenAI.
 
 La celda siguiente comprueba si la clave existe **sin mostrarla**.
 """)
@@ -369,7 +371,7 @@ c.md("""
 Crea un cuaderno nuevo (**Archivo → Cuaderno nuevo en Drive**), llámalo `Tema_000_reto_tu_nombre.ipynb` y construye en él:
 
 1. Una celda de texto con un título de nivel 1 y tu nombre en negrita.
-2. Una celda de texto con la nota clínica de un paciente inventado: motivo de consulta, una lista de constantes y una tabla con dos mediciones.
+2. Una celda de texto con la nota clínica de un paciente inventado: motivo de consulta, lista de constantes y tabla con dos mediciones.
 3. Una celda de texto con la fórmula del IMC escrita en LaTeX.
 4. Una celda de código que guarde el peso y la talla de tu paciente en variables y muestre su IMC con un decimal.
 5. Una celda de código con un formulario que calcule la presión arterial media a partir de la sistólica y la diastólica:

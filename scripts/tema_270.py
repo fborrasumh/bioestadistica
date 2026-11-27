@@ -36,7 +36,7 @@ c.md("""
 
 c.titulo(2, "1. Caso clínico de partida (5 min)")
 c.md("""
-En la cohorte cardiovascular, los pacientes con la presión sistólica más alta tienen también la creatinina más alta. Un residente lo interpreta como una prueba de que la hipertensión está dañando el riñón de estos pacientes y propone intensificar el tratamiento antihipertensivo para proteger la función renal.
+En la cohorte cardiovascular, los pacientes con la presión sistólica más alta tienen también la creatinina más alta. Un residente lo interpreta como prueba de que la hipertensión daña el riñón de estos pacientes. Propone intensificar el tratamiento antihipertensivo para proteger la función renal.
 
 Antes de aceptarlo, hay que preguntarse: ¿hay **otra variable** que eleve a la vez la PAS y la creatinina? La edad es la candidata evidente: con los años sube la presión arterial y disminuye la función renal (Tema 130). Si la edad explica la asociación, entre pacientes de **la misma edad** la PAS y la creatinina no deberían estar relacionadas.
 
@@ -55,7 +55,7 @@ $$Y = \\beta_0 + \\beta_1 X + \\varepsilon$$
 | ε (error o residuo) | Lo que el modelo no explica | Variabilidad entre pacientes de la misma edad |
 | R² | Proporción de la variabilidad de *Y* explicada por el modelo | Entre 0 y 1 |
 
-Se estima por **mínimos cuadrados**: la recta que hace mínima la suma de los residuos al cuadrado. Para β₁ se calcula un IC 95 % y un contraste de $H_0$: β₁ = 0 (Tema 130 vio la correlación; la regresión además cuantifica cuánto cambia *Y*).
+Se estima por **mínimos cuadrados**: la recta que hace mínima la suma de los residuos al cuadrado. Para β₁ se calcula un IC 95 % y un contraste de $H_0$: β₁ = 0. El Tema 130 vio la correlación; la regresión, además, cuantifica cuánto cambia *Y*.
 """)
 c.titulo(3, "2.2 La regresión lineal múltiple")
 c.md("""
@@ -63,7 +63,7 @@ $$Y = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\dots + \\beta_k X_k + \\varepsi
 
 Cada coeficiente $\\beta_j$ es el cambio medio de *Y* por unidad de $X_j$ **manteniendo constantes las demás variables del modelo**. Es un efecto **ajustado**.
 
-Las variables **cualitativas** se incluyen como variables indicadoras (0/1): con `sexo`, el coeficiente de «Mujer» es la diferencia media entre mujeres y hombres (la categoría de referencia), a igualdad de las demás variables.
+Las variables **cualitativas** entran como variables indicadoras (0/1). Con `sexo`, el coeficiente de «Mujer» es la diferencia media entre mujeres y hombres (la categoría de referencia), a igualdad de las demás variables.
 """)
 c.titulo(3, "2.3 Confusión")
 c.md("""
@@ -77,7 +77,7 @@ Una variable es **de confusión** si está asociada a la exposición y al result
 
 Señal de confusión: el coeficiente de la exposición **cambia mucho** al añadir la variable al modelo (como orientación, más de un 10 %).
 
-El ajuste solo controla las variables **medidas e incluidas**. Siempre puede quedar **confusión residual** por variables no medidas o mal medidas. Por eso los estudios observacionales, aun ajustados, no demuestran causalidad, y el ensayo clínico aleatorizado sigue siendo la referencia: la aleatorización reparte por igual también los factores que no se han medido.
+El ajuste solo controla las variables **medidas e incluidas**. Siempre puede quedar **confusión residual** por variables no medidas o mal medidas. Por eso los estudios observacionales, aun ajustados, no demuestran causalidad. El ensayo clínico aleatorizado sigue siendo la referencia: la aleatorización reparte por igual también los factores que no se han medido.
 """)
 c.titulo(3, "2.4 Condiciones del modelo")
 c.md("""
@@ -125,7 +125,7 @@ plt.legend()
 plt.show()
 """)
 c.md("""
-Dos bandas distintas: el **IC de la media** (estrecho) dice dónde está la PAS media de los pacientes de cada edad; el **intervalo de predicción** (ancho) dice dónde estará la PAS de **un paciente concreto**. La edad explica alrededor de una cuarta parte de la variabilidad de la PAS: es un predictor importante, pero conocer la edad de un paciente no permite adivinar su presión.
+Hay dos bandas distintas. El **IC de la media** (estrecho) dice dónde está la PAS media de los pacientes de cada edad. El **intervalo de predicción** (ancho) dice dónde estará la PAS de **un paciente concreto**. La edad explica alrededor de una cuarta parte de la variabilidad de la PAS. Es un predictor importante, pero con la edad de un paciente no se puede adivinar su presión.
 """)
 
 c.titulo(3, "3.2 Regresión múltiple: PAS, edad, IMC, sexo y diabetes")
@@ -144,7 +144,7 @@ c.md("""
 **Interpretación de los coeficientes:**
 
 - **Edad:** a igualdad de IMC, sexo y diabetes, cada año más se asocia con una PAS media unos 0,55 mmHg mayor.
-- **IMC:** a igualdad de edad, sexo y diabetes, cada kg/m² más se asocia con unos 0,85 mmHg más de PAS: unos 4 mmHg por cada 5 kg/m².
+- **IMC:** a igualdad de edad, sexo y diabetes, cada kg/m² más se asocia con unos 0,85 mmHg más de PAS. Son unos 4 mmHg por cada 5 kg/m².
 - **Sexo y diabetes:** sus IC incluyen el 0; con estos datos no hay evidencia de diferencias de PAS a igualdad de las demás variables.
 
 Fíjate en que el modelo se ajusta con 380 pacientes, no con 400: los que tienen algún dato perdido se excluyen. Siempre hay que indicar el *n* del modelo.
@@ -167,7 +167,7 @@ cambio = 1 - ajustada.params["pas_mmHg"] / cruda.params["pas_mmHg"]
 print(f"El coeficiente de la PAS se reduce un {cambio:.0%} al ajustar por edad")
 """)
 c.md("""
-Al comparar pacientes de la misma edad, la asociación entre PAS y creatinina se reduce en más de dos tercios y deja de ser significativa: buena parte de la asociación cruda se debía a que los pacientes mayores tienen a la vez la PAS más alta y la creatinina más alta. Que la asociación ajustada sea pequeña en esta cohorte **no** demuestra que la hipertensión no dañe el riñón (lo hace, a largo plazo); demuestra que la asociación cruda no servía como prueba.
+Al comparar pacientes de la misma edad, la asociación entre PAS y creatinina baja más de dos tercios y deja de ser significativa. Buena parte de la asociación cruda se debía a la edad: los pacientes mayores tienen a la vez la PAS y la creatinina más altas. En esta cohorte, la asociación ajustada es pequeña. Esto **no** demuestra que la hipertensión no dañe el riñón (lo hace, a largo plazo). Demuestra que la asociación cruda no servía como prueba.
 """)
 
 c.titulo(3, "3.4 Diagnóstico del modelo: los residuos")
@@ -186,10 +186,11 @@ plt.tight_layout()
 plt.show()
 """)
 c.md("""
-Los residuos se reparten de manera homogénea alrededor de 0, sin curvas ni forma de embudo, y siguen aproximadamente la recta del gráfico Q-Q: el modelo lineal es adecuado.
+Los residuos se reparten de forma homogénea alrededor de 0, sin curvas ni forma de embudo. Además, siguen aproximadamente la recta del gráfico Q-Q: el modelo lineal es adecuado.
 """)
 
 c.titulo(3, "3.5 Una trampa: la confusión por indicación")
+c.diagrama('Esquema: la PAS elevada lleva al tratamiento, no al revés; un caso difícil lleva a usar el asistente y a peor evolución.')
 c.code("""
 indicacion = smf.ols("pas_mmHg ~ edad + imc + hta_tratada", data=cohorte).fit()
 b = indicacion.params["hta_tratada[T.Sí]"]
@@ -197,9 +198,9 @@ li, ls = indicacion.conf_int().loc["hta_tratada[T.Sí]"]
 print(f"Coeficiente del tratamiento antihipertensivo: {b:+.1f} mmHg (IC 95 %: {li:.1f} a {ls:.1f})")
 """)
 c.md("""
-El modelo dice que los pacientes tratados tienen una PAS **unos 17 mmHg mayor**. ¿Los antihipertensivos suben la presión? No: se trata a los que tienen la presión alta. El tratamiento es una **consecuencia** de la PAS elevada, no su causa. Es la **confusión por indicación**, el sesgo más frecuente al evaluar tratamientos con datos observacionales, y la razón por la que la eficacia de un fármaco se demuestra con ensayos aleatorizados.
+El modelo dice que los pacientes tratados tienen una PAS **unos 17 mmHg mayor**. ¿Los antihipertensivos suben la presión? No: se trata a los que tienen la presión alta. El tratamiento es una **consecuencia** de la PAS elevada, no su causa. Es la **confusión por indicación**, el sesgo más frecuente al evaluar tratamientos con datos observacionales. Por eso la eficacia de un fármaco se demuestra con ensayos aleatorizados.
 
-Lo mismo ocurre al evaluar herramientas de IA con datos de la historia clínica: si los médicos usan más el asistente en los casos difíciles, los casos con asistente tendrán peor evolución sin que el asistente haga daño.
+Lo mismo ocurre al evaluar herramientas de IA con datos de la historia clínica. Si los médicos usan más el asistente en los casos difíciles, los casos con asistente evolucionan peor. Y eso ocurre aunque el asistente no haga daño.
 """)
 
 c.titulo(3, "Ampliación: predecir con el modelo")
@@ -219,7 +220,7 @@ c.titulo(3, "Ampliación: errores frecuentes")
 c.md("""
 **Interpretar un coeficiente ajustado como causal.**
 
-**Ajustar por una variable intermedia** del camino causal (por ejemplo, ajustar el efecto de la obesidad sobre los eventos por la PAS): se elimina parte del efecto que se quiere medir.
+**Ajustar por una variable intermedia** del camino causal. Por ejemplo, ajustar por la PAS el efecto de la obesidad sobre los eventos. Así se elimina parte del efecto que se quiere medir.
 
 **Extrapolar fuera del rango de los datos.** La ordenada en el origen (edad 0) no tiene sentido.
 
@@ -236,7 +237,7 @@ Abre la **[unidad 270 de la app Bioestadística](https://fborrasumh.github.io/bi
 
 1. **Misión básica (sin asistente):** interpretar los coeficientes de cuatro modelos publicados y decidir cuáles son ajustados.
 2. **Misión clínica (con pistas):** estimar la asociación entre el IMC y el HDL, crudo y ajustado por sexo, y decidir si hay confusión.
-3. **Misión reto (con asistente):** pedir al asistente un modelo para «el efecto del tratamiento antihipertensivo» con los datos de la cohorte, detectar la confusión por indicación y redactar por qué el resultado no es válido.
+3. **Misión reto (con asistente):** pedir al asistente un modelo para «el efecto del tratamiento antihipertensivo» con los datos de la cohorte. Detectar la confusión por indicación y redactar por qué el resultado no es válido.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

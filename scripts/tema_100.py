@@ -38,15 +38,15 @@ c.titulo(2, "1. Caso clínico de partida (5 min)")
 c.md("""
 Tres centros de salud han reunido un **registro de riesgo cardiovascular** con 400 pacientes seguidos durante cinco años (datos sintéticos). Antes de analizarlo, una enfermera de investigación calcula el peso medio y obtiene 78,1 kg. Parece razonable.
 
-Pero al revisar los datos aparecen un paciente de **680 kg**, otro de **7,4 kg**, cuatro tallas de «1,6 cm», una presión diastólica mayor que la sistólica, una glucemia de **1.120 mg/dL**, el sexo escrito como «Mujer» y como «mujer», 18 pacientes sin peso y dos pacientes registrados dos veces.
+Pero al revisar los datos aparecen problemas. Un paciente pesa **680 kg** y otro **7,4 kg**. Hay cuatro tallas de «1,6 cm» y una presión diastólica mayor que la sistólica. Hay una glucemia de **1.120 mg/dL** y el sexo aparece como «Mujer» y como «mujer». Faltan 18 pesos y hay dos pacientes registrados dos veces.
 
-Ninguno de estos problemas impide calcular una media: Python la calcula sin protestar. Por eso son peligrosos. Se estima que la preparación de los datos ocupa la mayor parte del tiempo de cualquier análisis, y es la parte que más condiciona sus conclusiones.
+Ninguno de estos problemas impide calcular una media: Python la calcula sin protestar. Por eso son peligrosos. La preparación de los datos ocupa la mayor parte del tiempo de cualquier análisis. Y es la parte que más condiciona sus conclusiones.
 """)
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Pandas y el DataFrame")
 c.md("""
-**Pandas** es la biblioteca de Python para trabajar con datos en forma de tabla. Su estructura central es el **DataFrame**: una tabla en la que cada **fila** es una unidad de observación (un paciente) y cada **columna** es una variable. Cada columna individual es una **Series**.
+**Pandas** es la biblioteca de Python para trabajar con datos en forma de tabla. Su estructura central es el **DataFrame**: una tabla. Cada **fila** es una unidad de observación (un paciente) y cada **columna** es una variable. Cada columna individual es una **Series**.
 
 | Instrucción | Qué hace |
 | --- | --- |
@@ -60,6 +60,7 @@ c.md("""
 | `df["col"].value_counts()` | Frecuencias de cada valor |
 """)
 c.titulo(3, "2.2 Valores perdidos")
+c.diagrama('Árbol: dato ausente según su mecanismo (completamente al azar, al azar condicionado, no al azar) y la consecuencia de cada uno.')
 c.md("""
 Pandas representa los datos ausentes como `NaN` (*not a number*). Antes de decidir qué hacer con ellos hay que preguntarse **por qué faltan**:
 
@@ -107,7 +108,7 @@ c.code("""
 cohorte.describe().round(1)
 """)
 c.md("""
-`describe()` ya delata los problemas: un peso máximo de 680 kg, una talla mínima de 1,6 cm, una PAD máxima de 163 mmHg y una glucemia máxima de 1.120 mg/dL.
+`describe()` ya muestra los problemas: un peso máximo de 680 kg y una talla mínima de 1,6 cm. También una PAD máxima de 163 mmHg y una glucemia máxima de 1.120 mg/dL.
 """)
 
 c.titulo(3, "3.2 Seleccionar, filtrar y crear variables")
@@ -271,7 +272,7 @@ print("Guardado cohorte_limpia.csv con", len(cohorte), "pacientes")
 
 c.titulo(3, "Ampliación: auditar una limpieza hecha por IA")
 c.md("""
-Si pides al asistente «limpia este conjunto de datos», es probable que proponga eliminar todas las filas con valores perdidos (`dropna()`) o los atípicos según algún criterio. Antes de aceptarlo:
+Si pides al asistente «limpia este conjunto de datos», probablemente propondrá eliminar filas. Por ejemplo, todas las filas con valores perdidos (`dropna()`) o los atípicos según algún criterio. Antes de aceptarlo:
 
 1. Pide que **explique cada paso** y la razón clínica o estadística.
 2. Comprueba **cuántas filas** se pierden: `dropna()` sobre toda la tabla puede eliminar un tercio de los pacientes.
@@ -293,7 +294,7 @@ print(f"Desviación típica original:  {hdl.std():.2f} mg/dL")
 print(f"Desviación típica imputada:  {hdl_imputado.std():.2f} mg/dL  ← subestimada")
 """)
 c.md("""
-Rellenar con la media no cambia la media, pero **reduce la variabilidad**: los intervalos de confianza y las pruebas estadísticas parecerán más precisos de lo que son. Existen métodos mejores, como la imputación múltiple, que quedan fuera de este curso.
+Rellenar con la media no cambia la media, pero **reduce la variabilidad**. Entonces los intervalos de confianza y las pruebas estadísticas parecen más precisos de lo que son. Existen métodos mejores, como la imputación múltiple, que quedan fuera de este curso.
 """)
 
 c.titulo(3, "Ampliación: errores frecuentes")
@@ -317,7 +318,7 @@ Abre la **[unidad 100 de la app Bioestadística](https://fborrasumh.github.io/bi
 
 1. **Misión básica (sin asistente):** clasificar valores como error de registro, valor atípico real o dato plausible.
 2. **Misión clínica (con pistas):** limpiar un registro sintético de pacientes con EPOC y presentar su registro de limpieza.
-3. **Misión reto (con asistente):** pedir al asistente que limpie el registro, auditar su propuesta con los cinco pasos de la ampliación y corregir lo que no sea aceptable.
+3. **Misión reto (con asistente):** pedir al asistente que limpie el registro. Auditar su propuesta con los cinco pasos de la ampliación y corregir lo que no sea aceptable.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

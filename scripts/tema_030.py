@@ -43,13 +43,14 @@ En el servicio de Urgencias llega **Antonio**, de 77 años (paciente sintético)
 | Presión arterial sistólica | 96 mmHg |
 | Estado mental | Desorientado (Glasgow 14) |
 
-La escala **qSOFA** (*quick Sequential Organ Failure Assessment*) suma un punto por cada uno de estos criterios: frecuencia respiratoria ≥ 22 rpm, presión sistólica ≤ 100 mmHg y alteración del estado mental. Una puntuación de 2 o más identifica a pacientes con infección y mayor riesgo de mala evolución.
+La escala **qSOFA** (*quick Sequential Organ Failure Assessment*) suma un punto por cada criterio que se cumple. Los criterios son: frecuencia respiratoria ≥ 22 rpm, presión sistólica ≤ 100 mmHg y alteración del estado mental. Una puntuación de 2 o más identifica a pacientes con infección y mayor riesgo de mala evolución.
 
-Antonio cumple los tres criterios. Para un clínico la decisión es inmediata; para que un **sistema de alerta** de la historia clínica la tome con todos los pacientes que llegan, la regla tiene que estar escrita sin ambigüedad: **si** se cumple esto **y** aquello, **entonces** se activa la alerta. Eso es la lógica condicional.
+Antonio cumple los tres criterios. Para un clínico, la decisión es inmediata. Pero un **sistema de alerta** de la historia clínica la toma con todos los pacientes que llegan. Por eso la regla tiene que estar escrita sin ambigüedad: **si** se cumple esto **y** aquello, **entonces** se activa la alerta. Eso es la lógica condicional.
 """)
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Comparaciones")
+c.diagrama('Recta numérica en 22 rpm: fr_rpm >= 22 incluye el 22; fr_rpm > 22 lo excluye.')
 c.md("""
 Una comparación devuelve un valor lógico (`bool`): `True` o `False`.
 
@@ -151,7 +152,7 @@ else:
 print(f"IMC {imc:.1f} kg/m²: {categoria}")
 """)
 c.md("""
-Observa que la segunda condición es solo `imc < 25`: no hace falta escribir `imc >= 18.5 and imc < 25`, porque si el IMC fuera menor de 18,5 ya se habría ejecutado la primera rama.
+Observa que la segunda condición es solo `imc < 25`. No hace falta escribir `imc >= 18.5 and imc < 25`: si el IMC fuera menor de 18,5, ya se habría ejecutado la primera rama.
 """)
 
 c.titulo(3, "3.4 Dos variables a la vez: la presión arterial")
@@ -233,7 +234,7 @@ print(estado)
 
 c.titulo(3, "Ampliación: errores frecuentes")
 c.md("""
-**Ordenar mal las condiciones.** Si se comprueba `imc >= 25` antes que `imc >= 30`, un paciente con IMC 34 se clasificará como sobrepeso: la primera rama que se cumple es la que se ejecuta.
+**Ordenar mal las condiciones.** Si se comprueba `imc >= 25` antes que `imc >= 30`, un paciente con IMC 34 sale como sobrepeso. Se ejecuta siempre la primera rama que se cumple.
 """)
 c.code("""
 imc = 34
@@ -243,7 +244,7 @@ elif imc >= 30:
     print("Nunca se llega aquí")
 """)
 c.md("""
-**Equivocar los límites.** «PAS ≤ 100» no es lo mismo que «PAS < 100»: un paciente con exactamente 100 mmHg cumple el primer criterio, pero no el segundo. Comprueba siempre los valores frontera.
+**Equivocar los límites.** «PAS ≤ 100» no es lo mismo que «PAS < 100». Un paciente con 100 mmHg exactos cumple el primer criterio, pero no el segundo. Comprueba siempre los valores frontera.
 
 **Usar `=` en lugar de `==`** dentro de un `if`: produce `SyntaxError`.
 
@@ -260,7 +261,7 @@ Abre la **[unidad 30 de la app Bioestadística](https://fborrasumh.github.io/bio
 
 1. **Misión básica (sin asistente):** predecir el resultado de comparaciones y condiciones compuestas con datos clínicos.
 2. **Misión clínica (con pistas):** programar la clasificación de la glucemia en ayunas y la de la presión arterial, comprobando los valores frontera.
-3. **Misión reto (con asistente):** programar la escala CURB-65 de gravedad de la neumonía y verificar con casos conocidos el código que proponga el asistente.
+3. **Misión reto (con asistente):** programar la escala CURB-65 de gravedad de la neumonía. Verificar con casos conocidos el código que proponga el asistente.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

@@ -73,6 +73,7 @@ El **coeficiente de Spearman** (ρ) aplica la misma fórmula a los **rangos** (p
 El cuadrado de *r* (*r*²) es la proporción de la variabilidad de una variable que se asocia linealmente con la otra.
 """)
 c.titulo(3, "2.3 Asociación no es causalidad")
+c.diagrama('Cuatro esquemas: X causa Y, Y causa X, Z causa X e Y (confusión) y azar.')
 c.md("""
 Una correlación entre X e Y puede deberse a:
 
@@ -111,7 +112,7 @@ rho = datos["edad"].corr(datos["pas_mmHg"], method="spearman")
 print(f"Pearson r = {r:.2f} · r² = {r**2:.2f} · Spearman ρ = {rho:.2f}")
 """)
 c.md("""
-Correlación positiva y moderada: la PAS tiende a aumentar con la edad. Con *r*² ≈ 0,23, la edad se asocia con casi una cuarta parte de la variabilidad de la PAS; el resto depende de otros factores.
+Correlación positiva y moderada: la PAS tiende a aumentar con la edad. Con *r*² ≈ 0,23, la edad se asocia con casi una cuarta parte de la variabilidad de la PAS. El resto depende de otros factores.
 """)
 
 c.titulo(3, "3.3 Las tres trampas de la correlación")
@@ -160,7 +161,7 @@ for grupo, sub in datos.groupby("grupo_edad", observed=True):
     print(f"{grupo} años: r = {r:.2f} (n = {sub['creatinina_mg_dl'].notna().sum()})")
 """)
 c.md("""
-Interpreta el resultado: si las correlaciones dentro de cada grupo de edad son más débiles que la global, parte de la asociación se explicaba por la edad. Si en algún grupo persiste, puede haber **confusión residual** (dentro de un grupo de 15 años la edad todavía varía) o una relación real. Analizar **estratificando** por la posible variable de confusión es la idea que, en el Tema 270, desarrollaremos con la regresión múltiple.
+Interpreta el resultado. Si las correlaciones dentro de cada grupo de edad son más débiles que la global, parte de la asociación se explicaba por la edad. Si en algún grupo persiste, puede haber **confusión residual** (dentro de un grupo de 15 años la edad todavía varía) o una relación real. Analizar **estratificando** por la posible variable de confusión es la idea que, en el Tema 270, desarrollaremos con la regresión múltiple.
 """)
 
 c.titulo(3, "3.5 Cualitativa y cuantitativa: el HDL según el sexo")
@@ -210,7 +211,7 @@ plt.title("Correlaciones de Spearman entre variables clínicas")
 plt.show()
 """)
 c.md("""
-Las correlaciones más fuertes tienen explicación clínica: la glucemia y la HbA1c miden el mismo fenómeno, y la PAS y la PAD forman parte de la misma medición. Un mapa de calor sirve para **explorar**, no para concluir: con 36 parejas de variables, alguna correlación aparecerá por puro azar.
+Las correlaciones más fuertes tienen explicación clínica. La glucemia y la HbA1c miden el mismo fenómeno. La PAS y la PAD forman parte de la misma medición. Un mapa de calor sirve para **explorar**, no para concluir: con 36 parejas de variables, alguna correlación aparecerá por puro azar.
 """)
 
 c.titulo(3, "Ampliación: matriz de gráficos de dispersión")

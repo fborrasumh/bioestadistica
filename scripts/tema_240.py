@@ -41,7 +41,7 @@ El servicio de Urgencias evalúa un asistente de IA que propone el nivel de tria
 1. **¿Es mejor el modelo nuevo que el anterior?** Los dos se prueban con **los mismos 200 casos** clínicos, de los que se conoce el triaje correcto establecido por un panel de expertos. El nuevo acierta el 81 % y el anterior el 74 %.
 2. **¿Coincide el asistente con la enfermera de triaje?** En 150 pacientes reales, los dos asignan un nivel de prioridad. Coinciden en el 78 % de los casos.
 
-La primera pregunta no se puede responder con la prueba *z* de dos proporciones independientes (Tema 220), porque **los casos son los mismos**: hay que usar la prueba de McNemar. La segunda no es una comparación sino una medida de **concordancia**: un 78 % de coincidencia puede ser menos de lo que parece si gran parte se debe al azar. Para eso existe el índice kappa.
+La primera pregunta no se responde con la prueba *z* de dos proporciones independientes (Tema 220). **Los casos son los mismos**: hay que usar la prueba de McNemar. La segunda no es una comparación, sino una medida de **concordancia**. Un 78 % de coincidencia puede ser menos de lo que parece si gran parte se debe al azar. Para eso existe el índice kappa.
 """)
 
 c.titulo(2, "2. Conceptos clave (10 min)")
@@ -57,6 +57,7 @@ Los datos son apareados cuando cada observación de un grupo tiene una pareja na
 Analizarlos como independientes desperdicia información y da resultados incorrectos.
 """)
 c.titulo(3, "2.2 La prueba de McNemar")
+c.diagrama('Tabla de pares: a y d no informan; McNemar usa solo b y c.')
 c.md("""
 Con dos resultados binarios apareados, la tabla se construye con los **pares**:
 
@@ -69,7 +70,7 @@ Los pares concordantes (*a* y *d*) no dicen nada sobre cuál es mejor. La prueba
 
 $$\\chi^2_{McNemar} = \\frac{(b - c)^2}{b + c}$$
 
-Con pocos pares discordantes (*b* + *c* < 25) se usa la versión **exacta**, que es una prueba binomial de *b* frente a *b* + *c* con *p* = 0,5.
+Con pocos pares discordantes (*b* + *c* < 25), usa la versión **exacta**. Es una prueba binomial de *b* frente a *b* + *c* con *p* = 0,5.
 """)
 c.titulo(3, "2.3 Acuerdo y concordancia: el índice kappa")
 c.md("""
@@ -88,11 +89,11 @@ donde $P_o$ es la proporción de acuerdo observado y $P_e$ la esperada por azar,
 | 0,61 a 0,80 | Sustancial |
 | 0,81 a 1,00 | Casi perfecta |
 
-Para escalas **ordinales** (como los cinco niveles de triaje) se usa la **kappa ponderada**, que penaliza menos un desacuerdo de un nivel que uno de cuatro.
+Para escalas **ordinales**, como los cinco niveles de triaje, usa la **kappa ponderada**. Penaliza menos un desacuerdo de un nivel que uno de cuatro.
 """)
 c.titulo(3, "2.4 Asociación no es concordancia")
 c.md("""
-Si la enfermera asigna siempre un nivel más grave que el asistente, las dos clasificaciones estarán perfectamente **asociadas** (la ji cuadrado será muy significativa), pero **no coincidirán nunca**. La ji cuadrado mide asociación; kappa mide concordancia.
+Supón que la enfermera asigna siempre un nivel más grave que el asistente. Las dos clasificaciones estarán perfectamente **asociadas** (la ji cuadrado será muy significativa). Pero **no coincidirán nunca**. La ji cuadrado mide asociación; kappa mide concordancia.
 """)
 
 c.titulo(2, "3. Demostración: McNemar y kappa (20 min)")
@@ -138,7 +139,7 @@ print(f"Prueba z como si fueran independientes: p = {p_indep:.4f}")
 print(f"Prueba de McNemar (correcta):           p = {exacta.pvalue:.4f}")
 """)
 c.md("""
-Tratar los datos como independientes da un valor p mucho mayor: la prueba *z* trata como «ruido» la variabilidad entre casos fáciles y difíciles, que en el diseño apareado se anula porque **cada caso se compara consigo mismo**. El diseño apareado es más potente, siempre que se analice como tal.
+Si se tratan los datos como independientes, el valor p sale mucho mayor. La prueba *z* trata como «ruido» la variabilidad entre casos fáciles y difíciles. En el diseño apareado esa variabilidad se anula, porque **cada caso se compara consigo mismo**. El diseño apareado es más potente, siempre que se analice como tal.
 
 **Cómo se comunica:** «El modelo nuevo acertó en el 81 % de los casos y el anterior en el 74 % (*n* = 200 casos comunes). De los 30 casos en que discreparon, el nuevo acertó en 22 y el anterior en 8 (McNemar exacta, *p* = 0,016)».
 """)
@@ -167,7 +168,7 @@ print(f"Acuerdo esperado por azar Pe = {pe:.3f}")
 print(f"Kappa a mano = {kappa_manual:.3f} · con scikit-learn = {cohen_kappa_score(enfermera, asistente):.3f}")
 """)
 c.md("""
-Con las prevalencias de cada clasificador, el azar explicaría por sí solo un 59 % de coincidencias. El 78 % de acuerdo se convierte en κ = 0,47: concordancia solo **moderada**, y en 33 de 150 pacientes el asistente y la enfermera discrepan sobre si el caso es urgente.
+Con las prevalencias de cada clasificador, el azar explicaría por sí solo un 59 % de coincidencias. El 78 % de acuerdo se convierte en κ = 0,47: concordancia solo **moderada**. En 33 de 150 pacientes, el asistente y la enfermera discrepan sobre si el caso es urgente.
 """)
 
 c.titulo(3, "3.4 Kappa con su intervalo de confianza")
@@ -215,7 +216,7 @@ print(f"Acuerdo observado: {acuerdo:.1%}")
 print(f"κ = {cohens_kappa(paradoja).kappa:.3f}")
 """)
 c.md("""
-Con un 95,5 % de acuerdo, kappa es solo discreta, porque casi todo el acuerdo se esperaba por azar al ser casi todas normales. Por eso conviene publicar la **tabla completa** y el acuerdo observado además de kappa, y valorar el acuerdo por separado en positivos y en negativos.
+Con un 95,5 % de acuerdo, kappa es solo discreta, porque casi todo el acuerdo se esperaba por azar al ser casi todas normales. Por eso conviene publicar la **tabla completa** y el acuerdo observado, además de kappa. Valora también el acuerdo por separado en positivos y en negativos.
 """)
 
 c.titulo(3, "Ampliación: McNemar antes y después")
@@ -231,7 +232,7 @@ print(f"Controlados antes: {antes_despues[0].sum() / 120:.1%} · después: {ante
 print(f"Mejoran: {antes_despues[1, 0]} · empeoran: {antes_despues[0, 1]} · McNemar exacta: p = {r.pvalue:.4f}")
 """)
 c.md("""
-Ojo: sin grupo control, la mejora puede deberse a la intervención, a la **regresión a la media** (Tema 130) o a otros cambios del período. McNemar dice que el cambio no es atribuible al azar, no que lo cause la intervención.
+Ojo: sin grupo control, la mejora puede tener tres causas. La intervención, la **regresión a la media** (Tema 130) u otros cambios del período. McNemar dice que el cambio no es atribuible al azar, no que lo cause la intervención.
 """)
 
 c.titulo(3, "Ampliación: errores frecuentes")
@@ -253,7 +254,7 @@ Abre la **[unidad 240 de la app Bioestadística](https://fborrasumh.github.io/bi
 
 1. **Misión básica (sin asistente):** decidir si seis diseños producen datos apareados o independientes, y calcular a mano una kappa.
 2. **Misión clínica (con pistas):** comparar con McNemar dos pruebas de cribado aplicadas a los mismos pacientes y medir su concordancia.
-3. **Misión reto (con asistente):** usar los informes de las unidades anteriores para comparar con McNemar tu acierto en el primer intento y tras la pista del asistente.
+3. **Misión reto (con asistente):** usar los informes de las unidades anteriores. Comparar con McNemar tu acierto en el primer intento y tras la pista del asistente.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

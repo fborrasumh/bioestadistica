@@ -41,7 +41,7 @@ Un titular de prensa dice: «Un nuevo fármaco **reduce un 33 % el riesgo de inf
 En el ensayo, a los 5 años tuvieron un infarto el **3 %** de los pacientes con placebo y el **2 %** de los tratados. Las dos frases siguientes describen el mismo resultado:
 
 - «El fármaco reduce el riesgo un 33 %» (reducción **relativa**).
-- «El fármaco reduce el riesgo en 1 punto porcentual: hay que tratar a **100 pacientes durante 5 años** para evitar un infarto» (reducción **absoluta** y NNT).
+- «El fármaco reduce el riesgo en 1 punto porcentual. Hay que tratar a **100 pacientes durante 5 años** para evitar un infarto» (reducción **absoluta** y NNT).
 
 La primera impresiona más; la segunda es la que necesita el paciente para decidir, teniendo en cuenta los efectos adversos y el coste. Hoy aprenderás a calcular y a interpretar todas estas medidas.
 """)
@@ -78,6 +78,7 @@ c.md("""
 | Transversal | Prevalencias, no riesgos | Razón de prevalencias u OR |
 """)
 c.titulo(3, "2.4 La ji cuadrado de independencia")
+c.diagrama('Flujo: tabla observada, tabla esperada (fila × columna / N) y estadístico ji cuadrado.')
 c.md("""
 Contrasta $H_0$: «las dos variables cualitativas son independientes». Compara las frecuencias observadas con las **esperadas** si fueran independientes:
 
@@ -130,7 +131,7 @@ chi2, p, gl, esperadas = stats.chi2_contingency([[a, b], [c_, d]], correction=Fa
 print(f"Ji cuadrado = {chi2:.2f}, gl = {gl}, p = {p:.3f}")
 """)
 c.md("""
-**Interpretación:** el riesgo de evento cardiovascular a 5 años fue mayor en los diabéticos (RR estimado 1,64), pero el IC 95 % incluye el 1 y la ji cuadrado no es significativa. Con 74 diabéticos, la cohorte **no tiene potencia** para confirmar un aumento de riesgo que la literatura sí ha establecido con estudios mucho mayores. Fíjate en que la OR (1,77) es algo mayor que el RR: con un evento que afecta al 12 % de la cohorte, la OR ya exagera un poco la asociación.
+**Interpretación:** el riesgo de evento cardiovascular a 5 años fue mayor en los diabéticos (RR estimado 1,64). Pero el IC 95 % incluye el 1 y la ji cuadrado no es significativa. Con 74 diabéticos, la cohorte **no tiene potencia** para confirmar un aumento de riesgo que la literatura sí ha establecido con estudios mucho mayores. Fíjate en que la OR (1,77) es algo mayor que el RR. El evento afecta al 12 % de la cohorte, y con esa frecuencia la OR ya exagera un poco la asociación.
 """)
 
 c.titulo(3, "3.3 Una función propia para cualquier tabla 2 × 2")
@@ -179,7 +180,7 @@ print(f"Reducción absoluta del riesgo = {rar:.1%} (IC 95 %: {rar_li:.1%} a {rar
 print(f"NNT = {nnt:.0f} (IC 95 %: {1 / rar_ls:.0f} a {1 / rar_li:.0f}) durante 5 años")
 """)
 c.md("""
-**Cómo se comunica a un paciente:** «De cada 100 personas como usted que no toman el fármaco, unas 12 tendrán un evento cardiovascular en 5 años; con el fármaco, unas 8. Hay que tratar a unas 25 personas durante 5 años para evitar un evento».
+**Cómo se comunica a un paciente:** «De cada 100 personas como usted que no toman el fármaco, unas 12 tendrán un evento cardiovascular en 5 años. Con el fármaco, unas 8. Hay que tratar a unas 25 personas durante 5 años para evitar un evento».
 
 El IC del NNT se obtiene invirtiendo los límites del IC de la reducción absoluta.
 """)
@@ -197,7 +198,7 @@ for basal in [0.03, 0.06, 0.12, 0.24]:
     print(f"{basal:>24.0%} {tratado:>24.1%} {basal - tratado:>7.1%} {1 / (basal - tratado):>6.0f}")
 """)
 c.md("""
-El paciente del caso, con un riesgo del 3 %, tiene un NNT de 100; uno de alto riesgo, con un 24 %, de 13. Por eso las guías de prevención cardiovascular recomiendan tratar según el **riesgo absoluto** estimado (escalas como SCORE2) y no solo según el valor del colesterol.
+El paciente del caso, con un riesgo del 3 %, tiene un NNT de 100; uno de alto riesgo, con un 24 %, de 13. Por eso las guías de prevención cardiovascular recomiendan tratar según el **riesgo absoluto** estimado (escalas como SCORE2). No basta con el valor del colesterol.
 """)
 
 c.titulo(3, "3.6 Tablas mayores: centro de salud y eventos")
@@ -244,8 +245,8 @@ c.md("""
 Abre la **[unidad 230 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:
 
 1. **Misión básica (sin asistente):** calcular a mano el RR, la OR, la RAR y el NNT de tres tablas 2 × 2 de ensayos publicados.
-2. **Misión clínica (con pistas):** estimar con IC el RR de evento cardiovascular de los fumadores y de los hipertensos tratados de la cohorte, e interpretarlos.
-3. **Misión reto (con asistente):** reescribir con el asistente una nota de prensa que solo da la reducción relativa del riesgo, para que incluya la absoluta y el NNT, y comprobar los números.
+2. **Misión clínica (con pistas):** estimar con IC el RR de evento cardiovascular de los fumadores y de los hipertensos tratados de la cohorte. Interpretarlos.
+3. **Misión reto (con asistente):** una nota de prensa da solo la reducción relativa del riesgo. Reescribirla con el asistente para que incluya la absoluta y el NNT. Comprobar los números.
 
 Al terminar, exporta el **informe de la unidad**.
 """)

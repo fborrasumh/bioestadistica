@@ -36,9 +36,9 @@ c.md("""
 
 c.titulo(2, "1. Caso clínico de partida (5 min)")
 c.md("""
-En la cohorte cardiovascular, el colesterol HDL medio es de unos 49 mg/dL en los hombres y de unos 58 mg/dL en las mujeres. Antes de proponer puntos de corte distintos por sexo en el protocolo del centro, el equipo quiere saber si esa diferencia es real en la población y **de qué tamaño** es.
+En la cohorte cardiovascular, el colesterol HDL medio es de unos 49 mg/dL en los hombres y de unos 58 mg/dL en las mujeres. Antes de proponer puntos de corte distintos por sexo en el protocolo del centro, el equipo quiere saber dos cosas. ¿Es real esa diferencia en la población? ¿**De qué tamaño** es?
 
-Al mismo tiempo, una enfermera ha medido la presión arterial a 30 hipertensos **antes y después** de 8 semanas de un programa de reducción de sal, y quiere saber si la PAS ha bajado.
+Además, una enfermera ha medido la presión arterial a 30 hipertensos **antes y después** de 8 semanas de un programa de reducción de sal. Quiere saber si la PAS ha bajado.
 
 Las dos preguntas comparan **medias**, pero la segunda usa los **mismos** pacientes dos veces. Cada una requiere una versión distinta de la prueba *t* de Student.
 """)
@@ -62,9 +62,10 @@ La prueba *t* clásica para dos muestras supone que las **varianzas son iguales*
 """)
 c.titulo(3, "2.3 Muestras relacionadas")
 c.md("""
-Con datos apareados se calcula para cada paciente la **diferencia** (después − antes) y se aplica la *t* para una muestra a esas diferencias. Al eliminar la variabilidad entre pacientes, la prueba apareada es mucho más potente que comparar los dos momentos como grupos independientes (igual que McNemar frente a la *z* en el Tema 240).
+Con datos apareados se calcula para cada paciente la **diferencia** (después − antes) y se aplica la *t* para una muestra a esas diferencias. La prueba apareada elimina la variabilidad entre pacientes. Por eso es mucho más potente que comparar los dos momentos como grupos independientes (igual que McNemar frente a la *z* en el Tema 240).
 """)
 c.titulo(3, "2.4 Condiciones de aplicación")
+c.diagrama('Tres comprobaciones antes de la prueba t: independencia, normalidad o n ≥ 30 y ausencia de atípicos extremos, con la alternativa de cada una.')
 c.md("""
 | Condición | Cómo valorarla | Si no se cumple |
 | --- | --- | --- |
@@ -125,7 +126,7 @@ print(f"Clásica: t = {clasica.statistic:.2f}, gl = {clasica.df:.0f}, p = {clasi
 print(f"d de Cohen = {d:.2f}")
 """)
 c.md("""
-**Cómo se comunica:** «El HDL medio fue de 58,4 mg/dL (DE 12,5) en mujeres y de 48,8 mg/dL (DE 9,7) en hombres; diferencia de 9,6 mg/dL (IC 95 %: 7,3 a 11,9; prueba *t* de Welch, *p* < 0,001; *d* = 0,86)».
+**Cómo se comunica:** «El HDL medio fue de 58,4 mg/dL (DE 12,5) en mujeres y de 48,8 mg/dL (DE 9,7) en hombres. Diferencia de 9,6 mg/dL (IC 95 %: 7,3 a 11,9; prueba *t* de Welch, *p* < 0,001; *d* = 0,86)».
 
 Una diferencia de casi 10 mg/dL es grande y clínicamente relevante. Por eso las guías usan umbrales de HDL bajo distintos por sexo (< 40 mg/dL en hombres y < 50 mg/dL en mujeres).
 """)
@@ -188,14 +189,14 @@ print(f"Frente al objetivo del 7 %: t = {r.statistic:.2f}, p = {r.pvalue:.3f}")
 print(f"Pacientes por encima del objetivo: {(hba1c > 7).mean():.0%}")
 """)
 c.md("""
-La media está por encima del objetivo, pero el dato clínicamente útil es también **qué proporción de pacientes** no lo alcanza: una media cercana al objetivo puede esconder a muchos pacientes mal controlados.
+La media está por encima del objetivo. Pero el dato clínicamente útil es también **qué proporción de pacientes** no lo alcanza. Una media cercana al objetivo puede esconder a muchos pacientes mal controlados.
 """)
 
 c.titulo(3, "Ampliación: cuando la normalidad falla")
 c.md("""
 Con muestras pequeñas y variables muy asimétricas (como la creatinina o el NT-proBNP), hay dos opciones:
 
-- **Transformar** la variable con el logaritmo y aplicar la *t* a los logaritmos; la diferencia de medias de los logaritmos, exponenciada, es un **cociente de medias geométricas**.
+- **Transformar** la variable con el logaritmo y aplicar la *t* a los logaritmos. La diferencia de medias de los logaritmos, exponenciada, es un **cociente de medias geométricas**.
 - Usar una prueba **no paramétrica**: Mann-Whitney para dos grupos independientes y Wilcoxon de los rangos con signo para datos apareados (Tema 260).
 """)
 c.code("""
@@ -229,7 +230,7 @@ c.md("""
 Abre la **[unidad 250 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:
 
 1. **Misión básica (sin asistente):** elegir la prueba *t* adecuada para seis diseños y calcular a mano un estadístico *t*.
-2. **Misión clínica (con pistas):** comparar el IMC entre diabéticos y no diabéticos de la cohorte, con diferencia, IC 95 %, *d* de Cohen y una frase de resultados.
+2. **Misión clínica (con pistas):** comparar el IMC entre diabéticos y no diabéticos de la cohorte. Dar la diferencia, el IC 95 %, la *d* de Cohen y una frase de resultados.
 3. **Misión reto (con asistente):** pedir al asistente el análisis de un ensayo antes-después, detectar si ha usado la prueba equivocada y corregirla.
 
 Al terminar, exporta el **informe de la unidad**.
