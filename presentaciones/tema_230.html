@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 230. Análisis de tablas de contingencia y medidas de asociación epidemiológica: riesgo relativo, odds ratio y número necesario a tratar · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 230. Análisis de tablas de contingencia y medidas de asociación epidemiológica: riesgo relativo, odds ratio y número necesario a tratar</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 230</span>Análisis de tablas de contingencia y medidas de asociación epidemiológica: riesgo relativo, odds ratio y número necesario a tratar</h1>
+<p class="mod">Módulo 5. Generalización de conclusiones</p>
+<p class="ev"><b>Evaluación:</b> el examen del Módulo 5 se hace <strong>con Colab</strong>. Practica ejecutando e interpretando cada análisis.</p>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_230_Tablas_de_contingencia_y_medidas_de_asociacion_RR_OR_y_NNT.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-230" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Aplicar e interpretar la prueba ji cuadrado de independencia en tablas de contingencia.</li>
+<li>Calcular e interpretar el <strong>riesgo relativo</strong> (RR), la <strong>odds ratio</strong> (OR) y la <strong>diferencia de riesgos</strong>, con sus intervalos de confianza.</li>
+<li>Elegir la medida de asociación según el diseño del estudio (cohortes, ensayo clínico o casos y controles).</li>
+<li>Calcular e interpretar el <strong>número necesario a tratar</strong> (NNT).</li>
+<li>Distinguir la reducción relativa del riesgo de la reducción absoluta, y reconocer cómo se usa cada una para comunicar resultados.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: medidas de asociación con Python <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">«Reduce un 33 % el riesgo de infarto»</p><figure><img src="../figuras/tema_230_caso.png" alt="«Reduce un 33 % el riesgo de infarto»" loading="lazy"></figure><ul class='puntos'><li>Del 3 % al 2 %: la reducción <b>relativa</b> es del 33 %; la <b>absoluta</b>, de 1 punto.</li><li>Hay que tratar a 100 personas durante 5 años para evitar un infarto (NNT = 100).</li></ul><p class="pregunta"><b>Pregunta para la clase:</b> ¿Cuál de las dos cifras necesita vuestro paciente para decidir?</p></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Un titular de prensa dice: «Un nuevo fármaco <strong>reduce un 33 % el riesgo de infarto</strong>». Un paciente de 58 años con colesterol moderadamente alto te pregunta si debería tomarlo.</p>
+<p>En el ensayo, a los 5 años tuvieron un infarto el <strong>3 %</strong> de los pacientes con placebo y el <strong>2 %</strong> de los tratados. Las dos frases siguientes describen el mismo resultado:</p>
+<ul>
+<li>«El fármaco reduce el riesgo un 33 %» (reducción <strong>relativa</strong>).</li>
+<li>«El fármaco reduce el riesgo en 1 punto porcentual. Hay que tratar a <strong>100 pacientes durante 5 años</strong> para evitar un infarto» (reducción <strong>absoluta</strong> y NNT).</li>
+</ul>
+<p>La primera impresiona más; la segunda es la que necesita el paciente para decidir, teniendo en cuenta los efectos adversos y el coste. Hoy aprenderás a calcular y a interpretar todas estas medidas.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 La tabla 2 × 2</h3><figure><img src="../figuras/tema_230_e2_1.png" alt="Tabla 2 × 2 con las fórmulas de riesgo y odds de cada fila, y del RR y la OR." loading="lazy"></figure><table>
+<thead>
+<tr>
+<th></th>
+<th>Evento sí</th>
+<th>Evento no</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Expuestos</strong></td>
+<td><em>a</em></td>
+<td><em>b</em></td>
+<td><em>a</em> + <em>b</em></td>
+</tr>
+<tr>
+<td><strong>No expuestos</strong></td>
+<td><em>c</em></td>
+<td><em>d</em></td>
+<td><em>c</em> + <em>d</em></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Riesgo en expuestos: $R_1 = a/(a+b)$. Riesgo en no expuestos: $R_0 = c/(c+d)$.</li>
+<li>Odds en expuestos: $a/b$. Odds en no expuestos: $c/d$.</li>
+</ul></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Medidas de asociación</h3><p class="lema">La misma reducción relativa, NNT muy distintos</p><figure><img src="../figuras/tema_230_nnt.png" alt="La misma reducción relativa, NNT muy distintos" loading="lazy"></figure><ul class='puntos'><li>El efecto relativo suele ser parecido en pacientes de distinto riesgo; el beneficio absoluto, no.</li><li>Por eso las guías tratan según el <b>riesgo absoluto</b> (SCORE2), no solo según el colesterol.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><table>
+<thead>
+<tr>
+<th>Medida</th>
+<th>Fórmula</th>
+<th>Valor nulo</th>
+<th>Interpretación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Riesgo relativo (RR)</td>
+<td>$R_1 / R_0$</td>
+<td>1</td>
+<td>Cuántas veces más riesgo tienen los expuestos</td>
+</tr>
+<tr>
+<td>Odds ratio (OR)</td>
+<td>$(a \cdot d)/(b \cdot c)$</td>
+<td>1</td>
+<td>Cociente de odds; se parece al RR si el evento es raro (&lt; 10 %)</td>
+</tr>
+<tr>
+<td>Diferencia de riesgos (DR)</td>
+<td>$R_1 - R_0$</td>
+<td>0</td>
+<td>Exceso (o reducción) absoluto de riesgo</td>
+</tr>
+<tr>
+<td>Reducción relativa del riesgo (RRR)</td>
+<td>$1 - RR$</td>
+<td>0</td>
+<td>Proporción del riesgo que elimina el tratamiento</td>
+</tr>
+<tr>
+<td>Número necesario a tratar (NNT)</td>
+<td>$1 / |DR|$</td>
+<td>∞</td>
+<td>Pacientes que hay que tratar para evitar un evento</td>
+</tr>
+</tbody>
+</table>
+<p>Si el tratamiento <strong>aumenta</strong> el riesgo de un efecto adverso, $1/DR$ se llama <strong>número necesario para dañar</strong> (NND).</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Qué medida según el diseño</h3><p class="lema">Cohortes frente a casos y controles</p><figure><img src="../figuras/tema_230_disenos.png" alt="Cohortes frente a casos y controles" loading="lazy"></figure><ul class='puntos'><li>En cohortes y ensayos se sigue a los pacientes y se cuentan eventos: RR, DR, NNT.</li><li>En casos y controles el investigador fija cuántos casos incluye: solo la OR.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><table>
+<thead>
+<tr>
+<th>Diseño</th>
+<th>¿Se puede calcular el riesgo?</th>
+<th>Medida</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cohortes y ensayos clínicos</td>
+<td>Sí: se sigue a los pacientes y se cuentan los eventos</td>
+<td>RR, DR, NNT (y OR)</td>
+</tr>
+<tr>
+<td>Casos y controles</td>
+<td>No: el investigador fija cuántos casos y controles incluye</td>
+<td><strong>Solo la OR</strong></td>
+</tr>
+<tr>
+<td>Transversal</td>
+<td>Prevalencias, no riesgos</td>
+<td>Razón de prevalencias u OR</td>
+</tr>
+</tbody>
+</table></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.4 La ji cuadrado de independencia</h3><figure><img src="../figuras/tema_230_esquema.png" alt="Flujo: tabla observada, tabla esperada (fila × columna / N) y estadístico ji cuadrado." loading="lazy"></figure><p>Contrasta $H_0$: «las dos variables cualitativas son independientes». Compara las frecuencias observadas con las <strong>esperadas</strong> si fueran independientes:</p>
+<p>$$\chi^2 = \sum \frac{(O - E)^2}{E}, \qquad E = \frac{\text{total de fila} \times \text{total de columna}}{N}$$</p>
+<p>Sirve para tablas de cualquier tamaño (<em>r</em> × <em>c</em>), con (<em>r</em> − 1)(<em>c</em> − 1) grados de libertad. Exige frecuencias esperadas ≥ 5 en la mayoría de las casillas; si no, Fisher (Tema 220).</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">En un ensayo, el evento ocurre en el 10 % con placebo y en el 6 % con tratamiento. ¿Cuál es el NNT?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: RAR = 0,10 − 0,06 = 0,04; NNT = 1/0,04 = 25.">25</button><button type="button" class="op" data-ok="0" data-fb="Esa sería la reducción relativa en porcentaje.">40</button><button type="button" class="op" data-ok="0" data-fb="El NNT es el inverso de la RAR expresada como proporción.">4</button><button type="button" class="op" data-ok="0" data-fb="Ese es el cociente de riesgos 10/6.">1,67</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 230.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_230_Tablas_de_contingencia_y_medidas_de_asociacion_RR_OR_y_NNT.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: medidas de asociación con Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: medidas de asociación con Python</h2><h3>3.1 Diabetes y eventos cardiovasculares en la cohorte</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Diabetes y eventos cardiovasculares en la cohorte</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">import numpy as np
+import pandas as pd
+from scipy import stats
+
+cohorte = pd.read_csv(&quot;https://raw.githubusercontent.com/fborrasumh/bioestadistica/main/datos/cohorte_limpia.csv&quot;)
+
+tabla = pd.crosstab(cohorte[&quot;diabetes&quot;], cohorte[&quot;evento_cv_5a&quot;], margins=True)
+tabla.columns = [&quot;Sin evento&quot;, &quot;Con evento&quot;, &quot;Total&quot;]
+tabla = tabla.loc[[&quot;Sí&quot;, &quot;No&quot;, &quot;All&quot;]].rename(index={&quot;All&quot;: &quot;Total&quot;})
+tabla</code></pre><p><strong>A mano:</strong> riesgo en diabéticos = 13/74 = 0,176; en no diabéticos = 35/326 = 0,107.</p>
+<ul>
+<li>RR = 0,176 / 0,107 = <strong>1,64</strong>: los diabéticos tienen un riesgo un 64 % mayor.</li>
+<li>DR = 0,176 − 0,107 = <strong>0,068</strong>: 6,8 eventos más por cada 100 diabéticos en 5 años.</li>
+<li>OR = (13 × 291) / (61 × 35) = <strong>1,77</strong>.</li>
+</ul></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: medidas de asociación con Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: medidas de asociación con Python</h2><h3>3.2 Las medidas con sus intervalos de confianza</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 Las medidas con sus intervalos de confianza</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">from statsmodels.stats.contingency_tables import Table2x2
+
+# Filas: expuestos (diabetes) y no expuestos; columnas: evento sí y evento no
+a, b = 13, 61
+c_, d = 35, 291
+t = Table2x2(np.array([[a, b], [c_, d]]))
+
+rr, (rr_li, rr_ls) = t.riskratio, t.riskratio_confint()
+or_, (or_li, or_ls) = t.oddsratio, t.oddsratio_confint()
+r1, r0 = a / (a + b), c_ / (c_ + d)
+
+print(f&quot;Riesgo en diabéticos: {r1:.1%} · en no diabéticos: {r0:.1%}&quot;)
+print(f&quot;RR = {rr:.2f} (IC 95 %: {rr_li:.2f} a {rr_ls:.2f})&quot;)
+print(f&quot;OR = {or_:.2f} (IC 95 %: {or_li:.2f} a {or_ls:.2f})&quot;)
+print(f&quot;DR = {r1 - r0:.1%}&quot;)
+
+chi2, p, gl, esperadas = stats.chi2_contingency([[a, b], [c_, d]], correction=False)
+print(f&quot;Ji cuadrado = {chi2:.2f}, gl = {gl}, p = {p:.3f}&quot;)</code></pre><p><strong>Interpretación:</strong> el riesgo de evento cardiovascular a 5 años fue mayor en los diabéticos (RR estimado 1,64). Pero el IC 95 % incluye el 1 y la ji cuadrado no es significativa. Con 74 diabéticos, la cohorte <strong>no tiene potencia</strong> para confirmar un aumento de riesgo que la literatura sí ha establecido con estudios mucho mayores. Fíjate en que la OR (1,77) es algo mayor que el RR. El evento afecta al 12 % de la cohorte, y con esa frecuencia la OR ya exagera un poco la asociación.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: medidas de asociación con Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: medidas de asociación con Python</h2><h3>3.3 Una función propia para cualquier tabla 2 × 2</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 Una función propia para cualquier tabla 2 × 2</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">def medidas_2x2(a, b, c, d, z=1.96):
+    &quot;&quot;&quot;a, b: expuestos con y sin evento; c, d: no expuestos con y sin evento.&quot;&quot;&quot;
+    r1, r0 = a / (a + b), c / (c + d)
+    rr = r1 / r0
+    ee_log_rr = np.sqrt(1 / a - 1 / (a + b) + 1 / c - 1 / (c + d))
+    or_ = (a * d) / (b * c)
+    ee_log_or = np.sqrt(1 / a + 1 / b + 1 / c + 1 / d)
+    dr = r1 - r0
+    ee_dr = np.sqrt(r1 * (1 - r1) / (a + b) + r0 * (1 - r0) / (c + d))
+    return {
+        &quot;RR&quot;: (rr, rr * np.exp(-z * ee_log_rr), rr * np.exp(z * ee_log_rr)),
+        &quot;OR&quot;: (or_, or_ * np.exp(-z * ee_log_or), or_ * np.exp(z * ee_log_or)),
+        &quot;DR&quot;: (dr, dr - z * ee_dr, dr + z * ee_dr),
+    }
+
+for medida, (valor, li, ls) in medidas_2x2(13, 61, 35, 291).items():
+    print(f&quot;{medida}: {valor:.3f} (IC 95 %: {li:.3f} a {ls:.3f})&quot;)</code></pre><p>Los IC del RR y de la OR se calculan en <strong>escala logarítmica</strong> y luego se exponencian: por eso son asimétricos alrededor de la estimación.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: medidas de asociación con Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: medidas de asociación con Python</h2><h3>3.4 Un ensayo clínico: RRR, RAR y NNT</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Un ensayo clínico: RRR, RAR y NNT</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Ensayo hipotético de una estatina en prevención primaria: 2.000 pacientes por grupo, seguidos 5 años.</p><pre class="code"><code class="language-python">eventos_trat, n_trat = 160, 2000      # 8 %
+eventos_plac, n_plac = 240, 2000      # 12 %
+
+r_t, r_p = eventos_trat / n_trat, eventos_plac / n_plac
+rr = r_t / r_p
+rar = r_p - r_t
+nnt = 1 / rar
+
+ee = np.sqrt(r_t * (1 - r_t) / n_trat + r_p * (1 - r_p) / n_plac)
+rar_li, rar_ls = rar - 1.96 * ee, rar + 1.96 * ee
+
+print(f&quot;Riesgo: tratados {r_t:.1%} · placebo {r_p:.1%}&quot;)
+print(f&quot;RR = {rr:.2f} · Reducción relativa del riesgo = {1 - rr:.0%}&quot;)
+print(f&quot;Reducción absoluta del riesgo = {rar:.1%} (IC 95 %: {rar_li:.1%} a {rar_ls:.1%})&quot;)
+print(f&quot;NNT = {nnt:.0f} (IC 95 %: {1 / rar_ls:.0f} a {1 / rar_li:.0f}) durante 5 años&quot;)</code></pre><p><strong>Cómo se comunica a un paciente:</strong> «De cada 100 personas como usted que no toman el fármaco, unas 12 tendrán un evento cardiovascular en 5 años. Con el fármaco, unas 8. Hay que tratar a unas 25 personas durante 5 años para evitar un evento».</p>
+<p>El IC del NNT se obtiene invirtiendo los límites del IC de la reducción absoluta.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: medidas de asociación con Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: medidas de asociación con Python</h2><h3>3.5 La misma RRR, NNT muy distintos</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 La misma RRR, NNT muy distintos</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>El efecto relativo de un tratamiento suele ser parecido en pacientes de distinto riesgo basal, pero el beneficio absoluto <strong>depende del riesgo de partida</strong>.</p><pre class="code"><code class="language-python">rrr = 1 / 3
+print(f&quot;Reducción relativa del riesgo constante: {rrr:.0%}\n&quot;)
+print(f&quot;{&#x27;Riesgo basal a 5 años&#x27;:&gt;24} {&#x27;Riesgo con tratamiento&#x27;:&gt;24} {&#x27;RAR&#x27;:&gt;7} {&#x27;NNT&#x27;:&gt;6}&quot;)
+for basal in [0.03, 0.06, 0.12, 0.24]:
+    tratado = basal * (1 - rrr)
+    print(f&quot;{basal:&gt;24.0%} {tratado:&gt;24.1%} {basal - tratado:&gt;7.1%} {1 / (basal - tratado):&gt;6.0f}&quot;)</code></pre><p>El paciente del caso, con un riesgo del 3 %, tiene un NNT de 100; uno de alto riesgo, con un 24 %, de 13. Por eso las guías de prevención cardiovascular recomiendan tratar según el <strong>riesgo absoluto</strong> estimado (escalas como SCORE2). No basta con el valor del colesterol.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: medidas de asociación con Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: medidas de asociación con Python</h2><h3>3.6 Tablas mayores: centro de salud y eventos</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 Tablas mayores: centro de salud y eventos</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">tabla_centros = pd.crosstab(cohorte[&quot;centro&quot;], cohorte[&quot;evento_cv_5a&quot;])
+chi2, p, gl, esperadas = stats.chi2_contingency(tabla_centros)
+print(tabla_centros, &quot;\n&quot;)
+print(f&quot;Ji cuadrado = {chi2:.2f}, gl = {gl}, p = {p:.3f}&quot;)
+print(f&quot;Frecuencia esperada mínima: {esperadas.min():.1f}&quot;)
+print((tabla_centros[1] / tabla_centros.sum(axis=1)).round(3).rename(&quot;Riesgo&quot;))</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: casos y controles, solo la OR</h3><p>En un estudio de casos y controles se eligen, por ejemplo, 100 pacientes con infarto y 200 sin infarto, y se pregunta si fumaban. El número de casos lo fija el investigador, así que el «riesgo» de la tabla no estima el riesgo real. La OR, en cambio, no depende de esa elección:</p><pre class="code"><code class="language-python"># Expuestos (fumadores): 45 casos y 50 controles; no expuestos: 55 casos y 150 controles
+for controles_por_caso in [2, 4]:
+    a, c_ = 45, 55
+    b, d = 50 * controles_por_caso // 2, 150 * controles_por_caso // 2
+    m = medidas_2x2(a, b, c_, d)
+    print(f&quot;{controles_por_caso} controles por caso: «RR» = {m[&#x27;RR&#x27;][0]:.2f} · OR = {m[&#x27;OR&#x27;][0]:.2f}&quot;)</code></pre><p>Al duplicar el número de controles, el falso «RR» cambia; la OR no. En casos y controles, solo la OR tiene sentido.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Calcular un RR en un estudio de casos y controles.</strong></p>
+<p><strong>Interpretar la OR como un RR cuando el evento es frecuente:</strong> la OR exagera la asociación.</p>
+<p><strong>Comunicar solo la reducción relativa del riesgo.</strong> Da siempre la absoluta y el NNT.</p>
+<p><strong>Dar el NNT sin el período de tiempo.</strong> Un NNT de 25 a 5 años no es un NNT de 25 a 1 año.</p>
+<p><strong>Interpretar una asociación como causal.</strong> La cohorte es observacional: la asociación entre diabetes y eventos puede estar confundida, por ejemplo, por la edad (Tema 270).</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 230 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> calcular a mano el RR, la OR, la RAR y el NNT de tres tablas 2 × 2 de ensayos publicados.</li>
+<li><strong>Misión clínica (con pistas):</strong> estimar con IC el RR de evento cardiovascular de los fumadores y de los hipertensos tratados de la cohorte. Interpretarlos.</li>
+<li><strong>Misión reto (con asistente):</strong> una nota de prensa da solo la reducción relativa del riesgo. Reescribirla con el asistente para que incluya la absoluta y el NNT. Comprobar los números.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q20-0"><p class="qq">En un ensayo, el evento ocurre en el 10 % con placebo y en el 6 % con tratamiento. ¿Cuál es el NNT?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: RAR = 0,10 − 0,06 = 0,04; NNT = 1/0,04 = 25.">25</button><button type="button" class="op" data-ok="0" data-fb="Esa sería la reducción relativa en porcentaje.">40</button><button type="button" class="op" data-ok="0" data-fb="El NNT es el inverso de la RAR expresada como proporción.">4</button><button type="button" class="op" data-ok="0" data-fb="Ese es el cociente de riesgos 10/6.">1,67</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-1"><p class="qq">En el mismo ensayo (10 % frente a 6 %), ¿cuál es la reducción relativa del riesgo?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: RR = 0,6; RRR = 1 − 0,6 = 0,4.">40 %</button><button type="button" class="op" data-ok="0" data-fb="Esa es la reducción absoluta.">4 %</button><button type="button" class="op" data-ok="0" data-fb="Ese es el riesgo relativo expresado en porcentaje.">60 %</button><button type="button" class="op" data-ok="0" data-fb="25 es el NNT.">25 %</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-2"><p class="qq">En un estudio de casos y controles sobre tabaco y cáncer de vejiga, ¿qué medida de asociación debes usar?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: en casos y controles no se puede estimar el riesgo.">La odds ratio</button><button type="button" class="op" data-ok="0" data-fb="El número de casos lo fija el investigador, así que los riesgos no son estimables.">El riesgo relativo</button><button type="button" class="op" data-ok="0" data-fb="El NNT requiere riesgos absolutos.">El NNT</button><button type="button" class="op" data-ok="0" data-fb="También requiere riesgos.">La diferencia de riesgos</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-3"><p class="qq">Un estudio da un RR de 1,8 (IC 95 %: 0,9 a 3,6). ¿Qué concluyes?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el IC del RR contiene el 1.">La asociación no es estadísticamente significativa; los datos son compatibles con ningún efecto o con uno grande</button><button type="button" class="op" data-ok="0" data-fb="El IC incluye el 1.">El factor duplica el riesgo de forma significativa</button><button type="button" class="op" data-ok="0" data-fb="El RR estimado es mayor que 1.">El factor protege</button><button type="button" class="op" data-ok="0" data-fb="El IC del RR es asimétrico por construirse en escala logarítmica.">El IC está mal calculado porque es asimétrico</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-4"><p class="qq">Un tratamiento con la misma reducción relativa del riesgo se aplica a un paciente de riesgo basal del 2 % y a otro del 20 %. ¿En cuál es menor el NNT?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la reducción absoluta es 10 veces mayor, y el NNT 10 veces menor.">En el de riesgo basal del 20 %</button><button type="button" class="op" data-ok="0" data-fb="Con poco riesgo de partida, el beneficio absoluto es pequeño.">En el de riesgo basal del 2 %</button><button type="button" class="op" data-ok="0" data-fb="El NNT depende del riesgo basal.">Es igual en los dos</button><button type="button" class="op" data-ok="0" data-fb="Basta con el riesgo basal y la RRR.">No se puede saber sin la OR</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>La ji cuadrado contrasta la independencia de dos variables cualitativas.</li>
+<li>RR y DR en cohortes y ensayos; en casos y controles, solo la OR.</li>
+<li>La OR se parece al RR solo si el evento es raro.</li>
+<li>Comunica siempre la reducción absoluta y el NNT, con su período de tiempo, además de la relativa.</li>
+<li>El beneficio absoluto de un tratamiento depende del riesgo basal del paciente.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tabla de contingencia</td>
+<td>Tabla de frecuencias cruzadas de dos variables cualitativas</td>
+</tr>
+<tr>
+<td>Riesgo</td>
+<td>Proporción de individuos que presentan el evento en un período</td>
+</tr>
+<tr>
+<td>Odds</td>
+<td>Cociente entre los que presentan el evento y los que no</td>
+</tr>
+<tr>
+<td>Riesgo relativo (RR)</td>
+<td>Cociente de riesgos entre expuestos y no expuestos</td>
+</tr>
+<tr>
+<td>Odds ratio (OR)</td>
+<td>Cociente de odds entre expuestos y no expuestos</td>
+</tr>
+<tr>
+<td>Diferencia de riesgos (DR)</td>
+<td>Diferencia de riesgos entre expuestos y no expuestos</td>
+</tr>
+<tr>
+<td>Reducción relativa del riesgo (RRR)</td>
+<td>1 − RR, cuando el tratamiento reduce el riesgo</td>
+</tr>
+<tr>
+<td>Reducción absoluta del riesgo (RAR)</td>
+<td>Diferencia de riesgos entre control y tratamiento</td>
+</tr>
+<tr>
+<td>Número necesario a tratar (NNT)</td>
+<td>Inverso de la RAR: pacientes a tratar para evitar un evento</td>
+</tr>
+<tr>
+<td>Número necesario para dañar (NND)</td>
+<td>Inverso del aumento absoluto del riesgo de un efecto adverso</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li>Laupacis A, Sackett DL, Roberts RS. An assessment of clinically useful measures of the consequences of treatment. <em>N Engl J Med</em>. 1988;318(26):1728-1733. doi:<a href="https://doi.org/10.1056/NEJM198806303182605" target="_blank" rel="noopener">10.1056/NEJM198806303182605</a></li>
+<li>Altman DG. Confidence intervals for the number needed to treat. <em>BMJ</em>. 1998;317(7168):1309-1312. doi:<a href="https://doi.org/10.1136/bmj.317.7168.1309" target="_blank" rel="noopener">10.1136/bmj.317.7168.1309</a></li>
+<li>SCORE2 working group and ESC Cardiovascular risk collaboration. SCORE2 risk prediction algorithms: new models to estimate 10-year risk of cardiovascular disease in Europe. <em>Eur Heart J</em>. 2021;42(25):2439-2454. doi:<a href="https://doi.org/10.1093/eurheartj/ehab309" target="_blank" rel="noopener">10.1093/eurheartj/ehab309</a></li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_230_Tablas_de_contingencia_y_medidas_de_asociacion_RR_OR_y_NNT.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 230 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-230" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_220.html">← Tema 220</a><a class="btn ghost" href="tema_240.html">→ Tema 240</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

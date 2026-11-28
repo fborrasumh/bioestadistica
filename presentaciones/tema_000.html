@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 0. Guía del entorno de trabajo: cuadernos Jupyter y Google Colab · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 0. Guía del entorno de trabajo: cuadernos Jupyter y Google Colab</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 0</span>Guía del entorno de trabajo: cuadernos Jupyter y Google Colab</h1>
+<p class="mod">Antes de empezar</p>
+
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_000_Guia_del_entorno_Google_Colab.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">App Bioestadística ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta guía serás capaz de:</p>
+<ol>
+<li>Explicar qué es un cuaderno Jupyter y qué ofrece Google Colab.</li>
+<li>Abrir un cuaderno, guardar tu propia copia y organizarla en Google Drive.</li>
+<li>Reconocer las partes de la interfaz de Colab.</li>
+<li>Escribir celdas de texto con formato (Markdown) y fórmulas (LaTeX).</li>
+<li>Ejecutar celdas de código y entender el orden de ejecución.</li>
+<li>Crear un formulario sencillo para una calculadora clínica.</li>
+<li>Guardar una clave de acceso en el panel de Secretos y usar el asistente de IA con seguridad.</li>
+<li>Compartir, descargar y comentar un cuaderno.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Cuadernos Jupyter y Google Colab</li><li><b>2.</b> Primeros pasos</li><li><b>3.</b> La interfaz de Colab</li><li><b>4.</b> Celdas de texto: Markdown</li><li><b>5.</b> Fórmulas con LaTeX</li><li><b>10.</b> Guardar, compartir y descargar</li><li><b>11.</b> Atajos de teclado</li><li><b>12.</b> Autoevaluación</li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>6.</b> Celdas de código</li><li><b>7.</b> Formularios</li><li><b>8.</b> Gráficos</li><li><b>9.</b> Secretos y asistente de inteligencia artificial</li><li><b>12.</b> Autoevaluación</li><li><b>13.</b> Reto: tu primer cuaderno clínico</li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Presentación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Presentación</h2><p>Toda la asignatura se trabaja en <strong>cuadernos de Google Colab</strong> como este. Un cuaderno reúne en un solo documento la explicación, el código de los cálculos y sus resultados. Así, cualquier persona puede repetir el análisis paso a paso.</p>
+<p>En medicina este es un valor esencial. Si un análisis no se puede repetir, no se puede revisar. Y un resultado sin revisar no debe guiar decisiones clínicas. El cuaderno es como el protocolo de un laboratorio: documenta qué se hizo, con qué datos y en qué orden.</p>
+<p>Esta guía no exige ningún conocimiento previo de programación. Léela con el cuaderno abierto y <strong>ejecuta cada celda de código</strong> a medida que avances.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Cuadernos Jupyter y Google Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Cuadernos Jupyter y Google Colab</h2><p>Un <strong>cuaderno Jupyter</strong> (<em>Jupyter Notebook</em>) es un documento interactivo que combina texto, código ejecutable y resultados: números, tablas y gráficos. Lo desarrolla el <a href="https://jupyter.org/" target="_blank" rel="noopener">Proyecto Jupyter</a>, de código abierto, y sus ficheros tienen la extensión <code>.ipynb</code>.</p>
+<p><strong>Google Colab</strong> (Colaboratory) es un servicio gratuito de Google que permite abrir y ejecutar cuadernos Jupyter desde el navegador:</p>
+<ul>
+<li>No hay que instalar nada: el código se ejecuta en un servidor de Google.</li>
+<li>Los cuadernos se guardan en Google Drive, como cualquier otro documento de Google.</li>
+<li>Se pueden compartir y comentar como un documento de texto.</li>
+<li>Incluye un asistente de inteligencia artificial que ayuda a escribir y explicar código.</li>
+</ul>
+<p>En esta asignatura usaremos el lenguaje <strong>Python</strong>, el más extendido en ciencia de datos y en investigación biomédica.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Primeros pasos" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Primeros pasos</h2><p><strong>Paso 1. Inicia sesión</strong> en tu cuenta de Google en el navegador (Chrome, Firefox, Edge o Safari).</p>
+<p><strong>Paso 2. Abre el cuaderno.</strong> Los cuadernos de la asignatura se abren con el botón <strong>Abrir en Colab</strong> de su cabecera o desde el repositorio de la asignatura.</p>
+<p><strong>Paso 3. Guarda tu copia.</strong> El cuaderno original es de solo lectura para ti. Antes de escribir nada, ve a <strong>Archivo → Guardar una copia en Drive</strong>. Colab crea la copia en la carpeta <em>Colab Notebooks</em> de tu Drive y la abre en una pestaña nueva. <strong>Trabaja siempre en tu copia.</strong></p>
+<p><strong>Paso 4. Ponle nombre.</strong> Haz clic en el nombre del cuaderno, arriba a la izquierda, y renómbralo. Te recomendamos una carpeta en Drive para la asignatura y nombres del tipo <code>Tema_010_tu_nombre.ipynb</code>.</p>
+<p><strong>Paso 5. Conéctate.</strong> Al ejecutar la primera celda de código, Colab se conecta a un servidor (arriba a la derecha aparece <em>Conectado</em> y el uso de memoria RAM). Si dejas el cuaderno inactivo un tiempo, la conexión se pierde y hay que volver a ejecutar las celdas.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="3. La interfaz de Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>3. La interfaz de Colab</h2><table>
+<thead>
+<tr>
+<th>Zona</th>
+<th>Qué contiene</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Barra de menús (arriba)</td>
+<td>Archivo, Editar, Ver, Insertar, Entorno de ejecución, Herramientas, Ayuda</td>
+</tr>
+<tr>
+<td>Botones <strong>+ Código</strong> y <strong>+ Texto</strong></td>
+<td>Añaden una celda de código o de texto debajo de la celda seleccionada</td>
+</tr>
+<tr>
+<td>Indicador de conexión (arriba a la derecha)</td>
+<td>Estado del servidor y memoria utilizada</td>
+</tr>
+<tr>
+<td>Barra lateral izquierda</td>
+<td>Índice del cuaderno, búsqueda, variables, <strong>Secretos</strong> (icono de la llave) y archivos</td>
+</tr>
+<tr>
+<td>Cuerpo del cuaderno</td>
+<td>La secuencia de celdas, de arriba abajo</td>
+</tr>
+</tbody>
+</table>
+<p>El <strong>índice</strong> de la barra lateral se construye solo a partir de los encabezados de las celdas de texto. Úsalo para moverte por cuadernos largos.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="4. Celdas de texto: Markdown" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>4. Celdas de texto: Markdown</h2><p>Las celdas de texto se escriben en <strong>Markdown</strong>, un lenguaje de marcas muy sencillo. Haz doble clic en una celda de texto para editarla y pulsa <code>Mayús + Intro</code> para ver el resultado.</p>
+<table>
+<thead>
+<tr>
+<th>Escribes</th>
+<th>Obtienes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>**Diagnóstico principal**</code></td>
+<td><strong>Diagnóstico principal</strong></td>
+</tr>
+<tr>
+<td><code>*diabetes mellitus tipo 2*</code></td>
+<td><em>diabetes mellitus tipo 2</em></td>
+</tr>
+<tr>
+<td><code>`peso_kg`</code></td>
+<td><code>peso_kg</code></td>
+</tr>
+<tr>
+<td><code>[Guía de la OMS](https://www.who.int)</code></td>
+<td><a href="https://www.who.int" target="_blank" rel="noopener">Guía de la OMS</a></td>
+</tr>
+<tr>
+<td><code># Título</code>, <code>## Apartado</code>, <code>### Subapartado</code></td>
+<td>Encabezados de tres niveles</td>
+</tr>
+<tr>
+<td><code>- Elemento</code></td>
+<td>Lista con viñetas</td>
+</tr>
+<tr>
+<td><code>1. Elemento</code></td>
+<td>Lista numerada</td>
+</tr>
+<tr>
+<td><code>---</code></td>
+<td>Línea horizontal</td>
+</tr>
+</tbody>
+</table><p><strong>Ejemplo: una nota clínica con formato.</strong> Haz doble clic en esta celda para ver cómo está escrita.</p>
+<hr />
+<h3>Paciente sintético 001</h3>
+<p><strong>Motivo de consulta:</strong> control de hipertensión arterial.</p>
+<p><strong>Constantes:</strong></p>
+<ul>
+<li>Presión arterial: 148/92 mmHg</li>
+<li>Frecuencia cardiaca: 78 lpm</li>
+<li>IMC: 25,6 kg/m²</li>
+</ul>
+<p><strong>Plan:</strong> repetir la medición en dos semanas y valorar <em>ajuste de tratamiento</em>.</p>
+<table>
+<thead>
+<tr>
+<th>Fecha</th>
+<th>PAS (mmHg)</th>
+<th>PAD (mmHg)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>01/09</td>
+<td>152</td>
+<td>94</td>
+</tr>
+<tr>
+<td>15/09</td>
+<td>148</td>
+<td>92</td>
+</tr>
+</tbody>
+</table>
+<hr /><p>Las imágenes publicadas en internet se insertan con <code>![texto alternativo](dirección de la imagen)</code>. El texto alternativo describe la imagen para quien no puede verla; escríbelo siempre.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="5. Fórmulas con LaTeX" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>5. Fórmulas con LaTeX</h2><p>Las fórmulas se escriben en <strong>LaTeX</strong> entre signos de dólar. Con un <code>$` la fórmula queda dentro de la línea; con `$$</code> queda centrada en su propia línea.</p>
+<table>
+<thead>
+<tr>
+<th>Escribes</th>
+<th>Obtienes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$x^2$</code></td>
+<td>$x^2$</td>
+</tr>
+<tr>
+<td><code>$x_i$</code></td>
+<td>$x_i$</td>
+</tr>
+<tr>
+<td><code>$\frac{a}{b}$</code></td>
+<td>$\frac{a}{b}$</td>
+</tr>
+<tr>
+<td><code>$\sqrt{x}$</code></td>
+<td>$\sqrt{x}$</td>
+</tr>
+<tr>
+<td><code>$\bar{x}$</code></td>
+<td>$\bar{x}$</td>
+</tr>
+<tr>
+<td><code>$\sum_{i=1}^{n} x_i$</code></td>
+<td>$\sum_{i=1}^{n} x_i$</td>
+</tr>
+<tr>
+<td><code>$\mu$, $\sigma$, $\alpha$</code></td>
+<td>$\mu$, $\sigma$, $\alpha$</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Tres fórmulas que usaremos durante el curso:</strong></p>
+<p>Índice de masa corporal:
+$$\text{IMC} = \frac{\text{peso (kg)}}{\text{talla (m)}^2}$$</p>
+<p>Sensibilidad de una prueba diagnóstica:
+$$\text{Se} = \frac{VP}{VP + FN}$$</p>
+<p>Media de una muestra de $n$ pacientes:
+$$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="6. Celdas de código" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>6. Celdas de código</h2><p class="colab-cta">▶ En tu cuaderno: <b>6. Celdas de código</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Una celda de código contiene instrucciones en Python. Para ejecutarla, haz clic en el botón ▶ que aparece a su izquierda o pulsa <code>Mayús + Intro</code>. El resultado aparece justo debajo.</p>
+<p>Lo que va detrás de <code>#</code> es un <strong>comentario</strong>: Python no lo ejecuta, pero explica el código a quien lo lee.</p><pre class="code"><code class="language-python"># Esto es un comentario: Python lo ignora
+print(&quot;Hola, Medicina&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="6. Celdas de código" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>6. Celdas de código</h2><h3>Las celdas comparten memoria</h3><p class="colab-cta">▶ En tu cuaderno: <b>Las celdas comparten memoria</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Lo que se define en una celda queda disponible para las demás <strong>una vez ejecutada</strong>. Ejecuta las dos celdas siguientes en orden.</p><pre class="code"><code class="language-python">frecuencia_cardiaca_lpm = 78</code></pre><pre class="code"><code class="language-python">print(&quot;Frecuencia cardiaca:&quot;, frecuencia_cardiaca_lpm, &quot;lpm&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="6. Celdas de código" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>6. Celdas de código</h2><h3>El orden de ejecución</h3><p class="colab-cta">▶ En tu cuaderno: <b>El orden de ejecución</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>El número que aparece a la izquierda de cada celda, como <code>[3]</code>, indica en qué orden se ejecutó. <strong>Lo que cuenta es el orden en que ejecutas las celdas, no el orden en que aparecen.</strong> Si cambias un valor en una celda de arriba y no la ejecutas otra vez, las celdas de abajo usan el valor antiguo.</p>
+<p>Si el cuaderno se comporta de forma extraña, reinicia la sesión en el menú <strong>Entorno de ejecución</strong>. Después, <strong>ejecuta todas</strong> las celdas desde el principio.</p>
+<h3>Las celdas muestran el último resultado</h3>
+<p>Si la última línea de una celda es una expresión, Colab muestra su valor sin necesidad de <code>print</code>.</p><figure><img src="../figuras/tema_000_esquema.png" alt="Tres celdas numeradas [1], [3] y [2]: la celda [3] muestra 250 porque se ejecutó después de la [2]. Si algo falla, reinicia y ejecuta todo." loading="lazy"></figure><pre class="code"><code class="language-python"># Presión arterial media (PAM) aproximada a partir de 148/92 mmHg
+92 + (148 - 92) / 3</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="6. Celdas de código" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>6. Celdas de código</h2><h3>Los mensajes de error</h3><p class="colab-cta">▶ En tu cuaderno: <b>Los mensajes de error</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Cuando algo falla, Python muestra un mensaje de error. <strong>Léelo desde la última línea</strong>: ahí está el tipo de error y su causa. Quita el <code>#</code> de la línea siguiente, ejecuta la celda y observa el mensaje; después vuelve a poner el <code>#</code>.</p><pre class="code"><code class="language-python"># print(saturacion_oxigeno)</code></pre><p>El mensaje <code>NameError: name 'saturacion_oxigeno' is not defined</code> indica que la variable no existe. O nunca se definió, o no se ha ejecutado la celda que la define.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="7. Formularios" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>7. Formularios</h2><p class="colab-cta">▶ En tu cuaderno: <b>7. Formularios</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Los <strong>formularios</strong> de Colab convierten una celda de código en una pequeña aplicación con campos para introducir datos. Basta con añadir comentarios especiales: <code>#@title</code> para el título y <code>#@param</code> para cada campo.</p>
+<p>Cambia el peso y la talla en el formulario y ejecuta la celda.</p><pre class="code"><code class="language-python">peso_kg = 68    #@param {type:&quot;number&quot;}
+talla_m = 1.63  #@param {type:&quot;number&quot;}
+
+imc = peso_kg / talla_m ** 2
+
+if imc &lt; 18.5:
+    categoria = &quot;bajo peso&quot;
+elif imc &lt; 25:
+    categoria = &quot;peso normal&quot;
+elif imc &lt; 30:
+    categoria = &quot;sobrepeso&quot;
+else:
+    categoria = &quot;obesidad&quot;
+
+print(f&quot;IMC: {imc:.1f} kg/m² ({categoria}, según la clasificación de la OMS)&quot;)</code></pre><p>Con el menú de tres puntos de la celda puedes ocultar el código y dejar visible solo el formulario. Así funcionan las celdas de configuración y de preguntas de estos cuadernos.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="8. Gráficos" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>8. Gráficos</h2><p class="colab-cta">▶ En tu cuaderno: <b>8. Gráficos</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Una celda de código puede producir gráficos. No necesitas entender todavía este código; aprenderás a escribirlo en el Tema 60.</p><pre class="code"><code class="language-python">import matplotlib.pyplot as plt
+
+dias = [1, 2, 3, 4, 5, 6, 7]
+glucemia_mg_dl = [142, 135, 128, 131, 120, 118, 112]
+
+plt.plot(dias, glucemia_mg_dl, marker=&quot;o&quot;)
+plt.axhline(100, linestyle=&quot;--&quot;, color=&quot;gray&quot;, label=&quot;Límite de normalidad en ayunas&quot;)
+plt.xlabel(&quot;Día de seguimiento&quot;)
+plt.ylabel(&quot;Glucemia en ayunas (mg/dL)&quot;)
+plt.title(&quot;Paciente sintético 002: glucemia durante una semana&quot;)
+plt.legend()
+plt.show()</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="9. Secretos y asistente de inteligencia artificial" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>9. Secretos y asistente de inteligencia artificial</h2><h3>El asistente de Colab</h3><p class="colab-cta">▶ En tu cuaderno: <b>El asistente de Colab</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Colab incluye un asistente de inteligencia artificial que puede generar, explicar y corregir código. Es una ayuda muy útil, con tres normas que se aplican en toda la asignatura:</p>
+<ol>
+<li><strong>Nunca</strong> introduzcas datos reales de pacientes: ni nombres, ni números de historia clínica, ni ningún dato que identifique a una persona. Lo prohíbe el Reglamento General de Protección de Datos (Reglamento (UE) 2016/679) y el deber de secreto profesional.</li>
+<li><strong>Verifica siempre</strong> lo que propone: ejecútalo, compruébalo con un caso cuyo resultado conozcas y asegúrate de entender cada línea.</li>
+<li><strong>El responsable eres tú.</strong> El asistente puede equivocarse con total seguridad; un error en un análisis clínico tiene consecuencias.</li>
+</ol>
+<h3>Las claves de acceso (API keys)</h3>
+<p>Para usar modelos de IA desde el código o desde la app de la asignatura, necesitas una <strong>clave de acceso</strong> personal. Es como una contraseña: quien la tenga puede usarla en tu nombre y consumir tu cuota.</p>
+<ul>
+<li>Nunca la escribas en una celda de código ni la compartas.</li>
+<li>Guárdala en el panel <strong>Secretos</strong> (icono de la llave en la barra lateral). Pulsa <em>Añadir nuevo secreto</em> y escribe un nombre (por ejemplo <code>GEMINI_API_KEY</code>). Pega la clave en el valor.</li>
+<li>Activa el acceso del cuaderno a ese secreto con el interruptor correspondiente.</li>
+</ul>
+<p>El Tema 10 explica paso a paso cómo conseguir una clave gratuita de Google Gemini o una de pago de OpenAI.</p>
+<p>La celda siguiente comprueba si la clave existe <strong>sin mostrarla</strong>.</p><pre class="code"><code class="language-python">try:
+    from google.colab import userdata
+    clave = userdata.get(&quot;GEMINI_API_KEY&quot;)
+    print(&quot;Clave configurada:&quot;, clave is not None)
+except Exception as error:
+    print(&quot;No hay clave configurada o el cuaderno no se ejecuta en Colab:&quot;, type(error).__name__)</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="10. Guardar, compartir y descargar" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>10. Guardar, compartir y descargar</h2><table>
+<thead>
+<tr>
+<th>Acción</th>
+<th>Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Guardar tu copia</td>
+<td><strong>Archivo → Guardar una copia en Drive</strong> (la primera vez); después, <code>Ctrl + S</code></td>
+</tr>
+<tr>
+<td>Recuperar una versión anterior</td>
+<td><strong>Archivo → Historial de revisiones</strong></td>
+</tr>
+<tr>
+<td>Compartir</td>
+<td>Botón <strong>Compartir</strong>, arriba a la derecha, como en cualquier documento de Google</td>
+</tr>
+<tr>
+<td>Descargar</td>
+<td><strong>Archivo → Descargar → Descargar .ipynb</strong></td>
+</tr>
+<tr>
+<td>Comentar una celda</td>
+<td>Icono de comentario de la celda</td>
+</tr>
+</tbody>
+</table>
+<p>Antes de compartir un cuaderno, comprueba que no contiene claves de acceso ni datos de personas reales.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="11. Atajos de teclado" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>11. Atajos de teclado</h2><table>
+<thead>
+<tr>
+<th>Atajo</th>
+<th>Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Mayús + Intro</code></td>
+<td>Ejecutar la celda y pasar a la siguiente</td>
+</tr>
+<tr>
+<td><code>Ctrl + Intro</code></td>
+<td>Ejecutar la celda sin moverse</td>
+</tr>
+<tr>
+<td><code>Ctrl + M</code>, después <code>B</code></td>
+<td>Insertar una celda de código debajo</td>
+</tr>
+<tr>
+<td><code>Ctrl + M</code>, después <code>M</code></td>
+<td>Convertir la celda en texto</td>
+</tr>
+<tr>
+<td><code>Ctrl + M</code>, después <code>Y</code></td>
+<td>Convertir la celda en código</td>
+</tr>
+<tr>
+<td><code>Ctrl + M</code>, después <code>D</code></td>
+<td>Eliminar la celda</td>
+</tr>
+<tr>
+<td><code>Ctrl + /</code></td>
+<td>Convertir en comentario las líneas seleccionadas</td>
+</tr>
+</tbody>
+</table>
+<p>En Mac, sustituye <code>Ctrl</code> por <code>Cmd</code>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="12. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>12. Autoevaluación</h2><p>Ejecuta la celda (si no has ejecutado antes la configuración, hazlo primero) y responde a las preguntas.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="12. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>12. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q19-0"><p class="qq">Abres un cuaderno de la asignatura desde el botón «Abrir en Colab». ¿Qué debes hacer antes de modificarlo?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el original es de solo lectura y tus cambios se perderían.">Guardar una copia en Drive y trabajar en ella</button><button type="button" class="op" data-ok="0" data-fb="El original no es tuyo; tus cambios no se guardarían.">Nada: los cambios se guardan solos en el original</button><button type="button" class="op" data-ok="0" data-fb="No es necesario: Colab trabaja directamente sobre tu copia en Drive.">Descargarlo y abrirlo con un editor de texto</button><button type="button" class="op" data-ok="0" data-fb="Reiniciar no crea una copia propia.">Reiniciar el entorno de ejecución</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q19-1"><p class="qq">Defines la variable peso_kg en la celda 3 pero no la ejecutas. Al ejecutar la celda 4, que usa peso_kg, ¿qué ocurre?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la variable solo existe cuando se ejecuta la celda que la define.">Aparece un NameError</button><button type="button" class="op" data-ok="0" data-fb="Python solo conoce lo que se ha ejecutado.">Python usa el valor escrito en la celda 3</button><button type="button" class="op" data-ok="0" data-fb="Colab no ejecuta celdas por su cuenta.">Colab ejecuta automáticamente la celda 3</button><button type="button" class="op" data-ok="0" data-fb="Python no asigna valores por defecto a variables que no existen.">Se obtiene el valor 0</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q19-2"><p class="qq">¿Cómo se escribe en una celda de texto la palabra «hipertensión» en negrita?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: dos asteriscos a cada lado.">**hipertensión**</button><button type="button" class="op" data-ok="0" data-fb="Un solo asterisco produce cursiva.">*hipertensión*</button><button type="button" class="op" data-ok="0" data-fb="La almohadilla al inicio de línea crea un encabezado."># hipertensión</button><button type="button" class="op" data-ok="0" data-fb="Las comillas invertidas producen texto de código.">`hipertensión`</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q19-3"><p class="qq">¿Dónde se debe guardar la clave de acceso a un modelo de IA?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el código la lee sin mostrarla.">En el panel Secretos de Colab</button><button type="button" class="op" data-ok="0" data-fb="Cualquiera con acceso al cuaderno podría verla.">En una celda de código, para tenerla a mano</button><button type="button" class="op" data-ok="0" data-fb="Sigue siendo visible para quien abra el cuaderno.">En una celda de texto con formato de código</button><button type="button" class="op" data-ok="0" data-fb="Nunca se comparte la clave, tampoco con el asistente.">En el mensaje que se envía al asistente</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q19-4"><p class="qq">¿Cuál de estas peticiones al asistente de IA cumple las normas de la asignatura?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: no identifica a nadie y produce código verificable.">«Escribe una función en Python que calcule el IMC y explica cada línea»</button><button type="button" class="op" data-ok="0" data-fb="Nunca se introducen datos reales de pacientes.">«Resume esta historia clínica» seguida del informe de un paciente real</button><button type="button" class="op" data-ok="0" data-fb="Contiene datos identificativos.">«Calcula el IMC de Juan García, NHC 123456»</button><button type="button" class="op" data-ok="0" data-fb="Toda respuesta del asistente se verifica.">«Dame el resultado sin explicaciones, no lo voy a revisar»</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="13. Reto: tu primer cuaderno clínico" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>13. Reto: tu primer cuaderno clínico</h2><p>Crea un cuaderno nuevo (<strong>Archivo → Cuaderno nuevo en Drive</strong>), llámalo <code>Tema_000_reto_tu_nombre.ipynb</code> y construye en él:</p>
+<ol>
+<li>Una celda de texto con un título de nivel 1 y tu nombre en negrita.</li>
+<li>Una celda de texto con la nota clínica de un paciente inventado: motivo de consulta, lista de constantes y tabla con dos mediciones.</li>
+<li>Una celda de texto con la fórmula del IMC escrita en LaTeX.</li>
+<li>Una celda de código que guarde el peso y la talla de tu paciente en variables y muestre su IMC con un decimal.</li>
+<li>Una celda de código con un formulario que calcule la presión arterial media a partir de la sistólica y la diastólica:
+$$\text{PAM} \approx \text{PAD} + \frac{\text{PAS} - \text{PAD}}{3}$$</li>
+<li>Un comentario en alguna celda explicando qué hace.</li>
+</ol>
+<p>Comprueba al final que el cuaderno no contiene datos reales de nadie ni ninguna clave de acceso.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li><a href="https://research.google.com/colaboratory/faq.html" target="_blank" rel="noopener">Preguntas frecuentes de Google Colab</a></li>
+<li><a href="https://www.markdownguide.org/basic-syntax/" target="_blank" rel="noopener">Guía de Markdown</a></li>
+<li><a href="https://docs.python.org/es/3/tutorial/" target="_blank" rel="noopener">Tutorial oficial de Python en español</a></li>
+</ul><hr />
+<p><em>Tema 0 · Bioestadística (1964) · Grado en Medicina · Universidad Miguel Hernández de Elche · Fernando Borrás Rocher · CC BY 4.0</em></p></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_000_Guia_del_entorno_Google_Colab.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 0 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">App Bioestadística ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_010.html">→ Tema 10</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

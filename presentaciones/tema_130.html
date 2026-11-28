@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 130. Análisis bivariante y representación gráfica de datos clínicos: asociación y correlación · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 130. Análisis bivariante y representación gráfica de datos clínicos: asociación y correlación</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 130</span>Análisis bivariante y representación gráfica de datos clínicos: asociación y correlación</h1>
+<p class="mod">Módulo 3. Procesado inicial de datos</p>
+
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_130_Analisis_bivariante_asociacion_y_correlacion.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-130" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Elegir el gráfico y el resumen adecuados según el tipo de las dos variables que se relacionan.</li>
+<li>Calcular e interpretar los coeficientes de correlación de Pearson y de Spearman.</li>
+<li>Reconocer las limitaciones de la correlación: relaciones no lineales, valores atípicos y variables de confusión.</li>
+<li>Comparar una variable cuantitativa entre grupos con diagramas de caja y de violín.</li>
+<li>Representar la relación entre dos variables categóricas con barras de porcentajes.</li>
+<li>Construir un mapa de calor de correlaciones con Seaborn.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: relacionar variables clínicas <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">Chocolate y premios Nobel; presión arterial y creatinina</p><figure><img src="../figuras/tema_130_confusion.png" alt="Chocolate y premios Nobel; presión arterial y creatinina" loading="lazy"></figure><ul class='puntos'><li>Una correlación real puede deberse a una tercera variable que influye en las dos.</li><li>En el registro, la edad eleva a la vez la PAS y la creatinina.</li></ul><p class="pregunta"><b>Pregunta para la clase:</b> ¿Qué otra variable podría explicar que dos medidas clínicas suban juntas?</p></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Un titular de prensa afirma: «Los países que más chocolate consumen tienen más premios Nobel». La correlación es real: se publicó en una revista médica de prestigio en 2012, en tono deliberadamente irónico. Pero nadie diría que comer chocolate hace ganar un Nobel: ambos se asocian a la riqueza de los países.</p>
+<p>En el registro cardiovascular ocurre algo parecido. Al cruzar la presión arterial sistólica con la creatinina aparece una correlación positiva. ¿La hipertensión daña el riñón? ¿O ambas aumentan con la <strong>edad</strong>?</p>
+<p>Medir la relación entre dos variables es el primer paso para estudiar factores de riesgo. Interpretarla bien exige recordar siempre que <strong>asociación no es causalidad</strong>.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 Qué gráfico y qué resumen</h3><p class="lema">Qué gráfico y qué resumen según las variables</p><figure><img src="../figuras/tema_130_que_grafico.png" alt="Qué gráfico y qué resumen según las variables" loading="lazy"></figure><ul class='puntos'><li>El tipo de las dos variables decide el gráfico y la medida de asociación.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><table>
+<thead>
+<tr>
+<th>Variables</th>
+<th>Gráfico</th>
+<th>Resumen</th>
+<th>Ejemplo clínico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cuantitativa y cuantitativa</td>
+<td>Dispersión</td>
+<td>Correlación de Pearson o Spearman</td>
+<td>Edad y presión arterial</td>
+</tr>
+<tr>
+<td>Cualitativa y cuantitativa</td>
+<td>Cajas o violín por grupo</td>
+<td>Media o mediana por grupo</td>
+<td>HDL según sexo</td>
+</tr>
+<tr>
+<td>Cualitativa y cualitativa</td>
+<td>Barras de porcentajes</td>
+<td>Tabla de contingencia</td>
+<td>Tabaco y evento cardiovascular</td>
+</tr>
+</tbody>
+</table></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Los coeficientes de correlación</h3><p class="lema">Cómo se ve cada coeficiente de correlación</p><figure><img src="../figuras/tema_130_r.png" alt="Cómo se ve cada coeficiente de correlación" loading="lazy"></figure><ul class='puntos'><li>r mide solo la relación <b>lineal</b>, de −1 a 1.</li><li>Una U perfecta puede dar r ≈ 0: mira siempre el gráfico.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>El <strong>coeficiente de correlación de Pearson</strong> (<em>r</em>) mide la intensidad de la relación <strong>lineal</strong> entre dos variables cuantitativas:</p>
+<p>$$r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum (x_i - \bar{x})^2 \sum (y_i - \bar{y})^2}}$$</p>
+<ul>
+<li>Va de −1 a +1. El signo indica el sentido; el valor absoluto, la intensidad.</li>
+<li><em>r</em> = 0 indica ausencia de relación <strong>lineal</strong>, no ausencia de relación.</li>
+<li>Es sensible a los valores atípicos.</li>
+</ul>
+<p>El <strong>coeficiente de Spearman</strong> (ρ) aplica la misma fórmula a los <strong>rangos</strong> (posiciones) de los datos. Mide relaciones <strong>monótonas</strong> (que siempre crecen o siempre decrecen, aunque no sea en línea recta) y es robusto frente a valores atípicos. Se usa también con variables ordinales.</p>
+<table>
+<thead>
+<tr>
+<th>Valor absoluto</th>
+<th>Interpretación orientativa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 0,3</td>
+<td>Débil</td>
+</tr>
+<tr>
+<td>0,3 a 0,7</td>
+<td>Moderada</td>
+</tr>
+<tr>
+<td>&gt; 0,7</td>
+<td>Fuerte</td>
+</tr>
+</tbody>
+</table>
+<p>El cuadrado de <em>r</em> (<em>r</em>²) es la proporción de la variabilidad de una variable que se asocia linealmente con la otra.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Asociación no es causalidad</h3><figure><img src="../figuras/tema_130_esquema.png" alt="Cuatro esquemas: X causa Y, Y causa X, Z causa X e Y (confusión) y azar." loading="lazy"></figure><p>Una correlación entre X e Y puede deberse a:</p>
+<ol>
+<li>Que X cause Y.</li>
+<li>Que Y cause X (causalidad inversa).</li>
+<li>Que una tercera variable Z cause ambas: <strong>confusión</strong>.</li>
+<li>El azar, sobre todo en muestras pequeñas.</li>
+</ol>
+<p>Los criterios de Bradford Hill (1965) y, sobre todo, el diseño del estudio (Tema 230) ayudan a decidir si una asociación puede ser causal.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">Entre el IMC y la mortalidad se observa una curva en U. ¿Qué valor de r de Pearson es esperable?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la relación existe, pero no es lineal.">Cercano a 0</button><button type="button" class="op" data-ok="0" data-fb="Pearson mide relación lineal; una U no lo es.">Cercano a 1</button><button type="button" class="op" data-ok="0" data-fb="La relación no es lineal decreciente.">Cercano a −1</button><button type="button" class="op" data-ok="0" data-fb="Se puede calcular, pero no describe bien la relación.">No se puede calcular</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 130.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_130_Analisis_bivariante_asociacion_y_correlacion.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: relacionar variables clínicas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: relacionar variables clínicas</h2><h3>3.1 Datos</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Datos</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+DATOS = &quot;https://raw.githubusercontent.com/fborrasumh/bioestadistica/main/datos/&quot;
+datos = pd.read_csv(DATOS + &quot;cohorte_limpia.csv&quot;).merge(pd.read_csv(DATOS + &quot;analiticas.csv&quot;), on=&quot;id&quot;, how=&quot;left&quot;)
+print(datos.shape)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: relacionar variables clínicas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: relacionar variables clínicas</h2><h3>3.2 Dos variables cuantitativas: edad y presión sistólica</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 Dos variables cuantitativas: edad y presión sistólica</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">plt.figure(figsize=(6, 4.5))
+sns.regplot(data=datos, x=&quot;edad&quot;, y=&quot;pas_mmHg&quot;, scatter_kws={&quot;alpha&quot;: 0.4}, line_kws={&quot;color&quot;: &quot;firebrick&quot;})
+plt.xlabel(&quot;Edad (años)&quot;)
+plt.ylabel(&quot;Presión arterial sistólica (mmHg)&quot;)
+plt.title(&quot;Edad y presión arterial sistólica&quot;)
+plt.show()
+
+r = datos[&quot;edad&quot;].corr(datos[&quot;pas_mmHg&quot;])
+rho = datos[&quot;edad&quot;].corr(datos[&quot;pas_mmHg&quot;], method=&quot;spearman&quot;)
+print(f&quot;Pearson r = {r:.2f} · r² = {r**2:.2f} · Spearman ρ = {rho:.2f}&quot;)</code></pre><p>Correlación positiva y moderada: la PAS tiende a aumentar con la edad. Con <em>r</em>² ≈ 0,23, la edad se asocia con casi una cuarta parte de la variabilidad de la PAS. El resto depende de otros factores.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: relacionar variables clínicas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: relacionar variables clínicas</h2><h3>3.3 Las tres trampas de la correlación</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 Las tres trampas de la correlación</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Simulamos tres situaciones para ver por qué <strong>siempre hay que mirar el gráfico</strong> antes de interpretar <em>r</em>.</p><pre class="code"><code class="language-python">rng = np.random.default_rng(130)
+x = rng.uniform(0, 10, 60)
+x_atipico = np.append(rng.uniform(0, 5, 59), 25)
+
+casos = {
+    &quot;Relación lineal&quot;: (x, 2 * x + rng.normal(0, 3, 60)),
+    &quot;Relación curva (en U)&quot;: (x, (x - 5) ** 2 + rng.normal(0, 2, 60)),
+    &quot;Sin relación + un valor atípico&quot;: (x_atipico, np.append(rng.normal(10, 2, 59), 40)),
+}
+
+fig, ejes = plt.subplots(1, 3, figsize=(13, 3.8))
+for eje, (titulo, (xs, ys)) in zip(ejes, casos.items()):
+    r = np.corrcoef(xs, ys)[0, 1]
+    rho = pd.Series(xs).corr(pd.Series(ys), method=&quot;spearman&quot;)
+    eje.scatter(xs, ys, alpha=0.6)
+    eje.set_title(f&quot;{titulo}\nPearson {r:.2f} · Spearman {rho:.2f}&quot;)
+plt.tight_layout()
+plt.show()</code></pre><ul>
+<li><strong>Relación curva:</strong> hay una relación muy clara, pero <em>r</em> ≈ 0 porque no es lineal. Ocurre, por ejemplo, entre el IMC y la mortalidad, que aumenta en los dos extremos.</li>
+<li><strong>Un solo valor atípico</strong> fabrica una correlación de Pearson alta en datos sin relación. Spearman apenas se altera.</li>
+</ul></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: relacionar variables clínicas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: relacionar variables clínicas</h2><h3>3.4 La confusión: presión arterial y creatinina</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 La confusión: presión arterial y creatinina</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">print(f&quot;PAS y creatinina: r = {datos[&#x27;pas_mmHg&#x27;].corr(datos[&#x27;creatinina_mg_dl&#x27;]):.2f}&quot;)
+print(f&quot;Edad y PAS:       r = {datos[&#x27;edad&#x27;].corr(datos[&#x27;pas_mmHg&#x27;]):.2f}&quot;)
+print(f&quot;Edad y creatinina: r = {datos[&#x27;edad&#x27;].corr(datos[&#x27;creatinina_mg_dl&#x27;]):.2f}&quot;)</code></pre><p>Si la asociación entre PAS y creatinina fuera fruto de la edad, debería <strong>debilitarse al comparar pacientes de edad parecida</strong>. Lo comprobamos dentro de grupos de edad:</p><pre class="code"><code class="language-python">datos[&quot;grupo_edad&quot;] = pd.cut(datos[&quot;edad&quot;], bins=[40, 55, 70, 86], right=False, labels=[&quot;40-54&quot;, &quot;55-69&quot;, &quot;70-85&quot;])
+
+for grupo, sub in datos.groupby(&quot;grupo_edad&quot;, observed=True):
+    r = sub[&quot;pas_mmHg&quot;].corr(sub[&quot;creatinina_mg_dl&quot;])
+    print(f&quot;{grupo} años: r = {r:.2f} (n = {sub[&#x27;creatinina_mg_dl&#x27;].notna().sum()})&quot;)</code></pre><p>Interpreta el resultado. Si las correlaciones dentro de cada grupo de edad son más débiles que la global, parte de la asociación se explicaba por la edad. Si en algún grupo persiste, puede haber <strong>confusión residual</strong> (dentro de un grupo de 15 años la edad todavía varía) o una relación real. Analizar <strong>estratificando</strong> por la posible variable de confusión es la idea que, en el Tema 270, desarrollaremos con la regresión múltiple.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: relacionar variables clínicas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: relacionar variables clínicas</h2><h3>3.5 Cualitativa y cuantitativa: el HDL según el sexo</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 Cualitativa y cuantitativa: el HDL según el sexo</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">fig, ejes = plt.subplots(1, 2, figsize=(10, 4), sharey=True)
+sns.boxplot(data=datos, x=&quot;sexo&quot;, y=&quot;hdl_mg_dl&quot;, ax=ejes[0])
+sns.violinplot(data=datos, x=&quot;sexo&quot;, y=&quot;hdl_mg_dl&quot;, ax=ejes[1], inner=&quot;quartile&quot;)
+ejes[0].set_title(&quot;Diagrama de caja&quot;)
+ejes[1].set_title(&quot;Diagrama de violín&quot;)
+for eje in ejes:
+    eje.set_xlabel(&quot;&quot;)
+ejes[0].set_ylabel(&quot;Colesterol HDL (mg/dL)&quot;)
+plt.tight_layout()
+plt.show()
+
+datos.groupby(&quot;sexo&quot;)[&quot;hdl_mg_dl&quot;].agg([&quot;count&quot;, &quot;mean&quot;, &quot;std&quot;, &quot;median&quot;]).round(1)</code></pre><p>El <strong>diagrama de violín</strong> añade a la caja la forma completa de la distribución. Las mujeres tienen, en promedio, un HDL más alto, como se describe en la literatura. En el Tema 250 aprenderemos a decidir si una diferencia entre grupos puede deberse al azar.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: relacionar variables clínicas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: relacionar variables clínicas</h2><h3>3.6 Dos variables cualitativas: diabetes y evento cardiovascular</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 Dos variables cualitativas: diabetes y evento cardiovascular</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">porcentajes = pd.crosstab(datos[&quot;diabetes&quot;], datos[&quot;evento_cv_5a&quot;], normalize=&quot;index&quot;) * 100
+porcentajes.columns = [&quot;Sin evento&quot;, &quot;Con evento&quot;]
+
+porcentajes.plot(kind=&quot;bar&quot;, stacked=True, figsize=(6, 4), color=[&quot;lightsteelblue&quot;, &quot;firebrick&quot;])
+plt.ylabel(&quot;Porcentaje de pacientes (%)&quot;)
+plt.xlabel(&quot;Diabetes&quot;)
+plt.xticks(rotation=0)
+plt.title(&quot;Evento cardiovascular a 5 años según diabetes&quot;)
+plt.legend(loc=&quot;upper right&quot;)
+plt.show()
+
+porcentajes.round(1)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: relacionar variables clínicas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: relacionar variables clínicas</h2><h3>3.7 Mapa de calor de correlaciones</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.7 Mapa de calor de correlaciones</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">variables = [&quot;edad&quot;, &quot;imc&quot;, &quot;pas_mmHg&quot;, &quot;pad_mmHg&quot;, &quot;colesterol_mg_dl&quot;, &quot;hdl_mg_dl&quot;,
+             &quot;glucemia_mg_dl&quot;, &quot;hba1c_pct&quot;, &quot;creatinina_mg_dl&quot;]
+matriz = datos[variables].corr(method=&quot;spearman&quot;)
+
+plt.figure(figsize=(8, 6.5))
+sns.heatmap(matriz, annot=True, fmt=&quot;.2f&quot;, cmap=&quot;RdBu_r&quot;, vmin=-1, vmax=1, square=True)
+plt.title(&quot;Correlaciones de Spearman entre variables clínicas&quot;)
+plt.show()</code></pre><p>Las correlaciones más fuertes tienen explicación clínica. La glucemia y la HbA1c miden el mismo fenómeno. La PAS y la PAD forman parte de la misma medición. Un mapa de calor sirve para <strong>explorar</strong>, no para concluir: con 36 parejas de variables, alguna correlación aparecerá por puro azar.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: matriz de gráficos de dispersión</h3><pre class="code"><code class="language-python">sns.pairplot(datos[[&quot;edad&quot;, &quot;pas_mmHg&quot;, &quot;imc&quot;, &quot;hba1c_pct&quot;, &quot;diabetes&quot;]].dropna(),
+             hue=&quot;diabetes&quot;, plot_kws={&quot;alpha&quot;: 0.5}, height=2.2)
+plt.show()</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Concluir causalidad a partir de una correlación</strong>, sin considerar la confusión ni la causalidad inversa.</p>
+<p><strong>Interpretar <em>r</em> = 0 como ausencia de relación:</strong> solo indica ausencia de relación lineal.</p>
+<p><strong>Calcular la correlación de Pearson sin mirar el gráfico</strong>, cuando un valor atípico o una curva la distorsionan.</p>
+<p><strong>Usar Pearson con variables ordinales</strong> como una escala de dolor: es más adecuado Spearman.</p>
+<p><strong>Buscar correlaciones entre decenas de variables</strong> y presentar solo las «interesantes»: es una forma de pescar resultados casuales.</p>
+<p><strong>Representar dos categóricas con números absolutos</strong> cuando los grupos tienen tamaños muy distintos: se comparan porcentajes.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: Kendall y asociación entre variables cualitativas</h3><p>La <strong>tau de Kendall</strong> es otra correlación por rangos. Cuenta los pares de pacientes <strong>concordantes</strong> (los dos valores suben a la vez) y <strong>discordantes</strong>. Funciona bien con muestras pequeñas y con muchos empates.</p>
+<p>Para dos variables <strong>cualitativas</strong> no hay correlación; hay <strong>asociación</strong>. Se mide a partir de la ji cuadrado (Tema 230):</p>
+<table>
+<thead>
+<tr>
+<th>Medida</th>
+<th>Tabla</th>
+<th>Valores</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Coeficiente φ (phi)</td>
+<td>2 × 2</td>
+<td>de 0 a 1</td>
+</tr>
+<tr>
+<td>V de Cramér</td>
+<td>cualquier tamaño</td>
+<td>de 0 a 1 (0 = sin asociación)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>En tus materiales SIMUSTAT:</strong> <a href="https://colab.research.google.com/drive/1a9AGIVjIXXhIXdhwpWX0PiHnJdH212a4" target="_blank" rel="noopener">Tema 210. Relación entre variables</a>, apartado 1 (Kendall) y 2 (φ, V de Cramér).</p><pre class="code"><code class="language-python">from scipy import stats
+
+print(&quot;Edad y PAS:&quot;)
+for metodo in [&quot;pearson&quot;, &quot;spearman&quot;, &quot;kendall&quot;]:
+    print(f&quot;  {metodo:9} r = {datos[&#x27;edad&#x27;].corr(datos[&#x27;pas_mmHg&#x27;], method=metodo):.2f}&quot;)
+
+def v_cramer(x, y):
+    tabla = pd.crosstab(x, y)
+    chi2 = stats.chi2_contingency(tabla, correction=False)[0]
+    return np.sqrt(chi2 / (tabla.values.sum() * (min(tabla.shape) - 1)))
+
+print(&quot;\nφ tabaco × evento cardiovascular:&quot;, round(v_cramer(datos[&quot;fumador&quot;], datos[&quot;evento_cv_5a&quot;]), 3))
+print(&quot;V de Cramér centro × diabetes:  &quot;, round(v_cramer(datos[&quot;centro&quot;], datos[&quot;diabetes&quot;]), 3))</code></pre><p>Kendall da valores más bajos que Spearman con los mismos datos; es normal, porque mide otra cosa (pares). Compara siempre coeficientes del mismo tipo. En una tabla 2 × 2, φ y la V de Cramér coinciden.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 130 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> emparejar gráficos de dispersión con su coeficiente de correlación.</li>
+<li><strong>Misión clínica (con pistas):</strong> estudiar la relación entre el IMC y la presión arterial, por separado en hombres y mujeres.</li>
+<li><strong>Misión reto (con asistente):</strong> pedir al asistente un análisis exploratorio de la cohorte, identificar qué conclusiones causales injustificadas propone y reescribirlas correctamente.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente y sin ejecutar código.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q21-0"><p class="qq">Entre el IMC y la mortalidad se observa una curva en U. ¿Qué valor de r de Pearson es esperable?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la relación existe, pero no es lineal.">Cercano a 0</button><button type="button" class="op" data-ok="0" data-fb="Pearson mide relación lineal; una U no lo es.">Cercano a 1</button><button type="button" class="op" data-ok="0" data-fb="La relación no es lineal decreciente.">Cercano a −1</button><button type="button" class="op" data-ok="0" data-fb="Se puede calcular, pero no describe bien la relación.">No se puede calcular</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-1"><p class="qq">¿Qué gráfico es el más adecuado para comparar la glucemia entre diabéticos y no diabéticos?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: una variable cuantitativa comparada entre categorías.">Diagramas de caja por grupo</button><button type="button" class="op" data-ok="0" data-fb="Se usa con dos variables cuantitativas.">Gráfico de dispersión</button><button type="button" class="op" data-ok="0" data-fb="Se usan con dos variables categóricas.">Barras apiladas de porcentajes</button><button type="button" class="op" data-ok="0" data-fb="Resume correlaciones entre varias cuantitativas.">Mapa de calor</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-2"><p class="qq">En una cohorte, r = 0,45 entre el consumo de café y el infarto. Los bebedores de café fuman más. ¿Qué es lo más prudente concluir?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el tabaco es una posible variable de confusión.">Que la asociación puede deberse, en parte o por completo, al tabaco</button><button type="button" class="op" data-ok="0" data-fb="Una correlación no demuestra causalidad.">Que el café causa infartos</button><button type="button" class="op" data-ok="0" data-fb="Hay una asociación; lo que se discute es su causa.">Que no hay ninguna relación</button><button type="button" class="op" data-ok="0" data-fb="0,45 es moderada, y no prueba causalidad.">Que la correlación es fuerte y causal</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-3"><p class="qq">¿En qué situación es preferible el coeficiente de Spearman al de Pearson?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: trabaja con rangos y es robusto.">Con variables ordinales o con valores atípicos</button><button type="button" class="op" data-ok="0" data-fb="El tamaño muestral no decide la elección.">Siempre que haya más de 100 pacientes</button><button type="button" class="op" data-ok="0" data-fb="En ese caso Pearson es adecuado.">Cuando la relación es perfectamente lineal</button><button type="button" class="op" data-ok="0" data-fb="Para dos nominales se usa una tabla de contingencia.">Con dos variables nominales</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-4"><p class="qq">Si r = 0,6 entre la edad y la PAS, ¿qué proporción de la variabilidad de la PAS se asocia linealmente con la edad?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: r² = 0,6² = 0,36.">36 %</button><button type="button" class="op" data-ok="0" data-fb="r no es una proporción de variabilidad; lo es r².">60 %</button><button type="button" class="op" data-ok="0" data-fb="Revisa el cálculo: 0,6² = 0,36.">6 %</button><button type="button" class="op" data-ok="0" data-fb="40 % sería 1 − 0,6.">40 %</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>El tipo de las dos variables decide el gráfico y el resumen.</li>
+<li>Pearson mide la relación lineal; Spearman, la monótona, y es robusto frente a atípicos.</li>
+<li>Mira siempre el gráfico antes de interpretar un coeficiente.</li>
+<li>Asociación no es causalidad: piensa en la confusión, la causalidad inversa y el azar.</li>
+<li>Estratificar por una posible variable de confusión es el primer paso para controlarla.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Análisis bivariante</td>
+<td>Estudio de la relación entre dos variables</td>
+</tr>
+<tr>
+<td>Correlación de Pearson</td>
+<td>Medida de la relación lineal entre dos variables cuantitativas</td>
+</tr>
+<tr>
+<td>Correlación de Spearman</td>
+<td>Correlación calculada sobre los rangos; mide relaciones monótonas</td>
+</tr>
+<tr>
+<td>Relación monótona</td>
+<td>Relación en la que una variable siempre crece, o siempre decrece, cuando la otra aumenta</td>
+</tr>
+<tr>
+<td>Coeficiente de determinación (<em>r</em>²)</td>
+<td>Proporción de la variabilidad asociada linealmente con la otra variable</td>
+</tr>
+<tr>
+<td>Variable de confusión</td>
+<td>Variable relacionada con las dos variables estudiadas, que distorsiona su asociación</td>
+</tr>
+<tr>
+<td>Estratificar</td>
+<td>Analizar por separado dentro de categorías de una tercera variable</td>
+</tr>
+<tr>
+<td>Diagrama de violín</td>
+<td>Gráfico que combina el diagrama de caja con la forma de la distribución</td>
+</tr>
+<tr>
+<td>Mapa de calor</td>
+<td>Representación de una matriz con colores según el valor</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li>Messerli FH. Chocolate consumption, cognitive function, and Nobel laureates. <em>N Engl J Med</em>. 2012;367(16):1562-1564. doi:<a href="https://doi.org/10.1056/NEJMon1211064" target="_blank" rel="noopener">10.1056/NEJMon1211064</a></li>
+<li>Hill AB. The environment and disease: association or causation? <em>Proc R Soc Med</em>. 1965;58(5):295-300. doi:<a href="https://doi.org/10.1177/003591576505800503" target="_blank" rel="noopener">10.1177/003591576505800503</a></li>
+<li><a href="https://seaborn.pydata.org/examples/index.html" target="_blank" rel="noopener">Galería de ejemplos de Seaborn</a></li>
+<li>SIMUSTAT Unidigital UMH. <a href="https://colab.research.google.com/drive/1a9AGIVjIXXhIXdhwpWX0PiHnJdH212a4" target="_blank" rel="noopener">Tema 210. Relación entre variables</a>. Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.</li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_130_Analisis_bivariante_asociacion_y_correlacion.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 130 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-130" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_120.html">← Tema 120</a><a class="btn ghost" href="tema_140.html">→ Tema 140</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

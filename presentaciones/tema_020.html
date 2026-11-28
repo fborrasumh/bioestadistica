@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 20. Representación de datos clínicos en Python: tipos numéricos, cadenas de texto y estructuras de datos · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 20. Representación de datos clínicos en Python: tipos numéricos, cadenas de texto y estructuras de datos</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 20</span>Representación de datos clínicos en Python: tipos numéricos, cadenas de texto y estructuras de datos</h1>
+<p class="mod">Módulo 1. Descubriendo Python</p>
+
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_020_Representacion_de_datos_clinicos_en_Python.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-20" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Distinguir los tipos de datos básicos de Python: enteros, decimales, texto, lógicos y valor nulo.</li>
+<li>Relacionar cada tipo de dato de Python con el tipo de variable clínica que representa.</li>
+<li>Convertir datos de un tipo a otro, en particular texto que contiene números.</li>
+<li>Manipular cadenas de texto clínico: limpiar, normalizar y extraer partes.</li>
+<li>Guardar series de mediciones en <strong>listas</strong> y la ficha de un paciente en un <strong>diccionario</strong>.</li>
+<li>Reconocer los errores más frecuentes al mezclar tipos de datos.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: tipos y estructuras en Python <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">Cada dato tiene su tipo</p><figure><img src="../figuras/tema_020_caso.png" alt="Cada dato tiene su tipo" loading="lazy"></figure><ul class='puntos'><li>Lo que para nosotros es «el peso», para Python puede ser un número o un texto.</li><li>Antes de calcular hay que dar a cada dato su tipo: número, texto, lista… o <b>ausente</b>.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Un residente exporta desde la historia clínica electrónica los datos de un paciente ingresado en Medicina Interna (paciente sintético):</p>
+<pre><code>Paciente: P-0457 | Edad: 72 | Sexo: varón | Diabetes: sí
+Glucemias capilares (mg/dL): 182, 165, 210, 148, 139
+Diagnóstico: &quot;  Insuficiencia cardiaca DESCOMPENSADA &quot;
+Peso al ingreso: &quot;81,5&quot;
+Fracción de eyección: (no registrada)
+</code></pre>
+<p>Para un ordenador, cada uno de estos datos es de una naturaleza distinta. La edad es un número entero. El peso aparece como <strong>texto</strong> con coma decimal. El diagnóstico tiene espacios sobrantes y mayúsculas irregulares. Las glucemias son una <strong>serie</strong> de valores. La fracción de eyección <strong>falta</strong>.</p>
+<p>Antes de calcular nada hay que <strong>representar cada dato con el tipo adecuado</strong>. Si no se preparan, la media de las glucemias, la comparación de diagnósticos o el IMC darán errores. O, peor, darán resultados falsos sin aviso.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 Tipos de datos básicos</h3><figure><img src="../figuras/tema_020_e2_1.png" alt="Los cinco tipos de dato (int, float, str, bool, None) con un ejemplo clínico de cada uno; el dato ausente no es un cero." loading="lazy"></figure><table>
+<thead>
+<tr>
+<th>Tipo en Python</th>
+<th>Nombre</th>
+<th>Ejemplo</th>
+<th>Variable clínica que suele representar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>int</code></td>
+<td>Entero</td>
+<td><code>72</code></td>
+<td>Cuantitativa discreta: edad en años, número de ingresos</td>
+</tr>
+<tr>
+<td><code>float</code></td>
+<td>Decimal (coma flotante)</td>
+<td><code>81.5</code></td>
+<td>Cuantitativa continua: peso, glucemia, creatinina</td>
+</tr>
+<tr>
+<td><code>str</code></td>
+<td>Cadena de texto</td>
+<td><code>"varón"</code></td>
+<td>Cualitativa: sexo, diagnóstico, servicio</td>
+</tr>
+<tr>
+<td><code>bool</code></td>
+<td>Lógico</td>
+<td><code>True</code>, <code>False</code></td>
+<td>Dicotómica: diabetes sí/no, éxitus sí/no</td>
+</tr>
+<tr>
+<td><code>NoneType</code></td>
+<td>Valor nulo</td>
+<td><code>None</code></td>
+<td>Dato <strong>ausente</strong>: no medido o no registrado</td>
+</tr>
+</tbody>
+</table>
+<p>La función <code>type()</code> indica el tipo de cualquier valor.</p>
+<p><strong>El dato ausente no es un cero.</strong> Una fracción de eyección no registrada no es una fracción de eyección del 0 %. Confundirlos es uno de los errores más graves al analizar datos clínicos; por eso Python tiene un valor específico, <code>None</code>.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Estructuras de datos</h3><p class="lema">Cuatro formas de agrupar datos</p><figure><img src="../figuras/tema_020_estructuras.png" alt="Cuatro formas de agrupar datos" loading="lazy"></figure><ul class='puntos'><li><b>Lista</b>: serie ordenada que cambia (glucemias). <b>Tupla</b>: valores fijos que van juntos (PAS/PAD).</li><li><b>Diccionario</b>: ficha con campos (edad, sexo…). <b>Conjunto</b>: valores únicos (diagnósticos).</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><table>
+<thead>
+<tr>
+<th>Estructura</th>
+<th>Sintaxis</th>
+<th>Para qué sirve</th>
+<th>Ejemplo clínico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lista</td>
+<td><code>[182, 165, 210]</code></td>
+<td>Serie ordenada de valores, modificable</td>
+<td>Glucemias de un ingreso</td>
+</tr>
+<tr>
+<td>Tupla</td>
+<td><code>(148, 92)</code></td>
+<td>Grupo fijo de valores que van juntos</td>
+<td>Presión arterial sistólica y diastólica</td>
+</tr>
+<tr>
+<td>Diccionario</td>
+<td><code>{"edad": 72, "sexo": "varón"}</code></td>
+<td>Pares <strong>clave → valor</strong></td>
+<td>Ficha de un paciente</td>
+</tr>
+<tr>
+<td>Conjunto</td>
+<td><code>{"HTA", "DM2"}</code></td>
+<td>Elementos únicos, sin orden</td>
+<td>Diagnósticos distintos de un servicio</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Los índices empiezan en 0.</strong> En una lista, el primer elemento es el <code>[0]</code>, el segundo el <code>[1]</code> y el último el <code>[-1]</code>.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">¿Qué tipo de dato de Python es el más adecuado para registrar si un paciente es fumador?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es una variable dicotómica, con dos valores posibles.">bool</button><button type="button" class="op" data-ok="0" data-fb="float representa cantidades continuas, no categorías.">float</button><button type="button" class="op" data-ok="0" data-fb="Una lista guarda varios valores; aquí solo hay uno.">list</button><button type="button" class="op" data-ok="0" data-fb="None representa un dato ausente, no una respuesta sí/no.">None</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 20.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_020_Representacion_de_datos_clinicos_en_Python.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: tipos y estructuras en Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: tipos y estructuras en Python</h2><h3>3.1 Números y tipos</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Números y tipos</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">edad_anios = 72
+glucemia_mg_dl = 182.0
+diabetes = True
+fraccion_eyeccion = None
+
+print(type(edad_anios), type(glucemia_mg_dl), type(diabetes), type(fraccion_eyeccion))</code></pre><p>Operaciones aritméticas básicas: <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> (división con decimales), <code>//</code> (división entera), <code>%</code> (resto) y <code>**</code> (potencia).</p><pre class="code"><code class="language-python">dias_ingreso = 17
+print(&quot;Semanas completas:&quot;, dias_ingreso // 7)
+print(&quot;Días sobrantes:&quot;, dias_ingreso % 7)
+print(&quot;Estancia en semanas:&quot;, round(dias_ingreso / 7, 1))</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: tipos y estructuras en Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: tipos y estructuras en Python</h2><h3>3.2 Convertir texto en números</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 Convertir texto en números</b>. Antes de ejecutar, escribe qué esperas obtener.</p><figure><img src="../figuras/tema_020_esquema.png" alt="Flujo: &amp;quot;81,5&amp;quot; pasa a &amp;quot;81.5&amp;quot; con replace y a 81.5 con float. int(81.9) da 81; round(81.9) da 82." loading="lazy"></figure><p>Los datos exportados llegan a menudo como <strong>texto</strong>. El peso <code>"81,5"</code> no sirve para calcular hasta convertirlo. Primero cambia la coma por un punto; después conviértelo en <code>float</code>.</p><pre class="code"><code class="language-python">peso_texto = &quot;81,5&quot;
+peso_kg = float(peso_texto.replace(&quot;,&quot;, &quot;.&quot;))
+print(peso_kg, type(peso_kg))</code></pre><p>Las funciones <code>int()</code>, <code>float()</code> y <code>str()</code> convierten entre tipos. <code>int()</code> <strong>trunca</strong> (quita los decimales); para redondear se usa <code>round()</code>.</p><pre class="code"><code class="language-python">print(int(81.9), round(81.9))
+print(&quot;Peso: &quot; + str(peso_kg) + &quot; kg&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: tipos y estructuras en Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: tipos y estructuras en Python</h2><h3>3.3 Cadenas de texto clínico</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 Cadenas de texto clínico</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Las cadenas tienen <strong>métodos</strong>, funciones que se aplican con un punto detrás del texto. Los más útiles para limpiar texto clínico:</p>
+<table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.strip()</code></td>
+<td>Quita los espacios del principio y del final</td>
+</tr>
+<tr>
+<td><code>.lower()</code> / <code>.upper()</code></td>
+<td>Pasa a minúsculas / mayúsculas</td>
+</tr>
+<tr>
+<td><code>.capitalize()</code></td>
+<td>Primera letra en mayúscula y el resto en minúscula</td>
+</tr>
+<tr>
+<td><code>.replace(a, b)</code></td>
+<td>Sustituye <code>a</code> por <code>b</code></td>
+</tr>
+<tr>
+<td><code>.split(separador)</code></td>
+<td>Divide el texto en una lista</td>
+</tr>
+<tr>
+<td><code>.startswith(x)</code></td>
+<td>Comprueba si empieza por <code>x</code></td>
+</tr>
+</tbody>
+</table><pre class="code"><code class="language-python">diagnostico = &quot;  Insuficiencia cardiaca DESCOMPENSADA &quot;
+diagnostico_limpio = diagnostico.strip().capitalize()
+print(f&quot;[{diagnostico}]&quot;)
+print(f&quot;[{diagnostico_limpio}]&quot;)</code></pre><p>Normalizar el texto es imprescindible para contar casos: para Python, <code>"Insuficiencia cardiaca"</code> e <code>"insuficiencia cardiaca "</code> son textos <strong>distintos</strong>.</p><pre class="code"><code class="language-python">print(&quot;Insuficiencia cardiaca&quot; == &quot;insuficiencia cardiaca &quot;)
+print(&quot;Insuficiencia cardiaca&quot;.lower() == &quot;insuficiencia cardiaca &quot;.strip().lower())</code></pre><p>Los caracteres de una cadena también se numeran desde 0, y se pueden extraer <strong>porciones</strong> con <code>[inicio:fin]</code> (el final no se incluye).</p><pre class="code"><code class="language-python">codigo = &quot;P-0457&quot;
+print(&quot;Prefijo:&quot;, codigo[0])
+print(&quot;Número:&quot;, codigo[2:])
+print(&quot;Longitud:&quot;, len(codigo))</code></pre><pre class="code"><code class="language-python">linea = &quot;Paciente: P-0457 | Edad: 72 | Sexo: varón | Diabetes: sí&quot;
+campos = linea.split(&quot; | &quot;)
+print(campos)
+print(&quot;Edad como texto:&quot;, campos[1].split(&quot;: &quot;)[1])</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: tipos y estructuras en Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: tipos y estructuras en Python</h2><h3>3.4 Listas: series de mediciones</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Listas: series de mediciones</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">glucemias_mg_dl = [182, 165, 210, 148, 139]
+
+print(&quot;Primera:&quot;, glucemias_mg_dl[0])
+print(&quot;Última:&quot;, glucemias_mg_dl[-1])
+print(&quot;Número de mediciones:&quot;, len(glucemias_mg_dl))
+print(&quot;Máxima:&quot;, max(glucemias_mg_dl), &quot;· Mínima:&quot;, min(glucemias_mg_dl))
+print(f&quot;Media: {sum(glucemias_mg_dl) / len(glucemias_mg_dl):.1f} mg/dL&quot;)</code></pre><p>Las listas se pueden ampliar con <code>.append()</code>, ordenar con <code>sorted()</code> y recortar con porciones.</p><pre class="code"><code class="language-python">glucemias_mg_dl.append(126)        # nueva glucemia del día siguiente
+print(&quot;Serie actualizada:&quot;, glucemias_mg_dl)
+print(&quot;Ordenada:&quot;, sorted(glucemias_mg_dl))
+print(&quot;Primeras tres:&quot;, glucemias_mg_dl[:3])</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: tipos y estructuras en Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: tipos y estructuras en Python</h2><h3>3.5 Tuplas: valores que van juntos</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 Tuplas: valores que van juntos</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">presion_arterial = (148, 92)       # (sistólica, diastólica)
+pas, pad = presion_arterial        # desempaquetado
+print(f&quot;PAS {pas} mmHg · PAD {pad} mmHg&quot;)</code></pre><p>Una tupla no se puede modificar. Es útil para datos que no deben cambiar por error, como una medición ya registrada.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: tipos y estructuras en Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: tipos y estructuras en Python</h2><h3>3.6 Diccionarios: la ficha del paciente</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 Diccionarios: la ficha del paciente</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">paciente = {
+    &quot;codigo&quot;: &quot;P-0457&quot;,
+    &quot;edad&quot;: 72,
+    &quot;sexo&quot;: &quot;varón&quot;,
+    &quot;diabetes&quot;: True,
+    &quot;peso_kg&quot;: 81.5,
+    &quot;glucemias_mg_dl&quot;: [182, 165, 210, 148, 139],
+    &quot;fraccion_eyeccion&quot;: None,
+}
+
+print(&quot;Edad:&quot;, paciente[&quot;edad&quot;])
+print(&quot;Glucemia máxima:&quot;, max(paciente[&quot;glucemias_mg_dl&quot;]))
+print(&quot;¿Tiene registrada la fracción de eyección?&quot;, paciente[&quot;fraccion_eyeccion&quot;] is not None)</code></pre><p>Se añaden o modifican datos asignando un valor a una clave. El método <code>.get()</code> devuelve un valor por defecto si la clave no existe, en lugar de dar error.</p><pre class="code"><code class="language-python">paciente[&quot;fraccion_eyeccion&quot;] = 35       # el ecocardiograma ya está informado
+paciente[&quot;servicio&quot;] = &quot;Medicina Interna&quot;
+
+print(paciente[&quot;fraccion_eyeccion&quot;])
+print(paciente.get(&quot;alergias&quot;, &quot;sin registrar&quot;))
+print(list(paciente.keys()))</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: tipos y estructuras en Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: tipos y estructuras en Python</h2><h3>3.7 Una cohorte: lista de diccionarios</h3><p class="lema">Una cohorte es una lista de fichas</p><figure><img src="../figuras/tema_020_cohorte.png" alt="Una cohorte es una lista de fichas" loading="lazy"></figure><ul class='puntos'><li>Cada paciente es un diccionario; la cohorte, una lista de diccionarios.</li><li>Es exactamente la estructura de una tabla: filas = pacientes, columnas = variables (Tema 100).</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Varios pacientes se representan como una <strong>lista de diccionarios</strong>: cada elemento de la lista es la ficha de un paciente. Esta es la estructura que, en el Tema 100, se convertirá en una tabla de datos con Pandas.</p><pre class="code"><code class="language-python">cohorte = [
+    {&quot;codigo&quot;: &quot;P-0457&quot;, &quot;edad&quot;: 72, &quot;diabetes&quot;: True},
+    {&quot;codigo&quot;: &quot;P-0458&quot;, &quot;edad&quot;: 65, &quot;diabetes&quot;: False},
+    {&quot;codigo&quot;: &quot;P-0459&quot;, &quot;edad&quot;: 81, &quot;diabetes&quot;: True},
+]
+
+print(&quot;Pacientes:&quot;, len(cohorte))
+print(&quot;Edad del segundo paciente:&quot;, cohorte[1][&quot;edad&quot;])</code></pre></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: conjuntos para valores únicos</h3><pre class="code"><code class="language-python">diagnosticos_servicio = [&quot;HTA&quot;, &quot;DM2&quot;, &quot;HTA&quot;, &quot;EPOC&quot;, &quot;DM2&quot;, &quot;HTA&quot;]
+distintos = set(diagnosticos_servicio)
+print(&quot;Diagnósticos distintos:&quot;, distintos)
+print(&quot;Número de diagnósticos distintos:&quot;, len(distintos))</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Sumar texto y números.</strong> <code>"Peso: " + 81.5</code> produce <code>TypeError</code>. Hay que convertir el número con <code>str()</code> o, mejor, usar una cadena formateada (<em>f-string</em>).</p><pre class="code"><code class="language-python">peso_kg = 81.5
+print(f&quot;Peso: {peso_kg} kg&quot;)</code></pre><p><strong>Convertir texto con coma.</strong> <code>float("81,5")</code> produce <code>ValueError</code>: primero hay que reemplazar la coma por un punto.</p>
+<p><strong>Salirse de la lista.</strong> En una lista de 5 elementos, el índice <code>[5]</code> no existe (los válidos van de 0 a 4) y produce <code>IndexError</code>.</p>
+<p><strong>Pedir una clave inexistente.</strong> <code>paciente["alergias"]</code> produce <code>KeyError</code> si la clave no existe; <code>paciente.get("alergias")</code> devuelve <code>None</code>.</p>
+<p><strong>Tratar el dato ausente como cero.</strong> Sustituir un <code>None</code> por <code>0</code> antes de calcular una media la sesga hacia abajo. En el Tema 100 veremos cómo tratar correctamente los valores perdidos.</p>
+<p>Quita el <code>#</code> de cada línea, una a una, para ver los mensajes de error:</p><pre class="code"><code class="language-python"># print(&quot;Peso: &quot; + 81.5)
+# float(&quot;81,5&quot;)
+# [182, 165, 210, 148, 139][5]
+# paciente[&quot;alergias&quot;]</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 20 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> asignar el tipo de dato de Python adecuado a cada campo de una historia clínica sintética.</li>
+<li><strong>Misión clínica (con pistas):</strong> limpiar un texto exportado de la historia clínica y construir el diccionario del paciente.</li>
+<li><strong>Misión reto (con asistente):</strong> calcular la media de una serie de constantes con valores ausentes, sin tratarlos como ceros. Después, verificar el código que proponga el asistente.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente y sin ejecutar código.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q19-0"><p class="qq">¿Qué tipo de dato de Python es el más adecuado para registrar si un paciente es fumador?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es una variable dicotómica, con dos valores posibles.">bool</button><button type="button" class="op" data-ok="0" data-fb="float representa cantidades continuas, no categorías.">float</button><button type="button" class="op" data-ok="0" data-fb="Una lista guarda varios valores; aquí solo hay uno.">list</button><button type="button" class="op" data-ok="0" data-fb="None representa un dato ausente, no una respuesta sí/no.">None</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q19-1"><p class="qq">La lista glucemias = [182, 165, 210, 148, 139]. ¿Qué devuelve glucemias[1]?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: los índices empiezan en 0, así que [1] es el segundo elemento.">165</button><button type="button" class="op" data-ok="0" data-fb="182 es glucemias[0].">182</button><button type="button" class="op" data-ok="0" data-fb="139 es glucemias[-1].">139</button><button type="button" class="op" data-ok="0" data-fb="El índice 1 existe en una lista de cinco elementos.">Un error</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q19-2"><p class="qq">¿Cuál es la forma correcta de convertir el texto &quot;81,5&quot; en el número 81.5?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: primero se cambia la coma por el punto y después se convierte.">float(&quot;81,5&quot;.replace(&quot;,&quot;, &quot;.&quot;))</button><button type="button" class="op" data-ok="0" data-fb="Produce ValueError: Python no acepta la coma decimal.">float(&quot;81,5&quot;)</button><button type="button" class="op" data-ok="0" data-fb="int no acepta decimales ni coma.">int(&quot;81,5&quot;)</button><button type="button" class="op" data-ok="0" data-fb="str convierte en texto, que es justo lo contrario de lo que se busca.">str(81,5)</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q19-3"><p class="qq">La fracción de eyección de un paciente no se ha medido. ¿Cómo debe registrarse?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: indica que el dato falta, sin confundirlo con un valor real.">None</button><button type="button" class="op" data-ok="0" data-fb="Un 0 % es un valor clínico (incompatible con la vida), no un dato ausente.">0</button><button type="button" class="op" data-ok="0" data-fb="Una cadena vacía es texto, no un valor nulo, y dificulta los cálculos.">&quot;&quot;</button><button type="button" class="op" data-ok="0" data-fb="False es un valor lógico, no un dato ausente.">False</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q19-4"><p class="qq">paciente = {&quot;edad&quot;: 72, &quot;sexo&quot;: &quot;varón&quot;}. ¿Qué devuelve paciente.get(&quot;alergias&quot;)?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: .get() devuelve None si la clave no existe.">None</button><button type="button" class="op" data-ok="0" data-fb="Eso ocurre con paciente[&quot;alergias&quot;], no con .get().">KeyError</button><button type="button" class="op" data-ok="0" data-fb=".get() devuelve el valor asociado, no el nombre de la clave.">&quot;alergias&quot;</button><button type="button" class="op" data-ok="0" data-fb=".get() no devuelve valores lógicos por defecto.">False</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>Cada dato clínico se representa con un tipo: <code>int</code>, <code>float</code>, <code>str</code>, <code>bool</code> o <code>None</code>.</li>
+<li>El dato ausente se registra como <code>None</code>, nunca como cero.</li>
+<li>El texto exportado se limpia y se convierte antes de calcular.</li>
+<li>Las listas guardan series de mediciones; los diccionarios, la ficha de un paciente; una lista de diccionarios, una cohorte.</li>
+<li>Los índices empiezan en 0.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tipo de dato</td>
+<td>Naturaleza de un valor, que determina qué operaciones admite</td>
+</tr>
+<tr>
+<td>Cadena (<code>str</code>)</td>
+<td>Secuencia de caracteres de texto</td>
+</tr>
+<tr>
+<td>Método</td>
+<td>Función propia de un tipo de dato que se aplica con un punto, como <code>.strip()</code></td>
+</tr>
+<tr>
+<td>Índice</td>
+<td>Posición de un elemento en una lista o una cadena, empezando por 0</td>
+</tr>
+<tr>
+<td>Lista</td>
+<td>Serie ordenada y modificable de valores</td>
+</tr>
+<tr>
+<td>Tupla</td>
+<td>Serie ordenada que no se puede modificar</td>
+</tr>
+<tr>
+<td>Diccionario</td>
+<td>Colección de pares clave → valor</td>
+</tr>
+<tr>
+<td><code>None</code></td>
+<td>Valor nulo de Python; representa un dato ausente</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li><a href="https://docs.python.org/es/3/tutorial/introduction.html" target="_blank" rel="noopener">Tutorial de Python: introducción informal (números, texto y listas)</a></li>
+<li><a href="https://docs.python.org/es/3/tutorial/datastructures.html" target="_blank" rel="noopener">Tutorial de Python: estructuras de datos</a></li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_020_Representacion_de_datos_clinicos_en_Python.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 20 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-20" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_010.html">← Tema 10</a><a class="btn ghost" href="tema_030.html">→ Tema 30</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

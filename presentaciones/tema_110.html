@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 110. Integración de fuentes de datos clínicos y elaboración de tablas de frecuencias · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 110. Integración de fuentes de datos clínicos y elaboración de tablas de frecuencias</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 110</span>Integración de fuentes de datos clínicos y elaboración de tablas de frecuencias</h1>
+<p class="mod">Módulo 3. Procesado inicial de datos</p>
+
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_110_Integracion_de_datos_clinicos_y_tablas_de_frecuencias.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-110" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Unir tablas de distintas fuentes por un identificador común y comprobar el resultado de la unión.</li>
+<li>Elegir el tipo de unión adecuado (interna, por la izquierda o completa) según la pregunta clínica.</li>
+<li>Resumir datos por grupos con <code>groupby</code>.</li>
+<li>Construir tablas de frecuencias absolutas, relativas y acumuladas.</li>
+<li>Agrupar una variable cuantitativa en categorías clínicas.</li>
+<li>Construir e interpretar tablas de contingencia con porcentajes por filas o por columnas.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: unir y contar <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">La información está repartida en tres tablas</p><figure><img src="../figuras/tema_110_fuentes.png" alt="La información está repartida en tres tablas" loading="lazy"></figure><ul class='puntos'><li>La cohorte, las analíticas y los centros se relacionan por una <b>clave</b>: id o centro.</li><li>Antes de unir hay que comprobar las claves: ¿hay pacientes sin analítica? ¿analíticas sin paciente?</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>El registro cardiovascular del Tema 100 está limpio. Ahora la coordinadora quiere saber qué proporción de pacientes con diabetes tiene <strong>mal control glucémico</strong> (HbA1c ≥ 8 %) en cada centro. También quiere saber si los centros rurales difieren de los urbanos.</p>
+<p>El problema es que la información está repartida en tres sitios:</p>
+<ul>
+<li>La <strong>cohorte</strong>, con los datos clínicos de cada paciente.</li>
+<li>Las <strong>analíticas</strong>, que envía el laboratorio, con la HbA1c, la creatinina y el LDL. No todos los pacientes tienen analítica, y el laboratorio ha enviado dos resultados de pacientes que no están en la cohorte.</li>
+<li>La tabla de <strong>centros</strong>, con el tipo de centro (urbano o rural) y su población.</li>
+</ul>
+<p>Hay que <strong>integrar</strong> las tres fuentes sin perder ni duplicar pacientes, y después <strong>contar</strong>. Las tablas de frecuencias son el primer resultado de cualquier estudio clínico: la «Tabla 1» de los artículos.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 Unir tablas</h3><p class="lema">Tres formas de unir dos tablas</p><figure><img src="../figuras/tema_110_joins.png" alt="Tres formas de unir dos tablas" loading="lazy"></figure><ul class='puntos'><li><b>inner</b>: solo los que están en las dos. <b>left</b>: todos los de la izquierda. <b>outer</b>: todos.</li><li>La unión elegida cambia el número de pacientes, y con él los denominadores.</li></ul><p class="pregunta"><b>Pregunta para la clase:</b> Si queréis el porcentaje de diabéticos con HbA1c ≥ 8 %, ¿qué unión usaríais?</p></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Dos tablas se unen por una <strong>clave</strong>: una columna que identifica a cada paciente en ambas, como el código <code>id</code>. Con <code>pd.merge()</code> se elige qué filas conservar:</p>
+<table>
+<thead>
+<tr>
+<th>Tipo (<code>how=</code>)</th>
+<th>Conserva</th>
+<th>Cuándo usarlo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"inner"</code></td>
+<td>Solo los pacientes presentes en las <strong>dos</strong> tablas</td>
+<td>Análisis que necesita datos de ambas fuentes</td>
+</tr>
+<tr>
+<td><code>"left"</code></td>
+<td><strong>Todos</strong> los de la tabla izquierda; los que faltan en la derecha quedan con <code>NaN</code></td>
+<td>Conservar la cohorte completa</td>
+</tr>
+<tr>
+<td><code>"outer"</code></td>
+<td>Todos los de <strong>cualquiera</strong> de las dos</td>
+<td>Revisar discrepancias entre fuentes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Después de cada unión, comprueba el número de filas.</strong> Si la clave está repetida en una de las tablas, la unión multiplica filas sin avisar.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Frecuencias</h3><figure><img src="../figuras/tema_110_e2_2.png" alt="Barras de frecuencia absoluta y relativa de las categorías de IMC de la cohorte, con la frecuencia acumulada en una línea." loading="lazy"></figure><table>
+<thead>
+<tr>
+<th>Frecuencia</th>
+<th>Definición</th>
+<th>Ejemplo con 400 pacientes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Absoluta (<em>n</em>)</td>
+<td>Número de casos en cada categoría</td>
+<td>74 diabéticos</td>
+</tr>
+<tr>
+<td>Relativa (<em>f</em>)</td>
+<td>Proporción: <em>n</em> / total</td>
+<td>74 / 400 = 0,185</td>
+</tr>
+<tr>
+<td>Porcentual</td>
+<td>Relativa × 100</td>
+<td>18,5 %</td>
+</tr>
+<tr>
+<td>Acumulada</td>
+<td>Suma de las anteriores en variables <strong>ordinales</strong></td>
+<td>Pacientes con IMC hasta «sobrepeso»</td>
+</tr>
+</tbody>
+</table>
+<p>Las frecuencias acumuladas solo tienen sentido si las categorías tienen un orden.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Tablas de contingencia</h3><p class="lema">Tabla de contingencia: dos variables cualitativas</p><figure><img src="../figuras/tema_110_contingencia.png" alt="Tabla de contingencia: dos variables cualitativas" loading="lazy"></figure><ul class='puntos'><li>Cruza dos variables y cuenta los pacientes de cada combinación.</li><li>Los porcentajes por fila responden a «¿qué proporción de cada centro…?».</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Una <strong>tabla de contingencia</strong> cruza dos variables categóricas. Los porcentajes se pueden calcular sobre el total de cada <strong>fila</strong> o de cada <strong>columna</strong>, y responden a preguntas distintas:</p>
+<ul>
+<li>Porcentaje <strong>por filas</strong> (fila = tabaco): «De los fumadores, ¿qué porcentaje tuvo un evento?»</li>
+<li>Porcentaje <strong>por columnas</strong> (columna = evento): «De los que tuvieron un evento, ¿qué porcentaje fumaba?»</li>
+</ul>
+<p>Confundirlos es uno de los errores más frecuentes al leer artículos.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">Una cohorte tiene 400 pacientes y la tabla de analíticas, 360 de ellos más 2 que no están en la cohorte. ¿Cuántas filas da merge(cohorte, analiticas, on=&quot;id&quot;, how=&quot;left&quot;)?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: se conservan todos los de la cohorte; los 40 sin analítica quedan con NaN.">400</button><button type="button" class="op" data-ok="0" data-fb="Eso daría how=&quot;inner&quot;.">360</button><button type="button" class="op" data-ok="0" data-fb="Eso daría how=&quot;outer&quot;.">402</button><button type="button" class="op" data-ok="0" data-fb="Esas son las filas de la tabla de analíticas.">362</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 110.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_110_Integracion_de_datos_clinicos_y_tablas_de_frecuencias.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: unir y contar" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: unir y contar</h2><h3>3.1 Cargar las tres fuentes</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Cargar las tres fuentes</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">import pandas as pd
+
+DATOS = &quot;https://raw.githubusercontent.com/fborrasumh/bioestadistica/main/datos/&quot;
+cohorte = pd.read_csv(DATOS + &quot;cohorte_limpia.csv&quot;)
+analiticas = pd.read_csv(DATOS + &quot;analiticas.csv&quot;)
+centros = pd.read_csv(DATOS + &quot;centros.csv&quot;)
+
+print(&quot;Cohorte:&quot;, cohorte.shape, &quot;· Analíticas:&quot;, analiticas.shape, &quot;· Centros:&quot;, centros.shape)
+analiticas.head()</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: unir y contar" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: unir y contar</h2><h3>3.2 Comprobar las claves antes de unir</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 Comprobar las claves antes de unir</b>. Antes de ejecutar, escribe qué esperas obtener.</p><figure><img src="../figuras/tema_110_esquema.png" alt="Diagrama de Venn de los id: sin analítica, en las dos tablas y fuera de cohorte." loading="lazy"></figure><pre class="code"><code class="language-python">print(&quot;¿id único en la cohorte?&quot;, cohorte[&quot;id&quot;].is_unique)
+print(&quot;¿id único en analíticas?&quot;, analiticas[&quot;id&quot;].is_unique)
+
+sin_analitica = set(cohorte[&quot;id&quot;]) - set(analiticas[&quot;id&quot;])
+fuera_de_cohorte = set(analiticas[&quot;id&quot;]) - set(cohorte[&quot;id&quot;])
+print(&quot;Pacientes de la cohorte sin analítica:&quot;, len(sin_analitica))
+print(&quot;Analíticas de pacientes que no están en la cohorte:&quot;, sorted(fuera_de_cohorte))</code></pre><p>Los conjuntos de Python (Tema 20) permiten restar listas de identificadores para encontrar las discrepancias.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: unir y contar" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: unir y contar</h2><h3>3.3 Tres tipos de unión</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 Tres tipos de unión</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">for tipo in [&quot;inner&quot;, &quot;left&quot;, &quot;outer&quot;]:
+    unida = pd.merge(cohorte, analiticas, on=&quot;id&quot;, how=tipo)
+    print(f&quot;{tipo:&gt;5}: {len(unida)} filas&quot;)</code></pre><ul>
+<li><code>inner</code> conserva solo los 360 pacientes que están en ambas tablas.</li>
+<li><code>left</code> conserva los 400 de la cohorte; los 40 sin analítica tendrán <code>NaN</code> en HbA1c.</li>
+<li><code>outer</code> añade además las 2 analíticas huérfanas: útil para avisar al laboratorio, no para el análisis.</li>
+</ul>
+<p>Para el estudio queremos la cohorte completa, así que usamos <code>left</code>. El parámetro <code>indicator=True</code> añade una columna que dice de dónde viene cada fila. <code>validate="one_to_one"</code> detiene la unión si la clave está repetida.</p><pre class="code"><code class="language-python">datos = pd.merge(cohorte, analiticas, on=&quot;id&quot;, how=&quot;left&quot;, indicator=True, validate=&quot;one_to_one&quot;)
+print(datos[&quot;_merge&quot;].value_counts())
+datos = datos.drop(columns=&quot;_merge&quot;)
+
+datos = pd.merge(datos, centros, on=&quot;centro&quot;, how=&quot;left&quot;, validate=&quot;many_to_one&quot;)
+print(&quot;Filas finales:&quot;, len(datos))
+datos[[&quot;id&quot;, &quot;centro&quot;, &quot;tipo&quot;, &quot;diabetes&quot;, &quot;hba1c_pct&quot;]].head()</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: unir y contar" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: unir y contar</h2><h3>3.4 Resumir por grupos</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Resumir por grupos</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">datos.groupby(&quot;centro&quot;).agg(
+    pacientes=(&quot;id&quot;, &quot;count&quot;),
+    edad_media=(&quot;edad&quot;, &quot;mean&quot;),
+    pas_media=(&quot;pas_mmHg&quot;, &quot;mean&quot;),
+    eventos=(&quot;evento_cv_5a&quot;, &quot;sum&quot;),
+).round(1)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: unir y contar" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: unir y contar</h2><h3>3.5 Tabla de frecuencias de una variable</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 Tabla de frecuencias de una variable</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">n = datos[&quot;diabetes&quot;].value_counts()
+f = datos[&quot;diabetes&quot;].value_counts(normalize=True)
+
+pd.DataFrame({&quot;n&quot;: n, &quot;%&quot;: (f * 100).round(1)})</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: unir y contar" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: unir y contar</h2><h3>3.6 De cuantitativa a categórica: la HbA1c</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 De cuantitativa a categórica: la HbA1c</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p><code>pd.cut()</code> agrupa una variable cuantitativa en intervalos. Con <code>right=False</code>, cada intervalo incluye su límite inferior y excluye el superior: [7, 8) significa «7 o más y menos de 8».</p><pre class="code"><code class="language-python">diabeticos = datos[datos[&quot;diabetes&quot;] == &quot;Sí&quot;].copy()
+
+diabeticos[&quot;control&quot;] = pd.cut(
+    diabeticos[&quot;hba1c_pct&quot;],
+    bins=[0, 7, 8, 20],
+    labels=[&quot;&lt; 7 %&quot;, &quot;7 a 7,9 %&quot;, &quot;≥ 8 %&quot;],
+    right=False,
+)
+
+tabla = diabeticos[&quot;control&quot;].value_counts().sort_index().to_frame(&quot;n&quot;)
+tabla[&quot;%&quot;] = (tabla[&quot;n&quot;] / tabla[&quot;n&quot;].sum() * 100).round(1)
+tabla[&quot;% acumulado&quot;] = tabla[&quot;%&quot;].cumsum().round(1)
+tabla</code></pre><p>Los porcentajes se calculan sobre los diabéticos <strong>con HbA1c disponible</strong>. Siempre hay que indicar el denominador:</p><pre class="code"><code class="language-python">print(&quot;Diabéticos:&quot;, len(diabeticos), &quot;· con HbA1c:&quot;, diabeticos[&quot;hba1c_pct&quot;].notna().sum())</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: unir y contar" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: unir y contar</h2><h3>3.7 Tabla de contingencia</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.7 Tabla de contingencia</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">pd.crosstab(datos[&quot;fumador&quot;], datos[&quot;evento_cv_5a&quot;], margins=True, margins_name=&quot;Total&quot;)</code></pre><p>Porcentajes <strong>por filas</strong>: de los fumadores y de los no fumadores, qué porcentaje tuvo un evento cardiovascular en cinco años.</p><pre class="code"><code class="language-python">(pd.crosstab(datos[&quot;fumador&quot;], datos[&quot;evento_cv_5a&quot;], normalize=&quot;index&quot;) * 100).round(1)</code></pre><p>Porcentajes <strong>por columnas</strong>: de los que tuvieron un evento y de los que no, qué porcentaje fumaba.</p><pre class="code"><code class="language-python">(pd.crosstab(datos[&quot;fumador&quot;], datos[&quot;evento_cv_5a&quot;], normalize=&quot;columns&quot;) * 100).round(1)</code></pre><p>Las dos tablas son correctas, pero responden a preguntas distintas. Para estudiar si el tabaco se asocia a más eventos, la pregunta natural es la primera. Compara el <strong>riesgo</strong> de evento entre fumadores y no fumadores. En el Tema 230 la cuantificaremos con el riesgo relativo.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: unir y contar" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: unir y contar</h2><h3>3.8 La pregunta del caso</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.8 La pregunta del caso</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">diabeticos[&quot;mal_control&quot;] = diabeticos[&quot;hba1c_pct&quot;] &gt;= 8
+
+resumen = diabeticos.dropna(subset=[&quot;hba1c_pct&quot;]).groupby(&quot;tipo&quot;)[&quot;mal_control&quot;].agg([&quot;sum&quot;, &quot;count&quot;, &quot;mean&quot;])
+resumen.columns = [&quot;mal control (n)&quot;, &quot;diabéticos con HbA1c (n)&quot;, &quot;proporción&quot;]
+resumen[&quot;proporción&quot;] = (resumen[&quot;proporción&quot;] * 100).round(1).astype(str) + &quot; %&quot;
+resumen</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: unir filas de varios centros</h3><p>Si cada centro enviara su propio fichero con las mismas columnas, se apilarían con <code>pd.concat()</code>:</p><pre class="code"><code class="language-python">norte = cohorte[cohorte[&quot;centro&quot;] == &quot;CS Norte&quot;]
+sur = cohorte[cohorte[&quot;centro&quot;] == &quot;CS Sur&quot;]
+apilado = pd.concat([norte, sur], ignore_index=True)
+print(len(norte), &quot;+&quot;, len(sur), &quot;=&quot;, len(apilado))</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: formato ancho y formato largo</h3><p>Las mediciones repetidas pueden guardarse en <strong>formato ancho</strong> (una columna por visita) o en <strong>formato largo</strong> (una fila por paciente y visita). Muchos análisis y gráficos necesitan el formato largo; <code>melt()</code> y <code>pivot()</code> convierten entre ambos.</p><pre class="code"><code class="language-python">ancho = pd.DataFrame({&quot;id&quot;: [&quot;CV-0001&quot;, &quot;CV-0002&quot;], &quot;pas_basal&quot;: [148, 136], &quot;pas_6m&quot;: [138, 131], &quot;pas_12m&quot;: [132, 128]})
+largo = ancho.melt(id_vars=&quot;id&quot;, var_name=&quot;visita&quot;, value_name=&quot;pas_mmHg&quot;)
+print(largo)
+print(largo.pivot(index=&quot;id&quot;, columns=&quot;visita&quot;, values=&quot;pas_mmHg&quot;))</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>No comprobar el número de filas tras una unión.</strong> Una clave repetida multiplica las filas; una clave mal escrita las pierde.</p>
+<p><strong>Usar <code>inner</code> sin darse cuenta:</strong> es el valor por defecto de <code>merge()</code>. Elimina sin aviso a los pacientes sin datos en la segunda tabla.</p>
+<p><strong>Claves con formatos distintos:</strong> <code>"CV-0001"</code> y <code>"cv-0001"</code>, o el número 1 y el texto <code>"0001"</code>, no coinciden.</p>
+<p><strong>No indicar el denominador</strong> de un porcentaje.</p>
+<p><strong>Confundir porcentajes por filas y por columnas.</strong></p>
+<p><strong>Calcular frecuencias acumuladas en variables nominales</strong>, que no tienen orden.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 110 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> predecir el número de filas que dará cada tipo de unión entre dos tablas pequeñas.</li>
+<li><strong>Misión clínica (con pistas):</strong> unir la cohorte con las analíticas y construir la tabla de frecuencias del filtrado glomerular por categorías.</li>
+<li><strong>Misión reto (con asistente):</strong> construir con el asistente la «Tabla 1» de la cohorte por sexo. Verificar tres de sus cifras a mano.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente y sin ejecutar código.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q22-0"><p class="qq">Una cohorte tiene 400 pacientes y la tabla de analíticas, 360 de ellos más 2 que no están en la cohorte. ¿Cuántas filas da merge(cohorte, analiticas, on=&quot;id&quot;, how=&quot;left&quot;)?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: se conservan todos los de la cohorte; los 40 sin analítica quedan con NaN.">400</button><button type="button" class="op" data-ok="0" data-fb="Eso daría how=&quot;inner&quot;.">360</button><button type="button" class="op" data-ok="0" data-fb="Eso daría how=&quot;outer&quot;.">402</button><button type="button" class="op" data-ok="0" data-fb="Esas son las filas de la tabla de analíticas.">362</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-1"><p class="qq">Tras unir dos tablas, el resultado tiene más filas que ambas. ¿Cuál es la causa más probable?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: cada repetición multiplica filas. validate=&quot;one_to_one&quot; lo detecta.">La clave está repetida en alguna de las tablas</button><button type="button" class="op" data-ok="0" data-fb="left nunca da más filas que la tabla izquierda si la clave es única.">Se ha usado how=&quot;left&quot;</button><button type="button" class="op" data-ok="0" data-fb="Los NaN no multiplican filas.">Hay valores perdidos</button><button type="button" class="op" data-ok="0" data-fb="La unión ha funcionado, pero con una clave no única.">La unión ha fallado</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-2"><p class="qq">En una tabla de contingencia de tabaco (filas) por evento (columnas), ¿qué porcentaje responde a «de los fumadores, cuántos tuvieron un evento»?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el denominador es el total de cada fila, es decir, de fumadores.">El porcentaje por filas</button><button type="button" class="op" data-ok="0" data-fb="Ese responde a «de los que tuvieron un evento, cuántos fumaban».">El porcentaje por columnas</button><button type="button" class="op" data-ok="0" data-fb="Ese da la proporción de fumadores con evento entre todos los pacientes.">El porcentaje sobre el total de la tabla</button><button type="button" class="op" data-ok="0" data-fb="La proporción se lee directamente de la tabla.">Ninguno: hace falta una prueba estadística</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-3"><p class="qq">¿En qué variable tiene sentido calcular frecuencias acumuladas?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es ordinal, sus categorías tienen orden.">Categoría de control glucémico (&lt; 7 %, 7 a 7,9 %, ≥ 8 %)</button><button type="button" class="op" data-ok="0" data-fb="Es nominal: no tiene orden.">Centro de salud</button><button type="button" class="op" data-ok="0" data-fb="Es nominal: no tiene orden.">Grupo sanguíneo</button><button type="button" class="op" data-ok="0" data-fb="Es nominal y dicotómica.">Sexo</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-4"><p class="qq">pd.cut(hba1c, bins=[0, 7, 8, 20], right=False). ¿En qué intervalo queda una HbA1c de 7,0 %?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: con right=False, cada intervalo incluye su límite inferior.">[7, 8)</button><button type="button" class="op" data-ok="0" data-fb="7 no pertenece a [0, 7), que excluye el 7.">[0, 7)</button><button type="button" class="op" data-ok="0" data-fb="7 es menor que 8.">[8, 20)</button><button type="button" class="op" data-ok="0" data-fb="Los intervalos cubren de 0 a 20.">En ninguno</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>Las tablas se unen por una clave; se comprueba su unicidad antes y el número de filas después.</li>
+<li>El tipo de unión depende de la pregunta: <code>left</code> para conservar toda la cohorte.</li>
+<li><code>groupby</code> resume por grupos; <code>value_counts</code> y <code>crosstab</code> construyen tablas de frecuencias y de contingencia.</li>
+<li>Todo porcentaje necesita su denominador; por filas y por columnas responden a preguntas distintas.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Clave</td>
+<td>Columna que identifica de forma única a cada unidad en una tabla</td>
+</tr>
+<tr>
+<td>Unión (<em>merge</em>)</td>
+<td>Combinación de dos tablas por una clave común</td>
+</tr>
+<tr>
+<td>Frecuencia absoluta</td>
+<td>Número de casos en una categoría</td>
+</tr>
+<tr>
+<td>Frecuencia relativa</td>
+<td>Proporción de casos en una categoría</td>
+</tr>
+<tr>
+<td>Frecuencia acumulada</td>
+<td>Suma de las frecuencias hasta una categoría, en variables ordinales</td>
+</tr>
+<tr>
+<td>Tabla de contingencia</td>
+<td>Tabla que cruza dos variables categóricas</td>
+</tr>
+<tr>
+<td>Denominador</td>
+<td>Total sobre el que se calcula una proporción</td>
+</tr>
+<tr>
+<td>HbA1c</td>
+<td>Hemoglobina glicosilada; refleja el control glucémico de los últimos meses</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li><a href="https://pandas.pydata.org/docs/user_guide/merging.html" target="_blank" rel="noopener">Pandas: unir, combinar y concatenar</a></li>
+<li><a href="https://pandas.pydata.org/docs/user_guide/groupby.html" target="_blank" rel="noopener">Pandas: agrupar datos con groupby</a></li>
+<li>American Diabetes Association. Standards of Care in Diabetes. <em>Diabetes Care</em> (edición anual): objetivos de HbA1c. Edición 2026 disponible en: <a href="https://diabetesjournals.org/care/issue/49/Supplement_1" target="_blank" rel="noopener">Diabetes Care, suplemento 1</a>.</li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_110_Integracion_de_datos_clinicos_y_tablas_de_frecuencias.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 110 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-110" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_100.html">← Tema 100</a><a class="btn ghost" href="tema_120.html">→ Tema 120</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

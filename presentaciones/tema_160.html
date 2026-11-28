@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 160. Evaluación de pruebas diagnósticas y de cribado: sensibilidad, especificidad y valores predictivos · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 160. Evaluación de pruebas diagnósticas y de cribado: sensibilidad, especificidad y valores predictivos</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 160</span>Evaluación de pruebas diagnósticas y de cribado: sensibilidad, especificidad y valores predictivos</h1>
+<p class="mod">Módulo 4. Probabilidad</p>
+<p class="ev"><b>Evaluación:</b> el examen del Módulo 4 se hace <strong>a mano</strong>. Resuelve primero cada ejercicio con papel y calculadora, y usa el código solo para comprobar.</p>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_160_Evaluacion_de_pruebas_diagnosticas_y_de_cribado.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-160" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Construir la tabla 2 × 2 de una prueba diagnóstica frente a un patrón de referencia.</li>
+<li>Calcular e interpretar sensibilidad, especificidad, valores predictivos y cocientes de probabilidad.</li>
+<li>Explicar por qué los valores predictivos dependen de la prevalencia y la sensibilidad y la especificidad no.</li>
+<li>Elegir un punto de corte para una prueba cuantitativa según su finalidad: cribado o confirmación.</li>
+<li>Construir e interpretar una curva ROC y su área bajo la curva.</li>
+<li>Reconocer los sesgos más frecuentes en los estudios de pruebas diagnósticas.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: evaluar una prueba <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">NT-proBNP: ¿dónde ponemos el punto de corte?</p><figure><img src="../figuras/tema_160_corte.png" alt="NT-proBNP: ¿dónde ponemos el punto de corte?" loading="lazy"></figure><ul class='puntos'><li>Enfermos y sanos se solapan: ningún corte separa perfectamente.</li><li>Bajar el corte → más sensibilidad y más falsos positivos; subirlo → más especificidad y más falsos negativos.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>En una consulta de Atención Primaria se valora a pacientes con <strong>disnea</strong> de reciente aparición. El péptido natriurético <strong>NT-proBNP</strong> ayuda a decidir si la causa puede ser una <strong>insuficiencia cardiaca</strong>. Es un marcador cuantitativo: los valores altos apuntan a esa causa.</p>
+<p>Pero ¿a partir de qué valor se considera «positivo»? Un punto de corte bajo detecta casi todas las insuficiencias cardiacas, a costa de muchos falsos positivos que irán a una ecocardiografía innecesaria. Un punto de corte alto casi no da falsos positivos, pero deja sin diagnosticar a pacientes que sí la tienen.</p>
+<p>Ninguna prueba es perfecta. Evaluar la prueba es <strong>cuantificar sus aciertos y sus errores</strong> frente a un <strong>patrón de referencia</strong>: aquí, la ecocardiografía y la valoración por Cardiología. Después, se elige el punto de corte que mejor sirve a su finalidad clínica.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 La tabla 2 × 2</h3><p class="lema">La tabla 2 × 2 y sus cuatro índices</p><figure><img src="../figuras/tema_160_tabla.png" alt="La tabla 2 × 2 y sus cuatro índices" loading="lazy"></figure><ul class='puntos'><li>Sensibilidad y especificidad se leen por <b>columnas</b> (según la enfermedad).</li><li>Los valores predictivos se leen por <b>filas</b> (según el resultado) y dependen de la prevalencia.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>Enfermo (referencia +)</th>
+<th>Sano (referencia −)</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Prueba +</strong></td>
+<td>VP (verdaderos positivos)</td>
+<td>FP (falsos positivos)</td>
+<td>VP + FP</td>
+</tr>
+<tr>
+<td><strong>Prueba −</strong></td>
+<td>FN (falsos negativos)</td>
+<td>VN (verdaderos negativos)</td>
+<td>FN + VN</td>
+</tr>
+<tr>
+<td></td>
+<td>VP + FN</td>
+<td>FP + VN</td>
+<td>Total</td>
+</tr>
+</tbody>
+</table></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Los índices</h3><figure><img src="../figuras/tema_160_e2_2.png" alt="Tabla 2 × 2 que muestra qué casillas usa cada índice: sensibilidad y especificidad por columnas, valores predictivos por filas." loading="lazy"></figure><table>
+<thead>
+<tr>
+<th>Índice</th>
+<th>Fórmula</th>
+<th>Pregunta que responde</th>
+<th>¿Depende de la prevalencia?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sensibilidad</strong></td>
+<td>VP / (VP + FN)</td>
+<td>De los enfermos, ¿cuántos detecta?</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Especificidad</strong></td>
+<td>VN / (VN + FP)</td>
+<td>De los sanos, ¿cuántos descarta?</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Valor predictivo positivo</strong> (VPP)</td>
+<td>VP / (VP + FP)</td>
+<td>Si da positivo, ¿qué probabilidad hay de enfermedad?</td>
+<td><strong>Sí</strong></td>
+</tr>
+<tr>
+<td><strong>Valor predictivo negativo</strong> (VPN)</td>
+<td>VN / (VN + FN)</td>
+<td>Si da negativo, ¿qué probabilidad hay de no tenerla?</td>
+<td><strong>Sí</strong></td>
+</tr>
+<tr>
+<td>LR+</td>
+<td>Se / (1 − Sp)</td>
+<td>¿Cuánto multiplica un positivo las <em>odds</em> de enfermedad?</td>
+<td>No</td>
+</tr>
+<tr>
+<td>LR−</td>
+<td>(1 − Se) / Sp</td>
+<td>¿Cuánto multiplica un negativo las <em>odds</em> de enfermedad?</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>La sensibilidad y la especificidad son propiedades de la <strong>prueba</strong>. Los valores predictivos son lo que le importa al <strong>paciente</strong>. Dependen de la prevalencia, como vimos con el teorema de Bayes en el Tema 150.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Dos reglas para recordar</h3><figure><img src="../figuras/tema_160_esquema.png" alt="SnNOut: sensibilidad alta y negativo descarta. SpPIn: especificidad alta y positivo confirma." loading="lazy"></figure><ul>
+<li><strong>SpPIn</strong>: una prueba muy <strong>Sp</strong>ecífica, si es <strong>P</strong>ositiva, confirma (<em>rule </em><em>in</em><strong>). Útil para </strong>confirmar**.</li>
+<li><strong>SnNOut</strong>: una prueba muy <strong>S</strong>e<strong>n</strong>sible, si es <strong>N</strong>egativa, descarta (<em>rule </em><em>out</em><strong>). Útil para </strong>cribar** y descartar.</li>
+</ul></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.4 Punto de corte y curva ROC</h3><p class="lema">La curva ROC resume todos los puntos de corte</p><figure><img src="../figuras/tema_160_roc.png" alt="La curva ROC resume todos los puntos de corte" loading="lazy"></figure><ul class='puntos'><li>Cada punto es un corte: sensibilidad frente a 1 − especificidad.</li><li>El área bajo la curva (AUC) es la probabilidad de que un enfermo tenga un valor mayor que un sano.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>En una prueba cuantitativa, bajar el punto de corte aumenta la sensibilidad y disminuye la especificidad, y al revés. La <strong>curva ROC</strong> (<em>receiver operating characteristic</em>) representa todos los puntos de corte posibles: sensibilidad (eje Y) frente a 1 − especificidad (eje X).</p>
+<ul>
+<li>El <strong>área bajo la curva</strong> (AUC) va de 0,5 (la prueba no discrimina mejor que el azar) a 1 (discrimina perfectamente). Se interpreta como la probabilidad de que un enfermo elegido al azar tenga un valor más alto que un sano elegido al azar.</li>
+<li>El <strong>índice de Youden</strong> (Se + Sp − 1) identifica el punto de corte que maximiza a la vez sensibilidad y especificidad. No siempre es el más adecuado clínicamente.</li>
+</ul></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">En 200 enfermos, la prueba es positiva en 180. ¿Qué índice has calculado con 180/200?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la proporción de enfermos con prueba positiva.">La sensibilidad</button><button type="button" class="op" data-ok="0" data-fb="El VPP se calcula sobre los positivos, no sobre los enfermos.">El valor predictivo positivo</button><button type="button" class="op" data-ok="0" data-fb="La especificidad se calcula sobre los sanos.">La especificidad</button><button type="button" class="op" data-ok="0" data-fb="La exactitud usa todos los pacientes.">La exactitud</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 160.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_160_Evaluacion_de_pruebas_diagnosticas_y_de_cribado.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: evaluar una prueba" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: evaluar una prueba</h2><h3>3.1 Una tabla 2 × 2 a mano</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Una tabla 2 × 2 a mano</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Un estudio evalúa el NT-proBNP con un punto de corte de 125 pg/mL en 400 pacientes con disnea. La referencia confirma insuficiencia cardiaca en 100.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>IC</th>
+<th>No IC</th>
+<th>Total</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NT-proBNP ≥ 125</strong></td>
+<td>95</td>
+<td>90</td>
+<td>185</td>
+</tr>
+<tr>
+<td><strong>NT-proBNP &lt; 125</strong></td>
+<td>5</td>
+<td>210</td>
+<td>215</td>
+</tr>
+<tr>
+<td>Total</td>
+<td>100</td>
+<td>300</td>
+<td>400</td>
+</tr>
+</tbody>
+</table>
+<p><strong>A mano:</strong> Se = 95/100 = 0,95 · Sp = 210/300 = 0,70 · VPP = 95/185 ≈ 0,51 · VPN = 210/215 ≈ 0,98 · LR+ = 0,95/0,30 ≈ 3,2 · LR− = 0,05/0,70 ≈ 0,07.</p><pre class="code"><code class="language-python">def indices_diagnosticos(vp, fp, fn, vn):
+    &quot;&quot;&quot;Calcula los índices de una prueba diagnóstica a partir de la tabla 2 × 2.&quot;&quot;&quot;
+    se = vp / (vp + fn)
+    sp = vn / (vn + fp)
+    return {
+        &quot;Sensibilidad&quot;: se,
+        &quot;Especificidad&quot;: sp,
+        &quot;VPP&quot;: vp / (vp + fp),
+        &quot;VPN&quot;: vn / (vn + fn),
+        &quot;Exactitud&quot;: (vp + vn) / (vp + fp + fn + vn),
+        &quot;LR+&quot;: se / (1 - sp) if sp &lt; 1 else float(&quot;inf&quot;),
+        &quot;LR−&quot;: (1 - se) / sp,
+        &quot;Prevalencia&quot;: (vp + fn) / (vp + fp + fn + vn),
+    }
+
+
+for indice, valor in indices_diagnosticos(vp=95, fp=90, fn=5, vn=210).items():
+    print(f&quot;{indice:&gt;13}: {valor:.3f}&quot;)</code></pre><p><strong>Interpretación:</strong> con una sensibilidad del 95 % y un VPN del 98 %, un NT-proBNP <strong>negativo</strong> descarta con bastante seguridad la insuficiencia cardiaca (SnNOut). Un resultado positivo, en cambio, solo acierta en la mitad de los casos (VPP del 51 %): hace falta una ecocardiografía para confirmar.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: evaluar una prueba" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: evaluar una prueba</h2><h3>3.2 La misma prueba con otra prevalencia</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 La misma prueba con otra prevalencia</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Sensibilidad y especificidad se mantienen; los valores predictivos cambian. Aplicamos Se = 0,95 y Sp = 0,70 a 1.000 pacientes con distintas prevalencias:</p><pre class="code"><code class="language-python">import pandas as pd
+
+filas = []
+for prevalencia in [0.02, 0.10, 0.25, 0.50]:
+    enfermos = 1000 * prevalencia
+    sanos = 1000 - enfermos
+    vp, fn = 0.95 * enfermos, 0.05 * enfermos
+    vn, fp = 0.70 * sanos, 0.30 * sanos
+    filas.append({&quot;prevalencia&quot;: prevalencia, &quot;VPP&quot;: vp / (vp + fp), &quot;VPN&quot;: vn / (vn + fn)})
+
+pd.DataFrame(filas).round(3)</code></pre><p>Con una prevalencia del 2 %, casi 19 de cada 20 positivos son falsos positivos. Por eso una prueba validada en un hospital (prevalencia alta) rinde peor en un cribado poblacional (prevalencia baja).</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: evaluar una prueba" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: evaluar una prueba</h2><h3>3.3 Una prueba cuantitativa: los datos</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 Una prueba cuantitativa: los datos</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Simulamos el NT-proBNP de 400 pacientes con disnea. Sus valores tienen una distribución muy asimétrica (Tema 120), por lo que se representan en escala logarítmica.</p><pre class="code"><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+rng = np.random.default_rng(seed=160)
+ic = np.array([1] * 100 + [0] * 300)
+ntprobnp = np.where(ic == 1,
+                    rng.lognormal(np.log(900), 1.0, 400),
+                    rng.lognormal(np.log(150), 1.0, 400)).round()
+
+plt.figure(figsize=(7, 4))
+bins = np.logspace(0.5, 4.5, 40)
+plt.hist(ntprobnp[ic == 0], bins=bins, alpha=0.6, label=&quot;Sin insuficiencia cardiaca&quot;)
+plt.hist(ntprobnp[ic == 1], bins=bins, alpha=0.6, label=&quot;Con insuficiencia cardiaca&quot;)
+plt.axvline(125, color=&quot;black&quot;, linestyle=&quot;--&quot;, label=&quot;Punto de corte 125 pg/mL&quot;)
+plt.xscale(&quot;log&quot;)
+plt.xlabel(&quot;NT-proBNP (pg/mL, escala logarítmica)&quot;)
+plt.ylabel(&quot;Número de pacientes&quot;)
+plt.legend()
+plt.show()</code></pre><p>Las dos distribuciones <strong>se solapan</strong>: cualquier punto de corte deja enfermos a la izquierda (falsos negativos) y sanos a la derecha (falsos positivos).</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: evaluar una prueba" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: evaluar una prueba</h2><h3>3.4 El efecto del punto de corte</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 El efecto del punto de corte</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">filas = []
+for corte in [50, 125, 300, 600, 1000]:
+    positivo = ntprobnp &gt;= corte
+    vp = (positivo &amp; (ic == 1)).sum()
+    fp = (positivo &amp; (ic == 0)).sum()
+    fn = (~positivo &amp; (ic == 1)).sum()
+    vn = (~positivo &amp; (ic == 0)).sum()
+    indices = indices_diagnosticos(vp, fp, fn, vn)
+    filas.append({&quot;corte (pg/mL)&quot;: corte, &quot;Se&quot;: indices[&quot;Sensibilidad&quot;], &quot;Sp&quot;: indices[&quot;Especificidad&quot;],
+                  &quot;VPP&quot;: indices[&quot;VPP&quot;], &quot;VPN&quot;: indices[&quot;VPN&quot;]})
+
+pd.DataFrame(filas).round(2)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: evaluar una prueba" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: evaluar una prueba</h2><h3>3.5 La curva ROC</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 La curva ROC</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">cortes = np.unique(ntprobnp)[::-1]
+sensibilidad = np.array([((ntprobnp &gt;= k) &amp; (ic == 1)).sum() / (ic == 1).sum() for k in cortes])
+especificidad = np.array([((ntprobnp &lt; k) &amp; (ic == 0)).sum() / (ic == 0).sum() for k in cortes])
+
+fpr = np.concatenate([[0], 1 - especificidad, [1]])
+tpr = np.concatenate([[0], sensibilidad, [1]])
+auc = np.sum(np.diff(fpr) * (tpr[1:] + tpr[:-1]) / 2)   # regla del trapecio
+
+youden = sensibilidad + especificidad - 1
+mejor = youden.argmax()
+
+plt.figure(figsize=(5.5, 5.5))
+plt.plot(fpr, tpr, label=f&quot;NT-proBNP (AUC = {auc:.2f})&quot;)
+plt.plot([0, 1], [0, 1], linestyle=&quot;:&quot;, color=&quot;gray&quot;, label=&quot;Azar (AUC = 0,5)&quot;)
+plt.scatter(1 - especificidad[mejor], sensibilidad[mejor], color=&quot;firebrick&quot;, zorder=3,
+            label=f&quot;Máximo Youden: {cortes[mejor]:.0f} pg/mL&quot;)
+plt.xlabel(&quot;1 − especificidad (falsos positivos)&quot;)
+plt.ylabel(&quot;Sensibilidad&quot;)
+plt.title(&quot;Curva ROC&quot;)
+plt.legend(loc=&quot;lower right&quot;)
+plt.show()
+
+print(f&quot;Punto de corte de Youden: {cortes[mejor]:.0f} pg/mL · Se = {sensibilidad[mejor]:.2f} · Sp = {especificidad[mejor]:.2f}&quot;)</code></pre><p>Comprobamos el área con scikit-learn, la biblioteca de aprendizaje automático más usada:</p><pre class="code"><code class="language-python">from sklearn.metrics import roc_auc_score
+print(f&quot;AUC con scikit-learn: {roc_auc_score(ic, ntprobnp):.3f}&quot;)</code></pre><p><strong>¿Qué punto de corte elegir?</strong> Depende de la finalidad. Para <strong>descartar</strong> insuficiencia cardiaca en Atención Primaria interesa una sensibilidad muy alta, aunque baje la especificidad: un corte bajo, como 125 pg/mL. El punto de Youden es un buen equilibrio estadístico. Pero no tiene en cuenta que un falso negativo es más grave que un falso positivo. El falso negativo es una insuficiencia cardiaca sin diagnosticar; el falso positivo, una ecocardiografía de más.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: evaluar una prueba" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: evaluar una prueba</h2><h3>3.6 Un caso con datos de la cohorte: la HbA1c</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 Un caso con datos de la cohorte: la HbA1c</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>El criterio diagnóstico de diabetes con HbA1c usa un punto de corte de 6,5 %. Evaluamos ese corte en el registro cardiovascular, tomando como referencia el diagnóstico de diabetes registrado.</p><pre class="code"><code class="language-python">DATOS = &quot;https://raw.githubusercontent.com/fborrasumh/bioestadistica/main/datos/&quot;
+datos = pd.read_csv(DATOS + &quot;cohorte_limpia.csv&quot;).merge(pd.read_csv(DATOS + &quot;analiticas.csv&quot;), on=&quot;id&quot;)
+datos = datos.dropna(subset=[&quot;hba1c_pct&quot;])
+
+prueba = datos[&quot;hba1c_pct&quot;] &gt;= 6.5
+referencia = datos[&quot;diabetes&quot;] == &quot;Sí&quot;
+print(pd.crosstab(prueba, referencia, rownames=[&quot;HbA1c ≥ 6,5 %&quot;], colnames=[&quot;Diabetes&quot;]))
+
+vp, fp = (prueba &amp; referencia).sum(), (prueba &amp; ~referencia).sum()
+fn, vn = (~prueba &amp; referencia).sum(), (~prueba &amp; ~referencia).sum()
+for indice, valor in indices_diagnosticos(vp, fp, fn, vn).items():
+    print(f&quot;{indice:&gt;13}: {valor:.3f}&quot;)</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: sesgos en los estudios de pruebas diagnósticas</h3><table>
+<thead>
+<tr>
+<th>Sesgo</th>
+<th>Qué ocurre</th>
+<th>Consecuencia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>De espectro</td>
+<td>Se estudian enfermos graves y sanos muy sanos</td>
+<td>Se sobreestiman Se y Sp</td>
+</tr>
+<tr>
+<td>De verificación</td>
+<td>Solo se aplica la referencia a quienes dan positivo</td>
+<td>Se sobreestima la sensibilidad</td>
+</tr>
+<tr>
+<td>De incorporación</td>
+<td>La prueba evaluada forma parte del diagnóstico de referencia</td>
+<td>Se sobreestiman Se y Sp</td>
+</tr>
+<tr>
+<td>De revisión</td>
+<td>Quien interpreta una prueba conoce el resultado de la otra</td>
+<td>Se sobreestima el acuerdo</td>
+</tr>
+</tbody>
+</table>
+<p>La guía <strong>STARD</strong> (<em>Standards for Reporting Diagnostic Accuracy</em>) establece qué debe comunicar un estudio de exactitud diagnóstica para que se puedan valorar estos sesgos. Fíjate en el ejemplo de la HbA1c. Tiene sesgo de incorporación si el diagnóstico registrado de diabetes se basó en la propia HbA1c.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Confundir sensibilidad con valor predictivo positivo.</strong> «La prueba detecta el 95 % de los enfermos» no significa que «el 95 % de los positivos estén enfermos».</p>
+<p><strong>Trasladar valores predictivos</strong> de un estudio a otra población con distinta prevalencia.</p>
+<p><strong>Usar la exactitud global</strong> como único índice. Con una prevalencia del 1 %, una «prueba» que dice siempre «sano» acierta en el 99 % de los casos.</p>
+<p><strong>Elegir el punto de corte solo con el índice de Youden</strong>, sin pensar en las consecuencias clínicas de cada tipo de error.</p>
+<p><strong>Dar la AUC sin la curva:</strong> dos pruebas con la misma AUC pueden comportarse de forma muy distinta en la zona de interés clínico.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: Dos pruebas en paralelo o en serie</h3><p>Dos pruebas se pueden combinar de dos formas:</p>
+<table>
+<thead>
+<tr>
+<th>Estrategia</th>
+<th>El resultado es positivo si…</th>
+<th>Sensibilidad</th>
+<th>Especificidad</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>En paralelo</strong></td>
+<td>alguna prueba es positiva</td>
+<td>sube</td>
+<td>baja</td>
+<td>descartar (Urgencias)</td>
+</tr>
+<tr>
+<td><strong>En serie</strong></td>
+<td>las dos pruebas son positivas</td>
+<td>baja</td>
+<td>sube</td>
+<td>confirmar</td>
+</tr>
+</tbody>
+</table>
+<p>Las fórmulas del código suponen que las pruebas fallan de forma <strong>independiente</strong>. Si fallan en los mismos pacientes, la ganancia real es menor.</p>
+<p><strong>En tus materiales SIMUSTAT:</strong> <a href="https://colab.research.google.com/drive/1Gp4XYiZjO1WChLRRTHugtbQziSoJOR7N" target="_blank" rel="noopener">Tema 280. Conceptos de probabilidad y su uso en la evaluación de pruebas diagnósticas</a>, apartado 4.</p><pre class="code"><code class="language-python">se1, es1 = 0.85, 0.90     # prueba 1
+se2, es2 = 0.75, 0.95     # prueba 2
+
+se_par, es_par = 1 - (1 - se1) * (1 - se2), es1 * es2
+se_ser, es_ser = se1 * se2, 1 - (1 - es1) * (1 - es2)
+
+print(f&quot;Prueba 1:    S = {se1:.1%}   E = {es1:.1%}&quot;)
+print(f&quot;Prueba 2:    S = {se2:.1%}   E = {es2:.1%}&quot;)
+print(f&quot;En paralelo: S = {se_par:.1%}   E = {es_par:.1%}&quot;)
+print(f&quot;En serie:    S = {se_ser:.1%}   E = {es_ser:.1%}&quot;)</code></pre><p>En paralelo se pierden menos enfermos (sensibilidad más alta), pero hay más falsos positivos. En serie ocurre lo contrario. Elige la estrategia según qué error es más grave para el paciente.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 160 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> completar tablas 2 × 2 a partir de enunciados clínicos y calcular a mano sus índices.</li>
+<li><strong>Misión clínica (con pistas):</strong> evaluar la troponina de alta sensibilidad en un conjunto sintético de dolor torácico. Elegir un punto de corte para descartar infarto.</li>
+<li><strong>Misión reto (con asistente):</strong> pedir al asistente la curva ROC de un marcador. Comprobar a mano la sensibilidad y la especificidad en dos puntos de corte. Justificar el corte elegido.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde a mano, sin asistente y sin ejecutar código.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q21-0"><p class="qq">En 200 enfermos, la prueba es positiva en 180. ¿Qué índice has calculado con 180/200?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la proporción de enfermos con prueba positiva.">La sensibilidad</button><button type="button" class="op" data-ok="0" data-fb="El VPP se calcula sobre los positivos, no sobre los enfermos.">El valor predictivo positivo</button><button type="button" class="op" data-ok="0" data-fb="La especificidad se calcula sobre los sanos.">La especificidad</button><button type="button" class="op" data-ok="0" data-fb="La exactitud usa todos los pacientes.">La exactitud</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-1"><p class="qq">Una prueba se valida en un hospital con prevalencia del 30 % y se aplica a un cribado con prevalencia del 1 %. ¿Qué índice empeorará?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: con menos prevalencia, una mayor parte de los positivos son falsos positivos.">El valor predictivo positivo</button><button type="button" class="op" data-ok="0" data-fb="La sensibilidad no depende de la prevalencia.">La sensibilidad</button><button type="button" class="op" data-ok="0" data-fb="La especificidad no depende de la prevalencia.">La especificidad</button><button type="button" class="op" data-ok="0" data-fb="El VPN, de hecho, mejora al bajar la prevalencia.">El valor predictivo negativo</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-2"><p class="qq">Quieres una prueba para descartar una enfermedad grave en Urgencias. ¿Qué propiedad es la más importante?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: SnNOut, un negativo de una prueba muy sensible descarta.">Una sensibilidad muy alta</button><button type="button" class="op" data-ok="0" data-fb="La especificidad alta sirve para confirmar (SpPIn).">Una especificidad muy alta</button><button type="button" class="op" data-ok="0" data-fb="El VPP es útil para confirmar, no para descartar.">Un valor predictivo positivo alto</button><button type="button" class="op" data-ok="0" data-fb="Una AUC de 0,5 significa que la prueba no discrimina.">Una AUC de 0,5</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-3"><p class="qq">¿Qué indica una curva ROC con área bajo la curva de 0,5?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la curva coincide con la diagonal.">Que la prueba no discrimina mejor que el azar</button><button type="button" class="op" data-ok="0" data-fb="La AUC no es la sensibilidad.">Que la prueba acierta en la mitad de los enfermos</button><button type="button" class="op" data-ok="0" data-fb="Una prueba perfecta tiene AUC = 1.">Que la prueba es perfecta</button><button type="button" class="op" data-ok="0" data-fb="La AUC no indica el punto de corte.">Que el mejor punto de corte es la mediana</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-4"><p class="qq">Una prueba tiene Se = 0,90 y Sp = 0,80. ¿Cuál es su LR+?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: 0,90 / (1 − 0,80) = 0,90 / 0,20.">4,5</button><button type="button" class="op" data-ok="0" data-fb="Eso es 0,90 / 0,80: hay que dividir entre 1 − Sp.">1,125</button><button type="button" class="op" data-ok="0" data-fb="Ese es el LR−: (1 − 0,90) / 0,80.">0,125</button><button type="button" class="op" data-ok="0" data-fb="Eso es multiplicar Se por Sp.">0,72</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>La tabla 2 × 2 compara la prueba con un patrón de referencia.</li>
+<li>Sensibilidad y especificidad describen la prueba; los valores predictivos dependen de la prevalencia.</li>
+<li>SpPIn para confirmar, SnNOut para descartar.</li>
+<li>En una prueba cuantitativa, el punto de corte intercambia sensibilidad por especificidad; la curva ROC muestra todas las opciones.</li>
+<li>El punto de corte se elige según la finalidad clínica y el coste de cada tipo de error.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Patrón de referencia</td>
+<td>Método considerado el mejor disponible para establecer el diagnóstico</td>
+</tr>
+<tr>
+<td>Sensibilidad</td>
+<td>Proporción de enfermos con prueba positiva</td>
+</tr>
+<tr>
+<td>Especificidad</td>
+<td>Proporción de sanos con prueba negativa</td>
+</tr>
+<tr>
+<td>Valor predictivo positivo</td>
+<td>Proporción de positivos que están enfermos</td>
+</tr>
+<tr>
+<td>Valor predictivo negativo</td>
+<td>Proporción de negativos que están sanos</td>
+</tr>
+<tr>
+<td>Punto de corte</td>
+<td>Valor a partir del cual una prueba cuantitativa se considera positiva</td>
+</tr>
+<tr>
+<td>Curva ROC</td>
+<td>Gráfico de sensibilidad frente a 1 − especificidad para todos los puntos de corte</td>
+</tr>
+<tr>
+<td>AUC</td>
+<td>Área bajo la curva ROC; capacidad global de discriminación</td>
+</tr>
+<tr>
+<td>Índice de Youden</td>
+<td>Se + Sp − 1</td>
+</tr>
+<tr>
+<td>STARD</td>
+<td>Guía para comunicar estudios de exactitud diagnóstica</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li>Altman DG, Bland JM. Diagnostic tests 1: sensitivity and specificity. <em>BMJ</em>. 1994;308(6943):1552. doi:<a href="https://doi.org/10.1136/bmj.308.6943.1552" target="_blank" rel="noopener">10.1136/bmj.308.6943.1552</a></li>
+<li>Altman DG, Bland JM. Diagnostic tests 2: predictive values. <em>BMJ</em>. 1994;309(6947):102. doi:<a href="https://doi.org/10.1136/bmj.309.6947.102" target="_blank" rel="noopener">10.1136/bmj.309.6947.102</a></li>
+<li>Altman DG, Bland JM. Diagnostic tests 3: receiver operating characteristic plots. <em>BMJ</em>. 1994;309(6948):188. doi:<a href="https://doi.org/10.1136/bmj.309.6948.188" target="_blank" rel="noopener">10.1136/bmj.309.6948.188</a></li>
+<li>Bossuyt PM, <em>et al.</em> STARD 2015: an updated list of essential items for reporting diagnostic accuracy studies. <em>BMJ</em>. 2015;351:h5527. doi:<a href="https://doi.org/10.1136/bmj.h5527" target="_blank" rel="noopener">10.1136/bmj.h5527</a></li>
+<li>SIMUSTAT Unidigital UMH. <a href="https://colab.research.google.com/drive/1Gp4XYiZjO1WChLRRTHugtbQziSoJOR7N" target="_blank" rel="noopener">Tema 280. Conceptos de probabilidad y su uso en la evaluación de pruebas diagnósticas</a>. Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.</li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_160_Evaluacion_de_pruebas_diagnosticas_y_de_cribado.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 160 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-160" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_150.html">← Tema 150</a><a class="btn ghost" href="tema_170.html">→ Tema 170</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

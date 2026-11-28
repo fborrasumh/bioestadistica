@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 150. Probabilidad condicionada, independencia y teorema de Bayes en el razonamiento clínico · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 150. Probabilidad condicionada, independencia y teorema de Bayes en el razonamiento clínico</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 150</span>Probabilidad condicionada, independencia y teorema de Bayes en el razonamiento clínico</h1>
+<p class="mod">Módulo 4. Probabilidad</p>
+<p class="ev"><b>Evaluación:</b> el examen del Módulo 4 se hace <strong>a mano</strong>. Resuelve primero cada ejercicio con papel y calculadora, y usa el código solo para comprobar.</p>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_150_Probabilidad_condicionada_y_teorema_de_Bayes.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-150" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Calcular e interpretar una probabilidad condicionada a partir de una tabla de contingencia.</li>
+<li>Comprobar si dos sucesos son independientes.</li>
+<li>Aplicar la regla de la multiplicación y el teorema de la probabilidad total.</li>
+<li>Aplicar el teorema de Bayes para pasar de la probabilidad <strong>preprueba</strong> a la <strong>posprueba</strong>.</li>
+<li>Resolver problemas de Bayes con <strong>frecuencias naturales</strong> y diagramas de árbol.</li>
+<li>Usar las <em>odds</em> y los cocientes de probabilidad para actualizar un diagnóstico.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: Bayes en la consulta <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">Lucía tiene una mamografía positiva: ¿qué probabilidad hay de cáncer?</p><figure><img src="../figuras/tema_150_arbol.png" alt="Lucía tiene una mamografía positiva: ¿qué probabilidad hay de cáncer?" loading="lazy"></figure><ul class='puntos'><li>De 1.000 mujeres, 10 tienen cáncer y 9 dan positivo; de las 990 sanas, 89 dan positivo.</li><li>Entre las 98 con mamografía positiva, solo 9 tienen cáncer: <b>alrededor del 9 %</b>, no el 90 %.</li></ul><p class="pregunta"><b>Pregunta para la clase:</b> Antes de calcular: ¿qué respondería la mayoría de la gente?</p></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p><strong>Lucía</strong>, de 50 años y sin síntomas, se hace una mamografía de cribado. El resultado es <strong>positivo</strong>. Pregunta: «¿Qué probabilidad hay de que tenga cáncer de mama?».</p>
+<p>Datos del programa de cribado (cifras redondeadas, de uso docente):</p>
+<ul>
+<li>La prevalencia de cáncer de mama en mujeres de su edad que se criban es del <strong>1 %</strong>.</li>
+<li>Si una mujer tiene cáncer, la mamografía es positiva en el <strong>90 %</strong> de los casos.</li>
+<li>Si no lo tiene, la mamografía es positiva (falso positivo) en el <strong>9 %</strong> de los casos.</li>
+</ul>
+<p>Cuando a médicos en ejercicio se les plantea esta pregunta, muchos responden que la probabilidad es de alrededor del 90 %. La respuesta correcta es de <strong>alrededor del 9 %</strong>: de cada 100 mujeres con mamografía positiva, unas 91 no tienen cáncer.</p>
+<p>Este error tiene un nombre, la <strong>falacia de la tasa base</strong>, y consecuencias reales: ansiedad, biopsias innecesarias y decisiones mal informadas. El teorema de Bayes es la herramienta para no cometerlo.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 Probabilidad condicionada</h3><p class="lema">Condicionar es cambiar el universo</p><figure><img src="../figuras/tema_150_condicionada.png" alt="Condicionar es cambiar el universo" loading="lazy"></figure><ul class='puntos'><li>P(A | B) solo mira dentro de B: P(A | B) = P(A y B) / P(B).</li><li>P(positivo | cáncer) = 0,90 no es lo mismo que P(cáncer | positivo) ≈ 0,09.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>La probabilidad de A <strong>sabiendo que</strong> ha ocurrido B:</p>
+<p>$$P(A \mid B) = \frac{P(A \cap B)}{P(B)}$$</p>
+<p>Saber que ha ocurrido B <strong>reduce el espacio muestral</strong> a los casos de B. Por ejemplo, P(evento | diabetes) es la proporción de diabéticos que tienen un evento cardiovascular.</p>
+<p><strong>Cuidado con el orden:</strong> P(positivo | cáncer) = 0,90 no es lo mismo que P(cáncer | positivo) ≈ 0,09. Confundirlas es la esencia de la falacia del caso.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Independencia</h3><figure><img src="../figuras/tema_150_e2_2.png" alt="Dos cuadrados de áreas: con independencia, A ocupa la misma proporción en B y en no B; con dependencia, no." loading="lazy"></figure><p>A y B son <strong>independientes</strong> si saber que ocurrió uno no cambia la probabilidad del otro:</p>
+<p>$$P(A \mid B) = P(A) \quad\Longleftrightarrow\quad P(A \cap B) = P(A) \cdot P(B)$$</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Multiplicación, probabilidad total y Bayes</h3><figure><img src="../figuras/tema_150_e2_3.png" alt="Árbol de probabilidades de la mamografía: prevalencia 1 %, sensibilidad 0,90 y falsos positivos 0,09; P(enferma | +) = 9,2 %." loading="lazy"></figure><p><strong>Regla de la multiplicación:</strong> $P(A \cap B) = P(A \mid B)\, P(B)$</p>
+<p><strong>Probabilidad total.</strong> Si los sucesos $E$ y $\bar{E}$ (enfermo y no enfermo) reparten todo el espacio muestral:</p>
+<p>$$P(+) = P(+ \mid E)\,P(E) + P(+ \mid \bar{E})\,P(\bar{E})$$</p>
+<p><strong>Teorema de Bayes:</strong></p>
+<p>$$P(E \mid +) = \frac{P(+ \mid E)\,P(E)}{P(+ \mid E)\,P(E) + P(+ \mid \bar{E})\,P(\bar{E})}$$</p>
+<table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Nombre clínico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$P(E)$</td>
+<td>Probabilidad <strong>preprueba</strong> (prevalencia o sospecha clínica)</td>
+</tr>
+<tr>
+<td>$P(+ \mid E)$</td>
+<td><strong>Sensibilidad</strong> de la prueba</td>
+</tr>
+<tr>
+<td>$P(+ \mid \bar{E})$</td>
+<td>Tasa de falsos positivos (1 − especificidad)</td>
+</tr>
+<tr>
+<td>$P(E \mid +)$</td>
+<td>Probabilidad <strong>posprueba</strong>, o valor predictivo positivo</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.4 Frecuencias naturales</h3><p class="lema">1.000 mujeres que se criban</p><figure><img src="../figuras/tema_150_iconos.png" alt="1.000 mujeres que se criban" loading="lazy"></figure><ul class='puntos'><li>Las frecuencias naturales hacen visible lo que el teorema de Bayes calcula.</li><li>Con una prevalencia baja, la mayoría de los positivos son falsos positivos.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>El teorema de Bayes se entiende mucho mejor con <strong>frecuencias naturales</strong>, como propone Gerd Gigerenzer. En lugar de probabilidades, imagina 1.000 personas concretas.</p>
+<pre><code>                         1.000 mujeres
+                  ┌─────────────┴─────────────┐
+             10 con cáncer               990 sin cáncer
+           ┌──────┴──────┐             ┌──────┴──────┐
+        9 positivas  1 negativa    89 positivas  901 negativas
+
+   Positivas en total: 9 + 89 = 98   →   P(cáncer | +) = 9 / 98 ≈ 9 %
+</code></pre></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.5 Odds y cocientes de probabilidad</h3><p class="lema">Probabilidad previa → posterior con el cociente de probabilidad</p><ul class='puntos'><li>Odds posterior = odds previa × cociente de probabilidad (CP).</li><li>Un CP de 10 cambia mucho la decisión con una previa intermedia y poco con una previa muy baja.</li></ul><figure><img src="../figuras/tema_150_e2_5.png" alt="Curvas de probabilidad posprueba frente a preprueba para LR de 10, 2, 1, 0,5 y 0,1." loading="lazy"></figure></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Las <strong><em>odds</em></strong> expresan la probabilidad como cociente entre que ocurra y que no ocurra:</p>
+<p>$$\text{odds} = \frac{p}{1 - p} \qquad p = \frac{\text{odds}}{1 + \text{odds}}$$</p>
+<p>El <strong>cociente de probabilidad positivo</strong> (LR+, <em>likelihood ratio</em>) resume el poder de un resultado positivo:</p>
+<p>$$LR^{+} = \frac{\text{sensibilidad}}{1 - \text{especificidad}}$$</p>
+<p>El teorema de Bayes queda en una multiplicación:</p>
+<p>$$\text{odds posprueba} = \text{odds preprueba} \times LR$$</p>
+<p>Un LR+ mayor de 10 suele modificar mucho la probabilidad; uno cercano a 1, casi nada.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">En una cohorte de 200 fumadores, 30 tienen EPOC. ¿Qué es 30/200?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la proporción de EPOC dentro de los fumadores.">P(EPOC | fumador)</button><button type="button" class="op" data-ok="0" data-fb="Para eso haría falta saber cuántos pacientes con EPOC hay en total.">P(fumador | EPOC)</button><button type="button" class="op" data-ok="0" data-fb="Para eso haría falta el total de la cohorte, incluidos los no fumadores.">P(EPOC y fumador)</button><button type="button" class="op" data-ok="0" data-fb="Es la prevalencia solo entre fumadores, no en toda la población.">P(EPOC)</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 150.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_150_Probabilidad_condicionada_y_teorema_de_Bayes.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: Bayes en la consulta" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: Bayes en la consulta</h2><h3>3.1 Probabilidad condicionada en la cohorte</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Probabilidad condicionada en la cohorte</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">import pandas as pd
+import numpy as np
+
+cohorte = pd.read_csv(&quot;https://raw.githubusercontent.com/fborrasumh/bioestadistica/main/datos/cohorte_limpia.csv&quot;)
+
+tabla = pd.crosstab(cohorte[&quot;diabetes&quot;], cohorte[&quot;evento_cv_5a&quot;], margins=True, margins_name=&quot;Total&quot;)
+tabla</code></pre><pre class="code"><code class="language-python">evento = cohorte[&quot;evento_cv_5a&quot;] == 1
+diabetes = cohorte[&quot;diabetes&quot;] == &quot;Sí&quot;
+
+p_evento = evento.mean()
+p_evento_si_diabetes = (evento &amp; diabetes).sum() / diabetes.sum()
+p_evento_si_no_diabetes = (evento &amp; ~diabetes).sum() / (~diabetes).sum()
+
+print(f&quot;P(evento)                = {p_evento:.3f}&quot;)
+print(f&quot;P(evento | diabetes)     = {p_evento_si_diabetes:.3f}&quot;)
+print(f&quot;P(evento | sin diabetes) = {p_evento_si_no_diabetes:.3f}&quot;)</code></pre><p>Saber que el paciente es diabético <strong>cambia</strong> la probabilidad de evento: en la cohorte, diabetes y evento cardiovascular no son independientes.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: Bayes en la consulta" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: Bayes en la consulta</h2><h3>3.2 Probabilidad total</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 Probabilidad total</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p><strong>A mano:</strong> la probabilidad global de evento es la media de las probabilidades condicionadas, ponderada por el peso de cada grupo.</p><pre class="code"><code class="language-python">p_diabetes = diabetes.mean()
+p_total = p_evento_si_diabetes * p_diabetes + p_evento_si_no_diabetes * (1 - p_diabetes)
+print(f&quot;Por la probabilidad total: {p_total:.3f}  ·  Directamente: {p_evento:.3f}&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: Bayes en la consulta" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: Bayes en la consulta</h2><h3>3.3 El caso de Lucía con el teorema de Bayes</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 El caso de Lucía con el teorema de Bayes</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">def bayes(preprueba, sensibilidad, falsos_positivos):
+    &quot;&quot;&quot;Probabilidad posprueba tras un resultado positivo.&quot;&quot;&quot;
+    verdaderos = sensibilidad * preprueba
+    falsos = falsos_positivos * (1 - preprueba)
+    return verdaderos / (verdaderos + falsos)
+
+
+p = bayes(preprueba=0.01, sensibilidad=0.90, falsos_positivos=0.09)
+print(f&quot;P(cáncer | mamografía positiva) = {p:.3f}&quot;)</code></pre><p><strong>A mano:</strong> (0,90 × 0,01) / (0,90 × 0,01 + 0,09 × 0,99) = 0,009 / (0,009 + 0,0891) = 0,009 / 0,0981 ≈ 0,092.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: Bayes en la consulta" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: Bayes en la consulta</h2><h3>3.4 Comprobación con frecuencias naturales y simulación</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Comprobación con frecuencias naturales y simulación</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">rng = np.random.default_rng(seed=150)
+n = 1_000_000
+
+cancer = rng.random(n) &lt; 0.01
+positiva = np.where(cancer, rng.random(n) &lt; 0.90, rng.random(n) &lt; 0.09)
+
+print(f&quot;Mujeres con mamografía positiva: {positiva.sum():,}&quot;)
+print(f&quot;De ellas, con cáncer: {(positiva &amp; cancer).sum():,}&quot;)
+print(f&quot;P(cáncer | +) simulada: {(positiva &amp; cancer).sum() / positiva.sum():.3f}&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: Bayes en la consulta" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: Bayes en la consulta</h2><h3>3.5 La misma prueba en otro contexto</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 La misma prueba en otro contexto</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>La probabilidad posprueba depende <strong>tanto de la prueba como de la probabilidad preprueba</strong>. La misma mamografía en una mujer con un nódulo palpable (probabilidad preprueba alta) significa algo muy distinto:</p><pre class="code"><code class="language-python">import matplotlib.pyplot as plt
+
+preprueba = np.linspace(0.001, 0.99, 300)
+posprueba = bayes(preprueba, 0.90, 0.09)
+
+plt.figure(figsize=(6.5, 4.5))
+plt.plot(preprueba, posprueba)
+plt.plot([0, 1], [0, 1], linestyle=&quot;:&quot;, color=&quot;gray&quot;, label=&quot;Sin prueba (posprueba = preprueba)&quot;)
+for p0, texto in [(0.01, &quot;Cribado (1 %)&quot;), (0.30, &quot;Nódulo palpable (30 %)&quot;)]:
+    plt.scatter(p0, bayes(p0, 0.90, 0.09), color=&quot;firebrick&quot;, zorder=3)
+    plt.annotate(f&quot;{texto}: {bayes(p0, 0.90, 0.09):.0%}&quot;, (p0, bayes(p0, 0.90, 0.09)),
+                 textcoords=&quot;offset points&quot;, xytext=(10, -12))
+plt.xlabel(&quot;Probabilidad preprueba&quot;)
+plt.ylabel(&quot;Probabilidad posprueba tras un positivo&quot;)
+plt.title(&quot;Una prueba positiva según el contexto clínico&quot;)
+plt.legend(loc=&quot;lower right&quot;)
+plt.show()</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: Bayes en la consulta" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: Bayes en la consulta</h2><h3>3.6 Odds y cociente de probabilidad</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 Odds y cociente de probabilidad</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p><strong>A mano</strong>, con la sensibilidad del 90 % y una especificidad del 91 %:</p>
+<ul>
+<li>LR+ = 0,90 / 0,09 = 10</li>
+<li>Odds preprueba (1 %) = 0,01 / 0,99 ≈ 0,0101</li>
+<li>Odds posprueba = 0,0101 × 10 = 0,101</li>
+<li>Probabilidad posprueba = 0,101 / 1,101 ≈ 0,092</li>
+</ul><pre class="code"><code class="language-python">def a_odds(p):
+    return p / (1 - p)
+
+def a_probabilidad(odds):
+    return odds / (1 + odds)
+
+lr_positivo = 0.90 / 0.09
+odds_post = a_odds(0.01) * lr_positivo
+print(f&quot;LR+ = {lr_positivo:.0f} · odds posprueba = {odds_post:.3f} · probabilidad = {a_probabilidad(odds_post):.3f}&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: Bayes en la consulta" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: Bayes en la consulta</h2><h3>3.7 Dos pruebas seguidas</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.7 Dos pruebas seguidas</b>. Antes de ejecutar, escribe qué esperas obtener.</p><figure><img src="../figuras/tema_150_esquema.png" alt="Cadena: preprueba 1 %, tras la mamografía positiva 9 %, tras la ecografía positiva 45 %." loading="lazy"></figure><p>Supón que a Lucía se le hace una segunda prueba independiente y también es positiva. Entonces la probabilidad posprueba de la primera es la preprueba de la segunda. Supongamos una ecografía con LR+ = 8:</p><pre class="code"><code class="language-python">odds_tras_ecografia = odds_post * 8
+print(f&quot;Tras mamografía y ecografía positivas: {a_probabilidad(odds_tras_ecografia):.2f}&quot;)</code></pre><p>Encadenar pruebas así solo es válido si son <strong>condicionalmente independientes</strong>, es decir, si no fallan por las mismas razones. Dos pruebas de imagen que se equivocan con los mismos tejidos densos no lo son del todo.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: la falacia del fiscal</h3><p>Confundir P(A | B) con P(B | A) no es un error exclusivo de la medicina. En algunos juicios se han confundido dos probabilidades. Una es «la probabilidad de esta coincidencia de ADN si el acusado es inocente». La otra es «la probabilidad de que el acusado sea inocente dada la coincidencia». En clínica, es confundir:</p>
+<ul>
+<li>«El 90 % de los pacientes con infarto tiene dolor torácico», P(dolor | infarto), con</li>
+<li>«El 90 % de los pacientes con dolor torácico tiene un infarto», P(infarto | dolor), que es mucho menor.</li>
+</ul></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Ignorar la prevalencia</strong> al interpretar un resultado positivo (falacia de la tasa base).</p>
+<p><strong>Confundir P(A | B) con P(B | A).</strong></p>
+<p><strong>Aplicar la sensibilidad y especificidad de un estudio hospitalario a un cribado poblacional</strong> sin ajustar la probabilidad preprueba.</p>
+<p><strong>Encadenar pruebas que no son independientes</strong> como si lo fueran.</p>
+<p><strong>Confundir <em>odds</em> y probabilidad:</strong> unas <em>odds</em> de 1 equivalen a una probabilidad de 0,5, no de 1.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 150 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> resolver a mano tres problemas de Bayes con frecuencias naturales y árbol.</li>
+<li><strong>Misión clínica (con pistas):</strong> calcular la probabilidad posprueba de trombosis venosa profunda con un dímero D positivo. Hacerlo en pacientes con probabilidad clínica baja y alta.</li>
+<li><strong>Misión reto (con asistente):</strong> pedir al asistente que resuelva el caso de Lucía. Comprobar si comete la falacia de la tasa base y verificar su resultado por simulación.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde a mano, sin asistente y sin ejecutar código.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q22-0"><p class="qq">En una cohorte de 200 fumadores, 30 tienen EPOC. ¿Qué es 30/200?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la proporción de EPOC dentro de los fumadores.">P(EPOC | fumador)</button><button type="button" class="op" data-ok="0" data-fb="Para eso haría falta saber cuántos pacientes con EPOC hay en total.">P(fumador | EPOC)</button><button type="button" class="op" data-ok="0" data-fb="Para eso haría falta el total de la cohorte, incluidos los no fumadores.">P(EPOC y fumador)</button><button type="button" class="op" data-ok="0" data-fb="Es la prevalencia solo entre fumadores, no en toda la población.">P(EPOC)</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-1"><p class="qq">Una enfermedad tiene una prevalencia del 2 %. Una prueba tiene sensibilidad del 100 % y un 10 % de falsos positivos. En 1.000 personas, ¿cuántos positivos tienen la enfermedad?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: 20 enfermos positivos y 98 falsos positivos (10 % de 980).">20 de 118</button><button type="button" class="op" data-ok="0" data-fb="Faltan los 98 falsos positivos entre los 980 sanos.">20 de 20</button><button type="button" class="op" data-ok="0" data-fb="Solo hay 20 enfermos entre 1.000 personas.">100 de 118</button><button type="button" class="op" data-ok="0" data-fb="Revisa el árbol: 2 % de 1.000 son 20 enfermos.">18 de 100</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-2"><p class="qq">Una prueba tiene un LR+ de 1. ¿Qué ocurre con la probabilidad tras un resultado positivo?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: multiplicar las odds por 1 las deja igual; la prueba no aporta información.">No cambia</button><button type="button" class="op" data-ok="0" data-fb="Eso no ocurre con ningún LR en general, y menos con LR = 1.">Se duplica</button><button type="button" class="op" data-ok="0" data-fb="Solo una prueba perfecta daría certeza.">Pasa a ser del 100 %</button><button type="button" class="op" data-ok="0" data-fb="La probabilidad posprueba depende de la preprueba.">Pasa a ser del 50 %</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-3"><p class="qq">¿Qué probabilidad corresponde a unas odds de 1?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: p = 1 / (1 + 1).">0,5</button><button type="button" class="op" data-ok="0" data-fb="Odds de 1 significan «tantos casos a favor como en contra».">1</button><button type="button" class="op" data-ok="0" data-fb="Revisa la fórmula p = odds / (1 + odds).">0,1</button><button type="button" class="op" data-ok="0" data-fb="Unas odds de 0 corresponderían a probabilidad 0.">0</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-4"><p class="qq">La misma prueba positiva, ¿en qué paciente aumenta más la probabilidad absoluta de enfermedad?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: los cambios absolutos son mayores en el rango medio; en los extremos la prueba aporta poco.">En quien tiene una probabilidad preprueba intermedia</button><button type="button" class="op" data-ok="0" data-fb="Incluso tras un positivo, la probabilidad posprueba suele seguir siendo baja.">En quien tiene una probabilidad preprueba muy baja</button><button type="button" class="op" data-ok="0" data-fb="Ya era muy probable: queda poco margen para aumentar.">En quien tiene una probabilidad preprueba muy alta</button><button type="button" class="op" data-ok="0" data-fb="Las odds se multiplican por igual, pero el cambio en probabilidad depende del punto de partida.">En todos por igual</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>$P(A \mid B) = P(A \cap B) / P(B)$, y no es lo mismo que $P(B \mid A)$.</li>
+<li>El teorema de Bayes combina la probabilidad preprueba con la información de la prueba.</li>
+<li>Un resultado positivo en una población de baja prevalencia es, muchas veces, un falso positivo.</li>
+<li>Las frecuencias naturales (1.000 personas) hacen evidente el razonamiento bayesiano.</li>
+<li>Con <em>odds</em>: odds posprueba = odds preprueba × LR.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Probabilidad condicionada</td>
+<td>Probabilidad de un suceso sabiendo que ha ocurrido otro</td>
+</tr>
+<tr>
+<td>Probabilidad preprueba</td>
+<td>Probabilidad de enfermedad antes de conocer el resultado de la prueba</td>
+</tr>
+<tr>
+<td>Probabilidad posprueba</td>
+<td>Probabilidad de enfermedad tras conocer el resultado</td>
+</tr>
+<tr>
+<td>Teorema de la probabilidad total</td>
+<td>Descomposición de una probabilidad en la suma ponderada de probabilidades condicionadas</td>
+</tr>
+<tr>
+<td>Teorema de Bayes</td>
+<td>Fórmula que invierte una probabilidad condicionada</td>
+</tr>
+<tr>
+<td>Frecuencias naturales</td>
+<td>Representación de probabilidades como números de personas de un grupo</td>
+</tr>
+<tr>
+<td><em>Odds</em></td>
+<td>Cociente entre la probabilidad de que ocurra un suceso y la de que no ocurra</td>
+</tr>
+<tr>
+<td>Cociente de probabilidad (LR)</td>
+<td>Cuánto multiplica un resultado las odds de enfermedad</td>
+</tr>
+<tr>
+<td>Falacia de la tasa base</td>
+<td>Error de ignorar la prevalencia al interpretar una prueba</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li>Gigerenzer G, <em>et al.</em> Helping doctors and patients make sense of health statistics. <em>Psychol Sci Public Interest</em>. 2007;8(2):53-96. doi:<a href="https://doi.org/10.1111/j.1539-6053.2008.00033.x" target="_blank" rel="noopener">10.1111/j.1539-6053.2008.00033.x</a></li>
+<li>Deeks JJ, Altman DG. Diagnostic tests 4: likelihood ratios. <em>BMJ</em>. 2004;329(7458):168-169. doi:<a href="https://doi.org/10.1136/bmj.329.7458.168" target="_blank" rel="noopener">10.1136/bmj.329.7458.168</a></li>
+<li>Fagan TJ. Nomogram for Bayes's theorem. <em>N Engl J Med</em>. 1975;293(5):257. doi:<a href="https://doi.org/10.1056/NEJM197507312930513" target="_blank" rel="noopener">10.1056/NEJM197507312930513</a></li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_150_Probabilidad_condicionada_y_teorema_de_Bayes.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 150 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-150" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_140.html">← Tema 140</a><a class="btn ghost" href="tema_160.html">→ Tema 160</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 300. Lectura crítica de la evidencia científica y evaluación de la mejora recursiva · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 300. Lectura crítica de la evidencia científica y evaluación de la mejora recursiva</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 300</span>Lectura crítica de la evidencia científica y evaluación de la mejora recursiva</h1>
+<p class="mod">Módulo 5. Generalización de conclusiones</p>
+<p class="ev"><b>Evaluación:</b> el examen del Módulo 5 se hace <strong>con Colab</strong>. Practica ejecutando e interpretando cada análisis.</p>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_300_Lectura_critica_de_la_evidencia_y_evaluacion_de_la_mejora_recursiva.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-300" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Leer críticamente el resumen de un estudio clínico con una lista de preguntas sistemática.</li>
+<li>Identificar el diseño, la pregunta PICO y los principales sesgos (selección, información y confusión).</li>
+<li>Relacionar cada diseño con su guía de publicación (CONSORT, STROBE, STARD, TRIPOD+AI, PRISMA).</li>
+<li>Usar un modelo de lenguaje como ayuda en la lectura crítica <strong>verificando</strong> todo lo que afirma.</li>
+<li>Evaluar con métodos estadísticos si un ciclo de <strong>mejora recursiva</strong> (de un modelo de IA o de tu propio aprendizaje) mejora de verdad.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: leer un resumen y evaluar una mejora <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">«El café reduce un 30 % la mortalidad»</p><figure><img src="../figuras/tema_300_cafe.png" alt="«El café reduce un 30 % la mortalidad»" loading="lazy"></figure><ul class='puntos'><li>Es un estudio observacional: «se asoció con», no «reduce».</li><li>Aunque fuera causal, la diferencia absoluta sería de unos 2 puntos en 10 años.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Un paciente llega a la consulta con este titular en el móvil: «Un estudio demuestra que tomar café reduce un 30 % la mortalidad». Lee también el resumen del artículo:</p>
+<blockquote>
+<p><em>Estudio de cohortes prospectivo con 52.000 adultos seguidos 10 años. Los que tomaban 3 o más cafés al día tuvieron una mortalidad menor que los que no tomaban café (HR ajustado 0,70; IC 95 %: 0,62 a 0,79). Los resultados se ajustaron por edad, sexo y tabaco.</em></p>
+</blockquote>
+<p>Con lo aprendido en el curso, puedes responder con criterio. Es un <strong>estudio observacional</strong>: no demuestra causalidad. Se ha ajustado por algunos confusores, pero pueden quedar otros; quien toma café puede tener más salud, más ingresos u otros hábitos. El 30 % es una reducción <strong>relativa</strong>; falta el riesgo absoluto. Y el IC indica un efecto preciso, pero precisión no es validez.</p>
+<p>Esta última sesión reúne todo el curso. Lee la evidencia con criterio. Aplica ese mismo criterio a la mejora de los modelos de IA <strong>y a tu propio aprendizaje</strong>, con los informes de la app.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 La pregunta PICO y el diseño</h3><figure><img src="../figuras/tema_300_esquema.png" alt="Decisión: si el investigador asigna la exposición al azar, ensayo aleatorizado; si no, estudio observacional, como el del café." loading="lazy"></figure><table>
+<thead>
+<tr>
+<th>Elemento</th>
+<th>Pregunta</th>
+<th>En el caso del café</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>P</strong>oblación</td>
+<td>¿En quién?</td>
+<td>52.000 adultos</td>
+</tr>
+<tr>
+<td><strong>I</strong>ntervención o exposición</td>
+<td>¿Qué?</td>
+<td>3 o más cafés al día</td>
+</tr>
+<tr>
+<td><strong>C</strong>omparación</td>
+<td>¿Frente a qué?</td>
+<td>No tomar café</td>
+</tr>
+<tr>
+<td><strong>O</strong> (resultado, <em>outcome</em>)</td>
+<td>¿Qué se mide?</td>
+<td>Mortalidad a 10 años</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Diseño</th>
+<th>¿Asigna el investigador la exposición?</th>
+<th>Puede demostrar causalidad</th>
+<th>Guía de publicación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ensayo clínico aleatorizado</td>
+<td>Sí, al azar</td>
+<td>Sí, si está bien hecho</td>
+<td>CONSORT</td>
+</tr>
+<tr>
+<td>Cohortes, casos y controles, transversal</td>
+<td>No</td>
+<td>Con mucha cautela</td>
+<td>STROBE</td>
+</tr>
+<tr>
+<td>Estudio de pruebas diagnósticas</td>
+<td>—</td>
+<td>—</td>
+<td>STARD</td>
+</tr>
+<tr>
+<td>Modelo predictivo (también de IA)</td>
+<td>—</td>
+<td>No pretende</td>
+<td>TRIPOD+AI</td>
+</tr>
+<tr>
+<td>Revisión sistemática y metanálisis</td>
+<td>—</td>
+<td>Según los estudios incluidos</td>
+<td>PRISMA</td>
+</tr>
+</tbody>
+</table>
+<p>Las guías de publicación sirven también para <strong>leer</strong>: cada apartado es una pregunta que el artículo debería responder.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Los tres grandes sesgos</h3><p class="lema">Precisión no es validez</p><figure><img src="../figuras/tema_300_diana.png" alt="Precisión no es validez" loading="lazy"></figure><ul class='puntos'><li>El tamaño muestral controla el azar (precisión); los sesgos (validez) no se arreglan con más pacientes.</li><li>Un estudio enorme y sesgado da una respuesta precisa y equivocada.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><table>
+<thead>
+<tr>
+<th>Sesgo</th>
+<th>Qué es</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Selección</strong></td>
+<td>Los participantes no representan a la población, o los grupos se forman de manera distinta</td>
+<td>Voluntarios más sanos; pérdidas de seguimiento desiguales</td>
+</tr>
+<tr>
+<td><strong>Información</strong> (medida)</td>
+<td>Las variables se miden con error, o de forma distinta según el grupo</td>
+<td>Recuerdo del consumo de café; resultado evaluado sin cegamiento</td>
+</tr>
+<tr>
+<td><strong>Confusión</strong></td>
+<td>Una tercera variable explica la asociación (Tema 270)</td>
+<td>Nivel socioeconómico; confusión por indicación</td>
+</tr>
+</tbody>
+</table>
+<p>El azar se controla con el tamaño muestral y se cuantifica con el IC y el valor p. <strong>Los sesgos no</strong>: un estudio enorme y sesgado da una respuesta precisa y equivocada.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Diez preguntas para leer un resumen</h3><figure><img src="../figuras/tema_300_e2_3.png" alt="Las diez preguntas de lectura crítica agrupadas en cuatro bloques: pregunta y diseño, resultados, sesgos y aplicación." loading="lazy"></figure><ol>
+<li>¿Cuál es la pregunta PICO?</li>
+<li>¿Qué diseño es? ¿Permite conclusiones causales?</li>
+<li>¿Cuál es la variable principal? ¿Estaba registrada antes del estudio?</li>
+<li>¿Cuántos participantes y cuántos eventos hay?</li>
+<li>¿Se da el efecto con su IC, y en medidas absolutas (RAR, NNT) además de relativas?</li>
+<li>¿Es clínicamente relevante el efecto, además de estadísticamente significativo?</li>
+<li>¿Qué sesgos de selección, información o confusión son plausibles?</li>
+<li>¿Hay muchas comparaciones o análisis de subgrupos no previstos?</li>
+<li>¿A qué pacientes se pueden aplicar los resultados (validez externa)?</li>
+<li>¿Concuerdan las conclusiones con los resultados, o los exageran?</li>
+</ol></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.4 Evaluar la mejora recursiva</h3><p class="lema">Para mejorar y para medir hacen falta dos conjuntos de casos</p><figure><img src="../figuras/tema_300_mejora.png" alt="Para mejorar y para medir hacen falta dos conjuntos de casos" loading="lazy"></figure><ul class='puntos'><li>Se mejora con unos casos y se mide, una sola vez, con otros reservados.</li><li>Vale para un prompt, un modelo de IA… y para tu propio aprendizaje con los informes de la app.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>En el Tema 090 vimos la <strong>mejora recursiva</strong>: generar, evaluar, corregir y volver a evaluar. La pregunta estadística es la misma tanto si mejora un modelo de IA como si mejora un estudiante: <strong>¿la versión nueva acierta más que la anterior en las mismas tareas, más allá del azar?</strong></p>
+<table>
+<thead>
+<tr>
+<th>Situación</th>
+<th>Datos</th>
+<th>Análisis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dos versiones de un <em>prompt</em> o de un modelo con los mismos casos</td>
+<td>Acierto/fallo apareado</td>
+<td>McNemar (Tema 240)</td>
+</tr>
+<tr>
+<td>Tu acierto en el primer intento y tras la pista del asistente</td>
+<td>Acierto/fallo apareado por misión</td>
+<td>McNemar</td>
+</tr>
+<tr>
+<td>Evolución de tu nota de una unidad a otra</td>
+<td>Proporciones a lo largo del tiempo</td>
+<td>IC de cada proporción, tendencia</td>
+</tr>
+</tbody>
+</table>
+<p>Y recuerda la advertencia de Goodhart. Si se mejora una y otra vez frente a <strong>los mismos</strong> casos de prueba, la mejora medida en ellos es optimista. La mejora real solo se mide con <strong>pruebas reservadas</strong> que no se han usado para decidir.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">Un estudio de cohortes con 200.000 personas encuentra una asociación muy precisa (IC estrecho) entre un alimento y menor mortalidad. ¿Qué puede concluirse?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el tamaño controla el azar, no los sesgos.">Que la asociación probablemente no se debe al azar, pero puede deberse a sesgos o confusión</button><button type="button" class="op" data-ok="0" data-fb="Un estudio observacional no demuestra causalidad.">Que el alimento reduce la mortalidad</button><button type="button" class="op" data-ok="0" data-fb="Precisión no es validez.">Que el resultado es más fiable que el de un ensayo aleatorizado pequeño</button><button type="button" class="op" data-ok="0" data-fb="Aporta evidencia, con sus limitaciones.">Nada, porque es observacional</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 300.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_300_Lectura_critica_de_la_evidencia_y_evaluacion_de_la_mejora_recursiva.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: leer un resumen y evaluar una mejora" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: leer un resumen y evaluar una mejora</h2><h3>3.1 Del riesgo relativo al absoluto</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Del riesgo relativo al absoluto</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Supongamos que la mortalidad a 10 años en los que no toman café es del 8 %. Si el efecto fuera causal (gran «si»), ¿qué significaría un HR de 0,70?</p><pre class="code"><code class="language-python">import numpy as np
+import pandas as pd
+from scipy import stats
+
+riesgo_basal = 0.08
+for hr in [0.70, 0.62, 0.79]:
+    riesgo_cafe = 1 - (1 - riesgo_basal) ** hr   # aproximación con riesgos proporcionales
+    rar = riesgo_basal - riesgo_cafe
+    print(f&quot;HR {hr:.2f}: mortalidad {riesgo_cafe:.1%} frente a {riesgo_basal:.0%} · RAR {rar:.1%} · «NNT» {1 / rar:.0f} a 10 años&quot;)</code></pre><p>Aun aceptando la causalidad, harían falta unas 40 personas tomando café 10 años para evitar una muerte. Y como es un estudio observacional, ese número no es un NNT: no se ha demostrado que cambiar el hábito cambie el riesgo.</p></div></section>
+<section class="slide denso" data-modo="colab" data-bloque="3. Demostración: leer un resumen y evaluar una mejora" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: leer un resumen y evaluar una mejora</h2><h3>3.2 Un modelo de lenguaje como ayudante de lectura crítica</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 Un modelo de lenguaje como ayudante de lectura crítica</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Esta celda prepara la conexión con el modelo de lenguaje (Tema 80). Lee la clave de Secretos sin mostrarla. Si no hay clave, el cuaderno funciona con respuestas de ejemplo. Si el modelo indicado ya no existe, cambia la variable <code>MODELO</code>.</p><pre class="code"><code class="language-python">%pip install -q google-genai
+
+MODELO = &quot;gemini-2.5-flash&quot;
+
+try:
+    from google.colab import userdata
+    from google import genai
+    from google.genai import types
+    cliente = genai.Client(api_key=userdata.get(&quot;GEMINI_API_KEY&quot;))
+    print(&quot;Conexión preparada con el modelo&quot;, MODELO)
+except Exception as error:
+    cliente = None
+    print(&quot;Sin clave o fuera de Colab: se usarán respuestas de ejemplo.&quot;, type(error).__name__)
+
+
+def preguntar(prompt, temperatura=0.2):
+    &quot;&quot;&quot;Envía un prompt al modelo y devuelve su texto (None si no hay conexión).&quot;&quot;&quot;
+    if cliente is None:
+        return None
+    respuesta = cliente.models.generate_content(
+        model=MODELO,
+        contents=prompt,
+        config=types.GenerateContentConfig(temperature=temperatura),
+    )
+    return respuesta.text</code></pre><pre class="code"><code class="language-python">resumen = &quot;&quot;&quot;Estudio de cohortes prospectivo con 52.000 adultos seguidos 10 años. Los que tomaban 3 o más
+cafés al día tuvieron una mortalidad menor que los que no tomaban café (HR ajustado 0,70; IC 95 %:
+0,62 a 0,79). Los resultados se ajustaron por edad, sexo y tabaco. Conclusión: el café reduce la mortalidad.&quot;&quot;&quot;
+
+prompt = f&quot;&quot;&quot;Eres un epidemiólogo. Analiza críticamente este resumen respondiendo, en una línea cada una,
+a estas preguntas: 1) PICO; 2) diseño y si permite causalidad; 3) principales confusores no ajustados;
+4) qué medida absoluta falta; 5) si la conclusión está justificada. No inventes datos que no estén en el resumen.
+
+Resumen: {resumen}&quot;&quot;&quot;
+
+respuesta = preguntar(prompt)
+if respuesta is None:
+    respuesta = &quot;&quot;&quot;1) P: 52.000 adultos; I: ≥ 3 cafés/día; C: no tomar café; O: mortalidad a 10 años.
+2) Cohortes prospectivo, observacional: no permite afirmar causalidad.
+3) Nivel socioeconómico, actividad física, dieta, alcohol, enfermedades previas (causalidad inversa).
+4) Falta la mortalidad absoluta en cada grupo, la diferencia de riesgos y el número de muertes.
+5) No: «reduce» es un lenguaje causal que el diseño no respalda; debería decir «se asoció con».
+(Respuesta de ejemplo: configura tu clave para obtener la del modelo.)&quot;&quot;&quot;
+print(respuesta)</code></pre><p><strong>Verifica cada punto</strong> con las diez preguntas del apartado 2.3. Los modelos de lenguaje son útiles para no olvidar ninguna pregunta, pero pueden:</p>
+<ul>
+<li><strong>Inventar</strong> datos o referencias que no están en el texto («según el estudio, el seguimiento fue del 95 %»).</li>
+<li>Dar por buena una conclusión si el <em>prompt</em> la presenta como cierta.</li>
+<li>Fallar en los cálculos (comprueba siempre con código, como en 3.1).</li>
+</ul>
+<p>Y nunca se les deben dar datos de pacientes.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: leer un resumen y evaluar una mejora" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: leer un resumen y evaluar una mejora</h2><h3>3.3 ¿Mejora la versión nueva del prompt? McNemar con pruebas reservadas</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 ¿Mejora la versión nueva del prompt? McNemar con pruebas reservadas</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Un equipo mejora un <em>prompt</em> que clasifica informes de radiografía de tórax como «neumonía sí/no». Prueban la versión 1 y la versión 2 con <strong>los mismos 150 informes reservados</strong>, nunca usados durante el desarrollo.</p><pre class="code"><code class="language-python">from statsmodels.stats.contingency_tables import mcnemar
+
+#               v2 acierta   v2 falla
+tabla = np.array([[112,         5],      # v1 acierta
+                  [17,          16]])    # v1 falla
+n = tabla.sum()
+print(f&quot;Exactitud v1: {tabla[0].sum() / n:.1%} · v2: {tabla[:, 0].sum() / n:.1%}&quot;)
+print(f&quot;Discordantes: solo v2 acierta {tabla[1, 0]} · solo v1 acierta {tabla[0, 1]}&quot;)
+print(f&quot;McNemar exacta: p = {mcnemar(tabla, exact=True).pvalue:.3f}&quot;)</code></pre><p>La versión 2 acierta 8 puntos más, y entre los 22 informes en que discrepan, acierta en 17. Como los 150 informes estaban reservados, esta mejora sí es una estimación honesta.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: leer un resumen y evaluar una mejora" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: leer un resumen y evaluar una mejora</h2><h3>3.4 Goodhart: mejorar contra la misma prueba</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Goodhart: mejorar contra la misma prueba</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Ahora simulamos un error frecuente. El equipo prueba 30 variantes de <em>prompt</em> que en realidad son <strong>todas igual de buenas</strong> (exactitud real del 80 %). Las evalúa con los mismos 40 casos y se queda con la mejor.</p><pre class="code"><code class="language-python">rng = np.random.default_rng(seed=300)
+exactitud_real = 0.80
+casos_desarrollo, casos_reservados, variantes = 40, 400, 30
+
+mejor_en_desarrollo, misma_en_reservados = [], []
+for _ in range(2000):
+    resultados = rng.binomial(casos_desarrollo, exactitud_real, size=variantes) / casos_desarrollo
+    mejor_en_desarrollo.append(resultados.max())
+    misma_en_reservados.append(rng.binomial(casos_reservados, exactitud_real) / casos_reservados)
+
+print(f&quot;Exactitud real de todas las variantes: {exactitud_real:.0%}&quot;)
+print(f&quot;Exactitud de la «mejor» en los 40 casos de desarrollo: {np.mean(mejor_en_desarrollo):.1%} de media&quot;)
+print(f&quot;Exactitud de esa misma variante en 400 casos reservados: {np.mean(misma_en_reservados):.1%}&quot;)</code></pre><p>Si se elige la mejor de 30 variantes con los mismos casos, aparece una «mejora» de unos 12 puntos que no existe. Es la selección del máximo del azar, la misma lógica de las comparaciones múltiples (Tema 260). La mejora recursiva necesita <strong>dos</strong> conjuntos de casos: uno para mejorar y otro, reservado, para medir.</p></div></section>
+<section class="slide denso" data-modo="colab" data-bloque="3. Demostración: leer un resumen y evaluar una mejora" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: leer un resumen y evaluar una mejora</h2><h3>3.5 Tu propia mejora recursiva: los informes de la app</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 Tu propia mejora recursiva: los informes de la app</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Cada informe de la app Bioestadística registra dos datos por misión. Si la resolviste en el <strong>primer intento</strong> y si la resolviste <strong>tras la pista</strong> del asistente. Con los informes de las 30 unidades se puede analizar tu aprendizaje igual que el de un modelo. Aquí, con datos simulados de un estudiante; en la misión reto lo harás con los tuyos.</p><pre class="code"><code class="language-python">unidades = np.repeat(np.arange(10, 310, 10), 3)
+mision = np.tile([&quot;básica&quot;, &quot;clínica&quot;, &quot;reto&quot;], 30)
+dificultad = np.tile([0.5, 0.0, -0.7], 30)
+progreso = (unidades - 150) / 150 * 0.8   # el estudiante mejora a lo largo del curso
+
+p_primero = 1 / (1 + np.exp(-(0.6 + dificultad + progreso)))
+primero = rng.random(90) &lt; p_primero
+tras_pista = primero | (rng.random(90) &lt; 0.6)
+
+informes = pd.DataFrame({&quot;unidad&quot;: unidades, &quot;mision&quot;: mision, &quot;primer_intento&quot;: primero, &quot;tras_pista&quot;: tras_pista})
+informes.head(6)</code></pre><pre class="code"><code class="language-python">tabla_pista = pd.crosstab(informes[&quot;primer_intento&quot;], informes[&quot;tras_pista&quot;]).reindex(
+    index=[True, False], columns=[True, False], fill_value=0)
+print(tabla_pista, &quot;\n&quot;)
+print(f&quot;Acierto en el primer intento: {informes[&#x27;primer_intento&#x27;].mean():.0%} · tras la pista: {informes[&#x27;tras_pista&#x27;].mean():.0%}&quot;)
+print(f&quot;McNemar exacta: p = {mcnemar(tabla_pista.to_numpy(), exact=True).pvalue:.1e}&quot;)</code></pre><p>La pista ayuda: es lo esperable. La pregunta más interesante para tu aprendizaje es otra: ¿<strong>dependes menos</strong> de la pista a medida que avanza el curso?</p><pre class="code"><code class="language-python">from statsmodels.stats.proportion import proportion_confint
+import matplotlib.pyplot as plt
+
+informes[&quot;modulo&quot;] = pd.cut(informes[&quot;unidad&quot;], [0, 40, 80, 130, 190, 300],
+                            labels=[&quot;M1 Python&quot;, &quot;M2 IA&quot;, &quot;M3 Datos&quot;, &quot;M4 Probabilidad&quot;, &quot;M5 Inferencia&quot;])
+resumen = informes.groupby(&quot;modulo&quot;, observed=True)[&quot;primer_intento&quot;].agg([&quot;sum&quot;, &quot;count&quot;])
+resumen[&quot;proporcion&quot;] = resumen[&quot;sum&quot;] / resumen[&quot;count&quot;]
+ic = [proportion_confint(s, n_, method=&quot;wilson&quot;) for s, n_ in zip(resumen[&quot;sum&quot;], resumen[&quot;count&quot;])]
+resumen[&quot;li&quot;], resumen[&quot;ls&quot;] = zip(*ic)
+
+plt.figure(figsize=(8, 4))
+plt.errorbar(range(len(resumen)), resumen[&quot;proporcion&quot;],
+             yerr=[resumen[&quot;proporcion&quot;] - resumen[&quot;li&quot;], resumen[&quot;ls&quot;] - resumen[&quot;proporcion&quot;]],
+             marker=&quot;o&quot;, capsize=4)
+plt.xticks(range(len(resumen)), resumen.index)
+plt.ylim(0, 1)
+plt.ylabel(&quot;Acierto en el primer intento (IC 95 %)&quot;)
+plt.title(&quot;Evolución del aprendizaje autónomo a lo largo del curso&quot;)
+plt.show()
+resumen.round(2)</code></pre><pre class="code"><code class="language-python">import statsmodels.formula.api as smf
+
+informes[&quot;acierto&quot;] = informes[&quot;primer_intento&quot;].astype(int)
+tendencia = smf.logit(&quot;acierto ~ unidad + C(mision)&quot;, data=informes).fit(disp=0)
+b = tendencia.params[&quot;unidad&quot;]
+li, ls = tendencia.conf_int().loc[&quot;unidad&quot;]
+print(f&quot;OR de acertar al primer intento por cada 100 temas de avance: {np.exp(100 * b):.2f} &quot;
+      f&quot;(IC 95 %: {np.exp(100 * li):.2f} a {np.exp(100 * ls):.2f}), ajustada por el tipo de misión&quot;)</code></pre><p>Un modelo logístico (Tema 280) ajustado por la dificultad de la misión estima una tendencia: si resuelves más misiones sin ayuda a lo largo del curso. Con solo 90 misiones el IC es ancho: un estudiante es una muestra pequeña. Agregando los informes de toda la clase, el profesor puede ver qué unidades necesitan mejorarse: la asignatura también está sometida a mejora recursiva.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: la pirámide no lo es todo</h3><p>Las revisiones sistemáticas de ensayos están en lo alto de la jerarquía de la evidencia, pero:</p>
+<ul>
+<li>Un metanálisis de ensayos sesgados es un resultado sesgado más preciso.</li>
+<li>Para muchas preguntas (efectos adversos raros, pronóstico, factores de riesgo que no se pueden asignar) los estudios observacionales son la mejor evidencia disponible.</li>
+<li>Los sistemas como <strong>GRADE</strong> valoran la certeza de la evidencia por más criterios que el diseño. Son el riesgo de sesgo, la imprecisión, la inconsistencia, la evidencia indirecta y el sesgo de publicación.</li>
+</ul></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Leer solo las conclusiones del resumen.</strong></p>
+<p><strong>Confundir precisión (IC estrecho) con validez (ausencia de sesgo).</strong></p>
+<p><strong>Aceptar lenguaje causal en estudios observacionales.</strong></p>
+<p><strong>Fiarse de las referencias o los datos que aporta un modelo de lenguaje</strong> sin comprobarlos en la fuente.</p>
+<p><strong>Medir la mejora de un sistema con los mismos casos usados para mejorarlo.</strong></p>
+<p><strong>Juzgar tu progreso por una sola unidad:</strong> usa todas las misiones y su IC.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 300 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> aplicar las diez preguntas de lectura crítica a tres resúmenes (un ensayo, una cohorte y un modelo de IA).</li>
+<li><strong>Misión clínica (con pistas):</strong> reescribir con medidas absolutas y lenguaje no causal la nota de prensa de un estudio observacional.</li>
+<li><strong>Misión reto (con asistente):</strong> cargar tus informes de las 30 unidades y comparar con McNemar tu acierto en el primer intento y tras la pista. Estimar tu tendencia a lo largo del curso y escribir un párrafo de autoevaluación.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe final</strong> y súbelo junto con los anteriores: forman la evaluación continua (EC) de la asignatura.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q19-0"><p class="qq">Un estudio de cohortes con 200.000 personas encuentra una asociación muy precisa (IC estrecho) entre un alimento y menor mortalidad. ¿Qué puede concluirse?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el tamaño controla el azar, no los sesgos.">Que la asociación probablemente no se debe al azar, pero puede deberse a sesgos o confusión</button><button type="button" class="op" data-ok="0" data-fb="Un estudio observacional no demuestra causalidad.">Que el alimento reduce la mortalidad</button><button type="button" class="op" data-ok="0" data-fb="Precisión no es validez.">Que el resultado es más fiable que el de un ensayo aleatorizado pequeño</button><button type="button" class="op" data-ok="0" data-fb="Aporta evidencia, con sus limitaciones.">Nada, porque es observacional</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q19-1"><p class="qq">¿Qué guía de publicación usarías para valorar un artículo sobre un sistema de IA que predice la sepsis?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es la guía para modelos predictivos, incluidos los de IA.">TRIPOD+AI</button><button type="button" class="op" data-ok="0" data-fb="CONSORT es para ensayos aleatorizados.">CONSORT</button><button type="button" class="op" data-ok="0" data-fb="PRISMA es para revisiones sistemáticas.">PRISMA</button><button type="button" class="op" data-ok="0" data-fb="STARD es para estudios de pruebas diagnósticas.">STARD</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q19-2"><p class="qq">Un modelo de lenguaje resume un artículo y cita «una tasa de seguimiento del 96 %» que no aparece en el texto. ¿Qué ha ocurrido?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto.">Ha inventado un dato (alucinación); hay que verificar todo en la fuente</button><button type="button" class="op" data-ok="0" data-fb="No se puede saber sin comprobarlo.">Ha encontrado el dato en otro sitio, así que es fiable</button><button type="button" class="op" data-ok="0" data-fb="El dato no estaba en el texto.">Es un error de redondeo</button><button type="button" class="op" data-ok="0" data-fb="Un dato no verificado no se usa.">Es normal y se puede usar</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q19-3"><p class="qq">Dos versiones de un prompt se evalúan con los mismos 200 casos reservados. ¿Qué prueba compara su exactitud?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: son datos apareados.">McNemar</button><button type="button" class="op" data-ok="0" data-fb="Los casos son los mismos.">Prueba z de dos proporciones independientes</button><button type="button" class="op" data-ok="0" data-fb="La variable es binaria.">t de Student</button><button type="button" class="op" data-ok="0" data-fb="Kappa mide concordancia, no compara exactitud.">Kappa de Cohen</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q19-4"><p class="qq">Se prueban 25 variantes de un prompt con los mismos 30 casos y se elige la que más acierta. ¿Qué pasará al evaluarla con casos nuevos?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: elegir el máximo con los mismos casos sobrestima el rendimiento (Goodhart).">Probablemente acertará menos que en los 30 casos de desarrollo</button><button type="button" class="op" data-ok="0" data-fb="Su ventaja era en parte azar.">Acertará lo mismo</button><button type="button" class="op" data-ok="0" data-fb="El rendimiento con los datos de selección es optimista.">Acertará más</button><button type="button" class="op" data-ok="0" data-fb="Sí: con casos reservados.">No se puede evaluar</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>Lee cada estudio con la pregunta PICO, el diseño, los sesgos y el efecto en medidas absolutas con su IC.</li>
+<li>El tamaño muestral controla el azar, no los sesgos: precisión no es validez.</li>
+<li>Las guías de publicación (CONSORT, STROBE, STARD, TRIPOD+AI, PRISMA) son también listas de lectura crítica.</li>
+<li>Un modelo de lenguaje ayuda a leer, pero todo lo que afirma se verifica.</li>
+<li>La mejora recursiva se mide con datos apareados y con pruebas reservadas; tu aprendizaje también.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lectura crítica</td>
+<td>Evaluación sistemática de la validez, los resultados y la aplicabilidad de un estudio</td>
+</tr>
+<tr>
+<td>Pregunta PICO</td>
+<td>Formulación de una pregunta clínica en población, intervención, comparación y resultado</td>
+</tr>
+<tr>
+<td>Sesgo de selección</td>
+<td>Error por la forma en que se eligen o se pierden los participantes</td>
+</tr>
+<tr>
+<td>Sesgo de información</td>
+<td>Error en la medida de la exposición o del resultado</td>
+</tr>
+<tr>
+<td>Validez interna</td>
+<td>Ausencia de sesgos en el estudio</td>
+</tr>
+<tr>
+<td>Validez externa</td>
+<td>Aplicabilidad de los resultados a otras poblaciones</td>
+</tr>
+<tr>
+<td>CONSORT, STROBE, STARD, PRISMA</td>
+<td>Guías de publicación de ensayos, estudios observacionales, pruebas diagnósticas y revisiones sistemáticas</td>
+</tr>
+<tr>
+<td>GRADE</td>
+<td>Sistema para valorar la certeza de la evidencia y la fuerza de las recomendaciones</td>
+</tr>
+<tr>
+<td>Alucinación</td>
+<td>Información falsa generada por un modelo de lenguaje con apariencia de verdadera</td>
+</tr>
+<tr>
+<td>Mejora recursiva</td>
+<td>Ciclo de generar, evaluar, corregir y volver a evaluar</td>
+</tr>
+<tr>
+<td>Pruebas reservadas</td>
+<td>Casos que no se usan para mejorar un sistema y sirven solo para medir su rendimiento</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li>Greenhalgh T. <em>How to Read a Paper: The Basics of Evidence-Based Healthcare</em>. 6.ª ed. Hoboken: Wiley-Blackwell; 2019.</li>
+<li>Red EQUATOR (<em>Enhancing the QUAlity and Transparency Of health Research</em>): guías de publicación en <a href="https://www.equator-network.org" target="_blank" rel="noopener">equator-network.org</a>.</li>
+<li>Guyatt GH, <em>et al.</em> GRADE: an emerging consensus on rating quality of evidence and strength of recommendations. <em>BMJ</em>. 2008;336(7650):924-926. doi:<a href="https://doi.org/10.1136/bmj.39489.470347.AD" target="_blank" rel="noopener">10.1136/bmj.39489.470347.AD</a></li>
+<li>Ioannidis JPA. Why most published research findings are false. <em>PLoS Med</em>. 2005;2(8):e124. doi:<a href="https://doi.org/10.1371/journal.pmed.0020124" target="_blank" rel="noopener">10.1371/journal.pmed.0020124</a></li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_300_Lectura_critica_de_la_evidencia_y_evaluacion_de_la_mejora_recursiva.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 300 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-300" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_290.html">← Tema 290</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

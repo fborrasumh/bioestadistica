@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 280. Modelo de regresión logística · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 280. Modelo de regresión logística</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 280</span>Modelo de regresión logística</h1>
+<p class="mod">Módulo 5. Generalización de conclusiones</p>
+<p class="ev"><b>Evaluación:</b> el examen del Módulo 5 se hace <strong>con Colab</strong>. Practica ejecutando e interpretando cada análisis.</p>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_280_Modelo_de_regresion_logistica.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-280" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Explicar por qué la regresión lineal no sirve para una variable de respuesta binaria y cómo la resuelve la función logística.</li>
+<li>Ajustar un modelo de regresión logística e interpretar sus coeficientes como <strong>odds ratios ajustadas</strong> con su IC 95 %.</li>
+<li>Expresar la OR de una variable cuantitativa para un incremento clínicamente útil (10 años, 10 mmHg).</li>
+<li>Calcular con el modelo la probabilidad de un evento para un paciente concreto.</li>
+<li>Valorar si el número de eventos es suficiente para el número de variables del modelo.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: el riesgo cardiovascular de la cohorte <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p>En el Tema 230 vimos que, en la cohorte, los diabéticos tienen más eventos cardiovasculares a 5 años (OR cruda 1,77). Pero los diabéticos son, de media, algo mayores que los no diabéticos, y la edad es el factor de riesgo cardiovascular más potente. ¿Cuánto de ese exceso de riesgo se debe a la diabetes y cuánto a la edad?</p>
+<p>Además, el equipo quiere una herramienta sencilla. Se introducen la edad, el sexo, la presión arterial, el tabaco y la diabetes de un paciente. La herramienta da su <strong>probabilidad</strong> de evento a 5 años. Es la lógica de las escalas de riesgo como SCORE2 o Framingham.</p>
+<p>Las dos tareas se hacen con la <strong>regresión logística</strong>: estimar efectos ajustados de factores de riesgo y predecir la probabilidad de un evento binario. Es el modelo multivariante más usado en la investigación clínica.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 Por qué no una recta</h3><p class="lema">Para un evento sí/no: la curva logística</p><figure><img src="../figuras/tema_280_logistica.png" alt="Para un evento sí/no: la curva logística" loading="lazy"></figure><ul class='puntos'><li>Una recta puede dar probabilidades negativas o mayores de 1.</li><li>La regresión logística modela el logaritmo de la odds y devuelve probabilidades entre 0 y 1.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Si la respuesta es 0/1 (evento sí o no), una recta no sirve, por dos razones. Puede predecir «probabilidades» negativas o mayores de 1. Y el efecto de cada factor no puede ser igual en toda la escala. Pasar del 1 % al 2 % de riesgo no es lo mismo que pasar del 50 % al 51 %.</p>
+<p>La regresión logística modela el <strong>logaritmo de la odds</strong> (logit) como una combinación lineal de los predictores:</p>
+<p>$$\ln\left(\frac{p}{1-p}\right) = \beta_0 + \beta_1 X_1 + \dots + \beta_k X_k$$</p>
+<p>y la probabilidad se recupera con la <strong>función logística</strong>, que siempre da valores entre 0 y 1:</p>
+<p>$$p = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_1 + \dots + \beta_k X_k)}}$$</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Los coeficientes son logaritmos de odds ratios</h3><p class="lema">Los resultados se leen como odds ratios ajustadas</p><figure><img src="../figuras/tema_280_forest.png" alt="Los resultados se leen como odds ratios ajustadas" loading="lazy"></figure><ul class='puntos'><li>OR > 1: más odds de evento; OR < 1: menos; IC que cruza el 1: no significativa.</li><li>Para variables cuantitativas, OR por un incremento clínico: por 10 años, por 10 mmHg.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><table>
+<thead>
+<tr>
+<th>Coeficiente</th>
+<th>Exponenciado</th>
+<th>Interpretación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\beta_j$ de una variable binaria</td>
+<td>$e^{\beta_j}$ = OR</td>
+<td>Odds del evento en la categoría frente a la de referencia, a igualdad de las demás variables</td>
+</tr>
+<tr>
+<td>$\beta_j$ de una variable cuantitativa</td>
+<td>$e^{\beta_j}$ = OR por unidad</td>
+<td>Multiplicación de la odds por cada unidad más</td>
+</tr>
+<tr>
+<td>La misma, para <em>k</em> unidades</td>
+<td>$e^{k \beta_j}$</td>
+<td>OR por <em>k</em> unidades (por ejemplo, por 10 años)</td>
+</tr>
+</tbody>
+</table>
+<p>Una OR &gt; 1 indica más odds de evento; &lt; 1, menos; = 1, ninguna asociación. Como en el Tema 230, si el evento no es raro, la OR exagera el riesgo relativo.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Cuántas variables caben en el modelo</h3><p class="lema">Pocos eventos por variable: coeficientes inestables</p><figure><img src="../figuras/tema_280_epv.png" alt="Pocos eventos por variable: coeficientes inestables" loading="lazy"></figure><ul class='puntos'><li>Lo que limita el modelo es el número de eventos, no el de pacientes (orientación: ≥ 10 por variable).</li><li>Con pocos eventos, la OR estimada varía muchísimo entre muestras y tiende a exagerarse.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Lo que limita una regresión logística no es el número de pacientes sino el número de <strong>eventos</strong> (o de no eventos, si son menos). La regla clásica pide al menos <strong>10 eventos por variable</strong> (EPV). Con menos, los coeficientes son inestables y exagerados (sobreajuste), y el modelo predice peor en pacientes nuevos (Tema 290). Las recomendaciones actuales para modelos predictivos calculan el tamaño muestral necesario de forma más precisa (Riley <em>et al.</em>, 2020).</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">En una regresión logística, el coeficiente del tabaco es 0,69. ¿Cuál es la OR?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: e^0,69 ≈ 2,0.">Aproximadamente 2</button><button type="button" class="op" data-ok="0" data-fb="El coeficiente es el logaritmo de la OR.">0,69</button><button type="button" class="op" data-ok="0" data-fb="La OR no es 1 + β.">1,69</button><button type="button" class="op" data-ok="0" data-fb="Eso sería e^(−0,69).">0,5</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 280.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_280_Modelo_de_regresion_logistica.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: el riesgo cardiovascular de la cohorte" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: el riesgo cardiovascular de la cohorte</h2><h3>3.1 La curva logística: edad y evento</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 La curva logística: edad y evento</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import statsmodels.formula.api as smf
+
+cohorte = pd.read_csv(&quot;https://raw.githubusercontent.com/fborrasumh/bioestadistica/main/datos/cohorte_limpia.csv&quot;)
+cohorte[&quot;evento&quot;] = cohorte[&quot;evento_cv_5a&quot;]
+
+m_edad = smf.logit(&quot;evento ~ edad&quot;, data=cohorte).fit(disp=0)
+lineal = smf.ols(&quot;evento ~ edad&quot;, data=cohorte).fit()
+
+x = np.linspace(20, 100, 200)
+plt.figure(figsize=(7, 4.5))
+plt.scatter(cohorte[&quot;edad&quot;], cohorte[&quot;evento&quot;] + np.random.default_rng(280).uniform(-0.03, 0.03, len(cohorte)),
+            alpha=0.25, s=12, label=&quot;Pacientes (0 = sin evento, 1 = evento)&quot;)
+plt.plot(x, m_edad.predict(pd.DataFrame({&quot;edad&quot;: x})), color=&quot;firebrick&quot;, label=&quot;Regresión logística&quot;)
+plt.plot(x, lineal.predict(pd.DataFrame({&quot;edad&quot;: x})), color=&quot;gray&quot;, linestyle=&quot;--&quot;, label=&quot;Recta (inadecuada)&quot;)
+plt.axhline(0, color=&quot;black&quot;, linewidth=0.5)
+plt.xlabel(&quot;Edad (años)&quot;)
+plt.ylabel(&quot;Probabilidad de evento a 5 años&quot;)
+plt.legend()
+plt.show()
+
+print(f&quot;La recta predice a los 25 años una probabilidad de {lineal.predict(pd.DataFrame({&#x27;edad&#x27;: [25]}))[0]:.3f}&quot;)</code></pre><p>Fuera del rango de los datos, la recta predice una probabilidad <strong>negativa</strong>. La curva logística se mantiene entre 0 y 1 y crece de forma multiplicativa con la edad.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: el riesgo cardiovascular de la cohorte" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: el riesgo cardiovascular de la cohorte</h2><h3>3.2 La OR de la edad</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 La OR de la edad</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">b = m_edad.params[&quot;edad&quot;]
+li, ls = m_edad.conf_int().loc[&quot;edad&quot;]
+print(f&quot;Coeficiente β = {b:.4f}&quot;)
+print(f&quot;OR por año: {np.exp(b):.3f} (IC 95 %: {np.exp(li):.3f} a {np.exp(ls):.3f})&quot;)
+print(f&quot;OR por 10 años: {np.exp(10 * b):.2f} (IC 95 %: {np.exp(10 * li):.2f} a {np.exp(10 * ls):.2f})&quot;)</code></pre><p>Cada año multiplica la odds de evento por 1,085; cada <strong>10 años</strong>, por más de 2. Expresar la OR por 10 años es más útil clínicamente que por un año. Ojo: la OR por 10 años es $e^{10\beta}$, no 10 veces la OR por año.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: el riesgo cardiovascular de la cohorte" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: el riesgo cardiovascular de la cohorte</h2><h3>3.3 ¿Diabetes o edad? La OR ajustada</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 ¿Diabetes o edad? La OR ajustada</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">def tabla_or(modelo):
+    ic = modelo.conf_int()
+    return pd.DataFrame({
+        &quot;OR&quot;: np.exp(modelo.params),
+        &quot;IC 95 % inf.&quot;: np.exp(ic[0]),
+        &quot;IC 95 % sup.&quot;: np.exp(ic[1]),
+        &quot;p&quot;: modelo.pvalues,
+    }).drop(index=&quot;Intercept&quot;).round(3)
+
+cruda = smf.logit(&quot;evento ~ diabetes&quot;, data=cohorte).fit(disp=0)
+ajustada = smf.logit(&quot;evento ~ diabetes + edad&quot;, data=cohorte).fit(disp=0)
+print(&quot;Diabéticos: edad media&quot;, cohorte.groupby(&quot;diabetes&quot;)[&quot;edad&quot;].mean().round(1).to_dict())
+print(&quot;\nOR cruda:&quot;)
+print(tabla_or(cruda))
+print(&quot;\nOR ajustada por edad:&quot;)
+print(tabla_or(ajustada))</code></pre><p>La OR de la diabetes baja de 1,77 a 1,48 al ajustar por edad. Parte del exceso de riesgo de los diabéticos de la cohorte se debía a que eran mayores. Con 48 eventos, el IC sigue siendo muy ancho. No permite confirmar el efecto propio de la diabetes, que en estudios grandes está bien establecido.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: el riesgo cardiovascular de la cohorte" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: el riesgo cardiovascular de la cohorte</h2><h3>3.4 El modelo multivariante</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 El modelo multivariante</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">completo = smf.logit(&quot;evento ~ edad + sexo + fumador + diabetes + pas_mmHg + hdl_mg_dl&quot;, data=cohorte).fit(disp=0)
+eventos = int(completo.model.endog.sum())
+predictores = len(completo.params) - 1
+print(f&quot;Pacientes en el modelo: {int(completo.nobs)} · eventos: {eventos} · predictores: {predictores} &quot;
+      f&quot;· eventos por variable: {eventos / predictores:.1f}&quot;)
+tabla_or(completo)</code></pre><pre class="code"><code class="language-python">for variable, k, unidad in [(&quot;edad&quot;, 10, &quot;10 años&quot;), (&quot;pas_mmHg&quot;, 10, &quot;10 mmHg&quot;), (&quot;hdl_mg_dl&quot;, 10, &quot;10 mg/dL&quot;)]:
+    b = completo.params[variable]
+    li, ls = completo.conf_int().loc[variable]
+    print(f&quot;{variable:&gt;10}: OR por {unidad} = {np.exp(k * b):.2f} (IC 95 %: {np.exp(k * li):.2f} a {np.exp(k * ls):.2f})&quot;)</code></pre><p><strong>Cómo se comunica:</strong> «En el análisis multivariante, tres variables se asociaron de forma independiente con el evento cardiovascular a 5 años. Fueron la edad (OR 2,06 por cada 10 años), la PAS (OR 1,55 por cada 10 mmHg) y el sexo masculino (OR para mujeres 0,34)».</p>
+<p>Dos advertencias:</p>
+<ul>
+<li>Con unos 7 eventos por variable, el modelo está por debajo de la regla de 10 EPV: los coeficientes pueden estar <strong>sobrestimados</strong>. La OR de la PAS es probablemente mayor que la real.</li>
+<li>El tabaco o el HDL no salen significativos, pero eso <strong>no</strong> significa que no sean factores de riesgo. Con 43 eventos, el modelo no tiene potencia para detectarlos.</li>
+</ul></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: el riesgo cardiovascular de la cohorte" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: el riesgo cardiovascular de la cohorte</h2><h3>3.5 La probabilidad de un paciente</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 La probabilidad de un paciente</b>. Antes de ejecutar, escribe qué esperas obtener.</p><figure><img src="../figuras/tema_280_esquema.png" alt="Pasos: z = β₀ + β₁x₁ + …, odds = eᶻ, p = odds / (1 + odds); con z = −2, p = 0,119." loading="lazy"></figure><pre class="code"><code class="language-python">pacientes = pd.DataFrame({
+    &quot;edad&quot;: [52, 72],
+    &quot;sexo&quot;: [&quot;Mujer&quot;, &quot;Hombre&quot;],
+    &quot;fumador&quot;: [&quot;No&quot;, &quot;Sí&quot;],
+    &quot;diabetes&quot;: [&quot;No&quot;, &quot;Sí&quot;],
+    &quot;pas_mmHg&quot;: [125, 155],
+    &quot;hdl_mg_dl&quot;: [60, 38],
+})
+pacientes[&quot;probabilidad&quot;] = completo.predict(pacientes)
+for _, f in pacientes.iterrows():
+    print(f&quot;{f[&#x27;sexo&#x27;]} de {f[&#x27;edad&#x27;]} años, fumador {f[&#x27;fumador&#x27;]}, diabetes {f[&#x27;diabetes&#x27;]}, PAS {f[&#x27;pas_mmHg&#x27;]}, &quot;
+          f&quot;HDL {f[&#x27;hdl_mg_dl&#x27;]}: probabilidad de evento a 5 años {f[&#x27;probabilidad&#x27;]:.1%}&quot;)</code></pre><p>Es lo que hacen las calculadoras de riesgo cardiovascular. Pero este modelo se ha construido con 358 pacientes y 43 eventos. Y no se ha <strong>validado</strong> en pacientes distintos de los que se usaron para ajustarlo. Antes de usarlo con un paciente real habría que comprobar su discriminación y su calibración en otra muestra (Tema 290). Las escalas de las guías se han desarrollado con cientos de miles de personas.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: el sobreajuste con pocos eventos</h3><p>Simulamos muchas cohortes de distinto tamaño, todas con una OR real de la PAS de 1,20 por 10 mmHg. Después, vemos qué OR estima el modelo.</p><pre class="code"><code class="language-python">rng = np.random.default_rng(seed=280)
+
+def simular(n):
+    edad = rng.uniform(40, 85, n)
+    pas = 110 + 0.5 * (edad - 40) + rng.normal(0, 14, n)
+    logit = -7.4 + 0.07 * edad + np.log(1.20) / 10 * (pas - 120)
+    evento = rng.random(n) &lt; 1 / (1 + np.exp(-logit))
+    datos = pd.DataFrame({&quot;evento&quot;: evento.astype(int), &quot;edad&quot;: edad, &quot;pas&quot;: pas})
+    for _ in range(4):  # cuatro variables de ruido, sin relación con el evento
+        datos[f&quot;ruido{_}&quot;] = rng.normal(0, 1, n)
+    m = smf.logit(&quot;evento ~ edad + pas + ruido0 + ruido1 + ruido2 + ruido3&quot;, data=datos).fit(disp=0)
+    return evento.sum() / 6, np.exp(10 * m.params[&quot;pas&quot;])
+
+for n in [300, 1000, 5000]:
+    resultados = np.array([simular(n) for _ in range(150)])
+    print(f&quot;n = {n:&gt;4}: eventos por variable ≈ {resultados[:, 0].mean():5.1f} · &quot;
+          f&quot;mediana de la OR estimada = {np.median(resultados[:, 1]):.2f} · &quot;
+          f&quot;rango central del 90 %: {np.percentile(resultados[:, 1], 5):.2f} a {np.percentile(resultados[:, 1], 95):.2f}&quot;)</code></pre><p>Con pocos eventos por variable, la OR estimada varía muchísimo de una cohorte a otra. Con unos 4 EPV, una cohorte puede obtener una OR «protectora» de 0,84 y otra una de 1,60. La real es 1,20. Las que salen significativas suelen ser las más exageradas. Con miles de pacientes, se concentra alrededor del valor real (1,20). El tamaño muestral de un modelo se decide <strong>antes</strong> de ajustarlo.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Interpretar la OR como un riesgo relativo</strong> cuando el evento es frecuente.</p>
+<p><strong>Dar la OR de una variable cuantitativa por unidad</strong> cuando la unidad es diminuta (por mg/dL o por año); exprésala por un incremento clínico.</p>
+<p><strong>Meter demasiadas variables para los eventos disponibles.</strong></p>
+<p><strong>Seleccionar las variables por su significación</strong> en análisis univariantes previos. Elígelas por conocimiento clínico.</p>
+<p><strong>Usar las probabilidades del modelo en la clínica sin validarlo.</strong></p>
+<p><strong>Interpretar las OR ajustadas de un estudio observacional como efectos causales.</strong></p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 280 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> convertir coeficientes en OR, OR por unidad en OR por 10 unidades, y logit en probabilidad.</li>
+<li><strong>Misión clínica (con pistas):</strong> estimar la OR del tabaco sobre el evento, cruda y ajustada por edad y sexo, e interpretar el cambio.</li>
+<li><strong>Misión reto (con asistente):</strong> pedir al asistente un modelo con todas las variables de la cohorte y calcular los eventos por variable. Proponer un modelo más sencillo, justificado clínicamente.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q18-0"><p class="qq">En una regresión logística, el coeficiente del tabaco es 0,69. ¿Cuál es la OR?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: e^0,69 ≈ 2,0.">Aproximadamente 2</button><button type="button" class="op" data-ok="0" data-fb="El coeficiente es el logaritmo de la OR.">0,69</button><button type="button" class="op" data-ok="0" data-fb="La OR no es 1 + β.">1,69</button><button type="button" class="op" data-ok="0" data-fb="Eso sería e^(−0,69).">0,5</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q18-1"><p class="qq">La OR de la edad es 1,07 por año. ¿Cuál es la OR por 10 años?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: 1,07¹⁰ ≈ 1,97.">Aproximadamente 1,97</button><button type="button" class="op" data-ok="0" data-fb="Las OR se multiplican, no se suman.">10,7</button><button type="button" class="op" data-ok="0" data-fb="Eso sería sumar 10 × 0,07 a 1.">1,7</button><button type="button" class="op" data-ok="0" data-fb="Revisa cómo se combinan las OR.">0,7</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q18-2"><p class="qq">¿Qué significa una OR ajustada de 1,48 para la diabetes en un modelo con la edad?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es una OR ajustada.">Que a igualdad de edad, la odds de evento de los diabéticos es 1,48 veces la de los no diabéticos</button><button type="button" class="op" data-ok="0" data-fb="La OR no es una probabilidad.">Que el 48 % de los diabéticos tiene un evento</button><button type="button" class="op" data-ok="0" data-fb="Es una asociación ajustada, no necesariamente causal.">Que la diabetes causa un 48 % más de eventos</button><button type="button" class="op" data-ok="0" data-fb="La significación depende del IC.">Que la diabetes es significativa</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q18-3"><p class="qq">Un modelo tiene 30 eventos y 8 variables. ¿Qué problema tiene?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: menos de 4 eventos por variable.">Pocos eventos por variable: riesgo de sobreajuste y coeficientes inestables</button><button type="button" class="op" data-ok="0" data-fb="Lo que limita es el número de eventos.">Ninguno, si hay 1.000 pacientes</button><button type="button" class="op" data-ok="0" data-fb="Se calculan, pero son poco fiables.">Que las OR no se pueden calcular</button><button type="button" class="op" data-ok="0" data-fb="La respuesta sigue siendo binaria.">Que hay que usar regresión lineal</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q18-4"><p class="qq">¿Por qué no se usa la regresión lineal para predecir un evento binario?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la función logística mantiene la probabilidad entre 0 y 1.">Porque puede predecir probabilidades menores de 0 o mayores de 1</button><button type="button" class="op" data-ok="0" data-fb="Sí las admite como indicadoras.">Porque la regresión lineal no admite variables cualitativas</button><button type="button" class="op" data-ok="0" data-fb="Sí los tiene.">Porque la regresión lineal no tiene IC</button><button type="button" class="op" data-ok="0" data-fb="No es el motivo.">Porque la regresión logística siempre da coeficientes mayores</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>La regresión logística modela el logit de la probabilidad de un evento binario.</li>
+<li>$e^{\beta}$ es la OR ajustada; para variables cuantitativas, exprésala por un incremento clínico ($e^{k\beta}$).</li>
+<li>El modelo permite estimar la probabilidad de evento de un paciente, pero antes hay que validarlo.</li>
+<li>El número de eventos limita el número de variables (como orientación, 10 eventos por variable).</li>
+<li>Un factor no significativo en un modelo pequeño no queda descartado.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Regresión logística</td>
+<td>Modelo para una respuesta binaria que relaciona el logit de la probabilidad con los predictores</td>
+</tr>
+<tr>
+<td>Logit</td>
+<td>Logaritmo de la odds: $\ln(p / (1 - p))$</td>
+</tr>
+<tr>
+<td>Función logística</td>
+<td>Función que transforma el logit en una probabilidad entre 0 y 1</td>
+</tr>
+<tr>
+<td>Odds ratio ajustada</td>
+<td>OR de una variable controlando por las demás variables del modelo</td>
+</tr>
+<tr>
+<td>Eventos por variable (EPV)</td>
+<td>Número de eventos dividido por el número de predictores del modelo</td>
+</tr>
+<tr>
+<td>Sobreajuste</td>
+<td>Ajuste excesivo a la muestra, que exagera los efectos y empeora la predicción en datos nuevos</td>
+</tr>
+<tr>
+<td>Probabilidad predicha</td>
+<td>Probabilidad de evento que el modelo asigna a un paciente según sus características</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li>Peduzzi P, Concato J, Kemper E, Holford TR, Feinstein AR. A simulation study of the number of events per variable in logistic regression analysis. <em>J Clin Epidemiol</em>. 1996;49(12):1373-1379. doi:<a href="https://doi.org/10.1016/S0895-4356%2896%2900236-3" target="_blank" rel="noopener">10.1016/S0895-4356(96)00236-3</a></li>
+<li>Riley RD, <em>et al.</em> Calculating the sample size required for developing a clinical prediction model. <em>BMJ</em>. 2020;368:m441. doi:<a href="https://doi.org/10.1136/bmj.m441" target="_blank" rel="noopener">10.1136/bmj.m441</a></li>
+<li>Sperandei S. Understanding logistic regression analysis. <em>Biochem Med (Zagreb)</em>. 2014;24(1):12-18. doi:<a href="https://doi.org/10.11613/BM.2014.003" target="_blank" rel="noopener">10.11613/BM.2014.003</a></li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_280_Modelo_de_regresion_logistica.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 280 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-280" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_270.html">← Tema 270</a><a class="btn ghost" href="tema_290.html">→ Tema 290</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

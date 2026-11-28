@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 70. Gestión de ficheros y formatos de intercambio de datos sanitarios: CSV y JSON · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 70. Gestión de ficheros y formatos de intercambio de datos sanitarios: CSV y JSON</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 70</span>Gestión de ficheros y formatos de intercambio de datos sanitarios: CSV y JSON</h1>
+<p class="mod">Módulo 2. Programando con IA</p>
+
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_070_Ficheros_y_formatos_de_datos_sanitarios_CSV_y_JSON.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-70" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Crear, leer y ampliar ficheros de texto desde Python.</li>
+<li>Guardar y leer una tabla de pacientes en formato <strong>CSV</strong>.</li>
+<li>Reconocer los problemas habituales de los CSV en español: separador, coma decimal y codificación.</li>
+<li>Convertir datos de Python a <strong>JSON</strong> y viceversa, y extraer información de un JSON anidado.</li>
+<li>Reconocer la estructura de un recurso del estándar sanitario <strong>HL7 FHIR</strong>.</li>
+<li>Entender la respuesta de una API, que llega en formato JSON.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: ficheros, CSV y JSON <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">El CSV que se abrió mal</p><figure><img src="../figuras/tema_070_csv_roto.png" alt="El CSV que se abrió mal" loading="lazy"></figure><ul class='puntos'><li>Separador «;», coma decimal y tildes en UTF-8: si no se indican al leer, los datos se estropean.</li><li>Los datos viajan en <b>formatos de fichero</b>; conocerlos evita perder información.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Un grupo de investigación de un hospital participa en un <strong>registro multicéntrico</strong> de insuficiencia cardiaca. Cada mes debe enviar los datos de sus pacientes (seudonimizados) en un fichero <strong>CSV</strong>. Al mismo tiempo, el laboratorio del hospital entrega los resultados analíticos al sistema de historia clínica en <strong>JSON</strong>, siguiendo el estándar internacional <strong>HL7 FHIR</strong>.</p>
+<p>Una residente abre el CSV en una hoja de cálculo. Todas las columnas aparecen juntas en una sola. Los pesos han perdido los decimales. Las tildes se ven como símbolos extraños.</p>
+<p>Los datos no se transmiten en el vacío: viajan en <strong>formatos de fichero</strong>. Conocerlos evita perder información por el camino. Además, son imprescindibles para el Tema 80, donde un modelo de IA responderá en JSON.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 Ficheros de texto</h3><figure><img src="../figuras/tema_070_esquema.png" alt="Modos de open: &amp;quot;r&amp;quot; lee, &amp;quot;a&amp;quot; añade al final y &amp;quot;w&amp;quot; borra lo anterior. En Colab los ficheros se borran al cerrar la sesión." loading="lazy"></figure><p>Un fichero se abre con <code>open(nombre, modo, encoding="utf-8")</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Modo</th>
+<th>Significado</th>
+<th>Cuidado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>"r"</code></td>
+<td>Leer</td>
+<td>Error si el fichero no existe</td>
+</tr>
+<tr>
+<td><code>"w"</code></td>
+<td>Escribir</td>
+<td><strong>Borra</strong> el contenido anterior</td>
+</tr>
+<tr>
+<td><code>"a"</code></td>
+<td>Añadir al final</td>
+<td>Conserva lo que había</td>
+</tr>
+</tbody>
+</table>
+<p>Se usa siempre con <code>with</code>, que cierra el fichero automáticamente al terminar. La codificación <strong>UTF-8</strong> representa correctamente tildes, eñes y símbolos como «µ» o «°».</p>
+<p>En Colab, los ficheros creados se guardan en una carpeta temporal visible en el panel <strong>Archivos</strong> y <strong>se borran al cerrar la sesión</strong>. Para conservarlos hay que descargarlos o guardarlos en Drive.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 CSV</h3><p class="lema">CSV: una tabla escrita como texto</p><figure><img src="../figuras/tema_070_csv.png" alt="CSV: una tabla escrita como texto" loading="lazy"></figure><ul class='puntos'><li>Una línea por paciente; los campos separados por un carácter.</li><li>La primera línea suele ser la cabecera con los nombres de las variables.</li><li>Un campo vacío es un dato ausente, no un cero.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p><strong>CSV</strong> (<em>comma-separated values</em>) es una tabla en texto plano: una fila por línea y las columnas separadas por un carácter. Es el formato más usado para intercambiar datos tabulares.</p>
+<pre><code>codigo,edad,sexo,peso_kg,fevi_pct
+IC-001,72,M,81.5,35
+IC-002,68,F,64.0,
+</code></pre>
+<p>En España, muchas hojas de cálculo usan el <strong>punto y coma</strong> como separador y la <strong>coma</strong> como separador decimal. Por eso conviene saber siempre qué separador tiene un fichero antes de leerlo. Una celda vacía indica un <strong>dato ausente</strong>.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 JSON</h3><p class="lema">JSON: datos anidados, como un resultado de laboratorio HL7 FHIR</p><figure><img src="../figuras/tema_070_json.png" alt="JSON: datos anidados, como un resultado de laboratorio HL7 FHIR" loading="lazy"></figure><ul class='puntos'><li>Diccionarios dentro de diccionarios, y listas: el formato de las API y de la historia clínica electrónica.</li><li>Para llegar a un dato se sigue el camino de claves: obs["valueQuantity"]["value"].</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p><strong>JSON</strong> (<em>JavaScript Object Notation</em>) representa datos estructurados en texto. Su sintaxis es casi igual a la de los diccionarios y listas de Python. Admite datos <strong>anidados</strong>: diccionarios dentro de listas dentro de diccionarios.</p>
+<table>
+<thead>
+<tr>
+<th>JSON</th>
+<th>Python</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>objeto <code>{ }</code></td>
+<td>diccionario <code>dict</code></td>
+</tr>
+<tr>
+<td>array <code>[ ]</code></td>
+<td>lista <code>list</code></td>
+</tr>
+<tr>
+<td><code>"texto"</code></td>
+<td><code>str</code></td>
+</tr>
+<tr>
+<td><code>12</code>, <code>12.5</code></td>
+<td><code>int</code>, <code>float</code></td>
+</tr>
+<tr>
+<td><code>true</code> / <code>false</code></td>
+<td><code>True</code> / <code>False</code></td>
+</tr>
+<tr>
+<td><code>null</code></td>
+<td><code>None</code></td>
+</tr>
+</tbody>
+</table>
+<p>Es el formato de las <strong>API</strong> web y de los modelos de IA. También es el del estándar sanitario <strong>HL7 FHIR</strong>, que intercambia historias clínicas, resultados de laboratorio y prescripciones.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">Abres un fichero que ya contiene datos con open(&quot;datos.csv&quot;, &quot;w&quot;). ¿Qué ocurre con el contenido anterior?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el modo &quot;w&quot; crea el fichero de nuevo. Para añadir se usa &quot;a&quot;.">Se borra</button><button type="button" class="op" data-ok="0" data-fb="Eso hace el modo &quot;a&quot;.">Se conserva y lo nuevo se añade al final</button><button type="button" class="op" data-ok="0" data-fb="No hay error; simplemente se sobrescribe.">Se produce un error</button><button type="button" class="op" data-ok="0" data-fb="Python no hace copias automáticas.">Se crea una copia de seguridad</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 70.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_070_Ficheros_y_formatos_de_datos_sanitarios_CSV_y_JSON.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: ficheros, CSV y JSON" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: ficheros, CSV y JSON</h2><h3>3.1 Escribir y leer un fichero de texto</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Escribir y leer un fichero de texto</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">informe = &quot;&quot;&quot;INFORME DE ALTA (paciente sintético IC-001)
+Diagnóstico principal: insuficiencia cardiaca con fracción de eyección reducida.
+Tratamiento al alta: sacubitrilo/valsartán, bisoprolol, dapagliflozina.
+Revisión en consulta de Cardiología en 4 semanas.
+&quot;&quot;&quot;
+
+with open(&quot;informe_alta.txt&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as fichero:
+    fichero.write(informe)
+
+with open(&quot;informe_alta.txt&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as fichero:
+    contenido = fichero.read()
+
+print(contenido)</code></pre><p>Con el modo <code>"a"</code> se añade una línea sin borrar lo anterior. Leer con <code>.readlines()</code> devuelve una lista con una línea por elemento.</p><pre class="code"><code class="language-python">with open(&quot;informe_alta.txt&quot;, &quot;a&quot;, encoding=&quot;utf-8&quot;) as fichero:
+    fichero.write(&quot;Alergias: no conocidas.\n&quot;)
+
+with open(&quot;informe_alta.txt&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as fichero:
+    lineas = fichero.readlines()
+
+print(&quot;Número de líneas:&quot;, len(lineas))
+print(&quot;Última línea:&quot;, lineas[-1].strip())</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: ficheros, CSV y JSON" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: ficheros, CSV y JSON</h2><h3>3.2 Buscar información en el texto</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 Buscar información en el texto</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">texto = contenido.lower()
+for farmaco in [&quot;bisoprolol&quot;, &quot;furosemida&quot;, &quot;dapagliflozina&quot;]:
+    print(f&quot;{farmaco}: {&#x27;sí&#x27; if farmaco in texto else &#x27;no&#x27;} aparece en el informe&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: ficheros, CSV y JSON" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: ficheros, CSV y JSON</h2><h3>3.3 Guardar una tabla en CSV</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 Guardar una tabla en CSV</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>El módulo <code>csv</code> escribe una lista de diccionarios como tabla. <code>DictWriter</code> usa las claves como nombres de columna.</p><pre class="code"><code class="language-python">import csv
+
+pacientes = [
+    {&quot;codigo&quot;: &quot;IC-001&quot;, &quot;edad&quot;: 72, &quot;sexo&quot;: &quot;M&quot;, &quot;peso_kg&quot;: 81.5, &quot;fevi_pct&quot;: 35},
+    {&quot;codigo&quot;: &quot;IC-002&quot;, &quot;edad&quot;: 68, &quot;sexo&quot;: &quot;F&quot;, &quot;peso_kg&quot;: 64.0, &quot;fevi_pct&quot;: None},
+    {&quot;codigo&quot;: &quot;IC-003&quot;, &quot;edad&quot;: 81, &quot;sexo&quot;: &quot;M&quot;, &quot;peso_kg&quot;: 70.2, &quot;fevi_pct&quot;: 28},
+]
+
+with open(&quot;registro_ic.csv&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;, newline=&quot;&quot;) as fichero:
+    escritor = csv.DictWriter(fichero, fieldnames=[&quot;codigo&quot;, &quot;edad&quot;, &quot;sexo&quot;, &quot;peso_kg&quot;, &quot;fevi_pct&quot;])
+    escritor.writeheader()
+    escritor.writerows(pacientes)
+
+print(open(&quot;registro_ic.csv&quot;, encoding=&quot;utf-8&quot;).read())</code></pre><p>Observa que el dato ausente de IC-002 queda como una celda vacía.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: ficheros, CSV y JSON" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: ficheros, CSV y JSON</h2><h3>3.4 Leer un CSV</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Leer un CSV</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p><code>DictReader</code> lee cada fila como un diccionario. <strong>Todo llega como texto</strong>: hay que convertir los números y tratar las celdas vacías.</p><pre class="code"><code class="language-python">with open(&quot;registro_ic.csv&quot;, encoding=&quot;utf-8&quot;) as fichero:
+    lector = csv.DictReader(fichero)
+    for fila in lector:
+        edad = int(fila[&quot;edad&quot;])
+        fevi = float(fila[&quot;fevi_pct&quot;]) if fila[&quot;fevi_pct&quot;] != &quot;&quot; else None
+        print(fila[&quot;codigo&quot;], edad, &quot;años · FEVI:&quot;, fevi)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: ficheros, CSV y JSON" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: ficheros, CSV y JSON</h2><h3>3.5 El CSV «a la española»</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 El CSV «a la española»</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Este es el aspecto de un CSV exportado desde una hoja de cálculo configurada en español: punto y coma como separador y coma decimal.</p><pre class="code"><code class="language-python">csv_espanol = &quot;&quot;&quot;codigo;edad;peso_kg
+IC-004;77;68,4
+IC-005;59;92,1
+&quot;&quot;&quot;
+with open(&quot;registro_es.csv&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as fichero:
+    fichero.write(csv_espanol)
+
+with open(&quot;registro_es.csv&quot;, encoding=&quot;utf-8&quot;) as fichero:
+    lector = csv.DictReader(fichero, delimiter=&quot;;&quot;)
+    for fila in lector:
+        peso = float(fila[&quot;peso_kg&quot;].replace(&quot;,&quot;, &quot;.&quot;))
+        print(fila[&quot;codigo&quot;], peso, &quot;kg&quot;)</code></pre><p>Si se leyera con el separador por defecto (la coma), cada línea se partiría por la coma decimal y los datos quedarían desordenados. En el Tema 100, Pandas resolverá esto con dos parámetros: <code>sep=";"</code> y <code>decimal=","</code>.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: ficheros, CSV y JSON" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: ficheros, CSV y JSON</h2><h3>3.6 JSON: de Python a texto y de vuelta</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 JSON: de Python a texto y de vuelta</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">import json
+
+paciente = {&quot;codigo&quot;: &quot;IC-001&quot;, &quot;edad&quot;: 72, &quot;diabetes&quot;: True, &quot;fevi_pct&quot;: None,
+            &quot;farmacos&quot;: [&quot;bisoprolol&quot;, &quot;dapagliflozina&quot;]}
+
+texto_json = json.dumps(paciente, ensure_ascii=False, indent=2)
+print(texto_json)</code></pre><p>Observa la traducción: <code>True</code> pasa a <code>true</code> y <code>None</code> a <code>null</code>. Con <code>json.loads()</code> se recupera el diccionario.</p><pre class="code"><code class="language-python">recuperado = json.loads(texto_json)
+print(type(recuperado), recuperado[&quot;farmacos&quot;][0])</code></pre><pre class="code"><code class="language-python">with open(&quot;paciente.json&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as fichero:
+    json.dump(paciente, fichero, ensure_ascii=False, indent=2)
+
+with open(&quot;paciente.json&quot;, encoding=&quot;utf-8&quot;) as fichero:
+    print(json.load(fichero)[&quot;edad&quot;])</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: ficheros, CSV y JSON" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: ficheros, CSV y JSON</h2><h3>3.7 Un resultado de laboratorio en HL7 FHIR</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.7 Un resultado de laboratorio en HL7 FHIR</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>FHIR organiza la información clínica en <strong>recursos</strong> (Patient, Observation, MedicationRequest…). Este es un recurso <em>Observation</em> simplificado con una glucemia, codificada con el sistema internacional <strong>LOINC</strong>. Para llegar al valor hay que recorrer los niveles de anidamiento.</p><pre class="code"><code class="language-python">observacion_fhir = &quot;&quot;&quot;
+{
+  &quot;resourceType&quot;: &quot;Observation&quot;,
+  &quot;status&quot;: &quot;final&quot;,
+  &quot;code&quot;: {
+    &quot;coding&quot;: [{&quot;system&quot;: &quot;http://loinc.org&quot;, &quot;code&quot;: &quot;2339-0&quot;,
+                &quot;display&quot;: &quot;Glucose [Mass/volume] in Blood&quot;}]
+  },
+  &quot;subject&quot;: {&quot;reference&quot;: &quot;Patient/IC-001&quot;},
+  &quot;effectiveDateTime&quot;: &quot;2027-10-04T08:15:00+02:00&quot;,
+  &quot;valueQuantity&quot;: {&quot;value&quot;: 112, &quot;unit&quot;: &quot;mg/dL&quot;}
+}
+&quot;&quot;&quot;
+
+obs = json.loads(observacion_fhir)
+codigo = obs[&quot;code&quot;][&quot;coding&quot;][0]
+print(&quot;Prueba:&quot;, codigo[&quot;display&quot;], f&quot;(LOINC {codigo[&#x27;code&#x27;]})&quot;)
+print(&quot;Paciente:&quot;, obs[&quot;subject&quot;][&quot;reference&quot;])
+print(&quot;Resultado:&quot;, obs[&quot;valueQuantity&quot;][&quot;value&quot;], obs[&quot;valueQuantity&quot;][&quot;unit&quot;])</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: ficheros, CSV y JSON" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: ficheros, CSV y JSON</h2><h3>3.8 La respuesta de una API</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.8 La respuesta de una API</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Cuando, en el Tema 80, enviemos una pregunta a un modelo de IA, la respuesta llegará como un JSON parecido a este (simplificado). Lo que interesa está en lo más profundo: el texto generado y el número de tokens consumidos, que determina el coste.</p><pre class="code"><code class="language-python">respuesta_api = json.loads(&quot;&quot;&quot;
+{
+  &quot;modelo&quot;: &quot;modelo-ejemplo&quot;,
+  &quot;candidatos&quot;: [
+    {&quot;contenido&quot;: {&quot;texto&quot;: &quot;El IMC de 25,6 kg/m² corresponde a sobrepeso según la OMS.&quot;},
+     &quot;motivo_fin&quot;: &quot;STOP&quot;}
+  ],
+  &quot;uso&quot;: {&quot;tokens_entrada&quot;: 18, &quot;tokens_salida&quot;: 16}
+}
+&quot;&quot;&quot;)
+
+print(respuesta_api[&quot;candidatos&quot;][0][&quot;contenido&quot;][&quot;texto&quot;])
+uso = respuesta_api[&quot;uso&quot;]
+print(&quot;Tokens totales:&quot;, uso[&quot;tokens_entrada&quot;] + uso[&quot;tokens_salida&quot;])</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: subir ficheros y usar Google Drive</h3><p>Para trabajar con un fichero de tu ordenador:</p>
+<pre><code class="language-python">from google.colab import files
+subidos = files.upload()      # abre un diálogo para elegir el fichero
+</code></pre>
+<p>Para leer y guardar en tu Google Drive, de forma que los ficheros no se borren al cerrar la sesión:</p>
+<pre><code class="language-python">from google.colab import drive
+drive.mount(&quot;/content/drive&quot;)
+# Tus ficheros quedan en /content/drive/MyDrive/
+</code></pre>
+<p>Recuerda: <strong>nunca</strong> subas a Colab ficheros con datos de pacientes reales.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Abrir en modo <code>"w"</code> un fichero que se quería conservar:</strong> se borra su contenido sin aviso.</p>
+<p><strong>Olvidar <code>encoding="utf-8"</code>:</strong> las tildes se leen como símbolos extraños (por ejemplo, «Ã³» en lugar de «ó»).</p>
+<p><strong>No indicar el separador correcto</strong> al leer un CSV con punto y coma.</p>
+<p><strong>Usar los valores del CSV sin convertirlos:</strong> <code>"72" + "5"</code> es <code>"725"</code>, no <code>77</code>.</p>
+<p><strong>Confundir <code>json.dumps()</code> y <code>json.dump()</code>:</strong> el primero devuelve un texto; el segundo escribe en un fichero.</p>
+<p><strong><code>FileNotFoundError</code>:</strong> el fichero no existe en la carpeta actual, o la sesión se reinició y los ficheros temporales se borraron.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: Gestionar carpetas y ficheros con os</h3><p>El módulo <code>os</code> crea carpetas, lista su contenido, comprueba si un fichero existe y lo borra. Es útil cuando hay muchos ficheros: por ejemplo, un informe por paciente.</p>
+<p>Usa <code>os.path.join()</code> para construir las rutas. Así el código funciona igual en Windows, macOS y Linux.</p>
+<p><strong>En tus materiales SIMUSTAT:</strong> <a href="https://colab.research.google.com/drive/1q9hZcqKVktdQi5eDZGycieGFHDVABz2i" target="_blank" rel="noopener">Tema 100. Módulos para el tratamiento de ficheros</a>, apartado 1.</p><pre class="code"><code class="language-python">import os
+
+os.makedirs(&quot;informes&quot;, exist_ok=True)        # no da error si ya existe
+for codigo in [&quot;P01&quot;, &quot;P02&quot;, &quot;P03&quot;]:
+    ruta = os.path.join(&quot;informes&quot;, f&quot;{codigo}.txt&quot;)
+    with open(ruta, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
+        f.write(f&quot;Paciente {codigo}: informe pendiente de revisar\n&quot;)
+
+print(&quot;Contenido:&quot;, sorted(os.listdir(&quot;informes&quot;)))
+print(&quot;¿Existe P02?&quot;, os.path.exists(os.path.join(&quot;informes&quot;, &quot;P02.txt&quot;)))
+
+os.remove(os.path.join(&quot;informes&quot;, &quot;P03.txt&quot;))
+print(&quot;Tras borrar P03:&quot;, sorted(os.listdir(&quot;informes&quot;)))</code></pre><p><code>os.remove()</code> borra el fichero sin pasar por la papelera. Antes de borrar en un bucle, imprime la lista de ficheros y compruébala.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 70 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> identificar el separador, la coma decimal y los datos ausentes de varios CSV.</li>
+<li><strong>Misión clínica (con pistas):</strong> leer un CSV de un registro sintético. Calcular la edad media y el número de pacientes sin FEVI registrada.</li>
+<li><strong>Misión reto (con asistente):</strong> extraer el valor, la unidad y la fecha de un recurso FHIR <em>Observation</em>. Verificar el código que proponga el asistente con un segundo recurso distinto.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente y sin ejecutar código.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q22-0"><p class="qq">Abres un fichero que ya contiene datos con open(&quot;datos.csv&quot;, &quot;w&quot;). ¿Qué ocurre con el contenido anterior?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el modo &quot;w&quot; crea el fichero de nuevo. Para añadir se usa &quot;a&quot;.">Se borra</button><button type="button" class="op" data-ok="0" data-fb="Eso hace el modo &quot;a&quot;.">Se conserva y lo nuevo se añade al final</button><button type="button" class="op" data-ok="0" data-fb="No hay error; simplemente se sobrescribe.">Se produce un error</button><button type="button" class="op" data-ok="0" data-fb="Python no hace copias automáticas.">Se crea una copia de seguridad</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-1"><p class="qq">Al leer un CSV con csv.DictReader, la edad aparece como &quot;72&quot;. ¿De qué tipo es?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: todo lo que se lee de un CSV llega como texto y hay que convertirlo.">str</button><button type="button" class="op" data-ok="0" data-fb="Hay que convertirlo con int() para que sea un entero.">int</button><button type="button" class="op" data-ok="0" data-fb="csv no convierte los números automáticamente.">float</button><button type="button" class="op" data-ok="0" data-fb="La fila completa es un diccionario; cada valor es texto.">dict</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-2"><p class="qq">¿En qué se convierte el valor null de un JSON al leerlo con json.loads()?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: null es el valor nulo de JSON y equivale a None.">None</button><button type="button" class="op" data-ok="0" data-fb="null no es un cero.">0</button><button type="button" class="op" data-ok="0" data-fb="json.loads lo traduce a None, no a un texto.">&quot;null&quot;</button><button type="button" class="op" data-ok="0" data-fb="null y false son valores distintos en JSON.">False</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-3"><p class="qq">Un CSV exportado de una hoja de cálculo en español contiene la línea IC-004;77;68,4. ¿Qué parámetros necesitas al leerlo?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el separador es ; y los decimales vienen con coma.">Separador punto y coma y convertir la coma decimal en punto</button><button type="button" class="op" data-ok="0" data-fb="Por defecto csv usa la coma como separador.">Ninguno: csv lo detecta automáticamente</button><button type="button" class="op" data-ok="0" data-fb="Partiría el peso 68,4 en dos columnas.">Separador coma</button><button type="button" class="op" data-ok="0" data-fb="La codificación afecta a las tildes, no al separador.">encoding=&quot;latin-1&quot;</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-4"><p class="qq">En el recurso FHIR del apartado 3.7, ¿qué expresión obtiene la unidad del resultado?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la unidad está dentro de valueQuantity.">obs[&quot;valueQuantity&quot;][&quot;unit&quot;]</button><button type="button" class="op" data-ok="0" data-fb="unit no está en el primer nivel del recurso.">obs[&quot;unit&quot;]</button><button type="button" class="op" data-ok="0" data-fb="code describe la prueba, no el resultado.">obs[&quot;code&quot;][&quot;unit&quot;]</button><button type="button" class="op" data-ok="0" data-fb="A los diccionarios se accede con corchetes y la clave.">obs.unit</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>Los ficheros se abren con <code>with open(..., encoding="utf-8")</code>; el modo <code>"w"</code> sobrescribe.</li>
+<li>CSV es el formato de las tablas; todo se lee como texto y hay que comprobar separador y coma decimal.</li>
+<li>JSON es el formato de los datos estructurados y anidados, de las API y del estándar HL7 FHIR.</li>
+<li>Para llegar a un dato en un JSON anidado se encadenan claves e índices.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Codificación (UTF-8)</td>
+<td>Forma de representar los caracteres, incluidas tildes y símbolos</td>
+</tr>
+<tr>
+<td>CSV</td>
+<td>Formato de tabla en texto plano con columnas separadas por un carácter</td>
+</tr>
+<tr>
+<td>Separador</td>
+<td>Carácter que separa las columnas de un CSV (coma, punto y coma, tabulador)</td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>Formato de texto para datos estructurados y anidados</td>
+</tr>
+<tr>
+<td>Serializar</td>
+<td>Convertir datos de Python en texto (por ejemplo, JSON) para guardarlos o enviarlos</td>
+</tr>
+<tr>
+<td>HL7 FHIR</td>
+<td>Estándar internacional de intercambio de información sanitaria</td>
+</tr>
+<tr>
+<td>LOINC</td>
+<td>Sistema internacional de códigos para pruebas de laboratorio y observaciones clínicas</td>
+</tr>
+<tr>
+<td>Seudonimizar</td>
+<td>Sustituir los datos identificativos por un código, como IC-001</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li><a href="https://docs.python.org/es/3/tutorial/inputoutput.html#reading-and-writing-files" target="_blank" rel="noopener">Tutorial de Python: lectura y escritura de archivos</a></li>
+<li><a href="https://docs.python.org/es/3/library/csv.html" target="_blank" rel="noopener">Documentación del módulo csv</a></li>
+<li><a href="https://docs.python.org/es/3/library/json.html" target="_blank" rel="noopener">Documentación del módulo json</a></li>
+<li><a href="https://hl7.org/fhir/" target="_blank" rel="noopener">Especificación de HL7 FHIR</a></li>
+<li>SIMUSTAT Unidigital UMH. <a href="https://colab.research.google.com/drive/1q9hZcqKVktdQi5eDZGycieGFHDVABz2i" target="_blank" rel="noopener">Tema 100. Módulos para el tratamiento de ficheros</a>. Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.</li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_070_Ficheros_y_formatos_de_datos_sanitarios_CSV_y_JSON.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 70 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-70" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_060.html">← Tema 60</a><a class="btn ghost" href="tema_080.html">→ Tema 80</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

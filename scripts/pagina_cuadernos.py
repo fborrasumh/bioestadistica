@@ -34,11 +34,12 @@ def tarjeta(n, titulo, fichero, diapos):
     github = f"https://github.com/{REPO}/blob/main/cuadernos/{fichero}"
     extra = f'<span class="chip">{diapos} diapositivas</span>' if diapos else '<span class="chip">Lectura previa</span>'
     practica = f'<a class="btn ghost" href="./#tema-{n}">Practicar en la app</a>' if n else ""
+    presenta = f'<a class="btn ghost" href="presentaciones/tema_{n:03d}.html" target="_blank" rel="noopener">Presentación ↗</a>'
     return f"""<article class="card" data-busca="{html.escape(f'tema {n} {titulo}'.lower())}">
   <p class="num">Tema {n}</p>
   <h3>{html.escape(titulo)}</h3>
   <p class="meta">{extra}</p>
-  <div class="acc"><a class="btn" href="{colab}" target="_blank" rel="noopener">Abrir en Colab ↗</a><a class="btn ghost" href="{github}" target="_blank" rel="noopener">Ver en GitHub ↗</a>{practica}</div>
+  <div class="acc"><a class="btn" href="{colab}" target="_blank" rel="noopener">Abrir en Colab ↗</a><a class="btn ghost" href="{github}" target="_blank" rel="noopener">Ver en GitHub ↗</a>{presenta}{practica}</div>
 </article>"""
 
 
@@ -98,7 +99,7 @@ footer{{max-width:1180px;margin:30px auto;padding:0 20px;color:var(--suave);font
 <div class="hero">
   <h1>Cuadernos de la asignatura</h1>
   <p>Bioestadística (1964) · 2.º del Grado en Medicina · Universidad Miguel Hernández de Elche · Curso 2027-2028.</p>
-  <p>Un cuaderno de Colab por sesión de 50 minutos, con diapositivas para la clase y el desarrollo para el estudio. Abre el cuaderno y guarda tu copia con <b>Archivo → Guardar una copia en Drive</b>; después practica sus tres misiones en la app.</p>
+  <p>Un cuaderno de Colab por sesión de 50 minutos, con diapositivas para la clase y el desarrollo para el estudio. Cada cuaderno tiene su presentación, con modo de clase magistral y modo de Colab para intercalar sesiones. Abre el cuaderno y guarda tu copia con <b>Archivo → Guardar una copia en Drive</b>; después practica sus tres misiones en la app.</p>
 </div>
 {chr(10).join(bloques)}
 <p id="vacio" class="oculto">Ningún tema coincide con la búsqueda.</p>

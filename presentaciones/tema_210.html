@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 210. Fundamentos del contraste de hipótesis: significación estadística, errores y potencia · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 210. Fundamentos del contraste de hipótesis: significación estadística, errores y potencia</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 210</span>Fundamentos del contraste de hipótesis: significación estadística, errores y potencia</h1>
+<p class="mod">Módulo 5. Generalización de conclusiones</p>
+<p class="ev"><b>Evaluación:</b> el examen del Módulo 5 se hace <strong>con Colab</strong>. Practica ejecutando e interpretando cada análisis.</p>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_210_Contraste_de_hipotesis_significacion_errores_y_potencia.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-210" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Plantear la hipótesis nula y la alternativa de una pregunta clínica.</li>
+<li>Definir e interpretar correctamente el <strong>valor p</strong>.</li>
+<li>Distinguir los errores de tipo I y de tipo II, y definir la <strong>potencia</strong> de un estudio.</li>
+<li>Relacionar un contraste de hipótesis con el intervalo de confianza correspondiente.</li>
+<li>Distinguir significación estadística de relevancia clínica.</li>
+<li>Calcular el tamaño muestral necesario para alcanzar una potencia dada, y reconocer el riesgo de las comparaciones múltiples.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: contrastar por simulación y con fórmulas <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">5 mmHg de diferencia, p = 0,03: ¿qué significa?</p><figure><img src="../figuras/tema_210_permutacion.png" alt="5 mmHg de diferencia, p = 0,03: ¿qué significa?" loading="lazy"></figure><ul class='puntos'><li>Si el fármaco no hiciera nada, ¿con qué frecuencia el azar daría una diferencia así o mayor?</li><li>Esa frecuencia es el <b>valor p</b>. No es la probabilidad de que el fármaco no funcione.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Un laboratorio presenta un nuevo antihipertensivo. En un ensayo con 40 pacientes por grupo, la presión sistólica bajó de media <strong>8 mmHg</strong> con el fármaco y <strong>3 mmHg</strong> con placebo. El resumen del artículo concluye: «diferencia estadísticamente significativa, <em>p</em> = 0,03».</p>
+<p>Tres preguntas que un médico debe saber hacerse:</p>
+<ol>
+<li>¿Qué significa exactamente <em>p</em> = 0,03? (Pista: <strong>no</strong> es la probabilidad de que el fármaco no funcione.)</li>
+<li>Una diferencia de 5 mmHg, ¿es clínicamente relevante? ¿Con qué precisión se ha estimado?</li>
+<li>Si el ensayo hubiera dado <em>p</em> = 0,20, ¿demostraría que el fármaco no sirve?</li>
+</ol>
+<p>El <strong>contraste de hipótesis</strong> es el método que usan casi todos los ensayos clínicos para decidir si una diferencia observada puede atribuirse al azar. Es también el concepto estadístico peor interpretado de la literatura médica.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 Las hipótesis</h3><figure><img src="../figuras/tema_210_esquema.png" alt="Flujo del contraste: plantear H₀ y H₁, suponer H₀, calcular p, comparar con α y decidir." loading="lazy"></figure><table>
+<thead>
+<tr>
+<th>Hipótesis</th>
+<th>Qué afirma</th>
+<th>En el caso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Nula</strong> ($H_0$)</td>
+<td>No hay efecto ni diferencia: lo observado se debe al azar</td>
+<td>La reducción media de la PAS es igual con fármaco y con placebo</td>
+</tr>
+<tr>
+<td><strong>Alternativa</strong> ($H_1$)</td>
+<td>Hay un efecto o una diferencia</td>
+<td>Las reducciones medias son distintas</td>
+</tr>
+</tbody>
+</table>
+<p>El contraste supone que $H_0$ es cierta y mide hasta qué punto los datos son <strong>compatibles</strong> con ella. Si son muy poco compatibles, se rechaza $H_0$.</p>
+<p>El contraste es <strong>bilateral</strong> si $H_1$ admite diferencias en cualquier sentido, y <strong>unilateral</strong> si solo en uno. En Medicina se usan casi siempre contrastes bilaterales.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 El valor p</h3><figure><img src="../figuras/tema_210_e2_2.png" alt="Distribución del estadístico si H₀ es cierta, con las dos colas más allá del valor observado sombreadas: su suma es el valor p." loading="lazy"></figure><p>El <strong>valor p</strong> es la probabilidad de obtener un resultado <strong>igual o más extremo</strong> que el observado <strong>si la hipótesis nula fuera cierta</strong>.</p>
+<ul>
+<li><em>p</em> pequeño: los datos serían raros si $H_0$ fuera cierta; hay evidencia contra $H_0$.</li>
+<li><em>p</em> grande: los datos son compatibles con $H_0$; <strong>no</strong> demuestra que $H_0$ sea cierta.</li>
+</ul>
+<p>Por convenio, se fija un <strong>nivel de significación</strong> α = 0,05: si <em>p</em> &lt; α, se dice que el resultado es «estadísticamente significativo». El umbral es arbitrario; <em>p</em> = 0,049 y <em>p</em> = 0,051 aportan prácticamente la misma evidencia.</p>
+<p><strong>Lo que el valor p NO es:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Afirmación errónea</th>
+<th>Por qué es errónea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>«Es la probabilidad de que $H_0$ sea cierta»</td>
+<td>Se calcula <strong>suponiendo</strong> que $H_0$ es cierta</td>
+</tr>
+<tr>
+<td>«1 − <em>p</em> es la probabilidad de que el fármaco funcione»</td>
+<td>El mismo error en sentido inverso</td>
+</tr>
+<tr>
+<td>«Un <em>p</em> pequeño indica un efecto grande»</td>
+<td>Con muestras grandes, efectos mínimos dan <em>p</em> muy pequeños</td>
+</tr>
+<tr>
+<td>«<em>p</em> &gt; 0,05 demuestra que no hay efecto»</td>
+<td>Puede faltar potencia: ausencia de evidencia no es evidencia de ausencia</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Errores y potencia</h3><p class="lema">Dos errores posibles y la potencia</p><figure><img src="../figuras/tema_210_errores.png" alt="Dos errores posibles y la potencia" loading="lazy"></figure><ul class='puntos'><li>α: rechazar H₀ siendo cierta (falso positivo). β: no detectar un efecto real (falso negativo).</li><li>Potencia = 1 − β: la probabilidad de detectar el efecto. Aumenta con n y con el tamaño del efecto.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>$H_0$ es cierta (no hay efecto)</th>
+<th>$H_0$ es falsa (hay efecto)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Se rechaza $H_0$</strong></td>
+<td><strong>Error de tipo I</strong> (falso positivo), probabilidad α</td>
+<td>Decisión correcta, probabilidad 1 − β = <strong>potencia</strong></td>
+</tr>
+<tr>
+<td><strong>No se rechaza $H_0$</strong></td>
+<td>Decisión correcta</td>
+<td><strong>Error de tipo II</strong> (falso negativo), probabilidad β</td>
+</tr>
+</tbody>
+</table>
+<p>La <strong>potencia</strong> es la probabilidad de detectar un efecto que realmente existe. Los ensayos clínicos se diseñan habitualmente con una potencia del 80 % o del 90 %. Aumenta con:</p>
+<ul>
+<li>Un tamaño muestral mayor.</li>
+<li>Un efecto real mayor.</li>
+<li>Una variabilidad menor.</li>
+<li>Un α mayor (a costa de más falsos positivos).</li>
+</ul></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.4 Contraste e intervalo de confianza</h3><p class="lema">El intervalo de confianza dice más que el valor p</p><figure><img src="../figuras/tema_210_ic_p.png" alt="El intervalo de confianza dice más que el valor p" loading="lazy"></figure><ul class='puntos'><li>Si el IC 95 % de la diferencia no contiene el 0, p < 0,05; si lo contiene, p > 0,05.</li><li>Pero solo el IC dice si el efecto puede ser clínicamente relevante o trivial.</li></ul><p class="pregunta"><b>Pregunta para la clase:</b> ¿Cuál de estos cuatro estudios cambiaría vuestra práctica?</p></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Un contraste bilateral con α = 0,05 y el IC del 95 % dan la misma información sobre el valor nulo: <strong>si el IC 95 % de una diferencia no contiene el 0, <em>p</em> &lt; 0,05</strong>, y viceversa. Pero el IC dice además <strong>cuánto</strong> puede valer el efecto. Por eso las guías de publicación piden dar siempre el intervalo, y no solo el valor p.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">Un ensayo obtiene p = 0,03. ¿Qué significa?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es la definición del valor p.">Que, si no hubiera diferencia real, un resultado tan extremo ocurriría en el 3 % de los estudios</button><button type="button" class="op" data-ok="0" data-fb="El valor p se calcula suponiendo H₀ cierta; no da la probabilidad de H₀.">Que hay un 3 % de probabilidad de que el fármaco no funcione</button><button type="button" class="op" data-ok="0" data-fb="Es el mismo error en sentido inverso.">Que hay un 97 % de probabilidad de que el fármaco funcione</button><button type="button" class="op" data-ok="0" data-fb="El valor p no mide el tamaño del efecto.">Que el efecto del fármaco es grande</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 210.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_210_Contraste_de_hipotesis_significacion_errores_y_potencia.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: contrastar por simulación y con fórmulas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: contrastar por simulación y con fórmulas</h2><h3>3.1 Los datos del ensayo</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Los datos del ensayo</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">import numpy as np
+from scipy import stats
+import matplotlib.pyplot as plt
+
+rng = np.random.default_rng(seed=197)
+farmaco = rng.normal(8, 10, 40).round(1)     # reducción de PAS (mmHg)
+placebo = rng.normal(3, 10, 40).round(1)
+
+diferencia_observada = farmaco.mean() - placebo.mean()
+print(f&quot;Reducción media: fármaco {farmaco.mean():.1f} mmHg · placebo {placebo.mean():.1f} mmHg&quot;)
+print(f&quot;Diferencia observada: {diferencia_observada:.1f} mmHg&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: contrastar por simulación y con fórmulas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: contrastar por simulación y con fórmulas</h2><h3>3.2 El valor p por simulación: la prueba de permutaciones</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 El valor p por simulación: la prueba de permutaciones</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Si $H_0$ fuera cierta, la etiqueta «fármaco» o «placebo» sería irrelevante: cada paciente habría tenido la misma reducción con cualquiera de los dos. Podemos <strong>barajar las etiquetas</strong> muchas veces y ver qué diferencias produce el azar por sí solo. El valor p es la proporción de barajados con una diferencia tan grande o mayor que la observada.</p><pre class="code"><code class="language-python">todos = np.concatenate([farmaco, placebo])
+diferencias_azar = []
+for _ in range(10_000):
+    barajado = rng.permutation(todos)
+    diferencias_azar.append(barajado[:40].mean() - barajado[40:].mean())
+diferencias_azar = np.array(diferencias_azar)
+
+p_permutacion = (np.abs(diferencias_azar) &gt;= abs(diferencia_observada)).mean()
+
+plt.figure(figsize=(7, 4))
+plt.hist(diferencias_azar, bins=60, color=&quot;lightsteelblue&quot;, edgecolor=&quot;white&quot;)
+plt.axvline(diferencia_observada, color=&quot;firebrick&quot;, label=f&quot;Observada: {diferencia_observada:.1f} mmHg&quot;)
+plt.axvline(-diferencia_observada, color=&quot;firebrick&quot;, linestyle=&quot;--&quot;)
+plt.xlabel(&quot;Diferencia de medias si H₀ fuera cierta (mmHg)&quot;)
+plt.ylabel(&quot;Frecuencia&quot;)
+plt.title(f&quot;Distribución bajo H₀ · valor p ≈ {p_permutacion:.3f}&quot;)
+plt.legend()
+plt.show()</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: contrastar por simulación y con fórmulas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: contrastar por simulación y con fórmulas</h2><h3>3.3 El mismo contraste con la fórmula: la prueba t</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 El mismo contraste con la fórmula: la prueba t</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>La prueba <em>t</em> de Student para dos muestras independientes (Tema 250) llega al mismo resultado sin simular. Calculamos también el IC 95 % de la diferencia.</p><pre class="code"><code class="language-python">resultado = stats.ttest_ind(farmaco, placebo)
+ic = resultado.confidence_interval(confidence_level=0.95)
+
+print(f&quot;Prueba t: t = {resultado.statistic:.2f}, p = {resultado.pvalue:.3f}&quot;)
+print(f&quot;Valor p por permutación: {p_permutacion:.3f}&quot;)
+print(f&quot;Diferencia: {diferencia_observada:.1f} mmHg (IC 95 %: {ic.low:.1f} a {ic.high:.1f})&quot;)</code></pre><p><strong>Interpretación completa:</strong> el fármaco redujo la PAS una media de unos 5 mmHg más que el placebo. Si en realidad no hubiera diferencia, una diferencia así de grande ocurriría en pocos ensayos de cada cien. El IC 95 % indica que el efecto real podría estar entre algo más de 0 y unos 10 mmHg. Es compatible con un efecto clínicamente pequeño y con uno relevante.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: contrastar por simulación y con fórmulas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: contrastar por simulación y con fórmulas</h2><h3>3.4 Si H₀ es cierta, el 5 % de los estudios sale «significativo»</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Si H₀ es cierta, el 5 % de los estudios sale «significativo»</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Simulamos 10.000 ensayos de un fármaco que <strong>no hace nada</strong>: los dos grupos salen de la misma población.</p><pre class="code"><code class="language-python">valores_p = np.array([stats.ttest_ind(rng.normal(3, 10, 40), rng.normal(3, 10, 40)).pvalue
+                      for _ in range(10_000)])
+
+print(f&quot;Ensayos con p &lt; 0,05: {(valores_p &lt; 0.05).mean():.1%}&quot;)
+
+plt.figure(figsize=(7, 3.5))
+plt.hist(valores_p, bins=20, color=&quot;lightsteelblue&quot;, edgecolor=&quot;white&quot;)
+plt.axvline(0.05, color=&quot;firebrick&quot;, linestyle=&quot;--&quot;, label=&quot;α = 0,05&quot;)
+plt.xlabel(&quot;Valor p&quot;)
+plt.ylabel(&quot;Número de ensayos&quot;)
+plt.title(&quot;Bajo H₀, los valores p se reparten de manera uniforme&quot;)
+plt.legend()
+plt.show()</code></pre><p>Es el <strong>error de tipo I</strong>: con α = 0,05, uno de cada 20 ensayos de un fármaco inútil saldrá significativo. Si se publican solo esos (<strong>sesgo de publicación</strong>), la literatura sobreestima la eficacia.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: contrastar por simulación y con fórmulas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: contrastar por simulación y con fórmulas</h2><h3>3.5 La potencia</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 La potencia</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Ahora el fármaco <strong>sí</strong> reduce la PAS 5 mmHg más que el placebo. ¿Qué proporción de ensayos lo detecta según el número de pacientes por grupo?</p><pre class="code"><code class="language-python">tamanos = [10, 20, 40, 64, 100, 150]
+potencias = []
+for n in tamanos:
+    p = np.array([stats.ttest_ind(rng.normal(8, 10, n), rng.normal(3, 10, n)).pvalue for _ in range(2000)])
+    potencias.append((p &lt; 0.05).mean())
+    print(f&quot;n = {n:&gt;3} por grupo: potencia ≈ {potencias[-1]:.0%}&quot;)
+
+plt.figure(figsize=(7, 4))
+plt.plot(tamanos, potencias, marker=&quot;o&quot;)
+plt.axhline(0.8, color=&quot;gray&quot;, linestyle=&quot;--&quot;, label=&quot;Potencia del 80 %&quot;)
+plt.xlabel(&quot;Pacientes por grupo&quot;)
+plt.ylabel(&quot;Potencia&quot;)
+plt.ylim(0, 1)
+plt.title(&quot;Potencia para detectar una diferencia de 5 mmHg (σ = 10)&quot;)
+plt.legend()
+plt.show()</code></pre><p>Con 40 pacientes por grupo, la potencia es de alrededor del 60 %: <strong>cuatro de cada diez ensayos como el del caso no habrían detectado un efecto real</strong>. Un resultado no significativo en un estudio con poca potencia no permite concluir nada.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: contrastar por simulación y con fórmulas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: contrastar por simulación y con fórmulas</h2><h3>3.6 El tamaño muestral para una potencia dada</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 El tamaño muestral para una potencia dada</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>La biblioteca <code>statsmodels</code> calcula el tamaño muestral a partir del <strong>tamaño del efecto</strong> estandarizado (<em>d</em> de Cohen = diferencia / σ), α y la potencia deseada.</p><pre class="code"><code class="language-python">from statsmodels.stats.power import TTestIndPower
+
+analisis = TTestIndPower()
+d = 5 / 10
+for potencia in [0.8, 0.9]:
+    n = analisis.solve_power(effect_size=d, alpha=0.05, power=potencia)
+    print(f&quot;Potencia {potencia:.0%}: {np.ceil(n):.0f} pacientes por grupo&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: contrastar por simulación y con fórmulas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: contrastar por simulación y con fórmulas</h2><h3>3.7 Significación estadística no es relevancia clínica</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.7 Significación estadística no es relevancia clínica</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Con una muestra enorme, una diferencia trivial resulta «muy significativa»:</p><pre class="code"><code class="language-python">grande_a = rng.normal(130.0, 15, 20_000)
+grande_b = rng.normal(130.8, 15, 20_000)
+r = stats.ttest_ind(grande_a, grande_b)
+ic = r.confidence_interval()
+print(f&quot;Diferencia: {grande_b.mean() - grande_a.mean():.2f} mmHg · p = {r.pvalue:.2e}&quot;)
+print(f&quot;IC 95 % de la diferencia: {-ic.high:.2f} a {-ic.low:.2f} mmHg&quot;)</code></pre><p>Una diferencia de menos de 1 mmHg es estadísticamente significativa, pero <strong>clínicamente irrelevante</strong>. La pregunta clínica no es «¿<em>p</em> &lt; 0,05?», sino «¿es el efecto lo bastante grande para importar al paciente, y con qué precisión lo conocemos?».</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: comparaciones múltiples</h3><p>Supón un estudio que compara 20 variables entre dos grupos sin ninguna diferencia real. La probabilidad de encontrar <strong>al menos una</strong> con <em>p</em> &lt; 0,05 es $1 - 0{,}95^{20} \approx 0{,}64$ (Temas 140 y 180). Buscar hasta encontrar algo significativo se llama <em>p-hacking</em>. Lo veremos en el Tema 260, junto con las correcciones.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Interpretar <em>p</em> como la probabilidad de que $H_0$ sea cierta.</strong></p>
+<p><strong>Concluir «no hay diferencias» a partir de <em>p</em> &gt; 0,05</strong> sin valorar la potencia ni el intervalo de confianza.</p>
+<p><strong>Confundir significación estadística con importancia clínica.</strong></p>
+<p><strong>Dar solo el valor p</strong>, sin la estimación del efecto y su intervalo.</p>
+<p><strong>Decidir la hipótesis o el tipo de contraste después de ver los datos.</strong></p>
+<p><strong>Tratar 0,05 como una frontera mágica:</strong> <em>p</em> = 0,049 y <em>p</em> = 0,051 son prácticamente la misma evidencia.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 210 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> identificar interpretaciones correctas e incorrectas del valor p en frases tomadas de artículos.</li>
+<li><strong>Misión clínica (con pistas):</strong> calcular el valor p de una diferencia de HbA1c entre dos pautas, por permutación y con la prueba <em>t</em>. Interpretar su IC.</li>
+<li><strong>Misión reto (con asistente):</strong> calcular con el asistente el tamaño muestral de un ensayo y comprobarlo por simulación de la potencia. Redactar la justificación para el comité de ética.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q21-0"><p class="qq">Un ensayo obtiene p = 0,03. ¿Qué significa?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es la definición del valor p.">Que, si no hubiera diferencia real, un resultado tan extremo ocurriría en el 3 % de los estudios</button><button type="button" class="op" data-ok="0" data-fb="El valor p se calcula suponiendo H₀ cierta; no da la probabilidad de H₀.">Que hay un 3 % de probabilidad de que el fármaco no funcione</button><button type="button" class="op" data-ok="0" data-fb="Es el mismo error en sentido inverso.">Que hay un 97 % de probabilidad de que el fármaco funcione</button><button type="button" class="op" data-ok="0" data-fb="El valor p no mide el tamaño del efecto.">Que el efecto del fármaco es grande</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-1"><p class="qq">Un ensayo con 30 pacientes por grupo no encuentra diferencias significativas (p = 0,25). ¿Qué puede concluirse?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: ausencia de evidencia no es evidencia de ausencia.">Que no hay evidencia suficiente; el estudio puede no tener potencia para detectar el efecto</button><button type="button" class="op" data-ok="0" data-fb="Un estudio pequeño puede no detectar un efecto real.">Que el fármaco no es eficaz</button><button type="button" class="op" data-ok="0" data-fb="Demostrar equivalencia exige otro diseño.">Que los dos tratamientos son equivalentes</button><button type="button" class="op" data-ok="0" data-fb="Esa no es la interpretación del valor p.">Que hay un 25 % de probabilidad de que sean iguales</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-2"><p class="qq">¿Qué es la potencia de un estudio?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: 1 − β.">La probabilidad de detectar un efecto que realmente existe</button><button type="button" class="op" data-ok="0" data-fb="Eso es α, el error de tipo I.">La probabilidad de un falso positivo</button><button type="button" class="op" data-ok="0" data-fb="La potencia es una probabilidad, no un efecto.">El tamaño del efecto observado</button><button type="button" class="op" data-ok="0" data-fb="La potencia se calcula suponiendo que H₁ es cierta.">La probabilidad de que H₀ sea cierta</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-3"><p class="qq">La diferencia de PAS entre dos tratamientos es 6 mmHg (IC 95 %: −1 a 13). ¿Qué puedes decir del valor p bilateral?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: un IC 95 % que incluye el valor nulo equivale a p &gt; 0,05.">Es mayor de 0,05, porque el intervalo contiene el 0</button><button type="button" class="op" data-ok="0" data-fb="Para eso el IC no debería contener el 0.">Es menor de 0,05</button><button type="button" class="op" data-ok="0" data-fb="Eso ocurriría si un extremo del IC estuviera justo en 0.">Es exactamente 0,05</button><button type="button" class="op" data-ok="0" data-fb="La relación entre IC y contraste lo permite.">No se puede saber nada</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-4"><p class="qq">Se comparan 10 variables entre dos grupos que en realidad no difieren. ¿Qué probabilidad hay de al menos un resultado con p &lt; 0,05?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: 1 − 0,95¹⁰ ≈ 0,40.">Alrededor del 40 %</button><button type="button" class="op" data-ok="0" data-fb="Ese es el riesgo de cada comparación por separado.">El 5 %</button><button type="button" class="op" data-ok="0" data-fb="Sería 10 × 0,05, pero las probabilidades no se suman así.">El 50 %</button><button type="button" class="op" data-ok="0" data-fb="El riesgo aumenta con el número de comparaciones.">El 0,5 %</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>El contraste mide la compatibilidad de los datos con $H_0$; el valor p <strong>no</strong> es la probabilidad de que $H_0$ sea cierta.</li>
+<li><em>p</em> &gt; 0,05 no demuestra la ausencia de efecto, sobre todo si la potencia es baja.</li>
+<li>α es el riesgo de falso positivo; β, el de falso negativo; 1 − β es la potencia.</li>
+<li>El intervalo de confianza da la misma decisión que el contraste y, además, la magnitud del efecto.</li>
+<li>Significación estadística no es relevancia clínica.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hipótesis nula ($H_0$)</td>
+<td>Afirmación de ausencia de efecto o diferencia</td>
+</tr>
+<tr>
+<td>Hipótesis alternativa ($H_1$)</td>
+<td>Afirmación de que existe efecto o diferencia</td>
+</tr>
+<tr>
+<td>Valor p</td>
+<td>Probabilidad de un resultado igual o más extremo que el observado si $H_0$ fuera cierta</td>
+</tr>
+<tr>
+<td>Nivel de significación (α)</td>
+<td>Umbral de <em>p</em> por debajo del cual se rechaza $H_0$</td>
+</tr>
+<tr>
+<td>Error de tipo I</td>
+<td>Rechazar $H_0$ siendo cierta (falso positivo)</td>
+</tr>
+<tr>
+<td>Error de tipo II</td>
+<td>No rechazar $H_0$ siendo falsa (falso negativo)</td>
+</tr>
+<tr>
+<td>Potencia</td>
+<td>Probabilidad de rechazar $H_0$ cuando es falsa</td>
+</tr>
+<tr>
+<td>Tamaño del efecto</td>
+<td>Magnitud de la diferencia, con frecuencia estandarizada (<em>d</em> de Cohen)</td>
+</tr>
+<tr>
+<td>Prueba de permutaciones</td>
+<td>Contraste que obtiene la distribución bajo $H_0$ barajando las etiquetas de los grupos</td>
+</tr>
+<tr>
+<td><em>p-hacking</em></td>
+<td>Multiplicar análisis hasta obtener un resultado significativo</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li>Wasserstein RL, Lazar NA. The ASA statement on p-values: context, process, and purpose. <em>Am Stat</em>. 2016;70(2):129-133. doi:<a href="https://doi.org/10.1080/00031305.2016.1154108" target="_blank" rel="noopener">10.1080/00031305.2016.1154108</a></li>
+<li>Altman DG, Bland JM. Absence of evidence is not evidence of absence. <em>BMJ</em>. 1995;311(7003):485. doi:<a href="https://doi.org/10.1136/bmj.311.7003.485" target="_blank" rel="noopener">10.1136/bmj.311.7003.485</a></li>
+<li>Greenland S, <em>et al.</em> Statistical tests, P values, confidence intervals, and power: a guide to misinterpretations. <em>Eur J Epidemiol</em>. 2016;31(4):337-350. doi:<a href="https://doi.org/10.1007/s10654-016-0149-3" target="_blank" rel="noopener">10.1007/s10654-016-0149-3</a></li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_210_Contraste_de_hipotesis_significacion_errores_y_potencia.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 210 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-210" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_200.html">← Tema 200</a><a class="btn ghost" href="tema_220.html">→ Tema 220</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

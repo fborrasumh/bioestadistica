@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 60. Módulos científicos, generación de números aleatorios y visualización básica con Matplotlib · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 60. Módulos científicos, generación de números aleatorios y visualización básica con Matplotlib</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 60</span>Módulos científicos, generación de números aleatorios y visualización básica con Matplotlib</h1>
+<p class="mod">Módulo 2. Programando con IA</p>
+
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_060_Modulos_aleatoriedad_y_visualizacion_con_Matplotlib.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-60" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Importar módulos de Python y usar sus funciones (<code>math</code>, <code>statistics</code>, <code>random</code>, <code>numpy</code>).</li>
+<li>Generar números aleatorios de forma <strong>reproducible</strong> con una semilla.</li>
+<li>Aleatorizar la asignación de pacientes a los brazos de un ensayo clínico.</li>
+<li>Simular mediciones clínicas con una distribución normal.</li>
+<li>Construir con Matplotlib gráficos de líneas, barras, histogramas y dispersión correctamente rotulados.</li>
+<li>Reconocer los errores más frecuentes que hacen que un gráfico engañe.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: azar y gráficos <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p>Un servicio de Neumología diseña un <strong>ensayo clínico</strong> para comparar dos pautas de fisioterapia respiratoria en pacientes con EPOC. Van a participar 20 pacientes. El comité de ética exige que la asignación a cada pauta sea <strong>aleatoria</strong>: ni el investigador ni el paciente la eligen.</p>
+<p>¿Por qué? Si el investigador eligiera, tendería sin querer a dar la pauta nueva a quien cree que responderá mejor. Entonces la comparación quedaría <strong>sesgada</strong>. El azar reparte por igual, en promedio, todas las características de los pacientes, también las que no se han medido.</p>
+<p>Además, cuando terminen el estudio querrán ver la evolución de cada paciente de un vistazo. Hoy aprenderemos a usar el azar de forma controlada y reproducible, y a representar datos clínicos con gráficos.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><p class="lema">Un gráfico que cambió los hospitales</p><figure><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Nightingale-mortality.jpg?width=1000" alt="Un gráfico que cambió los hospitales" loading="lazy"></figure><ul class='puntos'><li>En azul, las muertes por enfermedades evitables; en rojo, por heridas: la mayoría morían de lo primero.</li><li>Con este gráfico Nightingale consiguió reformas sanitarias en los hospitales militares.</li><li>Un buen gráfico clínico se entiende sin explicarlo.</li></ul></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 Módulos</h3><figure><img src="../figuras/tema_060_esquema.png" alt="Módulos que se importan: math, statistics y random vienen con Python; numpy y matplotlib son externos y Colab ya los trae." loading="lazy"></figure><p>Un <strong>módulo</strong> es un archivo con funciones listas para usar. Python incluye muchos de serie y se pueden instalar otros. Para usarlos hay que <strong>importarlos</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Forma</th>
+<th>Ejemplo</th>
+<th>Uso posterior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Importar el módulo</td>
+<td><code>import math</code></td>
+<td><code>math.sqrt(16)</code></td>
+</tr>
+<tr>
+<td>Importar con un alias</td>
+<td><code>import numpy as np</code></td>
+<td><code>np.mean(datos)</code></td>
+</tr>
+<tr>
+<td>Importar una función</td>
+<td><code>from statistics import median</code></td>
+<td><code>median(datos)</code></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Módulo</th>
+<th>Para qué lo usaremos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>math</code></td>
+<td>Funciones matemáticas: raíces, logaritmos, exponenciales</td>
+</tr>
+<tr>
+<td><code>statistics</code></td>
+<td>Estadísticos básicos: media, mediana, desviación típica</td>
+</tr>
+<tr>
+<td><code>random</code></td>
+<td>Números aleatorios sencillos</td>
+</tr>
+<tr>
+<td><code>numpy</code></td>
+<td>Cálculo numérico con muchos datos y generación aleatoria avanzada</td>
+</tr>
+<tr>
+<td><code>matplotlib</code></td>
+<td>Gráficos</td>
+</tr>
+</tbody>
+</table>
+<p>Colab ya trae instalados todos estos. Un módulo externo que no esté instalado se instala con <code>%pip install nombre</code>.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Aleatoriedad y semilla</h3><p class="lema">Azar reproducible: la semilla</p><figure><img src="../figuras/tema_060_semilla.png" alt="Azar reproducible: la semilla" loading="lazy"></figure><ul class='puntos'><li>El ordenador genera números <b>pseudoaleatorios</b> a partir de una semilla.</li><li>Misma semilla → misma secuencia: la aleatorización se puede auditar y repetir.</li><li>En un ensayo, el azar reparte por igual lo que se ha medido y lo que no.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Los ordenadores generan números <strong>pseudoaleatorios</strong>: parecen aleatorios, pero salen de un cálculo que parte de un valor inicial, la <strong>semilla</strong>. Con la misma semilla se obtiene siempre la misma secuencia.</p>
+<p>En ciencia, esto es una ventaja. Con la semilla fija, una simulación o una aleatorización son <strong>reproducibles</strong>: otra persona puede comprobarlas.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Un buen gráfico clínico</h3><p class="lema">Lo que no puede faltar en un gráfico clínico</p><figure><img src="../figuras/tema_060_buen_grafico.png" alt="Lo que no puede faltar en un gráfico clínico" loading="lazy"></figure><ul class='puntos'><li>Título que diga qué se ve; ejes con <b>unidades</b>; leyenda si hay varias series.</li><li>Referencias clínicas (umbrales) cuando ayudan a interpretar.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><ul>
+<li>Título que diga qué se muestra.</li>
+<li>Ejes rotulados <strong>con sus unidades</strong>.</li>
+<li>Leyenda si hay más de una serie.</li>
+<li>En los gráficos de barras, el eje vertical empieza en <strong>cero</strong>.</li>
+<li>El tipo de gráfico adecuado al tipo de variable:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Gráfico</th>
+<th>Cuándo se usa</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Líneas</td>
+<td>Evolución en el tiempo</td>
+<td>Curva de temperatura</td>
+</tr>
+<tr>
+<td>Barras</td>
+<td>Comparar frecuencias de categorías</td>
+<td>Ingresos por servicio</td>
+</tr>
+<tr>
+<td>Histograma</td>
+<td>Distribución de una variable cuantitativa</td>
+<td>Presión arterial de una muestra</td>
+</tr>
+<tr>
+<td>Dispersión</td>
+<td>Relación entre dos variables cuantitativas</td>
+<td>Peso frente a talla</td>
+</tr>
+</tbody>
+</table></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">¿Para qué se fija una semilla al aleatorizar los pacientes de un ensayo?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: con la misma semilla se obtiene la misma secuencia.">Para que la asignación sea reproducible y se pueda auditar</button><button type="button" class="op" data-ok="0" data-fb="Sigue siendo aleatoria respecto a las características de los pacientes.">Para que la asignación deje de ser aleatoria</button><button type="button" class="op" data-ok="0" data-fb="La semilla no cambia las proporciones.">Para que salgan más pacientes en el brazo del tratamiento nuevo</button><button type="button" class="op" data-ok="0" data-fb="Sin semilla también los genera, pero distintos en cada ejecución.">Porque Python no genera números aleatorios sin semilla</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 60.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_060_Modulos_aleatoriedad_y_visualizacion_con_Matplotlib.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: azar y gráficos" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: azar y gráficos</h2><h3>3.1 El módulo math</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 El módulo math</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">import math
+
+print(&quot;Raíz cuadrada de 3,08:&quot;, math.sqrt(3.08))
+print(&quot;Logaritmo neperiano de 10:&quot;, math.log(10))
+print(&quot;Número e:&quot;, math.e)</code></pre><p>Aplicación: la fracción de fármaco que queda tras un tiempo <em>t</em> con una constante de eliminación <em>k</em> es $e^{-kt}$.</p><pre class="code"><code class="language-python">k_por_hora = 0.1155          # corresponde a una vida media de unas 6 horas
+horas = 12
+fraccion_restante = math.exp(-k_por_hora * horas)
+print(f&quot;Queda el {fraccion_restante:.0%} del fármaco a las {horas} h&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: azar y gráficos" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: azar y gráficos</h2><h3>3.2 El módulo statistics</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 El módulo statistics</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">from statistics import mean, median, stdev
+
+estancias_dias = [3, 5, 4, 2, 21, 6, 4, 3, 5]
+print(&quot;Media:&quot;, round(mean(estancias_dias), 1), &quot;días&quot;)
+print(&quot;Mediana:&quot;, median(estancias_dias), &quot;días&quot;)
+print(&quot;Desviación típica:&quot;, round(stdev(estancias_dias), 1), &quot;días&quot;)</code></pre><p>La media (5,9 días) está muy por encima de la mediana (4 días) por un solo paciente con 21 días de estancia. En el Tema 120 veremos cuándo conviene cada medida.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: azar y gráficos" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: azar y gráficos</h2><h3>3.3 Aleatorizar un ensayo clínico</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 Aleatorizar un ensayo clínico</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Para asignar 10 pacientes a cada pauta, crea una lista con 10 etiquetas «A» y 10 «B». Después, <strong>barájala</strong> con <code>random.shuffle()</code>. La semilla hace que la asignación se pueda reproducir y auditar.</p><pre class="code"><code class="language-python">import random
+
+random.seed(1964)
+
+asignaciones = [&quot;A&quot;] * 10 + [&quot;B&quot;] * 10
+random.shuffle(asignaciones)
+
+for numero, pauta in enumerate(asignaciones, start=1):
+    print(f&quot;Paciente {numero:02d}: pauta {pauta}&quot;)</code></pre><p>Vuelve a ejecutar la celda: sale la misma asignación, porque la semilla es la misma. Cambia la semilla y obtendrás otra distinta.</p>
+<p>Otras funciones útiles del módulo <code>random</code>:</p><pre class="code"><code class="language-python">random.seed(2027)
+print(&quot;Número decimal entre 0 y 1:&quot;, random.random())
+print(&quot;Entero entre 1 y 6:&quot;, random.randint(1, 6))
+print(&quot;Elección al azar:&quot;, random.choice([&quot;Cardiología&quot;, &quot;Neumología&quot;, &quot;Digestivo&quot;]))
+print(&quot;Muestra de 3 sin repetición:&quot;, random.sample(range(1, 101), 3))</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: azar y gráficos" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: azar y gráficos</h2><h3>3.4 Simular mediciones con numpy</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Simular mediciones con numpy</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Para simular muchas mediciones se usa el generador de <code>numpy</code>. La presión arterial sistólica de una población adulta se puede aproximar por una <strong>distribución normal</strong> con una media y una desviación típica dadas. La estudiaremos en el Tema 180.</p><pre class="code"><code class="language-python">import numpy as np
+
+rng = np.random.default_rng(seed=1964)
+pas_mmHg = rng.normal(loc=130, scale=15, size=500)
+
+print(&quot;Primeras cinco:&quot;, pas_mmHg[:5].round())
+print(f&quot;Media simulada: {pas_mmHg.mean():.1f} mmHg&quot;)
+print(f&quot;Pacientes con PAS ≥ 140: {(pas_mmHg &gt;= 140).sum()} de {len(pas_mmHg)}&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: azar y gráficos" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: azar y gráficos</h2><h3>3.5 Gráfico de líneas: la curva de temperatura</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 Gráfico de líneas: la curva de temperatura</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">import matplotlib.pyplot as plt
+
+horas = [0, 4, 8, 12, 16, 20, 24, 28, 32]
+temperatura_c = [38.9, 39.2, 38.6, 38.1, 37.8, 37.4, 37.1, 36.9, 36.8]
+
+plt.figure(figsize=(7, 4))
+plt.plot(horas, temperatura_c, marker=&quot;o&quot;, label=&quot;Temperatura&quot;)
+plt.axhline(38, color=&quot;red&quot;, linestyle=&quot;--&quot;, label=&quot;Umbral de fiebre (38 °C)&quot;)
+plt.xlabel(&quot;Horas desde el inicio del antibiótico&quot;)
+plt.ylabel(&quot;Temperatura (°C)&quot;)
+plt.title(&quot;Paciente sintético 017: respuesta al tratamiento antibiótico&quot;)
+plt.legend()
+plt.grid(alpha=0.3)
+plt.show()</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: azar y gráficos" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: azar y gráficos</h2><h3>3.6 Gráfico de barras: ingresos por servicio</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 Gráfico de barras: ingresos por servicio</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">servicios = [&quot;Medicina Interna&quot;, &quot;Cardiología&quot;, &quot;Neumología&quot;, &quot;Digestivo&quot;, &quot;Neurología&quot;]
+ingresos = [142, 98, 87, 64, 51]
+
+plt.figure(figsize=(7, 4))
+plt.bar(servicios, ingresos, color=&quot;steelblue&quot;)
+plt.ylabel(&quot;Número de ingresos&quot;)
+plt.title(&quot;Ingresos por servicio en enero (datos sintéticos)&quot;)
+plt.xticks(rotation=30, ha=&quot;right&quot;)
+plt.show()</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: azar y gráficos" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: azar y gráficos</h2><h3>3.7 Histograma: distribución de la presión arterial</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.7 Histograma: distribución de la presión arterial</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">plt.figure(figsize=(7, 4))
+plt.hist(pas_mmHg, bins=25, color=&quot;steelblue&quot;, edgecolor=&quot;white&quot;)
+plt.axvline(140, color=&quot;red&quot;, linestyle=&quot;--&quot;, label=&quot;140 mmHg&quot;)
+plt.xlabel(&quot;Presión arterial sistólica (mmHg)&quot;)
+plt.ylabel(&quot;Número de pacientes&quot;)
+plt.title(&quot;Distribución de la PAS en 500 pacientes sintéticos&quot;)
+plt.legend()
+plt.show()</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: azar y gráficos" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: azar y gráficos</h2><h3>3.8 Gráfico de dispersión: peso y talla</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.8 Gráfico de dispersión: peso y talla</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">talla_m = rng.normal(1.70, 0.09, size=200)
+peso_kg = 22 * talla_m ** 2 + rng.normal(0, 8, size=200)
+
+plt.figure(figsize=(6, 5))
+plt.scatter(talla_m, peso_kg, alpha=0.6)
+plt.xlabel(&quot;Talla (m)&quot;)
+plt.ylabel(&quot;Peso (kg)&quot;)
+plt.title(&quot;Relación entre talla y peso (200 adultos sintéticos)&quot;)
+plt.show()</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: guardar un gráfico</h3><p>Un gráfico se guarda como imagen con <code>plt.savefig()</code> antes de <code>plt.show()</code>. El archivo aparece en el panel <strong>Archivos</strong> de la barra lateral, desde donde se descarga. Los archivos de esa carpeta se borran al cerrar la sesión.</p><pre class="code"><code class="language-python">plt.figure(figsize=(6, 4))
+plt.bar(servicios, ingresos)
+plt.ylabel(&quot;Número de ingresos&quot;)
+plt.xticks(rotation=30, ha=&quot;right&quot;)
+plt.tight_layout()
+plt.savefig(&quot;ingresos_por_servicio.png&quot;, dpi=200)
+plt.show()</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: cómo engaña un gráfico</h3><p>Los mismos datos pueden contar historias muy distintas según se dibujen. Si el eje vertical de un gráfico de barras no empieza en cero, una diferencia pequeña parece enorme.</p><pre class="code"><code class="language-python">tratamientos = [&quot;Fármaco A&quot;, &quot;Fármaco B&quot;]
+curacion_pct = [78, 81]
+
+fig, ejes = plt.subplots(1, 2, figsize=(9, 3.5))
+ejes[0].bar(tratamientos, curacion_pct)
+ejes[0].set_ylim(76, 82)
+ejes[0].set_title(&quot;Eje recortado: parece una gran diferencia&quot;)
+ejes[0].set_ylabel(&quot;Curación (%)&quot;)
+ejes[1].bar(tratamientos, curacion_pct)
+ejes[1].set_ylim(0, 100)
+ejes[1].set_title(&quot;Eje desde cero: diferencia de 3 puntos&quot;)
+plt.tight_layout()
+plt.show()</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Olvidar importar el módulo.</strong> Usar <code>math.sqrt()</code> sin <code>import math</code> produce <code>NameError</code>.</p>
+<p><strong>No fijar la semilla.</strong> Sin semilla, cada ejecución da resultados distintos y no se pueden reproducir ni revisar.</p>
+<p><strong>Ejes sin unidades.</strong> «Temperatura» no es suficiente: ¿grados Celsius o Fahrenheit?</p>
+<p><strong>Elegir mal el gráfico.</strong> Unir con líneas categorías sin orden (servicios hospitalarios) sugiere una evolución que no existe.</p>
+<p><strong>Recortar el eje</strong> de un gráfico de barras, como en el ejemplo anterior.</p></div></section>
+<section class="slide denso" data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: Una imagen médica es una matriz de NumPy</h3><p>Una imagen en escala de grises es una <strong>matriz 2D</strong>: cada elemento es un píxel. En una tomografía computarizada (TAC), cada valor está en <strong>unidades Hounsfield</strong> (UH). El aire vale −1000, el agua 0 y el hueso cortical unos 700 o más.</p>
+<p>Un TAC completo es una <strong>matriz 3D</strong>: una pila de cortes. Su forma es <code>(cortes, filas, columnas)</code>.</p>
+<p>La <strong>ventana</strong> decide qué valores se ven. Los valores por debajo de la ventana salen negros y los de encima salen blancos. Con <code>np.clip()</code> se aplica una ventana a toda la matriz en una sola operación.</p>
+<p><strong>En tus materiales SIMUSTAT:</strong> <a href="https://colab.research.google.com/drive/1quCl69jOeY89qRlmjrMjFC-k-8s-8NMT" target="_blank" rel="noopener">Tema 140. Procesado de imágenes 2D con NumPy</a>, apartado 2. <strong>En tus materiales SIMUSTAT:</strong> <a href="https://colab.research.google.com/drive/1eyZmZuo3DvMjGsdQ7m6W947P-v25a0z0" target="_blank" rel="noopener">Tema 150. Procesado de imágenes 3D con NumPy</a>, apartado 2 (los TAC).</p><pre class="code"><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+# Corte sintético de tórax: aire, tejido blando, dos pulmones y una costilla
+filas, columnas = np.mgrid[0:200, 0:200]
+corte = np.full((200, 200), -1000.0)                                     # aire
+cuerpo = ((filas - 100) / 80) ** 2 + ((columnas - 100) / 95) ** 2 &lt; 1
+corte[cuerpo] = 40                                                       # tejido blando
+for centro in (60, 140):
+    pulmon = ((filas - 95) / 50) ** 2 + ((columnas - centro) / 28) ** 2 &lt; 1
+    corte[pulmon] = -800                                                 # pulmón
+anillo = np.abs(np.sqrt((filas - 100) ** 2 + (columnas - 100) ** 2) - 76) &lt; 3
+corte[anillo &amp; cuerpo] = 700                                             # costilla
+for f, col in [(70, 50), (90, 70), (115, 55), (75, 150), (100, 130), (120, 148)]:
+    corte[(filas - f) ** 2 + (columnas - col) ** 2 &lt; 12] = -600          # vasos pulmonares
+corte[(filas - 105) ** 2 + (columnas - 140) ** 2 &lt; 30] = 40              # nódulo
+
+print(&quot;Forma del corte:&quot;, corte.shape, &quot;| mínimo:&quot;, corte.min(), &quot;UH | máximo:&quot;, corte.max(), &quot;UH&quot;)
+
+def ventana(imagen, centro, anchura):
+    return np.clip(imagen, centro - anchura / 2, centro + anchura / 2)
+
+fig, ejes = plt.subplots(1, 2, figsize=(9, 4.5))
+for eje, (nombre, c_v, a_v) in zip(ejes, [(&quot;Ventana pulmonar&quot;, -600, 1500), (&quot;Ventana de mediastino&quot;, 40, 400)]):
+    eje.imshow(ventana(corte, c_v, a_v), cmap=&quot;gray&quot;)
+    eje.set_title(f&quot;{nombre} (C {c_v}, A {a_v})&quot;)
+    eje.axis(&quot;off&quot;)
+plt.tight_layout()
+plt.show()
+
+tac = np.stack([corte] * 30)          # 30 cortes iguales: un volumen 3D
+print(&quot;Forma del volumen:&quot;, tac.shape)</code></pre><p>La misma matriz da dos imágenes distintas. La ventana pulmonar distingue los vasos dentro del pulmón. La de mediastino deja el pulmón en negro, pero el nódulo y el tejido blando se ven en gris. Los datos no cambian: cambia cómo se presentan.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 60 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> elegir el gráfico adecuado para cada pregunta clínica.</li>
+<li><strong>Misión clínica (con pistas):</strong> aleatorizar 30 pacientes en tres brazos con una semilla y comprobar que cada brazo tiene 10.</li>
+<li><strong>Misión reto (con asistente):</strong> pedir al asistente el gráfico de evolución de la glucemia de un paciente. Revisar que cumple todas las normas de un buen gráfico clínico.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente y sin ejecutar código.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q24-0"><p class="qq">¿Para qué se fija una semilla al aleatorizar los pacientes de un ensayo?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: con la misma semilla se obtiene la misma secuencia.">Para que la asignación sea reproducible y se pueda auditar</button><button type="button" class="op" data-ok="0" data-fb="Sigue siendo aleatoria respecto a las características de los pacientes.">Para que la asignación deje de ser aleatoria</button><button type="button" class="op" data-ok="0" data-fb="La semilla no cambia las proporciones.">Para que salgan más pacientes en el brazo del tratamiento nuevo</button><button type="button" class="op" data-ok="0" data-fb="Sin semilla también los genera, pero distintos en cada ejecución.">Porque Python no genera números aleatorios sin semilla</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q24-1"><p class="qq">¿Qué gráfico es el más adecuado para mostrar la distribución de la glucemia en 300 pacientes?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: muestra cómo se distribuye una variable cuantitativa.">Histograma</button><button type="button" class="op" data-ok="0" data-fb="Las líneas muestran evolución en el tiempo.">Gráfico de líneas</button><button type="button" class="op" data-ok="0" data-fb="300 barras no permiten ver la distribución.">Gráfico de barras de cada paciente</button><button type="button" class="op" data-ok="0" data-fb="Los sectores representan proporciones de categorías.">Gráfico de sectores</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q24-2"><p class="qq">Tras import numpy as np, ¿cómo se llama a la función mean?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el alias np sustituye al nombre del módulo.">np.mean(datos)</button><button type="button" class="op" data-ok="0" data-fb="Sin importar la función directamente, hay que anteponer el módulo.">mean(datos)</button><button type="button" class="op" data-ok="0" data-fb="Al usar un alias, el nombre que queda disponible es np.">numpy.mean(datos)</button><button type="button" class="op" data-ok="0" data-fb="La sintaxis es módulo.función(argumentos).">np(mean, datos)</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q24-3"><p class="qq">Las estancias de 9 pacientes son 3, 5, 4, 2, 21, 6, 4, 3 y 5 días. ¿Qué medida representa mejor la estancia típica?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la mediana (4 días) no se ve afectada por un valor atípico.">La mediana, porque no la desplaza el valor extremo de 21 días</button><button type="button" class="op" data-ok="0" data-fb="Precisamente por usar todos los datos, el valor de 21 la desplaza.">La media, porque usa todos los datos</button><button type="button" class="op" data-ok="0" data-fb="Mide la dispersión, no el valor típico.">La desviación típica</button><button type="button" class="op" data-ok="0" data-fb="El máximo es el caso extremo, no el típico.">El valor máximo</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q24-4"><p class="qq">Un gráfico de barras compara curaciones del 78 % y del 81 % con el eje vertical entre 76 y 82. ¿Qué problema tiene?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: en barras, el eje debe empezar en cero.">Exagera visualmente una diferencia de 3 puntos</button><button type="button" class="op" data-ok="0" data-fb="Se ve mejor a costa de distorsionar su magnitud.">Ninguno: así se ve mejor la diferencia</button><button type="button" class="op" data-ok="0" data-fb="Las barras son adecuadas; el problema es el eje.">Debería ser un gráfico de líneas</button><button type="button" class="op" data-ok="0" data-fb="La semilla no tiene que ver con los gráficos.">Le falta la semilla</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>Los módulos amplían Python: se importan con <code>import</code> y se usan con <code>módulo.función()</code>.</li>
+<li>Los números aleatorios del ordenador dependen de una semilla: fijarla hace los resultados reproducibles.</li>
+<li>La aleatorización evita el sesgo de asignación en los ensayos clínicos.</li>
+<li>Cada tipo de variable tiene su gráfico; los ejes llevan siempre unidades y las barras empiezan en cero.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Módulo</td>
+<td>Archivo de Python con funciones que se pueden importar</td>
+</tr>
+<tr>
+<td>Alias</td>
+<td>Nombre corto con el que se importa un módulo (<code>np</code>, <code>plt</code>)</td>
+</tr>
+<tr>
+<td>Número pseudoaleatorio</td>
+<td>Número generado por un cálculo que imita el azar</td>
+</tr>
+<tr>
+<td>Semilla</td>
+<td>Valor inicial que determina la secuencia de números pseudoaleatorios</td>
+</tr>
+<tr>
+<td>Aleatorización</td>
+<td>Asignación al azar de los participantes a los grupos de un estudio</td>
+</tr>
+<tr>
+<td>Sesgo de asignación</td>
+<td>Distorsión de los resultados por elegir quién recibe cada tratamiento</td>
+</tr>
+<tr>
+<td>Histograma</td>
+<td>Gráfico de la distribución de una variable cuantitativa</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li><a href="https://docs.python.org/es/3/library/random.html" target="_blank" rel="noopener">Documentación del módulo random</a></li>
+<li><a href="https://docs.python.org/es/3/library/statistics.html" target="_blank" rel="noopener">Documentación del módulo statistics</a></li>
+<li><a href="https://matplotlib.org/stable/gallery/index.html" target="_blank" rel="noopener">Galería de ejemplos de Matplotlib</a></li>
+<li>SIMUSTAT Unidigital UMH. <a href="https://colab.research.google.com/drive/1quCl69jOeY89qRlmjrMjFC-k-8s-8NMT" target="_blank" rel="noopener">Tema 140. Procesado de imágenes 2D con NumPy</a>. Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.</li>
+<li>SIMUSTAT Unidigital UMH. <a href="https://colab.research.google.com/drive/1eyZmZuo3DvMjGsdQ7m6W947P-v25a0z0" target="_blank" rel="noopener">Tema 150. Procesado de imágenes 3D con NumPy</a>. Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.</li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_060_Modulos_aleatoriedad_y_visualizacion_con_Matplotlib.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 60 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-60" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_050.html">← Tema 50</a><a class="btn ghost" href="tema_070.html">→ Tema 70</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

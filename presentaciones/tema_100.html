@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 100. Estructuras de datos con Pandas: tratamiento de valores perdidos y atípicos en registros clínicos · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 100. Estructuras de datos con Pandas: tratamiento de valores perdidos y atípicos en registros clínicos</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 100</span>Estructuras de datos con Pandas: tratamiento de valores perdidos y atípicos en registros clínicos</h1>
+<p class="mod">Módulo 3. Procesado inicial de datos</p>
+
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_100_Pandas_valores_perdidos_y_atipicos_en_registros_clinicos.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-100" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Cargar un registro clínico en un <strong>DataFrame</strong> de Pandas y explorar su estructura.</li>
+<li>Seleccionar columnas, filtrar filas y crear variables nuevas.</li>
+<li>Detectar y corregir registros duplicados y categorías escritas de formas distintas.</li>
+<li>Cuantificar los <strong>valores perdidos</strong> y decidir cómo tratarlos sin sesgar el análisis.</li>
+<li>Distinguir un <strong>error de registro</strong> de un <strong>valor atípico</strong> real, con reglas de plausibilidad fisiológica y con el criterio del rango intercuartílico.</li>
+<li>Documentar cada decisión de limpieza en un registro auditable.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: limpieza de un registro clínico <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">Un peso medio de 78 kg… con un paciente de 680 kg</p><ul class='puntos'><li>Una media se calcula siempre, aunque los datos estén mal: ningún error impide hacer la cuenta.</li><li>Antes de analizar, se limpia, y cada decisión queda documentada en un registro de limpieza.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Tres centros de salud han reunido un <strong>registro de riesgo cardiovascular</strong> con 400 pacientes seguidos durante cinco años (datos sintéticos). Antes de analizarlo, una enfermera de investigación calcula el peso medio y obtiene 78,1 kg. Parece razonable.</p>
+<p>Pero al revisar los datos aparecen problemas. Un paciente pesa <strong>680 kg</strong> y otro <strong>7,4 kg</strong>. Hay cuatro tallas de «1,6 cm» y una presión diastólica mayor que la sistólica. Hay una glucemia de <strong>1.120 mg/dL</strong> y el sexo aparece como «Mujer» y como «mujer». Faltan 18 pesos y hay dos pacientes registrados dos veces.</p>
+<p>Ninguno de estos problemas impide calcular una media: Python la calcula sin protestar. Por eso son peligrosos. La preparación de los datos ocupa la mayor parte del tiempo de cualquier análisis. Y es la parte que más condiciona sus conclusiones.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 Pandas y el DataFrame</h3><p class="lema">Anatomía de un DataFrame</p><figure><img src="../figuras/tema_100_dataframe.png" alt="Anatomía de un DataFrame" loading="lazy"></figure><ul class='puntos'><li>Filas = pacientes; columnas = variables; cada columna es una <b>Series</b> con su tipo.</li><li>NaN marca un dato ausente: pandas lo excluye de las medias y lo cuenta con .isna().</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p><strong>Pandas</strong> es la biblioteca de Python para trabajar con datos en forma de tabla. Su estructura central es el <strong>DataFrame</strong>: una tabla. Cada <strong>fila</strong> es una unidad de observación (un paciente) y cada <strong>columna</strong> es una variable. Cada columna individual es una <strong>Series</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Instrucción</th>
+<th>Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pd.read_csv(ruta)</code></td>
+<td>Carga un CSV en un DataFrame</td>
+</tr>
+<tr>
+<td><code>df.head()</code></td>
+<td>Muestra las primeras filas</td>
+</tr>
+<tr>
+<td><code>df.shape</code></td>
+<td>Número de filas y columnas</td>
+</tr>
+<tr>
+<td><code>df.dtypes</code> / <code>df.info()</code></td>
+<td>Tipo de cada columna y valores no nulos</td>
+</tr>
+<tr>
+<td><code>df.describe()</code></td>
+<td>Resumen numérico de cada columna</td>
+</tr>
+<tr>
+<td><code>df["col"]</code></td>
+<td>Selecciona una columna</td>
+</tr>
+<tr>
+<td><code>df[df["edad"] &gt;= 65]</code></td>
+<td>Filtra filas que cumplen una condición</td>
+</tr>
+<tr>
+<td><code>df["col"].value_counts()</code></td>
+<td>Frecuencias de cada valor</td>
+</tr>
+</tbody>
+</table></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Valores perdidos</h3><figure><img src="../figuras/tema_100_esquema.png" alt="Árbol: dato ausente según su mecanismo (completamente al azar, al azar condicionado, no al azar) y la consecuencia de cada uno." loading="lazy"></figure><p>Pandas representa los datos ausentes como <code>NaN</code> (<em>not a number</em>). Antes de decidir qué hacer con ellos hay que preguntarse <strong>por qué faltan</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Mecanismo</th>
+<th>Significado</th>
+<th>Ejemplo clínico</th>
+<th>Consecuencia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Completamente al azar</td>
+<td>La ausencia no depende de nada</td>
+<td>Se perdió un tubo de la muestra</td>
+<td>Eliminar los casos no sesga, solo reduce la muestra</td>
+</tr>
+<tr>
+<td>Al azar condicionado</td>
+<td>Depende de otras variables registradas</td>
+<td>A los más jóvenes se les pide menos colesterol</td>
+<td>Hay que tener en cuenta esas variables</td>
+</tr>
+<tr>
+<td>No al azar</td>
+<td>Depende del propio valor ausente</td>
+<td>Los pacientes más obesos evitan pesarse</td>
+<td>Cualquier tratamiento simple sesga el resultado</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rellenar con cero nunca es correcto</strong> para una variable clínica. Rellenar con la media (imputación simple) mantiene el tamaño de la muestra, pero reduce artificialmente la variabilidad.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Errores de registro y valores atípicos</h3><p class="lema">¿Error de registro o valor atípico real?</p><figure><img src="../figuras/tema_100_plausible.png" alt="¿Error de registro o valor atípico real?" loading="lazy"></figure><ul class='puntos'><li>Un error es imposible o incoherente: se corrige si se puede justificar o se convierte en NaN.</li><li>Un atípico real es extremo pero posible: se conserva. Eliminarlo sesga el análisis.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><table>
+<thead>
+<tr>
+<th></th>
+<th>Error de registro</th>
+<th>Valor atípico real</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Qué es</td>
+<td>Un valor <strong>imposible</strong> o incompatible</td>
+<td>Un valor <strong>extremo pero posible</strong></td>
+</tr>
+<tr>
+<td>Ejemplo</td>
+<td>Peso de 680 kg, PAD mayor que PAS</td>
+<td>Colesterol total de 340 mg/dL</td>
+</tr>
+<tr>
+<td>Cómo se detecta</td>
+<td>Rangos de plausibilidad fisiológica y reglas de coherencia</td>
+<td>Criterios estadísticos, como el rango intercuartílico</td>
+</tr>
+<tr>
+<td>Qué hacer</td>
+<td>Corregir si la causa es evidente; si no, marcar como perdido</td>
+<td><strong>Conservar</strong>: es información clínica</td>
+</tr>
+</tbody>
+</table>
+<p>El <strong>rango intercuartílico</strong> (RIC) es la distancia entre el percentil 25 (Q1) y el 75 (Q3). El criterio de Tukey considera atípicos los valores por debajo de Q1 − 1,5 × RIC o por encima de Q3 + 1,5 × RIC. Lo estudiaremos con detalle en el Tema 120.</p>
+<p><strong>Toda decisión de limpieza se documenta.</strong> Un análisis que no explica qué datos cambió no es reproducible.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">En un registro, un paciente pesa 680 kg. ¿Qué es lo más adecuado?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es imposible y no sabemos con certeza el valor real.">Marcarlo como perdido y anotarlo en el registro de limpieza</button><button type="button" class="op" data-ok="0" data-fb="No es un valor extremo posible: es un error de registro.">Conservarlo, porque es un valor atípico</button><button type="button" class="op" data-ok="0" data-fb="Es probable, pero no seguro; corregir sin certeza introduce un dato inventado.">Sustituirlo por 68 kg</button><button type="button" class="op" data-ok="0" data-fb="Se perderían todos sus demás datos, que son válidos.">Eliminar al paciente del estudio</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 100.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_100_Pandas_valores_perdidos_y_atipicos_en_registros_clinicos.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: limpieza de un registro clínico" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: limpieza de un registro clínico</h2><h3>3.1 Cargar y explorar</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Cargar y explorar</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">import pandas as pd
+import numpy as np
+
+URL = &quot;https://raw.githubusercontent.com/fborrasumh/bioestadistica/main/datos/cohorte_cardiovascular.csv&quot;
+cohorte = pd.read_csv(URL)
+
+print(&quot;Filas y columnas:&quot;, cohorte.shape)
+cohorte.head()</code></pre><pre class="code"><code class="language-python">cohorte.info()</code></pre><p>Observa en <code>info()</code> que algunas columnas tienen menos valores no nulos que filas: son los <strong>valores perdidos</strong>.</p><pre class="code"><code class="language-python">cohorte.describe().round(1)</code></pre><p><code>describe()</code> ya muestra los problemas: un peso máximo de 680 kg y una talla mínima de 1,6 cm. También una PAD máxima de 163 mmHg y una glucemia máxima de 1.120 mg/dL.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: limpieza de un registro clínico" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: limpieza de un registro clínico</h2><h3>3.2 Seleccionar, filtrar y crear variables</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 Seleccionar, filtrar y crear variables</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python"># Una columna
+print(cohorte[&quot;edad&quot;].head(3))
+
+# Varias columnas
+print(cohorte[[&quot;id&quot;, &quot;edad&quot;, &quot;pas_mmHg&quot;]].head(3))
+
+# Filtrar: pacientes de 75 años o más del CS Centro
+mayores = cohorte[(cohorte[&quot;edad&quot;] &gt;= 75) &amp; (cohorte[&quot;centro&quot;] == &quot;CS Centro&quot;)]
+print(&quot;Pacientes de 75 años o más en CS Centro:&quot;, len(mayores))</code></pre><p>Al combinar condiciones en Pandas se usan <code>&amp;</code> (y), <code>|</code> (o) y <code>~</code> (no), con <strong>cada condición entre paréntesis</strong>.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: limpieza de un registro clínico" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: limpieza de un registro clínico</h2><h3>3.3 Registro de limpieza</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 Registro de limpieza</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Antes de cambiar nada, creamos una lista donde anotar cada decisión.</p><pre class="code"><code class="language-python">registro_limpieza = []
+
+def anotar(problema, decision, filas_afectadas):
+    registro_limpieza.append({&quot;problema&quot;: problema, &quot;decisión&quot;: decision, &quot;filas&quot;: filas_afectadas})</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: limpieza de un registro clínico" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: limpieza de un registro clínico</h2><h3>3.4 Duplicados</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Duplicados</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">duplicados = cohorte.duplicated().sum()
+print(&quot;Filas duplicadas:&quot;, duplicados)
+
+cohorte = cohorte.drop_duplicates()
+anotar(&quot;Filas duplicadas&quot;, &quot;Eliminadas&quot;, int(duplicados))
+print(&quot;Pacientes únicos:&quot;, len(cohorte), &quot;·&quot;, cohorte[&quot;id&quot;].is_unique)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: limpieza de un registro clínico" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: limpieza de un registro clínico</h2><h3>3.5 Categorías escritas de formas distintas</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 Categorías escritas de formas distintas</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">print(cohorte[&quot;sexo&quot;].value_counts())
+print(cohorte[&quot;fumador&quot;].value_counts(dropna=False))</code></pre><pre class="code"><code class="language-python">cambiados = (~cohorte[&quot;sexo&quot;].isin([&quot;Mujer&quot;, &quot;Hombre&quot;])).sum()
+cohorte[&quot;sexo&quot;] = cohorte[&quot;sexo&quot;].str.strip().str.lower().map(
+    {&quot;mujer&quot;: &quot;Mujer&quot;, &quot;m&quot;: &quot;Mujer&quot;, &quot;hombre&quot;: &quot;Hombre&quot;, &quot;h&quot;: &quot;Hombre&quot;}
+)
+anotar(&quot;Sexo con distintas grafías&quot;, &quot;Unificado a Mujer/Hombre&quot;, int(cambiados))
+
+cambiados = (cohorte[&quot;fumador&quot;].notna() &amp; ~cohorte[&quot;fumador&quot;].isin([&quot;Sí&quot;, &quot;No&quot;])).sum()
+cohorte[&quot;fumador&quot;] = cohorte[&quot;fumador&quot;].str.lower().map({&quot;sí&quot;: &quot;Sí&quot;, &quot;si&quot;: &quot;Sí&quot;, &quot;no&quot;: &quot;No&quot;})
+anotar(&quot;Fumador con distintas grafías&quot;, &quot;Unificado a Sí/No&quot;, int(cambiados))
+
+print(cohorte[&quot;sexo&quot;].value_counts(), cohorte[&quot;fumador&quot;].value_counts(dropna=False), sep=&quot;\n\n&quot;)</code></pre><p><code>.map()</code> sustituye cada valor según un diccionario. Un valor que no esté en el diccionario se convertiría en <code>NaN</code>; por eso conviene comprobar con <code>value_counts()</code> antes y después.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: limpieza de un registro clínico" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: limpieza de un registro clínico</h2><h3>3.6 Valores perdidos</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 Valores perdidos</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">perdidos = pd.DataFrame({
+    &quot;n_perdidos&quot;: cohorte.isna().sum(),
+    &quot;porcentaje&quot;: (cohorte.isna().mean() * 100).round(1),
+})
+perdidos[perdidos[&quot;n_perdidos&quot;] &gt; 0]</code></pre><p>Veamos cómo cambia el peso medio según la decisión que tomemos. Primero corregiremos los errores de peso (apartado 3.7); aquí solo mostramos el efecto de <strong>rellenar con cero</strong>:</p><pre class="code"><code class="language-python">peso = cohorte[&quot;peso_kg&quot;]
+print(f&quot;Media ignorando los perdidos: {peso.mean():.1f} kg (n = {peso.notna().sum()})&quot;)
+print(f&quot;Media rellenando con cero:    {peso.fillna(0).mean():.1f} kg (n = {len(peso)})  ← sesgada&quot;)</code></pre><p>Pandas <strong>ignora los <code>NaN</code></strong> por defecto al calcular medias y otros estadísticos. Es lo correcto si los datos faltan al azar; en otro caso, hay que estudiar el patrón de ausencias. Lo que nunca se hace es sustituirlos por cero.</p></div></section>
+<section class="slide denso" data-modo="colab" data-bloque="3. Demostración: limpieza de un registro clínico" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: limpieza de un registro clínico</h2><h3>3.7 Errores de registro: reglas de plausibilidad</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.7 Errores de registro: reglas de plausibilidad</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Definimos rangos fisiológicamente plausibles para un adulto y revisamos los valores que quedan fuera.</p><pre class="code"><code class="language-python">rangos = {
+    &quot;peso_kg&quot;: (30, 250),
+    &quot;talla_cm&quot;: (120, 220),
+    &quot;pas_mmHg&quot;: (70, 260),
+    &quot;pad_mmHg&quot;: (30, 150),
+    &quot;glucemia_mg_dl&quot;: (40, 600),
+}
+
+for variable, (minimo, maximo) in rangos.items():
+    fuera = cohorte[(cohorte[variable] &lt; minimo) | (cohorte[variable] &gt; maximo)]
+    print(f&quot;{variable}: {len(fuera)} valores fuera de [{minimo}, {maximo}]&quot;)
+    if len(fuera) &gt; 0:
+        print(&quot;   &quot;, fuera[variable].tolist())</code></pre><p>Cada error requiere una decisión razonada:</p>
+<ul>
+<li><strong>Tallas entre 1 y 2:</strong> se registraron en metros. La corrección es evidente: multiplicar por 100.</li>
+<li><strong>Pesos de 680 y 7,4 kg:</strong> probablemente una coma desplazada (68,0 y 74), pero no podemos estar seguros. Los marcamos como perdidos.</li>
+<li><strong>Glucemia de 1.120 mg/dL:</strong> probablemente un cero de más, pero sin certeza. La marcamos como perdida.</li>
+</ul><pre class="code"><code class="language-python">en_metros = cohorte[&quot;talla_cm&quot;] &lt; 3
+cohorte.loc[en_metros, &quot;talla_cm&quot;] = cohorte.loc[en_metros, &quot;talla_cm&quot;] * 100
+anotar(&quot;Talla registrada en metros&quot;, &quot;Multiplicada por 100&quot;, int(en_metros.sum()))
+
+imposible = (cohorte[&quot;peso_kg&quot;] &lt; 30) | (cohorte[&quot;peso_kg&quot;] &gt; 250)
+cohorte.loc[imposible, &quot;peso_kg&quot;] = np.nan
+anotar(&quot;Peso fisiológicamente imposible&quot;, &quot;Marcado como perdido&quot;, int(imposible.sum()))
+
+imposible = cohorte[&quot;glucemia_mg_dl&quot;] &gt; 600
+cohorte.loc[imposible, &quot;glucemia_mg_dl&quot;] = np.nan
+anotar(&quot;Glucemia &gt; 600 mg/dL&quot;, &quot;Marcada como perdida&quot;, int(imposible.sum()))</code></pre><p><strong>Regla de coherencia:</strong> la presión diastólica no puede ser mayor que la sistólica. Si lo es, lo más probable es que se hayan intercambiado.</p><pre class="code"><code class="language-python">invertidas = cohorte[&quot;pad_mmHg&quot;] &gt;= cohorte[&quot;pas_mmHg&quot;]
+print(cohorte.loc[invertidas, [&quot;id&quot;, &quot;pas_mmHg&quot;, &quot;pad_mmHg&quot;]])
+
+cohorte.loc[invertidas, [&quot;pas_mmHg&quot;, &quot;pad_mmHg&quot;]] = cohorte.loc[invertidas, [&quot;pad_mmHg&quot;, &quot;pas_mmHg&quot;]].values
+anotar(&quot;PAD mayor que PAS&quot;, &quot;Valores intercambiados&quot;, int(invertidas.sum()))</code></pre><p><code>.loc[filas, columnas]</code> selecciona y modifica a la vez filas y columnas concretas. Es la forma segura de cambiar valores en un DataFrame.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: limpieza de un registro clínico" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: limpieza de un registro clínico</h2><h3>3.8 Valores atípicos reales: el criterio del RIC</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.8 Valores atípicos reales: el criterio del RIC</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">q1, q3 = cohorte[&quot;colesterol_mg_dl&quot;].quantile([0.25, 0.75])
+ric = q3 - q1
+limite_inferior, limite_superior = q1 - 1.5 * ric, q3 + 1.5 * ric
+
+atipicos = cohorte[(cohorte[&quot;colesterol_mg_dl&quot;] &lt; limite_inferior) | (cohorte[&quot;colesterol_mg_dl&quot;] &gt; limite_superior)]
+print(f&quot;Límites de Tukey: {limite_inferior:.0f} a {limite_superior:.0f} mg/dL&quot;)
+print(&quot;Valores atípicos:&quot;, sorted(atipicos[&quot;colesterol_mg_dl&quot;].tolist()))</code></pre><p>Un colesterol total de 84 mg/dL es inusual, pero <strong>posible</strong>. Es un valor atípico estadístico, no un error, y se <strong>conserva</strong>: eliminarlos ocultaría precisamente a los pacientes de mayor interés clínico.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: limpieza de un registro clínico" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: limpieza de un registro clínico</h2><h3>3.9 Variables derivadas y resultado final</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.9 Variables derivadas y resultado final</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">cohorte[&quot;imc&quot;] = (cohorte[&quot;peso_kg&quot;] / (cohorte[&quot;talla_cm&quot;] / 100) ** 2).round(1)
+cohorte.describe().round(1)</code></pre><pre class="code"><code class="language-python">pd.DataFrame(registro_limpieza)</code></pre><pre class="code"><code class="language-python">cohorte.to_csv(&quot;cohorte_limpia.csv&quot;, index=False)
+print(&quot;Guardado cohorte_limpia.csv con&quot;, len(cohorte), &quot;pacientes&quot;)</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: auditar una limpieza hecha por IA</h3><p>Si pides al asistente «limpia este conjunto de datos», probablemente propondrá eliminar filas. Por ejemplo, todas las filas con valores perdidos (<code>dropna()</code>) o los atípicos según algún criterio. Antes de aceptarlo:</p>
+<ol>
+<li>Pide que <strong>explique cada paso</strong> y la razón clínica o estadística.</li>
+<li>Comprueba <strong>cuántas filas</strong> se pierden: <code>dropna()</code> sobre toda la tabla puede eliminar un tercio de los pacientes.</li>
+<li>Comprueba que no se eliminan <strong>valores atípicos reales</strong>.</li>
+<li>Compara cinco valores antes y después, a mano.</li>
+<li>Exige un <strong>registro de limpieza</strong> como el del apartado 3.3.</li>
+</ol><pre class="code"><code class="language-python">original = pd.read_csv(URL)
+print(&quot;Pacientes originales:&quot;, len(original))
+print(&quot;Pacientes tras dropna() sobre toda la tabla:&quot;, len(original.dropna()))</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: imputación por la media</h3><pre class="code"><code class="language-python">hdl = cohorte[&quot;hdl_mg_dl&quot;]
+hdl_imputado = hdl.fillna(hdl.mean())
+print(f&quot;Desviación típica original:  {hdl.std():.2f} mg/dL&quot;)
+print(f&quot;Desviación típica imputada:  {hdl_imputado.std():.2f} mg/dL  ← subestimada&quot;)</code></pre><p>Rellenar con la media no cambia la media, pero <strong>reduce la variabilidad</strong>. Entonces los intervalos de confianza y las pruebas estadísticas parecen más precisos de lo que son. Existen métodos mejores, como la imputación múltiple, que quedan fuera de este curso.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Rellenar con cero</strong> los valores perdidos de una variable clínica.</p>
+<p><strong>Eliminar todos los valores atípicos</strong> sin distinguir errores de valores extremos reales.</p>
+<p><strong>Usar <code>and</code>/<code>or</code> en lugar de <code>&amp;</code>/<code>|</code></strong> al filtrar con Pandas: produce <code>ValueError</code>.</p>
+<p><strong>Olvidar los paréntesis</strong> en las condiciones combinadas: <code>cohorte["edad"] &gt;= 65 &amp; cohorte["diabetes"] == "Sí"</code> no hace lo que parece.</p>
+<p><strong>Modificar una copia en lugar del original:</strong> para cambiar valores, usar siempre <code>.loc[filas, columna]</code>.</p>
+<p><strong>No documentar</strong> los cambios: el análisis deja de ser reproducible.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: Fechas clínicas con pandas</h3><p>Las fechas suelen llegar como <strong>texto</strong> ("03/02/2026"). Con texto no se pueden restar fechas ni agrupar por mes. <code>pd.to_datetime()</code> las convierte en fechas reales.</p>
+<p>Indica siempre el formato (<code>format="%d/%m/%Y"</code>). Si no, pandas puede leer el 03/02 como 2 de marzo. Con <code>errors="coerce"</code>, una fecha imposible pasa a ser un valor perdido (<code>NaT</code>) y no detiene el análisis.</p>
+<p><strong>En tus materiales SIMUSTAT:</strong> <a href="https://colab.research.google.com/drive/1s8vuaHhH94JDhDjfMf2DbsdpK7d29usU" target="_blank" rel="noopener">Tema 70. Módulos math, random, time e instalación de módulos externos</a>, apartado 4. <strong>En tus materiales SIMUSTAT:</strong> <a href="https://colab.research.google.com/drive/1f_m55KKTYuHCMu2ZrnnoDyw5lCkCgXhd" target="_blank" rel="noopener">Tema 170. Gestión de datos con Pandas y tratamiento de valores anómalos</a>, apartado 4 (series temporales).</p><pre class="code"><code class="language-python">ingresos = pd.DataFrame({
+    &quot;id&quot;: [&quot;H1&quot;, &quot;H2&quot;, &quot;H3&quot;, &quot;H4&quot;],
+    &quot;ingreso&quot;: [&quot;03/02/2026&quot;, &quot;15/02/2026&quot;, &quot;28/02/2026&quot;, &quot;02/03/2026&quot;],
+    &quot;alta&quot;: [&quot;10/02/2026&quot;, &quot;16/02/2026&quot;, &quot;31/02/2026&quot;, &quot;09/03/2026&quot;],   # 31/02 no existe
+})
+for col in [&quot;ingreso&quot;, &quot;alta&quot;]:
+    ingresos[col] = pd.to_datetime(ingresos[col], format=&quot;%d/%m/%Y&quot;, errors=&quot;coerce&quot;)
+
+ingresos[&quot;estancia_dias&quot;] = (ingresos[&quot;alta&quot;] - ingresos[&quot;ingreso&quot;]).dt.days
+ingresos[&quot;mes_ingreso&quot;] = ingresos[&quot;ingreso&quot;].dt.month
+print(ingresos)
+print(&quot;\nFechas no válidas:&quot;, ingresos[&quot;alta&quot;].isna().sum())
+print(&quot;Estancia media:&quot;, ingresos[&quot;estancia_dias&quot;].mean().round(1), &quot;días&quot;)</code></pre><p>La fecha de alta de H3 no existe; queda como <code>NaT</code> y su estancia como valor perdido. Igual que con cualquier valor perdido, <strong>regístralo y revísalo en la fuente</strong>: no lo rellenes.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 100 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> clasificar valores como error de registro, valor atípico real o dato plausible.</li>
+<li><strong>Misión clínica (con pistas):</strong> limpiar un registro sintético de pacientes con EPOC y presentar su registro de limpieza.</li>
+<li><strong>Misión reto (con asistente):</strong> pedir al asistente que limpie el registro. Auditar su propuesta con los cinco pasos de la ampliación y corregir lo que no sea aceptable.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente y sin ejecutar código.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q24-0"><p class="qq">En un registro, un paciente pesa 680 kg. ¿Qué es lo más adecuado?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es imposible y no sabemos con certeza el valor real.">Marcarlo como perdido y anotarlo en el registro de limpieza</button><button type="button" class="op" data-ok="0" data-fb="No es un valor extremo posible: es un error de registro.">Conservarlo, porque es un valor atípico</button><button type="button" class="op" data-ok="0" data-fb="Es probable, pero no seguro; corregir sin certeza introduce un dato inventado.">Sustituirlo por 68 kg</button><button type="button" class="op" data-ok="0" data-fb="Se perderían todos sus demás datos, que son válidos.">Eliminar al paciente del estudio</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q24-1"><p class="qq">Un paciente tiene un colesterol total de 340 mg/dL, por encima del límite de Tukey. ¿Qué haces?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es un valor atípico real con interés clínico.">Conservarlo: es un valor extremo pero clínicamente posible</button><button type="button" class="op" data-ok="0" data-fb="Eliminarlo ocultaría a los pacientes de mayor riesgo.">Eliminarlo porque es un valor atípico</button><button type="button" class="op" data-ok="0" data-fb="Se perdería información real.">Sustituirlo por la mediana</button><button type="button" class="op" data-ok="0" data-fb="No es un error de registro.">Marcarlo como perdido</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q24-2"><p class="qq">¿Qué expresión selecciona a los pacientes de 65 años o más que son fumadores?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: &amp; y cada condición entre paréntesis.">cohorte[(cohorte[&quot;edad&quot;] &gt;= 65) &amp; (cohorte[&quot;fumador&quot;] == &quot;Sí&quot;)]</button><button type="button" class="op" data-ok="0" data-fb="En Pandas se usa &amp; en lugar de and.">cohorte[cohorte[&quot;edad&quot;] &gt;= 65 and cohorte[&quot;fumador&quot;] == &quot;Sí&quot;]</button><button type="button" class="op" data-ok="0" data-fb="| selecciona a quienes cumplen al menos una condición.">cohorte[(cohorte[&quot;edad&quot;] &gt;= 65) | (cohorte[&quot;fumador&quot;] == &quot;Sí&quot;)]</button><button type="button" class="op" data-ok="0" data-fb="Hay que comparar las columnas, no sus nombres.">cohorte[&quot;edad&quot; &gt;= 65 &amp; &quot;fumador&quot; == &quot;Sí&quot;]</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q24-3"><p class="qq">Faltan 18 pesos de 400. ¿Qué efecto tiene rellenarlos con 0 antes de calcular el peso medio?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: se introducen 18 pesos falsos de 0 kg.">Infraestima el peso medio</button><button type="button" class="op" data-ok="0" data-fb="Pandas ignora los NaN, no los ceros.">Ninguno, porque Pandas ignora los ceros</button><button type="button" class="op" data-ok="0" data-fb="Los ceros arrastran la media hacia abajo.">Sobreestima el peso medio</button><button type="button" class="op" data-ok="0" data-fb="Introduce un sesgo.">Aumenta la precisión del resultado</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q24-4"><p class="qq">¿Por qué no conviene eliminar todas las filas con algún valor perdido (dropna sobre toda la tabla)?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: en el ejemplo se pierde casi una cuarta parte de la cohorte.">Porque se pierden muchos pacientes con datos válidos en otras variables</button><button type="button" class="op" data-ok="0" data-fb="dropna funciona; el problema es lo que elimina.">Porque dropna produce un error con datos clínicos</button><button type="button" class="op" data-ok="0" data-fb="dropna elimina filas, no las rellena.">Porque dropna convierte los NaN en ceros</button><button type="button" class="op" data-ok="0" data-fb="Sí lo permite.">Porque Pandas no permite eliminar filas</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>Un DataFrame es una tabla: una fila por paciente, una columna por variable.</li>
+<li><code>info()</code>, <code>describe()</code> y <code>value_counts()</code> son la primera revisión obligatoria de cualquier conjunto de datos.</li>
+<li>Los valores perdidos se cuantifican y se tratan según por qué faltan; nunca se rellenan con cero.</li>
+<li>Un error de registro se corrige o se marca como perdido; un valor atípico real se conserva.</li>
+<li>Cada decisión de limpieza se anota en un registro.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DataFrame</td>
+<td>Tabla de datos de Pandas, con filas y columnas</td>
+</tr>
+<tr>
+<td>Series</td>
+<td>Columna de un DataFrame</td>
+</tr>
+<tr>
+<td><code>NaN</code></td>
+<td>Valor perdido en Pandas</td>
+</tr>
+<tr>
+<td>Imputación</td>
+<td>Sustitución de un valor perdido por un valor estimado</td>
+</tr>
+<tr>
+<td>Error de registro</td>
+<td>Valor imposible o incoherente, debido a un fallo al registrar el dato</td>
+</tr>
+<tr>
+<td>Valor atípico</td>
+<td>Valor extremo, alejado del resto, pero posible</td>
+</tr>
+<tr>
+<td>Rango intercuartílico</td>
+<td>Diferencia entre los percentiles 75 y 25</td>
+</tr>
+<tr>
+<td>Registro de limpieza</td>
+<td>Documento que recoge cada cambio realizado en los datos y su motivo</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li><a href="https://pandas.pydata.org/docs/getting_started/index.html" target="_blank" rel="noopener">Guía de inicio de Pandas</a></li>
+<li><a href="https://pandas.pydata.org/docs/user_guide/missing_data.html" target="_blank" rel="noopener">Pandas: trabajar con datos perdidos</a></li>
+<li>Sterne JAC, <em>et al.</em> Multiple imputation for missing data in epidemiological and clinical research: potential and pitfalls. <em>BMJ</em>. 2009;338:b2393. doi:<a href="https://doi.org/10.1136/bmj.b2393" target="_blank" rel="noopener">10.1136/bmj.b2393</a></li>
+<li>SIMUSTAT Unidigital UMH. <a href="https://colab.research.google.com/drive/1s8vuaHhH94JDhDjfMf2DbsdpK7d29usU" target="_blank" rel="noopener">Tema 70. Módulos math, random, time e instalación de módulos externos</a>. Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.</li>
+<li>SIMUSTAT Unidigital UMH. <a href="https://colab.research.google.com/drive/1f_m55KKTYuHCMu2ZrnnoDyw5lCkCgXhd" target="_blank" rel="noopener">Tema 170. Gestión de datos con Pandas y tratamiento de valores anómalos</a>. Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.</li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_100_Pandas_valores_perdidos_y_atipicos_en_registros_clinicos.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 100 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-100" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_090.html">← Tema 90</a><a class="btn ghost" href="tema_110.html">→ Tema 110</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

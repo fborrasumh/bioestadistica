@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 290. Modelos predictivos e inteligencia artificial en la práctica clínica: desarrollo, validación y comunicación · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 290. Modelos predictivos e inteligencia artificial en la práctica clínica: desarrollo, validación y comunicación</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 290</span>Modelos predictivos e inteligencia artificial en la práctica clínica: desarrollo, validación y comunicación</h1>
+<p class="mod">Módulo 5. Generalización de conclusiones</p>
+<p class="ev"><b>Evaluación:</b> el examen del Módulo 5 se hace <strong>con Colab</strong>. Practica ejecutando e interpretando cada análisis.</p>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_290_Modelos_predictivos_e_IA_en_la_practica_clinica_desarrollo_validacion_y_comunicacion.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-290" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Distinguir un modelo <strong>explicativo</strong> (Temas 270 y 280) de un modelo <strong>predictivo</strong>.</li>
+<li>Separar los datos de desarrollo y de validación, y explicar por qué el rendimiento <strong>aparente</strong> es optimista.</li>
+<li>Evaluar un modelo por su <strong>discriminación</strong> (AUC) y su <strong>calibración</strong> (gráfico de calibración, puntuación de Brier).</li>
+<li>Reconocer el deterioro de un modelo al aplicarlo en otra población (<strong>validación externa</strong>) y comprobar su rendimiento por subgrupos.</li>
+<li>Usar la declaración <strong>TRIPOD+AI</strong> para comunicar y valorar críticamente un modelo predictivo, sea estadístico o de aprendizaje automático.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: desarrollar y validar un modelo <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">«Exactitud del 89 %»: ¿impresiona?</p><figure><img src="../figuras/tema_290_exactitud.png" alt="«Exactitud del 89 %»: ¿impresiona?" loading="lazy"></figure><ul class='puntos'><li>Si el evento ocurre en el 11 %, decir siempre «no habrá evento» acierta el 89 %.</li><li>Hay que preguntar por la discriminación, la calibración y con qué pacientes se midieron.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Una empresa ofrece al hospital un sistema de IA que predice qué pacientes tendrán un evento cardiovascular en 5 años. El folleto dice: «Entrenado con datos de 600 pacientes y 16 variables clínicas. <strong>Exactitud del 89 %. AUC de 0,90</strong>».</p>
+<p>Como médico de la comisión que decide si se compra, debes saber hacer las preguntas que el folleto no responde:</p>
+<ol>
+<li>¿El AUC se ha medido con los <strong>mismos</strong> pacientes con los que se entrenó, o con pacientes nuevos?</li>
+<li>¿Las probabilidades que da son <strong>fiables</strong>? Si dice «30 %», ¿tienen un evento 30 de cada 100 pacientes así?</li>
+<li>¿Funciona en <strong>nuestra</strong> población, que es mayor que la del hospital donde se desarrolló?</li>
+<li>¿Funciona igual en hombres y mujeres?</li>
+<li>Si el evento ocurre en el 11 % de los pacientes, ¿qué significa una exactitud del 89 %?</li>
+</ol>
+<p>(Pista para la quinta: un «modelo» que diga siempre «no habrá evento» acierta el 89 %.)</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 Explicar o predecir</h3><figure><img src="../figuras/tema_290_e2_1.png" alt="Dos esquemas: explicar, con X, Y y un confusor Z; predecir, con varios predictores que entran en un modelo que da un riesgo." loading="lazy"></figure><table>
+<thead>
+<tr>
+<th></th>
+<th>Modelo explicativo</th>
+<th>Modelo predictivo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pregunta</td>
+<td>¿Se asocia X con Y, ajustando por confusores?</td>
+<td>¿Qué probabilidad de Y tiene este paciente?</td>
+</tr>
+<tr>
+<td>Lo importante</td>
+<td>Coeficientes sin sesgo, con su IC</td>
+<td>Que las predicciones sean buenas en pacientes <strong>nuevos</strong></td>
+</tr>
+<tr>
+<td>Se evalúa con</td>
+<td>Diseño, control de la confusión</td>
+<td>Discriminación y calibración en datos de validación</td>
+</tr>
+<tr>
+<td>Ejemplos</td>
+<td>¿La diabetes aumenta el riesgo?</td>
+<td>SCORE2, qSOFA, un sistema de IA de triaje</td>
+</tr>
+</tbody>
+</table>
+<p>Un modelo predictivo no necesita que sus variables sean causas: basta con que predigan. Por eso no se deben interpretar sus coeficientes como efectos.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Rendimiento aparente y validación</h3><p class="lema">El rendimiento aparente es optimista</p><figure><img src="../figuras/tema_290_aparente.png" alt="El rendimiento aparente es optimista" loading="lazy"></figure><ul class='puntos'><li>Un modelo evaluado con sus propios datos de entrenamiento se ha adaptado también a su ruido.</li><li>Lo que cuenta es el rendimiento en pacientes reservados y, mejor aún, de otro centro.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Si se evalúa un modelo con los mismos datos con que se ajustó, el modelo se ha adaptado también a su <strong>ruido</strong>. Su rendimiento <strong>aparente</strong> es optimista (sobreajuste, Tema 280). Hay que medirlo en pacientes que el modelo no ha visto:</p>
+<table>
+<thead>
+<tr>
+<th>Validación</th>
+<th>Cómo</th>
+<th>Qué evalúa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interna: partición</td>
+<td>Reservar una parte de los datos (por ejemplo, un 30 %)</td>
+<td>Optimismo, en la misma población</td>
+</tr>
+<tr>
+<td>Interna: validación cruzada o <em>bootstrap</em></td>
+<td>Repetir el ajuste con subconjuntos</td>
+<td>Lo mismo, aprovechando mejor los datos</td>
+</tr>
+<tr>
+<td><strong>Externa</strong></td>
+<td>Pacientes de otro centro, otro país u otra época</td>
+<td><strong>Transportabilidad</strong>: si funciona en otra población</td>
+</tr>
+</tbody>
+</table>
+<p>Los datos de validación deben quedar <strong>reservados</strong> hasta el final. Si se usan para elegir el modelo, dejan de ser una prueba independiente (ley de Goodhart, Tema 090).</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Discriminación y calibración</h3><p class="lema">Discriminar no es estar bien calibrado</p><figure><img src="../figuras/tema_290_calibracion.png" alt="Discriminar no es estar bien calibrado" loading="lazy"></figure><ul class='puntos'><li>Discriminación: ordenar bien a los pacientes por su riesgo (AUC).</li><li>Calibración: que un 20 % predicho sea un 20 % observado. Sin ella, el riesgo absoluto engaña.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><table>
+<thead>
+<tr>
+<th>Propiedad</th>
+<th>Pregunta</th>
+<th>Medida</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Discriminación</strong></td>
+<td>¿Asigna más riesgo a los que tienen el evento que a los que no?</td>
+<td>AUC o estadístico C (Tema 160): 0,5 = azar, 1 = perfecta</td>
+</tr>
+<tr>
+<td><strong>Calibración</strong></td>
+<td>¿Las probabilidades coinciden con las frecuencias observadas?</td>
+<td>Gráfico de calibración; cociente observado/esperado</td>
+</tr>
+<tr>
+<td>Global</td>
+<td>Las dos a la vez</td>
+<td>Puntuación de Brier: media de (probabilidad − resultado)²; menor es mejor</td>
+</tr>
+</tbody>
+</table>
+<p>Un modelo puede discriminar bien y estar mal calibrado: ordenar bien a los pacientes pero multiplicar por dos todos sus riesgos. Para decidir tratamientos según el riesgo absoluto (Tema 230), la calibración es tan importante como la discriminación.</p>
+<p>La <strong>exactitud</strong> (porcentaje de aciertos con un umbral) es una mala medida cuando el evento es poco frecuente.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.4 TRIPOD+AI</h3><figure><img src="../figuras/tema_290_e2_4.png" alt="Etapas de un estudio de predicción con lo que TRIPOD+AI pide en cada una: datos, variables, desarrollo, evaluación, equidad y uso." loading="lazy"></figure><p>La declaración <strong>TRIPOD+AI</strong> (<em>BMJ</em>, 2024) es la guía internacional para comunicar estudios de modelos predictivos, tanto de regresión como de aprendizaje automático. Algunos de sus apartados:</p>
+<table>
+<thead>
+<tr>
+<th>Apartado</th>
+<th>Qué debe constar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Fuente de datos</td>
+<td>Origen, fechas, criterios de inclusión</td>
+</tr>
+<tr>
+<td>Resultado</td>
+<td>Definición del evento y horizonte temporal</td>
+</tr>
+<tr>
+<td>Predictores</td>
+<td>Definición y momento de medida</td>
+</tr>
+<tr>
+<td>Tamaño muestral</td>
+<td>Cómo se justificó; número de eventos</td>
+</tr>
+<tr>
+<td>Datos perdidos</td>
+<td>Cuántos y cómo se trataron</td>
+</tr>
+<tr>
+<td>Desarrollo</td>
+<td>Tipo de modelo, ajuste de hiperparámetros</td>
+</tr>
+<tr>
+<td>Evaluación</td>
+<td>Discriminación <strong>y</strong> calibración, con IC, en validación interna y externa</td>
+</tr>
+<tr>
+<td>Equidad</td>
+<td>Rendimiento en subgrupos (sexo, edad, etnia, nivel socioeconómico)</td>
+</tr>
+<tr>
+<td>Uso previsto</td>
+<td>Población, momento de la atención y decisión que apoya</td>
+</tr>
+<tr>
+<td>Disponibilidad</td>
+<td>Código y modelo accesibles</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">Un modelo tiene un AUC de 0,97 en los datos de entrenamiento y de 0,71 en pacientes reservados. ¿Qué ocurre?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el rendimiento aparente es optimista.">Está sobreajustado; su rendimiento real es el de los pacientes reservados</button><button type="button" class="op" data-ok="0" data-fb="La diferencia es la señal típica del sobreajuste.">Los pacientes reservados están mal elegidos</button><button type="button" class="op" data-ok="0" data-fb="El que cuenta es el de los datos no usados en el ajuste.">Su rendimiento real es la media, 0,84</button><button type="button" class="op" data-ok="0" data-fb="Solo lo es con los pacientes que ya conoce.">Es un modelo excelente</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 290.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_290_Modelos_predictivos_e_IA_en_la_practica_clinica_desarrollo_validacion_y_comunicacion.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: desarrollar y validar un modelo" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: desarrollar y validar un modelo</h2><h3>3.1 Los datos: un hospital de desarrollo y uno externo</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Los datos: un hospital de desarrollo y uno externo</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Simulamos dos grupos de pacientes. El primero es un registro de 600 pacientes del hospital donde se desarrolla el modelo. Tiene 6 predictores reales y 10 variables sin relación con el evento. El segundo son 2.000 pacientes de otro hospital. Su población es mayor y más hipertensa. Además, tiene más riesgo por factores que el modelo no incluye (por ejemplo, más dislipemia familiar o peor acceso a la atención primaria).</p><pre class="code"><code class="language-python">import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split, cross_val_score
+from sklearn.metrics import roc_auc_score, brier_score_loss
+from sklearn.calibration import calibration_curve
+
+rng = np.random.default_rng(seed=290)
+PREDICTORES = [&quot;edad&quot;, &quot;mujer&quot;, &quot;fumador&quot;, &quot;diabetes&quot;, &quot;pas&quot;, &quot;hdl&quot;] + [f&quot;ruido_{i}&quot; for i in range(10)]
+
+def generar(n, edad_media=60, pas_extra=0, riesgo_no_medido=0.0):
+    d = pd.DataFrame({
+        &quot;edad&quot;: rng.normal(edad_media, 10, n).clip(40, 90),
+        &quot;mujer&quot;: rng.random(n) &lt; 0.5,
+        &quot;fumador&quot;: rng.random(n) &lt; 0.25,
+        &quot;diabetes&quot;: rng.random(n) &lt; 0.18,
+    })
+    d[&quot;pas&quot;] = 105 + 0.5 * d[&quot;edad&quot;] + pas_extra + rng.normal(0, 14, n)
+    d[&quot;hdl&quot;] = 48 + 9 * d[&quot;mujer&quot;] + rng.normal(0, 11, n)
+    for i in range(10):
+        d[f&quot;ruido_{i}&quot;] = rng.normal(0, 1, n)
+    logit = (-7.5 + riesgo_no_medido + 0.075 * d[&quot;edad&quot;] - 0.5 * d[&quot;mujer&quot;] + 0.6 * d[&quot;fumador&quot;] + 0.7 * d[&quot;diabetes&quot;]
+             + 0.02 * (d[&quot;pas&quot;] - 120) - 0.02 * (d[&quot;hdl&quot;] - 50))
+    d[&quot;evento&quot;] = (rng.random(n) &lt; 1 / (1 + np.exp(-logit))).astype(int)
+    return d.astype(float)
+
+desarrollo = generar(600)
+externo = generar(2000, edad_media=68, pas_extra=8, riesgo_no_medido=0.5)
+print(f&quot;Desarrollo: {len(desarrollo)} pacientes, {desarrollo[&#x27;evento&#x27;].mean():.1%} con evento&quot;)
+print(f&quot;Externo:    {len(externo)} pacientes, {externo[&#x27;evento&#x27;].mean():.1%} con evento&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: desarrollar y validar un modelo" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: desarrollar y validar un modelo</h2><h3>3.2 La exactitud engaña</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 La exactitud engaña</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">y = desarrollo[&quot;evento&quot;]
+print(f&quot;«Modelo» que siempre dice «sin evento»: exactitud {(y == 0).mean():.1%}, AUC 0,50&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: desarrollar y validar un modelo" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: desarrollar y validar un modelo</h2><h3>3.3 Rendimiento aparente frente a validación interna</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 Rendimiento aparente frente a validación interna</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">entreno, prueba = train_test_split(desarrollo, test_size=0.3, random_state=290, stratify=desarrollo[&quot;evento&quot;])
+
+modelos = {
+    &quot;Regresión logística&quot;: LogisticRegression(max_iter=1000),
+    &quot;Bosque aleatorio&quot;: RandomForestClassifier(n_estimators=300, min_samples_leaf=1, random_state=290),
+}
+for nombre, modelo in modelos.items():
+    modelo.fit(entreno[PREDICTORES], entreno[&quot;evento&quot;])
+    auc_aparente = roc_auc_score(entreno[&quot;evento&quot;], modelo.predict_proba(entreno[PREDICTORES])[:, 1])
+    auc_prueba = roc_auc_score(prueba[&quot;evento&quot;], modelo.predict_proba(prueba[PREDICTORES])[:, 1])
+    print(f&quot;{nombre:&gt;20}: AUC aparente {auc_aparente:.3f} · AUC en pacientes reservados {auc_prueba:.3f}&quot;)</code></pre><p>El bosque aleatorio, un algoritmo de aprendizaje automático muy flexible, <strong>memoriza</strong> a los pacientes de entrenamiento: su AUC aparente es casi perfecto. En pacientes nuevos rinde como la regresión logística, o peor. Con datos tabulares y pocas variables clínicas, los algoritmos complejos rara vez superan a una regresión logística bien especificada (Christodoulou <em>et al.</em>, 2019). Por eso el AUC del folleto, sin decir con qué pacientes se midió, no vale nada.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: desarrollar y validar un modelo" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: desarrollar y validar un modelo</h2><h3>3.4 Validación cruzada</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Validación cruzada</b>. Antes de ejecutar, escribe qué esperas obtener.</p><figure><img src="../figuras/tema_290_esquema.png" alt="Cinco rondas: en cada una se evalúa una partición distinta y se ajusta con las otras cuatro; se obtienen 5 AUC." loading="lazy"></figure><pre class="code"><code class="language-python">logistica = LogisticRegression(max_iter=1000)
+auc_cv = cross_val_score(logistica, desarrollo[PREDICTORES], desarrollo[&quot;evento&quot;], cv=5, scoring=&quot;roc_auc&quot;)
+print(&quot;AUC en cada una de las 5 particiones:&quot;, auc_cv.round(3))
+print(f&quot;AUC medio por validación cruzada: {auc_cv.mean():.3f}&quot;)</code></pre><p>La validación cruzada divide los datos en 5 partes, entrena con 4 y evalúa con la quinta, rotando. Aprovecha todos los datos y muestra cuánto varía el rendimiento de una partición a otra. Con 600 pacientes y unos 60 eventos, el AUC va de menos de 0,60 a más de 0,80 según la partición. La estimación es imprecisa.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: desarrollar y validar un modelo" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: desarrollar y validar un modelo</h2><h3>3.5 Validación externa: discriminación y calibración</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 Validación externa: discriminación y calibración</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">final = modelos[&quot;Regresión logística&quot;]  # el modelo desarrollado con los datos de entrenamiento
+
+for nombre, datos in [(&quot;Desarrollo (reservados)&quot;, prueba), (&quot;Hospital externo&quot;, externo)]:
+    p = final.predict_proba(datos[PREDICTORES])[:, 1]
+    print(f&quot;{nombre:&gt;24}: AUC {roc_auc_score(datos[&#x27;evento&#x27;], p):.3f} · Brier {brier_score_loss(datos[&#x27;evento&#x27;], p):.3f} · &quot;
+          f&quot;eventos esperados {p.sum():.0f} · observados {datos[&#x27;evento&#x27;].sum():.0f} (O/E = {datos[&#x27;evento&#x27;].sum() / p.sum():.2f})&quot;)</code></pre><pre class="code"><code class="language-python">p_ext = final.predict_proba(externo[PREDICTORES])[:, 1]
+observado, predicho = calibration_curve(externo[&quot;evento&quot;], p_ext, n_bins=8, strategy=&quot;quantile&quot;)
+
+plt.figure(figsize=(5.5, 5.5))
+plt.plot([0, 0.6], [0, 0.6], color=&quot;gray&quot;, linestyle=&quot;--&quot;, label=&quot;Calibración perfecta&quot;)
+plt.plot(predicho, observado, marker=&quot;o&quot;, label=&quot;Modelo en el hospital externo&quot;)
+plt.xlabel(&quot;Probabilidad predicha&quot;)
+plt.ylabel(&quot;Proporción observada de eventos&quot;)
+plt.title(&quot;Gráfico de calibración&quot;)
+plt.legend()
+plt.show()</code></pre><p>En el hospital externo:</p>
+<ul>
+<li>La <strong>discriminación</strong> se mantiene parecida (AUC alrededor de 0,70): el modelo sigue ordenando a los pacientes por su riesgo.</li>
+<li>La <strong>calibración</strong> empeora: ocurren unos 480 eventos donde el modelo esperaba unos 420 (O/E = 1,15). En los riesgos altos, los puntos del gráfico quedan por encima de la diagonal. El modelo <strong>infraestima</strong> el riesgo de esta población, porque no incluye factores que aquí son más frecuentes. Usado sin ajustar, dejaría sin tratar a pacientes de alto riesgo.</li>
+</ul>
+<p>La solución habitual es <strong>recalibrar</strong> el modelo con datos locales antes de usarlo. Es lo que se hizo con SCORE2, que tiene versiones distintas para regiones europeas de riesgo bajo, moderado, alto y muy alto.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: desarrollar y validar un modelo" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: desarrollar y validar un modelo</h2><h3>3.6 Equidad: rendimiento por subgrupos</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 Equidad: rendimiento por subgrupos</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">externo[&quot;p&quot;] = p_ext
+for nombre, grupo in [(&quot;Hombres&quot;, externo[externo[&quot;mujer&quot;] == 0]), (&quot;Mujeres&quot;, externo[externo[&quot;mujer&quot;] == 1])]:
+    print(f&quot;{nombre}: n = {len(grupo)} · eventos {grupo[&#x27;evento&#x27;].sum():.0f} · AUC {roc_auc_score(grupo[&#x27;evento&#x27;], grupo[&#x27;p&#x27;]):.3f} · &quot;
+          f&quot;O/E {grupo[&#x27;evento&#x27;].sum() / grupo[&#x27;p&#x27;].sum():.2f}&quot;)</code></pre><p>En conjunto, el error de calibración parecía moderado (O/E = 1,15). Pero por sexos es muy distinto. El modelo <strong>infraestima</strong> el riesgo de los hombres (O/E ≈ 1,5) y <strong>sobrestima</strong> el de las mujeres (O/E ≈ 0,85). Los errores se compensaban en el total. TRIPOD+AI pide dar el rendimiento por subgrupos. Un modelo puede funcionar bien en conjunto y mal en un grupo con poca representación en los datos de desarrollo. Así puede reproducir o ampliar desigualdades en la atención.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: comunicar el riesgo al paciente</h3><pre class="code"><code class="language-python">paciente = pd.DataFrame([{**{v: 0.0 for v in PREDICTORES}, &quot;edad&quot;: 66, &quot;mujer&quot;: 0, &quot;fumador&quot;: 1, &quot;diabetes&quot;: 0,
+                          &quot;pas&quot;: 150, &quot;hdl&quot;: 42}])
+riesgo = final.predict_proba(paciente[PREDICTORES])[0, 1]
+print(f&quot;Riesgo estimado a 5 años: {riesgo:.0%}&quot;)
+print(f&quot;De cada 100 personas como usted, unas {riesgo * 100:.0f} tendrán un evento cardiovascular en 5 años &quot;
+      f&quot;y unas {100 - riesgo * 100:.0f} no.&quot;)</code></pre><p>Las <strong>frecuencias naturales</strong> («de cada 100 personas como usted…») se entienden mejor que los porcentajes y mucho mejor que las odds (Tema 150).</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Dar el rendimiento aparente</strong> como si fuera el rendimiento real.</p>
+<p><strong>Usar los datos de validación para elegir el modelo</strong> y después presentarlos como prueba independiente.</p>
+<p><strong>Evaluar solo la discriminación</strong>, sin la calibración.</p>
+<p><strong>Usar la exactitud</strong> con eventos poco frecuentes.</p>
+<p><strong>Aplicar un modelo en otra población sin validarlo ni recalibrarlo.</strong></p>
+<p><strong>Interpretar las variables de un modelo predictivo como causas.</strong></p>
+<p><strong>Creer que un algoritmo de IA es mejor por ser más complejo.</strong></p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 290 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> clasificar diez afirmaciones de folletos y resúmenes de modelos de IA como discriminación, calibración, rendimiento aparente o validado.</li>
+<li><strong>Misión clínica (con pistas):</strong> desarrollar un modelo con la cohorte cardiovascular y validarlo con una partición reservada. Presentar su AUC y su gráfico de calibración.</li>
+<li><strong>Misión reto (con asistente):</strong> evaluar con la lista TRIPOD+AI el resumen de un artículo sobre un modelo de IA. Redactar las cinco preguntas que harías a la empresa del caso.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q20-0"><p class="qq">Un modelo tiene un AUC de 0,97 en los datos de entrenamiento y de 0,71 en pacientes reservados. ¿Qué ocurre?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el rendimiento aparente es optimista.">Está sobreajustado; su rendimiento real es el de los pacientes reservados</button><button type="button" class="op" data-ok="0" data-fb="La diferencia es la señal típica del sobreajuste.">Los pacientes reservados están mal elegidos</button><button type="button" class="op" data-ok="0" data-fb="El que cuenta es el de los datos no usados en el ajuste.">Su rendimiento real es la media, 0,84</button><button type="button" class="op" data-ok="0" data-fb="Solo lo es con los pacientes que ya conoce.">Es un modelo excelente</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-1"><p class="qq">Un modelo discrimina bien en otro hospital (AUC 0,80) pero predice 50 eventos donde ocurren 100. ¿Qué le pasa?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: O/E = 2; conviene recalibrarlo.">Está mal calibrado: infraestima el riesgo en esa población</button><button type="button" class="op" data-ok="0" data-fb="Un AUC de 0,80 es una discriminación aceptable.">Discrimina mal</button><button type="button" class="op" data-ok="0" data-fb="La calibración es deficiente.">Está perfectamente validado</button><button type="button" class="op" data-ok="0" data-fb="Predice menos eventos de los que ocurren.">Sobrestima el riesgo</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-2"><p class="qq">El evento ocurre en el 5 % de los pacientes y un modelo tiene una exactitud del 95 %. ¿Qué concluyes?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: con eventos raros la exactitud no sirve; hacen falta AUC y calibración.">Nada: decir siempre «sin evento» da también un 95 % de exactitud</button><button type="button" class="op" data-ok="0" data-fb="La exactitud no informa con eventos raros.">Que es un modelo excelente</button><button type="button" class="op" data-ok="0" data-fb="Exactitud y AUC son medidas distintas.">Que su AUC es 0,95</button><button type="button" class="op" data-ok="0" data-fb="La exactitud no mide la calibración.">Que está bien calibrado</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-3"><p class="qq">¿Qué aporta la validación externa que no aporta la interna?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: evalúa la transportabilidad.">Comprobar si el modelo funciona en otra población, otro centro u otra época</button><button type="button" class="op" data-ok="0" data-fb="Los datos externos no se usan para entrenar.">Más pacientes para entrenar</button><button type="button" class="op" data-ok="0" data-fb="Suele ser menor.">Un AUC siempre mayor</button><button type="button" class="op" data-ok="0" data-fb="Precisamente detecta la necesidad de recalibrar.">Elimina la necesidad de calibrar</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-4"><p class="qq">Según TRIPOD+AI, ¿qué debe comunicarse sobre el rendimiento de un modelo?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto.">Discriminación y calibración con IC, en validación, y por subgrupos relevantes</button><button type="button" class="op" data-ok="0" data-fb="El rendimiento aparente es optimista.">Solo el AUC aparente</button><button type="button" class="op" data-ok="0" data-fb="Es una medida insuficiente.">Solo la exactitud global</button><button type="button" class="op" data-ok="0" data-fb="En un modelo predictivo importa el rendimiento.">Solo los coeficientes del modelo</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>Un modelo predictivo se juzga por cómo predice en pacientes que no ha visto.</li>
+<li>El rendimiento aparente es optimista; los datos de validación se reservan hasta el final.</li>
+<li>Hay que evaluar la discriminación (AUC) y la calibración; la exactitud engaña con eventos poco frecuentes.</li>
+<li>Al cambiar de población, la calibración suele empeorar: valida externamente y recalibra.</li>
+<li>TRIPOD+AI es la guía para comunicar y valorar modelos predictivos, también los de IA.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modelo predictivo</td>
+<td>Modelo cuyo objetivo es estimar la probabilidad de un resultado en pacientes individuales</td>
+</tr>
+<tr>
+<td>Rendimiento aparente</td>
+<td>Rendimiento medido con los mismos datos con los que se ajustó el modelo</td>
+</tr>
+<tr>
+<td>Validación interna</td>
+<td>Evaluación con datos de la misma población no usados en el ajuste</td>
+</tr>
+<tr>
+<td>Validación cruzada</td>
+<td>Validación interna que rota las particiones de entrenamiento y evaluación</td>
+</tr>
+<tr>
+<td>Validación externa</td>
+<td>Evaluación en una población distinta de la de desarrollo</td>
+</tr>
+<tr>
+<td>Discriminación</td>
+<td>Capacidad de asignar más riesgo a quienes presentan el evento</td>
+</tr>
+<tr>
+<td>Calibración</td>
+<td>Concordancia entre las probabilidades predichas y las frecuencias observadas</td>
+</tr>
+<tr>
+<td>Puntuación de Brier</td>
+<td>Media del cuadrado de la diferencia entre probabilidad predicha y resultado</td>
+</tr>
+<tr>
+<td>Recalibración</td>
+<td>Ajuste de un modelo existente a una nueva población</td>
+</tr>
+<tr>
+<td>Bosque aleatorio</td>
+<td>Algoritmo de aprendizaje automático que combina muchos árboles de decisión</td>
+</tr>
+<tr>
+<td>TRIPOD+AI</td>
+<td>Guía para comunicar estudios de modelos predictivos, incluidos los de IA</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li>Collins GS, <em>et al.</em> TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. <em>BMJ</em>. 2024;385:e078378. doi:<a href="https://doi.org/10.1136/bmj-2023-078378" target="_blank" rel="noopener">10.1136/bmj-2023-078378</a></li>
+<li>Van Calster B, <em>et al.</em> Calibration: the Achilles heel of predictive analytics. <em>BMC Med</em>. 2019;17(1):230. doi:<a href="https://doi.org/10.1186/s12916-019-1466-7" target="_blank" rel="noopener">10.1186/s12916-019-1466-7</a></li>
+<li>Christodoulou E, <em>et al.</em> A systematic review shows no performance benefit of machine learning over logistic regression for clinical prediction models. <em>J Clin Epidemiol</em>. 2019;110:12-22. doi:<a href="https://doi.org/10.1016/j.jclinepi.2019.02.004" target="_blank" rel="noopener">10.1016/j.jclinepi.2019.02.004</a></li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_290_Modelos_predictivos_e_IA_en_la_practica_clinica_desarrollo_validacion_y_comunicacion.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 290 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-290" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_280.html">← Tema 280</a><a class="btn ghost" href="tema_300.html">→ Tema 300</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

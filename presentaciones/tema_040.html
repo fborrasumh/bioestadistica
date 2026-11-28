@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 40. Estructuras iterativas para el procesamiento de series de pacientes · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 40. Estructuras iterativas para el procesamiento de series de pacientes</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 40</span>Estructuras iterativas para el procesamiento de series de pacientes</h1>
+<p class="mod">Módulo 1. Descubriendo Python</p>
+
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_040_Estructuras_iterativas_series_de_pacientes.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-40" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Recorrer una serie de mediciones o una cohorte de pacientes con un bucle <code>for</code>.</li>
+<li>Usar acumuladores y contadores para calcular totales, medias y proporciones.</li>
+<li>Combinar bucles y condiciones para detectar valores de alarma.</li>
+<li>Recorrer varias listas a la vez con <code>zip()</code> y numerar los elementos con <code>enumerate()</code>.</li>
+<li>Repetir un cálculo mientras se cumpla una condición con un bucle <code>while</code>.</li>
+<li>Calcular la prevalencia de una condición en una cohorte sintética.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: bucles con datos clínicos <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">Ocho pacientes, 40 glucemias: ¿quién ha tenido hipoglucemia?</p><ul class='puntos'><li>Revisar a mano cada valor es lento y propenso a errores, y mañana habrá que repetirlo.</li><li>La instrucción es siempre la misma: <b>para cada</b> paciente y <b>para cada</b> glucemia, comprueba si es < 70.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>La supervisora de una planta de Endocrinología pide un informe al final del turno. Hay 8 pacientes con diabetes ingresados. ¿Cuántos han tenido alguna <strong>hipoglucemia</strong> (glucemia &lt; 70 mg/dL) en las últimas 24 horas? ¿Cuál ha sido la glucemia media de cada uno?</p>
+<p>Cada paciente tiene entre 4 y 6 glucemias capilares. Revisarlas una a una es lento y propenso a errores, y mañana habrá que repetirlo. Lo que se necesita es una instrucción que diga: <strong>para cada paciente</strong>, y <strong>para cada glucemia</strong> de ese paciente, comprueba si es menor de 70.</p>
+<p>Un <strong>bucle</strong> repite la misma operación sobre todos los elementos de una serie. Es la base de cualquier análisis de datos.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 El bucle for</h3><p class="lema">El bucle for recorre la serie elemento a elemento</p><figure><img src="../figuras/tema_040_for.png" alt="El bucle for recorre la serie elemento a elemento" loading="lazy"></figure><ul class='puntos'><li>En cada vuelta, la variable toma el siguiente valor de la lista.</li><li>El cuerpo del bucle (sangrado) se repite tantas veces como elementos haya.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><pre><code class="language-python">for elemento in serie:
+    acciones con elemento
+</code></pre>
+<ul>
+<li><code>serie</code> puede ser una lista, una cadena, un <code>range()</code> o cualquier colección.</li>
+<li>En cada vuelta (<strong>iteración</strong>), <code>elemento</code> toma el siguiente valor de la serie.</li>
+<li>Las acciones van sangradas, como en un <code>if</code>.</li>
+</ul></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Acumuladores y contadores</h3><figure><img src="../figuras/tema_040_esquema.png" alt="Acumulador y contador con las glucemias 110, 65 y 140: total llega a 315, n_hipo a 1 y la media es 105." loading="lazy"></figure><p>Para resumir una serie se usa una variable que se inicializa <strong>antes</strong> del bucle y se actualiza <strong>dentro</strong> de él:</p>
+<table>
+<thead>
+<tr>
+<th>Patrón</th>
+<th>Inicialización</th>
+<th>Dentro del bucle</th>
+<th>Ejemplo clínico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Acumulador</td>
+<td><code>total = 0</code></td>
+<td><code>total = total + valor</code></td>
+<td>Suma de glucemias para la media</td>
+</tr>
+<tr>
+<td>Contador</td>
+<td><code>n = 0</code></td>
+<td><code>n = n + 1</code> si se cumple una condición</td>
+<td>Número de hipoglucemias</td>
+</tr>
+<tr>
+<td>Lista de resultados</td>
+<td><code>resultados = []</code></td>
+<td><code>resultados.append(...)</code></td>
+<td>IMC de cada paciente</td>
+</tr>
+</tbody>
+</table>
+<p><code>total = total + valor</code> puede abreviarse como <code>total += valor</code>.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 El bucle while</h3><p class="lema">while: repetir mientras se cumpla una condición</p><ul class='puntos'><li>Se usa cuando no se sabe de antemano cuántas vueltas hacen falta.</li><li>Cuidado: si la condición nunca deja de cumplirse, el bucle no termina.</li></ul><figure><img src="../figuras/tema_040_e2_3.png" alt="Diagrama de flujo de un while que divide la concentración entre 2 mientras sea al menos 10 mg/L: 100, 50, 25, 12,5 y 6,25; 4 vidas medias." loading="lazy"></figure></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><pre><code class="language-python">while condición:
+    acciones
+</code></pre>
+<p>Repite las acciones <strong>mientras</strong> la condición sea verdadera. Se usa cuando no se sabe de antemano cuántas repeticiones hacen falta. Por ejemplo, cuántas vidas medias tarda un fármaco en bajar de un nivel. Dentro del bucle algo tiene que cambiar para que la condición acabe siendo falsa; si no, el bucle no termina nunca.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.4 Prevalencia</h3><p class="lema">Prevalencia = casos / total</p><figure><img src="../figuras/tema_040_prevalencia.png" alt="Prevalencia = casos / total" loading="lazy"></figure><ul class='puntos'><li>Con un contador dentro de un bucle se calcula la primera medida de frecuencia.</li><li>Es una proporción: entre 0 y 1, o entre 0 % y 100 %, y siempre en un momento dado.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>La <strong>prevalencia</strong> es la proporción de individuos de una población que presentan una condición en un momento dado:</p>
+<p>$$\text{Prevalencia} = \frac{\text{número de casos}}{\text{número total de individuos}}$$</p>
+<p>Es el primer indicador que calcularemos con un bucle: un contador de casos dividido entre el total.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">¿Cuántas veces se ejecuta print en: for h in range(0, 24, 6): print(h)?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: range(0, 24, 6) genera 0, 6, 12 y 18; el 24 no se incluye.">4</button><button type="button" class="op" data-ok="0" data-fb="El final de range no se incluye: 24 no aparece.">5</button><button type="button" class="op" data-ok="0" data-fb="El paso es 6, no 1.">24</button><button type="button" class="op" data-ok="0" data-fb="Revisa qué números genera range con paso 6.">6</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 40.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_040_Estructuras_iterativas_series_de_pacientes.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: bucles con datos clínicos" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: bucles con datos clínicos</h2><h3>3.1 Recorrer una serie de mediciones</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Recorrer una serie de mediciones</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">glucemias_mg_dl = [182, 165, 64, 148, 139, 92]
+
+for glucemia in glucemias_mg_dl:
+    print(glucemia, &quot;mg/dL&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: bucles con datos clínicos" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: bucles con datos clínicos</h2><h3>3.2 Acumulador: la media</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 Acumulador: la media</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">total = 0
+for glucemia in glucemias_mg_dl:
+    total += glucemia
+
+media = total / len(glucemias_mg_dl)
+print(f&quot;Glucemia media: {media:.1f} mg/dL&quot;)</code></pre><p>Python tiene la función <code>sum()</code>, que hace lo mismo en una línea. Escribir el bucle sirve para entender qué hace <code>sum()</code> por dentro y para cuando el cálculo es más complejo que una suma.</p><pre class="code"><code class="language-python">print(sum(glucemias_mg_dl) / len(glucemias_mg_dl))</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: bucles con datos clínicos" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: bucles con datos clínicos</h2><h3>3.3 Bucle con condición: detectar hipoglucemias</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 Bucle con condición: detectar hipoglucemias</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">hipoglucemias = 0
+for glucemia in glucemias_mg_dl:
+    if glucemia &lt; 70:
+        hipoglucemias += 1
+        print(f&quot;Hipoglucemia detectada: {glucemia} mg/dL&quot;)
+
+print(&quot;Total de hipoglucemias:&quot;, hipoglucemias)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: bucles con datos clínicos" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: bucles con datos clínicos</h2><h3>3.4 Numerar con enumerate() y emparejar con zip()</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Numerar con enumerate() y emparejar con zip()</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p><code>enumerate()</code> da a la vez la posición y el valor. Aquí se suma 1 a la posición para numerar las tomas desde 1, como se haría en la gráfica de enfermería.</p><pre class="code"><code class="language-python">for posicion, glucemia in enumerate(glucemias_mg_dl):
+    print(f&quot;Toma {posicion + 1}: {glucemia} mg/dL&quot;)</code></pre><p><code>zip()</code> recorre varias listas a la vez, emparejando sus elementos. Útil cuando sistólica y diastólica se guardan en listas separadas.</p><pre class="code"><code class="language-python">horas = [&quot;08:00&quot;, &quot;14:00&quot;, &quot;20:00&quot;]
+pas_mmHg = [152, 138, 145]
+pad_mmHg = [94, 86, 91]
+
+for hora, pas, pad in zip(horas, pas_mmHg, pad_mmHg):
+    pam = pad + (pas - pad) / 3
+    print(f&quot;{hora}  PA {pas}/{pad} mmHg  PAM {pam:.0f} mmHg&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: bucles con datos clínicos" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: bucles con datos clínicos</h2><h3>3.5 Repetir un número de veces: range()</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 Repetir un número de veces: range()</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p><code>range(n)</code> genera los números de 0 a n − 1. <code>range(inicio, fin, paso)</code> permite elegir el inicio, el final (no incluido) y el salto.</p><pre class="code"><code class="language-python"># Horas de administración de un antibiótico cada 8 horas durante un día
+for hora in range(0, 24, 8):
+    print(f&quot;Dosis a las {hora:02d}:00&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: bucles con datos clínicos" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: bucles con datos clínicos</h2><h3>3.6 Recorrer una cohorte</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 Recorrer una cohorte</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>La cohorte del caso: cada paciente es un diccionario con su código y sus glucemias. Un bucle <strong>dentro de otro</strong> (bucles anidados) recorre primero los pacientes y, para cada uno, sus glucemias.</p><pre class="code"><code class="language-python">cohorte = [
+    {&quot;codigo&quot;: &quot;E-01&quot;, &quot;glucemias&quot;: [182, 165, 148, 139]},
+    {&quot;codigo&quot;: &quot;E-02&quot;, &quot;glucemias&quot;: [96, 64, 110, 128, 105]},
+    {&quot;codigo&quot;: &quot;E-03&quot;, &quot;glucemias&quot;: [210, 198, 176, 160, 155, 149]},
+    {&quot;codigo&quot;: &quot;E-04&quot;, &quot;glucemias&quot;: [88, 72, 69, 91]},
+    {&quot;codigo&quot;: &quot;E-05&quot;, &quot;glucemias&quot;: [140, 132, 151, 147]},
+    {&quot;codigo&quot;: &quot;E-06&quot;, &quot;glucemias&quot;: [120, 115, 98, 101, 110]},
+    {&quot;codigo&quot;: &quot;E-07&quot;, &quot;glucemias&quot;: [65, 58, 92, 140]},
+    {&quot;codigo&quot;: &quot;E-08&quot;, &quot;glucemias&quot;: [170, 162, 158, 149, 152]},
+]
+
+pacientes_con_hipoglucemia = 0
+
+for paciente in cohorte:
+    glucemias = paciente[&quot;glucemias&quot;]
+    media = sum(glucemias) / len(glucemias)
+
+    tuvo_hipoglucemia = False
+    for glucemia in glucemias:
+        if glucemia &lt; 70:
+            tuvo_hipoglucemia = True
+
+    if tuvo_hipoglucemia:
+        pacientes_con_hipoglucemia += 1
+
+    marca = &quot;  ← hipoglucemia&quot; if tuvo_hipoglucemia else &quot;&quot;
+    print(f&quot;{paciente[&#x27;codigo&#x27;]}: media {media:.0f} mg/dL{marca}&quot;)
+
+proporcion = pacientes_con_hipoglucemia / len(cohorte)
+print(f&quot;\nPacientes con alguna hipoglucemia: {pacientes_con_hipoglucemia} de {len(cohorte)} ({proporcion:.0%})&quot;)</code></pre><p>El formato <code>{proporcion:.0%}</code> multiplica por 100 y añade el signo de porcentaje.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: bucles con datos clínicos" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: bucles con datos clínicos</h2><h3>3.7 El bucle while: eliminación de un fármaco</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.7 El bucle while: eliminación de un fármaco</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Un fármaco con una <strong>vida media</strong> de 6 horas reduce su concentración plasmática a la mitad cada 6 horas. Si la concentración inicial es 40 mg/L, ¿cuántas horas tardará en bajar a 5 mg/L o menos? No sabemos de antemano cuántas vueltas hará falta dar: es un caso típico de <code>while</code>.</p><pre class="code"><code class="language-python">concentracion_mg_l = 40
+vida_media_h = 6
+umbral_mg_l = 5
+horas = 0
+
+while concentracion_mg_l &gt; umbral_mg_l:
+    concentracion_mg_l = concentracion_mg_l / 2
+    horas += vida_media_h
+    print(f&quot;A las {horas} h: {concentracion_mg_l:.1f} mg/L&quot;)
+
+print(f&quot;Tarda {horas} horas ({horas // vida_media_h} vidas medias) en llegar a {umbral_mg_l} mg/L&quot;)</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: break y continue</h3><p><code>break</code> sale del bucle en cuanto se cumple algo; <code>continue</code> salta a la siguiente vuelta. Útil para detenerse en la <strong>primera</strong> alarma o para ignorar datos ausentes.</p><pre class="code"><code class="language-python">saturaciones = [97, 96, None, 94, 89, 95]
+
+for toma, sat in enumerate(saturaciones, start=1):
+    if sat is None:
+        print(f&quot;Toma {toma}: sin dato, se omite&quot;)
+        continue
+    if sat &lt; 90:
+        print(f&quot;Toma {toma}: saturación {sat} %. Avisar al médico de guardia.&quot;)
+        break
+    print(f&quot;Toma {toma}: {sat} %&quot;)</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: listas por comprensión</h3><p>Una <strong>lista por comprensión</strong> construye una lista nueva en una sola línea a partir de otra. Es una forma compacta de escribir un bucle con <code>append()</code>.</p><pre class="code"><code class="language-python">glucemias_mg_dl = [182, 165, 64, 148, 139, 92]
+
+glucemias_mmol_l = [round(g / 18, 1) for g in glucemias_mg_dl]
+hipoglucemias = [g for g in glucemias_mg_dl if g &lt; 70]
+
+print(glucemias_mmol_l)
+print(hipoglucemias)</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Inicializar el acumulador dentro del bucle.</strong> Si <code>total = 0</code> se escribe dentro del <code>for</code>, se pone a cero en cada vuelta y al final solo contiene el último valor.</p>
+<p><strong>Olvidar la sangría.</strong> Lo que no está sangrado no forma parte del bucle y se ejecuta una sola vez al final.</p>
+<p><strong>Bucles while infinitos.</strong> Si dentro del bucle no cambia nada que afecte a la condición, el bucle no termina. En Colab se detiene con el botón ■ de la celda.</p>
+<p><strong>Modificar la lista que se recorre.</strong> Añadir o quitar elementos de una lista mientras se recorre con <code>for</code> produce resultados imprevisibles; es mejor construir una lista nueva.</p>
+<p><strong>Dividir entre cero.</strong> Al calcular una media o una proporción, comprueba que la serie no está vacía: <code>len(lista) == 0</code> produce <code>ZeroDivisionError</code>.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 40 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> predecir cuántas veces se ejecuta un bucle y qué valor final tiene un acumulador.</li>
+<li><strong>Misión clínica (con pistas):</strong> calcular la prevalencia de hipertensión en una cohorte sintética y el IMC de cada paciente.</li>
+<li><strong>Misión reto (con asistente):</strong> programar con <code>while</code> cuántas dosis de mantenimiento hacen falta para llegar al estado estacionario de un fármaco. Verificar el código que proponga el asistente.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente y sin ejecutar código.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q22-0"><p class="qq">¿Cuántas veces se ejecuta print en: for h in range(0, 24, 6): print(h)?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: range(0, 24, 6) genera 0, 6, 12 y 18; el 24 no se incluye.">4</button><button type="button" class="op" data-ok="0" data-fb="El final de range no se incluye: 24 no aparece.">5</button><button type="button" class="op" data-ok="0" data-fb="El paso es 6, no 1.">24</button><button type="button" class="op" data-ok="0" data-fb="Revisa qué números genera range con paso 6.">6</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-1"><p class="qq">Se quiere contar las glucemias menores de 70 mg/dL. ¿Dónde debe ir contador = 0?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: si se pone dentro, el contador vuelve a cero en cada vuelta.">Antes del bucle</button><button type="button" class="op" data-ok="0" data-fb="Se reiniciaría en cada vuelta y solo contaría la última glucemia.">Dentro del bucle, antes del if</button><button type="button" class="op" data-ok="0" data-fb="Se pondría a cero cada vez que se detectara un caso.">Dentro del if</button><button type="button" class="op" data-ok="0" data-fb="El bucle intentaría usar una variable que todavía no existe.">Después del bucle</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-2"><p class="qq">En una cohorte de 250 pacientes, 45 tienen diabetes. ¿Cuál es la prevalencia de diabetes?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: 45 / 250 = 0,18.">18 %</button><button type="button" class="op" data-ok="0" data-fb="45 es el número de casos, no la proporción.">45 %</button><button type="button" class="op" data-ok="0" data-fb="Sale de dividir 250 entre 45: el orden de la división está invertido.">5,6 %</button><button type="button" class="op" data-ok="0" data-fb="Esa es la proporción de pacientes sin diabetes.">82 %</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-3"><p class="qq">¿Cuándo es preferible un bucle while a un bucle for?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: while repite mientras se cumpla una condición.">Cuando no se sabe de antemano cuántas repeticiones hacen falta</button><button type="button" class="op" data-ok="0" data-fb="Para recorrer una lista conocida es más claro un for.">Cuando se recorre una lista de pacientes</button><button type="button" class="op" data-ok="0" data-fb="No es más rápido; cada uno tiene su uso.">Siempre, porque es más rápido</button><button type="button" class="op" data-ok="0" data-fb="while es una estructura básica y útil.">Nunca: while está desaconsejado en Python</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-4"><p class="qq">Un fármaco tiene una vida media de 4 horas y una concentración inicial de 80 mg/L. ¿Qué concentración tiene a las 12 horas?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: 12 horas son 3 vidas medias: 80 → 40 → 20 → 10.">10 mg/L</button><button type="button" class="op" data-ok="0" data-fb="Eso son solo 2 vidas medias (8 horas).">20 mg/L</button><button type="button" class="op" data-ok="0" data-fb="La concentración no baja en proporción lineal: se reduce a la mitad en cada vida media.">26,7 mg/L</button><button type="button" class="op" data-ok="0" data-fb="La concentración se reduce a la mitad en cada vida media, pero nunca llega exactamente a cero.">0 mg/L</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>Un bucle <code>for</code> aplica la misma operación a cada elemento de una serie.</li>
+<li>Los acumuladores y contadores se inicializan antes del bucle y se actualizan dentro.</li>
+<li>Un bucle con un <code>if</code> dentro detecta valores de alarma y calcula proporciones como la prevalencia.</li>
+<li><code>while</code> repite mientras se cumpla una condición; dentro, algo debe cambiar para que termine.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bucle</td>
+<td>Estructura que repite un bloque de instrucciones</td>
+</tr>
+<tr>
+<td>Iteración</td>
+<td>Cada una de las vueltas de un bucle</td>
+</tr>
+<tr>
+<td>Acumulador</td>
+<td>Variable que va sumando valores en cada iteración</td>
+</tr>
+<tr>
+<td>Contador</td>
+<td>Variable que cuenta cuántas veces se cumple una condición</td>
+</tr>
+<tr>
+<td>Bucles anidados</td>
+<td>Un bucle dentro de otro</td>
+</tr>
+<tr>
+<td>Prevalencia</td>
+<td>Proporción de individuos con una condición en un momento dado</td>
+</tr>
+<tr>
+<td>Vida media</td>
+<td>Tiempo que tarda la concentración de un fármaco en reducirse a la mitad</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li><a href="https://docs.python.org/es/3/tutorial/controlflow.html#for-statements" target="_blank" rel="noopener">Tutorial de Python: la sentencia for y la función range()</a></li>
+<li><a href="https://docs.python.org/es/3/tutorial/datastructures.html#list-comprehensions" target="_blank" rel="noopener">Tutorial de Python: listas por comprensión</a></li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_040_Estructuras_iterativas_series_de_pacientes.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 40 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-40" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_030.html">← Tema 30</a><a class="btn ghost" href="tema_050.html">→ Tema 50</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

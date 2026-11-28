@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 240. Análisis de datos apareados y de concordancia: prueba de McNemar e índice kappa de Cohen · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 240. Análisis de datos apareados y de concordancia: prueba de McNemar e índice kappa de Cohen</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 240</span>Análisis de datos apareados y de concordancia: prueba de McNemar e índice kappa de Cohen</h1>
+<p class="mod">Módulo 5. Generalización de conclusiones</p>
+<p class="ev"><b>Evaluación:</b> el examen del Módulo 5 se hace <strong>con Colab</strong>. Practica ejecutando e interpretando cada análisis.</p>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_240_Datos_apareados_y_concordancia_McNemar_y_kappa_de_Cohen.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-240" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Reconocer cuándo dos proporciones proceden de datos <strong>apareados</strong> (los mismos pacientes, las mismas preguntas o pares emparejados).</li>
+<li>Aplicar e interpretar la <strong>prueba de McNemar</strong> para comparar dos proporciones apareadas.</li>
+<li>Distinguir <strong>asociación</strong>, <strong>acuerdo</strong> y <strong>concordancia más allá del azar</strong>.</li>
+<li>Calcular e interpretar el <strong>índice kappa de Cohen</strong> y su versión ponderada para escalas ordinales.</li>
+<li>Reconocer las limitaciones de kappa cuando la prevalencia es extrema.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: McNemar y kappa <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">Dos modelos de IA, los mismos 200 casos</p><figure><img src="../figuras/tema_240_caso.png" alt="Dos modelos de IA, los mismos 200 casos" loading="lazy"></figure><ul class='puntos'><li>Los casos en que aciertan (o fallan) los dos no dicen cuál es mejor.</li><li>McNemar solo compara los <b>pares discordantes</b>: 22 frente a 8.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>El servicio de Urgencias evalúa un asistente de IA que propone el nivel de triaje a partir del motivo de consulta y las constantes. Se plantean dos preguntas:</p>
+<ol>
+<li><strong>¿Es mejor el modelo nuevo que el anterior?</strong> Los dos se prueban con <strong>los mismos 200 casos</strong> clínicos, de los que se conoce el triaje correcto establecido por un panel de expertos. El nuevo acierta el 81 % y el anterior el 74 %.</li>
+<li><strong>¿Coincide el asistente con la enfermera de triaje?</strong> En 150 pacientes reales, los dos asignan un nivel de prioridad. Coinciden en el 78 % de los casos.</li>
+</ol>
+<p>La primera pregunta no se responde con la prueba <em>z</em> de dos proporciones independientes (Tema 220). <strong>Los casos son los mismos</strong>: hay que usar la prueba de McNemar. La segunda no es una comparación, sino una medida de <strong>concordancia</strong>. Un 78 % de coincidencia puede ser menos de lo que parece si gran parte se debe al azar. Para eso existe el índice kappa.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 Datos apareados</h3><figure><img src="../figuras/tema_240_e2_1.png" alt="Dos gráficos de puntos: grupos independientes frente a datos apareados, donde una línea une a cada paciente consigo mismo." loading="lazy"></figure><p>Los datos son apareados cuando cada observación de un grupo tiene una pareja natural en el otro:</p>
+<ul>
+<li>El mismo paciente <strong>antes y después</strong> de una intervención.</li>
+<li>Dos pruebas diagnósticas aplicadas a los <strong>mismos</strong> pacientes.</li>
+<li>Dos modelos de IA evaluados con las <strong>mismas</strong> preguntas.</li>
+<li>Casos y controles <strong>emparejados</strong> por edad y sexo.</li>
+</ul>
+<p>Analizarlos como independientes desperdicia información y da resultados incorrectos.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 La prueba de McNemar</h3><figure><img src="../figuras/tema_240_esquema.png" alt="Tabla de pares: a y d no informan; McNemar usa solo b y c." loading="lazy"></figure><p>Con dos resultados binarios apareados, la tabla se construye con los <strong>pares</strong>:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Modelo B acierta</th>
+<th>Modelo B falla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Modelo A acierta</strong></td>
+<td><em>a</em> (ambos aciertan)</td>
+<td><strong><em>b</em></strong> (solo A acierta)</td>
+</tr>
+<tr>
+<td><strong>Modelo A falla</strong></td>
+<td><strong><em>c</em></strong> (solo B acierta)</td>
+<td><em>d</em> (ambos fallan)</td>
+</tr>
+</tbody>
+</table>
+<p>Los pares concordantes (<em>a</em> y <em>d</em>) no dicen nada sobre cuál es mejor. La prueba solo usa los <strong>pares discordantes</strong> <em>b</em> y <em>c</em>. Si $H_0$ es cierta (las dos proporciones son iguales), <em>b</em> y <em>c</em> deberían ser parecidos:</p>
+<p>$$\chi^2_{McNemar} = \frac{(b - c)^2}{b + c}$$</p>
+<p>Con pocos pares discordantes (<em>b</em> + <em>c</em> &lt; 25), usa la versión <strong>exacta</strong>. Es una prueba binomial de <em>b</em> frente a <em>b</em> + <em>c</em> con <em>p</em> = 0,5.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Acuerdo y concordancia: el índice kappa</h3><p class="lema">Kappa: el acuerdo que no se debe al azar</p><figure><img src="../figuras/tema_240_kappa.png" alt="Kappa: el acuerdo que no se debe al azar" loading="lazy"></figure><ul class='puntos'><li>Kappa = (acuerdo observado − acuerdo esperado por azar) / (1 − acuerdo esperado).</li><li>En escalas ordinales (niveles de triaje), kappa ponderada.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Dos observadores pueden coincidir por azar. Si los dos clasifican al 90 % de los pacientes como «no urgente», coincidirán muy a menudo aunque elijan al azar. El <strong>índice kappa de Cohen</strong> corrige el acuerdo observado por el esperado por azar:</p>
+<p>$$\kappa = \frac{P_o - P_e}{1 - P_e}$$</p>
+<p>donde $P_o$ es la proporción de acuerdo observado y $P_e$ la esperada por azar, calculada con las frecuencias marginales de cada observador.</p>
+<table>
+<thead>
+<tr>
+<th>κ</th>
+<th>Grado de concordancia (Landis y Koch)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 0</td>
+<td>Peor que el azar</td>
+</tr>
+<tr>
+<td>0,00 a 0,20</td>
+<td>Insignificante</td>
+</tr>
+<tr>
+<td>0,21 a 0,40</td>
+<td>Discreta</td>
+</tr>
+<tr>
+<td>0,41 a 0,60</td>
+<td>Moderada</td>
+</tr>
+<tr>
+<td>0,61 a 0,80</td>
+<td>Sustancial</td>
+</tr>
+<tr>
+<td>0,81 a 1,00</td>
+<td>Casi perfecta</td>
+</tr>
+</tbody>
+</table>
+<p>Para escalas <strong>ordinales</strong>, como los cinco niveles de triaje, usa la <strong>kappa ponderada</strong>. Penaliza menos un desacuerdo de un nivel que uno de cuatro.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.4 Asociación no es concordancia</h3><p class="lema">Asociación perfecta, concordancia nula</p><figure><img src="../figuras/tema_240_asociacion.png" alt="Asociación perfecta, concordancia nula" loading="lazy"></figure><ul class='puntos'><li>Si un observador puntúa siempre un nivel más que otro, están perfectamente asociados y nunca coinciden.</li><li>La ji cuadrado mide asociación; kappa, concordancia.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Supón que la enfermera asigna siempre un nivel más grave que el asistente. Las dos clasificaciones estarán perfectamente <strong>asociadas</strong> (la ji cuadrado será muy significativa). Pero <strong>no coincidirán nunca</strong>. La ji cuadrado mide asociación; kappa mide concordancia.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">Dos pruebas de cribado se aplican a los mismos 300 pacientes. ¿Cómo comparas su sensibilidad?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: son proporciones apareadas.">Con la prueba de McNemar</button><button type="button" class="op" data-ok="0" data-fb="Los pacientes son los mismos.">Con la prueba z de dos proporciones independientes</button><button type="button" class="op" data-ok="0" data-fb="Kappa mide concordancia, no compara proporciones.">Con el índice kappa</button><button type="button" class="op" data-ok="0" data-fb="Fisher es para muestras independientes.">Con la prueba exacta de Fisher</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 240.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_240_Datos_apareados_y_concordancia_McNemar_y_kappa_de_Cohen.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: McNemar y kappa" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: McNemar y kappa</h2><h3>3.1 Dos modelos con los mismos 200 casos</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Dos modelos con los mismos 200 casos</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">import numpy as np
+import pandas as pd
+from scipy import stats
+
+rng = np.random.default_rng(seed=240)
+n = 200
+# Resultado de cada caso (True = acierto). Pares: 140 aciertan ambos, 22 solo el nuevo,
+# 8 solo el anterior y 30 fallan ambos
+nuevo = np.array([True] * 140 + [True] * 22 + [False] * 8 + [False] * 30)
+anterior = np.array([True] * 140 + [False] * 22 + [True] * 8 + [False] * 30)
+
+etiqueta = {True: &quot;Sí&quot;, False: &quot;No&quot;}
+tabla = pd.crosstab(pd.Series(nuevo, name=&quot;Nuevo acierta&quot;).map(etiqueta),
+                    pd.Series(anterior, name=&quot;Anterior acierta&quot;).map(etiqueta))
+tabla = tabla.loc[[&quot;Sí&quot;, &quot;No&quot;], [&quot;Sí&quot;, &quot;No&quot;]]
+print(tabla, &quot;\n&quot;)
+print(f&quot;Exactitud: nuevo {nuevo.mean():.1%} · anterior {anterior.mean():.1%}&quot;)</code></pre><pre class="code"><code class="language-python">from statsmodels.stats.contingency_tables import mcnemar
+
+b = tabla.loc[&quot;Sí&quot;, &quot;No&quot;]   # solo acierta el nuevo
+c_ = tabla.loc[&quot;No&quot;, &quot;Sí&quot;]  # solo acierta el anterior
+print(f&quot;Pares discordantes: solo el nuevo acierta {b} · solo el anterior acierta {c_}&quot;)
+
+exacta = mcnemar(tabla.to_numpy(), exact=True)
+asintotica = mcnemar(tabla.to_numpy(), exact=False, correction=True)
+print(f&quot;McNemar exacta: p = {exacta.pvalue:.4f}&quot;)
+print(f&quot;McNemar ji cuadrado (con corrección de continuidad): χ² = {asintotica.statistic:.2f}, p = {asintotica.pvalue:.4f}&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: McNemar y kappa" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: McNemar y kappa</h2><h3>3.2 El error de ignorar el apareamiento</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 El error de ignorar el apareamiento</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">from statsmodels.stats.proportion import proportions_ztest
+
+z, p_indep = proportions_ztest([nuevo.sum(), anterior.sum()], [n, n])
+print(f&quot;Prueba z como si fueran independientes: p = {p_indep:.4f}&quot;)
+print(f&quot;Prueba de McNemar (correcta):           p = {exacta.pvalue:.4f}&quot;)</code></pre><p>Si se tratan los datos como independientes, el valor p sale mucho mayor. La prueba <em>z</em> trata como «ruido» la variabilidad entre casos fáciles y difíciles. En el diseño apareado esa variabilidad se anula, porque <strong>cada caso se compara consigo mismo</strong>. El diseño apareado es más potente, siempre que se analice como tal.</p>
+<p><strong>Cómo se comunica:</strong> «El modelo nuevo acertó en el 81 % de los casos y el anterior en el 74 % (<em>n</em> = 200 casos comunes). De los 30 casos en que discreparon, el nuevo acertó en 22 y el anterior en 8 (McNemar exacta, <em>p</em> = 0,016)».</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: McNemar y kappa" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: McNemar y kappa</h2><h3>3.3 Acuerdo entre la enfermera y el asistente</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 Acuerdo entre la enfermera y el asistente</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Simulamos 150 pacientes con dos clasificaciones: «urgente» o «no urgente».</p><pre class="code"><code class="language-python">from sklearn.metrics import cohen_kappa_score
+
+urgente_real = rng.random(150) &lt; 0.25
+enfermera = np.where(rng.random(150) &lt; 0.88, urgente_real, ~urgente_real)
+asistente = np.where(rng.random(150) &lt; 0.86, urgente_real, ~urgente_real)
+
+tabla_acuerdo = pd.crosstab(pd.Series(enfermera, name=&quot;Enfermera: urgente&quot;),
+                            pd.Series(asistente, name=&quot;Asistente: urgente&quot;))
+print(tabla_acuerdo, &quot;\n&quot;)
+
+po = (enfermera == asistente).mean()
+pe = enfermera.mean() * asistente.mean() + (1 - enfermera.mean()) * (1 - asistente.mean())
+kappa_manual = (po - pe) / (1 - pe)
+
+print(f&quot;Acuerdo observado Po = {po:.3f}&quot;)
+print(f&quot;Acuerdo esperado por azar Pe = {pe:.3f}&quot;)
+print(f&quot;Kappa a mano = {kappa_manual:.3f} · con scikit-learn = {cohen_kappa_score(enfermera, asistente):.3f}&quot;)</code></pre><p>Con las prevalencias de cada clasificador, el azar explicaría por sí solo un 59 % de coincidencias. El 78 % de acuerdo se convierte en κ = 0,47: concordancia solo <strong>moderada</strong>. En 33 de 150 pacientes, el asistente y la enfermera discrepan sobre si el caso es urgente.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: McNemar y kappa" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: McNemar y kappa</h2><h3>3.4 Kappa con su intervalo de confianza</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Kappa con su intervalo de confianza</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">from statsmodels.stats.inter_rater import cohens_kappa
+
+resultado = cohens_kappa(tabla_acuerdo.to_numpy())
+print(f&quot;κ = {resultado.kappa:.3f} (IC 95 %: {resultado.kappa_low:.3f} a {resultado.kappa_upp:.3f})&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: McNemar y kappa" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: McNemar y kappa</h2><h3>3.5 Kappa ponderada: los cinco niveles de triaje</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 Kappa ponderada: los cinco niveles de triaje</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>El Sistema Español de Triaje y el Manchester usan cinco niveles (1 = resucitación, 5 = no urgente). Un desacuerdo entre los niveles 2 y 3 es menos grave que uno entre 1 y 5.</p><pre class="code"><code class="language-python">nivel_real = rng.choice([1, 2, 3, 4, 5], size=150, p=[0.03, 0.12, 0.35, 0.35, 0.15])
+
+def clasificar(nivel, error):
+    salto = rng.choice([-1, 0, 1], size=len(nivel), p=[error / 2, 1 - error, error / 2])
+    return np.clip(nivel + salto, 1, 5)
+
+enfermera_n = clasificar(nivel_real, 0.30)
+asistente_n = clasificar(nivel_real, 0.35)
+
+print(pd.crosstab(pd.Series(enfermera_n, name=&quot;Enfermera&quot;), pd.Series(asistente_n, name=&quot;Asistente&quot;)), &quot;\n&quot;)
+print(f&quot;Acuerdo exacto: {(enfermera_n == asistente_n).mean():.1%}&quot;)
+print(f&quot;Kappa sin ponderar:          {cohen_kappa_score(enfermera_n, asistente_n):.3f}&quot;)
+print(f&quot;Kappa ponderada lineal:      {cohen_kappa_score(enfermera_n, asistente_n, weights=&#x27;linear&#x27;):.3f}&quot;)
+print(f&quot;Kappa ponderada cuadrática:  {cohen_kappa_score(enfermera_n, asistente_n, weights=&#x27;quadratic&#x27;):.3f}&quot;)</code></pre><p>Casi todos los desacuerdos son de un solo nivel, así que la kappa ponderada es mucho mayor que la simple. En escalas ordinales se debe dar la <strong>ponderada</strong> e indicar el tipo de ponderación.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: la paradoja de kappa</h3><p>Con una prevalencia muy extrema, kappa puede ser baja aunque el acuerdo sea altísimo:</p><pre class="code"><code class="language-python"># 200 radiografías; casi todas normales
+paradoja = np.array([[2, 4],
+                     [5, 189]])
+acuerdo = np.trace(paradoja) / paradoja.sum()
+print(f&quot;Acuerdo observado: {acuerdo:.1%}&quot;)
+print(f&quot;κ = {cohens_kappa(paradoja).kappa:.3f}&quot;)</code></pre><p>Con un 95,5 % de acuerdo, kappa es solo discreta, porque casi todo el acuerdo se esperaba por azar al ser casi todas normales. Por eso conviene publicar la <strong>tabla completa</strong> y el acuerdo observado, además de kappa. Valora también el acuerdo por separado en positivos y en negativos.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: McNemar antes y después</h3><p>En 120 hipertensos se registra si tienen la <strong>presión arterial controlada</strong> (sí/no) antes y 6 meses después de una intervención educativa de enfermería.</p><pre class="code"><code class="language-python">#                    Después: controlado   Después: no controlado
+antes_despues = np.array([[48, 6],      # Antes: controlado
+                          [23, 43]])    # Antes: no controlado
+r = mcnemar(antes_despues, exact=True)
+print(f&quot;Controlados antes: {antes_despues[0].sum() / 120:.1%} · después: {antes_despues[:, 0].sum() / 120:.1%}&quot;)
+print(f&quot;Mejoran: {antes_despues[1, 0]} · empeoran: {antes_despues[0, 1]} · McNemar exacta: p = {r.pvalue:.4f}&quot;)</code></pre><p>Ojo: sin grupo control, la mejora puede tener tres causas. La intervención, la <strong>regresión a la media</strong> (Tema 130) u otros cambios del período. McNemar dice que el cambio no es atribuible al azar, no que lo cause la intervención.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Comparar proporciones apareadas con la ji cuadrado o la <em>z</em> de independientes.</strong></p>
+<p><strong>Medir la concordancia con el porcentaje de acuerdo o con la ji cuadrado.</strong> Usa kappa.</p>
+<p><strong>Usar kappa simple en escalas ordinales.</strong> Usa la ponderada.</p>
+<p><strong>Dar kappa sin la tabla</strong>, cuando la prevalencia es extrema.</p>
+<p><strong>Confundir concordancia con validez:</strong> dos observadores pueden coincidir mucho y equivocarse los dos. La validez se mide frente a un patrón de referencia (Tema 160).</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 240 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> decidir si seis diseños producen datos apareados o independientes, y calcular a mano una kappa.</li>
+<li><strong>Misión clínica (con pistas):</strong> comparar con McNemar dos pruebas de cribado aplicadas a los mismos pacientes y medir su concordancia.</li>
+<li><strong>Misión reto (con asistente):</strong> usar los informes de las unidades anteriores. Comparar con McNemar tu acierto en el primer intento y tras la pista del asistente.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q20-0"><p class="qq">Dos pruebas de cribado se aplican a los mismos 300 pacientes. ¿Cómo comparas su sensibilidad?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: son proporciones apareadas.">Con la prueba de McNemar</button><button type="button" class="op" data-ok="0" data-fb="Los pacientes son los mismos.">Con la prueba z de dos proporciones independientes</button><button type="button" class="op" data-ok="0" data-fb="Kappa mide concordancia, no compara proporciones.">Con el índice kappa</button><button type="button" class="op" data-ok="0" data-fb="Fisher es para muestras independientes.">Con la prueba exacta de Fisher</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-1"><p class="qq">En una tabla de McNemar, a = 60, b = 15, c = 5, d = 20. ¿Qué casillas usa la prueba?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: χ² = (15 − 5)² / (15 + 5) = 5.">Solo b y c, los pares discordantes</button><button type="button" class="op" data-ok="0" data-fb="Los pares concordantes no informan sobre la diferencia.">Solo a y d</button><button type="button" class="op" data-ok="0" data-fb="La prueba solo usa los discordantes.">Las cuatro</button><button type="button" class="op" data-ok="0" data-fb="Revisa qué pares indican diferencia entre las pruebas.">a y b</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-2"><p class="qq">Dos radiólogos coinciden en el 85 % de las radiografías; el acuerdo esperado por azar es del 70 %. ¿Cuánto vale kappa?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: (0,85 − 0,70) / (1 − 0,70) = 0,15 / 0,30 = 0,50.">0,50</button><button type="button" class="op" data-ok="0" data-fb="Ese es el acuerdo observado.">0,85</button><button type="button" class="op" data-ok="0" data-fb="Esa es la diferencia, sin dividir por 1 − Pe.">0,15</button><button type="button" class="op" data-ok="0" data-fb="Revisa la fórmula.">0,21</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-3"><p class="qq">Un médico clasifica siempre un nivel por encima de otro en una escala de 1 a 5. ¿Qué ocurre?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: no coinciden nunca, aunque uno predice perfectamente al otro.">Hay asociación perfecta pero concordancia nula</button><button type="button" class="op" data-ok="0" data-fb="Kappa sería 1 si coincidieran siempre.">Kappa es 1</button><button type="button" class="op" data-ok="0" data-fb="La asociación es perfecta.">La ji cuadrado no será significativa</button><button type="button" class="op" data-ok="0" data-fb="No coinciden en ningún caso.">Hay concordancia perfecta</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-4"><p class="qq">Para medir la concordancia entre dos observadores en una escala de gravedad de cinco niveles, ¿qué usas?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: tiene en cuenta que los desacuerdos de un nivel son menos graves.">Kappa ponderada</button><button type="button" class="op" data-ok="0" data-fb="Trata igual un desacuerdo de un nivel que uno de cuatro.">Kappa simple</button><button type="button" class="op" data-ok="0" data-fb="No descuenta el azar.">Porcentaje de acuerdo</button><button type="button" class="op" data-ok="0" data-fb="McNemar compara proporciones apareadas.">Prueba de McNemar</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>Mismos pacientes o mismas preguntas: datos apareados.</li>
+<li>McNemar compara dos proporciones apareadas usando solo los pares discordantes.</li>
+<li>El apareamiento aumenta la potencia, pero solo si se analiza como tal.</li>
+<li>Kappa mide la concordancia corregida por el azar; en escalas ordinales, kappa ponderada.</li>
+<li>Asociación no es concordancia, y concordancia no es validez.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Datos apareados</td>
+<td>Observaciones en las que cada valor de un grupo tiene una pareja en el otro</td>
+</tr>
+<tr>
+<td>Pares discordantes</td>
+<td>Pares en los que los dos resultados difieren</td>
+</tr>
+<tr>
+<td>Prueba de McNemar</td>
+<td>Contraste de dos proporciones apareadas basado en los pares discordantes</td>
+</tr>
+<tr>
+<td>Acuerdo observado ($P_o$)</td>
+<td>Proporción de casos en que coinciden dos clasificaciones</td>
+</tr>
+<tr>
+<td>Acuerdo esperado ($P_e$)</td>
+<td>Proporción de coincidencias que se esperaría por azar</td>
+</tr>
+<tr>
+<td>Índice kappa de Cohen</td>
+<td>Medida de concordancia entre dos observadores corregida por el azar</td>
+</tr>
+<tr>
+<td>Kappa ponderada</td>
+<td>Versión de kappa que pondera los desacuerdos según su distancia en una escala ordinal</td>
+</tr>
+<tr>
+<td>Paradoja de kappa</td>
+<td>Valor bajo de kappa con acuerdo alto, cuando la prevalencia es extrema</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li>McNemar Q. Note on the sampling error of the difference between correlated proportions or percentages. <em>Psychometrika</em>. 1947;12(2):153-157. doi:<a href="https://doi.org/10.1007/BF02295996" target="_blank" rel="noopener">10.1007/BF02295996</a></li>
+<li>Landis JR, Koch GG. The measurement of observer agreement for categorical data. <em>Biometrics</em>. 1977;33(1):159-174. doi:<a href="https://doi.org/10.2307/2529310" target="_blank" rel="noopener">10.2307/2529310</a></li>
+<li>Feinstein AR, Cicchetti DV. High agreement but low kappa: I. The problems of two paradoxes. <em>J Clin Epidemiol</em>. 1990;43(6):543-549. doi:<a href="https://doi.org/10.1016/0895-4356%2890%2990158-L" target="_blank" rel="noopener">10.1016/0895-4356(90)90158-L</a></li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_240_Datos_apareados_y_concordancia_McNemar_y_kappa_de_Cohen.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 240 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-240" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_230.html">← Tema 230</a><a class="btn ghost" href="tema_250.html">→ Tema 250</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

@@ -4,6 +4,7 @@ set -e
 cd "$(dirname "$0")"
 python3 readme.py
 python3 pagina_cuadernos.py
+python3 presentaciones.py
 cd ..
 git add -A
 git -c user.name="Fernando Borrás Rocher" -c user.email="f.borras@umh.es" commit -q -m "$1

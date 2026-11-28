@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 90. Programación asistida por inteligencia artificial: ciclo de mejora recursiva de generación, verificación y corrección · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 90. Programación asistida por inteligencia artificial: ciclo de mejora recursiva de generación, verificación y corrección</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 90</span>Programación asistida por inteligencia artificial: ciclo de mejora recursiva de generación, verificación y corrección</h1>
+<p class="mod">Módulo 3. Procesado inicial de datos</p>
+
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_090_Programacion_asistida_por_IA_y_mejora_recursiva.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-90" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Describir el ciclo de <strong>mejora recursiva</strong>: generar, ejecutar, verificar y corregir.</li>
+<li>Escribir una <strong>especificación</strong> y sus <strong>casos de prueba</strong> antes de pedir código a un modelo de IA.</li>
+<li>Programar un bucle que pide código al modelo, lo prueba y le devuelve los fallos. El bucle para cuando se superan las pruebas o se agotan los intentos.</li>
+<li>Registrar cada iteración del ciclo para poder analizarla después.</li>
+<li>Explicar por qué superar las pruebas no garantiza que el código sea correcto (ley de Goodhart).</li>
+<li>Aplicar las medidas de seguridad necesarias antes de ejecutar código generado por IA.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: un ciclo de mejora recursiva <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">«Funciona» no es lo mismo que «es correcto»</p><figure><img src="../figuras/tema_090_curb.png" alt="«Funciona» no es lo mismo que «es correcto»" loading="lazy"></figure><ul class='puntos'><li>El código del asistente se ejecuta sin errores… y se equivoca justo en las fronteras.</li><li>Solo lo descubre quien tiene casos de prueba escritos a partir de la definición clínica.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>El servicio de Urgencias quiere que la historia clínica calcule automáticamente la escala <strong>CURB-65</strong> de gravedad de la neumonía adquirida en la comunidad. La escala suma un punto por cada criterio:</p>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Punto si…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>C</strong>onfusión</td>
+<td>Desorientación de nueva aparición</td>
+</tr>
+<tr>
+<td><strong>U</strong>rea</td>
+<td>Urea &gt; 7 mmol/L</td>
+</tr>
+<tr>
+<td>Frecuencia <strong>R</strong>espiratoria</td>
+<td>≥ 30 rpm</td>
+</tr>
+<tr>
+<td>Presión arterial (<strong>B</strong>lood pressure)</td>
+<td>PAS &lt; 90 mmHg <strong>o</strong> PAD ≤ 60 mmHg</td>
+</tr>
+<tr>
+<td>Edad <strong>65</strong></td>
+<td>≥ 65 años</td>
+</tr>
+</tbody>
+</table>
+<p>Un residente pide al asistente de IA la función. El código se ejecuta sin errores. Pero con una paciente de 65 años y PAD de 60 mmHg, la función da 0 puntos en lugar de 2. El asistente escribió <code>edad &gt; 65</code> y <code>pad &lt; 60</code>.</p>
+<p>En el Tema 50 aprendimos a descubrir estos errores con casos de prueba. Hoy damos el paso siguiente: <strong>devolver los fallos al modelo</strong> para que corrija su propio código, y repetirlo hasta que todo funcione. Es el <strong>ciclo de mejora recursiva</strong>, la forma en que hoy se programa con IA.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 El ciclo de mejora recursiva</h3><p class="lema">El ciclo de mejora recursiva</p><figure><img src="../figuras/tema_090_ciclo.png" alt="El ciclo de mejora recursiva" loading="lazy"></figure><ul class='puntos'><li>Especificar y escribir las pruebas <b>antes</b> de pedir el código.</li><li>Generar, ejecutar, verificar y corregir, hasta cumplir un criterio de parada.</li><li>El humano decide la especificación y cuándo el resultado es aceptable.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><pre><code>  ┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+  │ 1. GENERAR   │ ──▶ │ 2. EJECUTAR  │ ──▶ │ 3. VERIFICAR │
+  │ el modelo    │     │ el código    │     │ con pruebas  │
+  │ escribe      │     │              │     │              │
+  └──────────────┘     └──────────────┘     └──────┬───────┘
+         ▲                                         │
+         │        ¿fallos? → 4. CORREGIR           │
+         └──────── se devuelven los fallos ◀───────┘
+                   al modelo
+
+  Se detiene cuando se superan todas las pruebas o se agotan los intentos.
+</code></pre>
+<p>Lo que hace que el ciclo funcione no es el modelo, sino la <strong>calidad del criterio de verificación</strong>. Un modelo excelente con pruebas pobres produce código que parece correcto y no lo es.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Primero la especificación y las pruebas</h3><figure><img src="../figuras/tema_090_e2_2.png" alt="Cuatro pasos en orden: especificación, casos de prueba, pedir el código y ejecutar las pruebas; escribir las pruebas después del código es un error." loading="lazy"></figure><p>El orden correcto, que en ingeniería del software se llama <strong>desarrollo guiado por pruebas</strong>:</p>
+<ol>
+<li>Escribir la <strong>especificación</strong>: qué recibe la función, qué devuelve y con qué reglas.</li>
+<li>Escribir los <strong>casos de prueba</strong> a partir de fuentes fiables, antes de ver ningún código.</li>
+<li>Solo entonces pedir el código.</li>
+</ol>
+<p>Si las pruebas se escriben después de ver el código, se tiende a escribir pruebas que ese código ya supera.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Criterios de parada</h3><figure><img src="../figuras/tema_090_esquema.png" alt="Flujo del ciclo: generar, probar; si todo pasa, fin; si se agotan los intentos o se repite el código, revisar a mano; si no, devolver los fallos." loading="lazy"></figure><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Para qué sirve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Todas las pruebas superadas</td>
+<td>Objetivo del ciclo</td>
+</tr>
+<tr>
+<td>Número máximo de intentos</td>
+<td>Evita bucles infinitos y gasto de cuota</td>
+</tr>
+<tr>
+<td>El modelo repite el mismo código</td>
+<td>Señal de que no sabe corregirlo con la información dada</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.4 La ley de Goodhart</h3><p class="lema">Ley de Goodhart: cuando la prueba se convierte en objetivo</p><figure><img src="../figuras/tema_090_goodhart.png" alt="Ley de Goodhart: cuando la prueba se convierte en objetivo" loading="lazy"></figure><ul class='puntos'><li>Si se corrige mirando siempre las mismas pruebas, el código acaba ajustado a ellas.</li><li>El rendimiento real se mide con <b>pruebas reservadas</b>, que no se usaron para corregir.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p><em>«Cuando una medida se convierte en objetivo, deja de ser una buena medida.»</em> Supón que el único objetivo del ciclo es superar las pruebas. Entonces el código las superará. Pero puede fallar en los casos que las pruebas no cubren. Por eso:</p>
+<ul>
+<li>Las pruebas deben cubrir los <strong>valores frontera</strong> de cada criterio.</li>
+<li>Conviene guardar algunas pruebas <strong>reservadas</strong> que el modelo no ve, para comprobar al final. Volveremos sobre esta idea en el Módulo 5.</li>
+</ul></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.5 Seguridad</h3><figure><img src="../figuras/tema_090_e2_5.png" alt="Cuatro comprobaciones antes de ejecutar código generado por IA: leerlo, entorno aislado, permisos mínimos y sin datos de pacientes." loading="lazy"></figure><p>Ejecutar código generado por IA es ejecutar código de un desconocido:</p>
+<ul>
+<li><strong>Leer el código antes de ejecutarlo</strong>, aunque sea por encima.</li>
+<li>Ejecutarlo en un entorno aislado, como Colab, nunca en un ordenador con datos sensibles.</li>
+<li>No pedir código que acceda a ficheros, a internet o a Drive si la tarea no lo necesita.</li>
+<li>Nunca incluir datos de pacientes en la especificación ni en las pruebas.</li>
+</ul></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">¿Cuál es el orden correcto para programar con un asistente de IA?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: las pruebas se escriben antes de ver el código.">Especificación, casos de prueba, generación del código y verificación</button><button type="button" class="op" data-ok="0" data-fb="Si las pruebas se escriben después, se adaptan al código que ya existe.">Generación del código, casos de prueba y verificación</button><button type="button" class="op" data-ok="0" data-fb="Ejecutarse sin errores no significa ser correcto.">Generación del código y uso directo si no da errores</button><button type="button" class="op" data-ok="0" data-fb="La especificación es lo primero: define qué se quiere.">Casos de prueba, uso directo y especificación</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 90.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_090_Programacion_asistida_por_IA_y_mejora_recursiva.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: un ciclo de mejora recursiva" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: un ciclo de mejora recursiva</h2><h3>3.1 Conexión con el modelo</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Conexión con el modelo</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Esta celda prepara la conexión con el modelo de lenguaje (Tema 80). Lee la clave de Secretos sin mostrarla. Si no hay clave, el cuaderno funciona con respuestas de ejemplo. Si el modelo indicado ya no existe, cambia la variable <code>MODELO</code>.</p><pre class="code"><code class="language-python">%pip install -q google-genai
+
+MODELO = &quot;gemini-2.5-flash&quot;
+
+try:
+    from google.colab import userdata
+    from google import genai
+    from google.genai import types
+    cliente = genai.Client(api_key=userdata.get(&quot;GEMINI_API_KEY&quot;))
+    print(&quot;Conexión preparada con el modelo&quot;, MODELO)
+except Exception as error:
+    cliente = None
+    print(&quot;Sin clave o fuera de Colab: se usarán respuestas de ejemplo.&quot;, type(error).__name__)
+
+
+def preguntar(prompt, temperatura=0.2):
+    &quot;&quot;&quot;Envía un prompt al modelo y devuelve su texto (None si no hay conexión).&quot;&quot;&quot;
+    if cliente is None:
+        return None
+    respuesta = cliente.models.generate_content(
+        model=MODELO,
+        contents=prompt,
+        config=types.GenerateContentConfig(temperature=temperatura),
+    )
+    return respuesta.text</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: un ciclo de mejora recursiva" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: un ciclo de mejora recursiva</h2><h3>3.2 La especificación</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 La especificación</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">ESPECIFICACION = &quot;&quot;&quot;
+Escribe en Python una función llamada curb65 con estos parámetros:
+- confusion (bool): desorientación de nueva aparición
+- urea_mmol_l (float): urea sérica en mmol/L
+- fr_rpm (int): frecuencia respiratoria en respiraciones por minuto
+- pas_mmHg (int): presión arterial sistólica
+- pad_mmHg (int): presión arterial diastólica
+- edad (int): edad en años
+
+Devuelve un entero de 0 a 5 sumando un punto por cada criterio:
+- confusión presente
+- urea &gt; 7 mmol/L
+- frecuencia respiratoria &gt;= 30
+- presión sistólica &lt; 90 o presión diastólica &lt;= 60
+- edad &gt;= 65
+
+Devuelve solo el código de la función, dentro de un bloque ```python```, sin ejemplos de uso.
+&quot;&quot;&quot;</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: un ciclo de mejora recursiva" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: un ciclo de mejora recursiva</h2><h3>3.3 Los casos de prueba, escritos antes que el código</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 Los casos de prueba, escritos antes que el código</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Cada caso indica los datos de entrada y el resultado esperado, calculado a mano. Hay casos para <strong>cada criterio</strong> y para <strong>cada valor frontera</strong>: 7 frente a 7,1 mmol/L, 29 frente a 30 rpm, 90 mmHg de PAS, 60 mmHg de PAD y 64 frente a 65 años.</p><pre class="code"><code class="language-python">base = dict(confusion=False, urea_mmol_l=5.0, fr_rpm=18, pas_mmHg=130, pad_mmHg=80, edad=50)
+
+PRUEBAS = [
+    (base, 0),
+    ({**base, &quot;confusion&quot;: True}, 1),
+    ({**base, &quot;urea_mmol_l&quot;: 7.0}, 0),
+    ({**base, &quot;urea_mmol_l&quot;: 7.1}, 1),
+    ({**base, &quot;fr_rpm&quot;: 29}, 0),
+    ({**base, &quot;fr_rpm&quot;: 30}, 1),
+    ({**base, &quot;pas_mmHg&quot;: 90}, 0),
+    ({**base, &quot;pas_mmHg&quot;: 89}, 1),
+    ({**base, &quot;pad_mmHg&quot;: 61}, 0),
+    ({**base, &quot;pad_mmHg&quot;: 60}, 1),
+    ({**base, &quot;edad&quot;: 64}, 0),
+    ({**base, &quot;edad&quot;: 65}, 1),
+    ({**base, &quot;edad&quot;: 65, &quot;pad_mmHg&quot;: 60}, 2),
+    (dict(confusion=True, urea_mmol_l=9.0, fr_rpm=32, pas_mmHg=85, pad_mmHg=50, edad=80), 5),
+]
+print(len(PRUEBAS), &quot;casos de prueba&quot;)</code></pre><p>La sintaxis <code>{**base, "edad": 65}</code> crea una copia del diccionario <code>base</code> cambiando solo la edad.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: un ciclo de mejora recursiva" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: un ciclo de mejora recursiva</h2><h3>3.4 Ejecutar y verificar el código generado</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Ejecutar y verificar el código generado</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">def verificar(codigo):
+    &quot;&quot;&quot;Ejecuta el código en un espacio aislado y devuelve la lista de fallos.&quot;&quot;&quot;
+    espacio = {}
+    try:
+        exec(codigo, espacio)
+        funcion = espacio[&quot;curb65&quot;]
+    except Exception as error:
+        return [f&quot;El código no se puede ejecutar: {type(error).__name__}: {error}&quot;]
+
+    fallos = []
+    for entrada, esperado in PRUEBAS:
+        try:
+            obtenido = funcion(**entrada)
+        except Exception as error:
+            fallos.append(f&quot;Con {entrada} se produce {type(error).__name__}&quot;)
+            continue
+        if obtenido != esperado:
+            fallos.append(f&quot;Con {entrada} se esperaba {esperado} y se obtuvo {obtenido}&quot;)
+    return fallos</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: un ciclo de mejora recursiva" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: un ciclo de mejora recursiva</h2><h3>3.5 Generar código: con el modelo o simulado</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 Generar código: con el modelo o simulado</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Si hay conexión, se pide el código al modelo, añadiendo el código anterior y sus fallos cuando los hay. Sin conexión, se usan tres versiones simuladas que reproducen errores habituales de los asistentes.</p><pre class="code"><code class="language-python">import re
+
+VERSIONES_SIMULADAS = [
+    &quot;&quot;&quot;def curb65(confusion, urea_mmol_l, fr_rpm, pas_mmHg, pad_mmHg, edad):
+    puntos = confusion + (urea_mmol_l &gt; 7) + (fr_rpm &gt;= 30)
+    puntos += (pas_mmHg &lt; 90 or pad_mmHg &lt; 60) + (edad &gt; 65)
+    return puntos&quot;&quot;&quot;,
+    &quot;&quot;&quot;def curb65(confusion, urea_mmol_l, fr_rpm, pas_mmHg, pad_mmHg, edad):
+    puntos = confusion + (urea_mmol_l &gt; 7) + (fr_rpm &gt;= 30)
+    puntos += (pas_mmHg &lt; 90 or pad_mmHg &lt; 60) + (edad &gt;= 65)
+    return puntos&quot;&quot;&quot;,
+    &quot;&quot;&quot;def curb65(confusion, urea_mmol_l, fr_rpm, pas_mmHg, pad_mmHg, edad):
+    puntos = int(confusion) + (urea_mmol_l &gt; 7) + (fr_rpm &gt;= 30)
+    puntos += (pas_mmHg &lt; 90 or pad_mmHg &lt;= 60) + (edad &gt;= 65)
+    return int(puntos)&quot;&quot;&quot;,
+]
+
+
+def generar(codigo_anterior, fallos, intento):
+    &quot;&quot;&quot;Devuelve el código de la función: del modelo o de las versiones simuladas.&quot;&quot;&quot;
+    if cliente is None:
+        return VERSIONES_SIMULADAS[min(intento - 1, len(VERSIONES_SIMULADAS) - 1)]
+    prompt = ESPECIFICACION
+    if codigo_anterior:
+        prompt += (
+            &quot;\nTu versión anterior era:\n```python\n&quot; + codigo_anterior + &quot;\n```\n&quot;
+            &quot;Falla en estos casos de prueba:\n- &quot; + &quot;\n- &quot;.join(fallos)
+            + &quot;\nCorrige la función.&quot;
+        )
+    texto = preguntar(prompt, temperatura=0.2)
+    bloque = re.search(r&quot;```(?:python)?\n(.*?)```&quot;, texto, re.DOTALL)
+    return bloque.group(1).strip() if bloque else texto.strip()</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: un ciclo de mejora recursiva" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: un ciclo de mejora recursiva</h2><h3>3.6 El ciclo completo</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 El ciclo completo</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">MAX_INTENTOS = 5
+registro = []
+codigo, fallos = None, []
+
+for intento in range(1, MAX_INTENTOS + 1):
+    codigo = generar(codigo, fallos, intento)
+    fallos = verificar(codigo)
+    registro.append({&quot;intento&quot;: intento, &quot;pruebas_falladas&quot;: len(fallos),
+                     &quot;pruebas_superadas&quot;: len(PRUEBAS) - len(fallos)})
+    print(f&quot;Intento {intento}: {len(PRUEBAS) - len(fallos)} de {len(PRUEBAS)} pruebas superadas&quot;)
+    for fallo in fallos[:3]:
+        print(&quot;   ·&quot;, fallo)
+    if not fallos:
+        print(&quot;\nTodas las pruebas superadas. Código final:\n&quot;)
+        print(codigo)
+        break
+else:
+    print(&quot;\nSe agotaron los intentos sin superar todas las pruebas: revisar a mano.&quot;)</code></pre><p>La construcción <code>for … else</code> ejecuta el bloque <code>else</code> solo si el bucle termina <strong>sin</strong> pasar por <code>break</code>, es decir, si se agotan los intentos.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: un ciclo de mejora recursiva" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: un ciclo de mejora recursiva</h2><h3>3.7 El registro del ciclo</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.7 El registro del ciclo</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Registrar cada iteración permite analizar el ciclo: cuántos intentos hicieron falta y cómo evolucionaron los fallos. En el Módulo 5 compararemos así, con métodos estadísticos, distintas formas de pedir código al modelo.</p><pre class="code"><code class="language-python">import pandas as pd
+import matplotlib.pyplot as plt
+
+tabla = pd.DataFrame(registro)
+print(tabla.to_string(index=False))
+
+plt.figure(figsize=(6, 3.5))
+plt.plot(tabla[&quot;intento&quot;], tabla[&quot;pruebas_superadas&quot;], marker=&quot;o&quot;)
+plt.axhline(len(PRUEBAS), linestyle=&quot;--&quot;, color=&quot;gray&quot;, label=&quot;Total de pruebas&quot;)
+plt.xlabel(&quot;Intento&quot;)
+plt.ylabel(&quot;Pruebas superadas&quot;)
+plt.xticks(tabla[&quot;intento&quot;])
+plt.ylim(0, len(PRUEBAS) + 1)
+plt.title(&quot;Evolución del ciclo de mejora recursiva&quot;)
+plt.legend()
+plt.show()</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: un ciclo de mejora recursiva" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: un ciclo de mejora recursiva</h2><h3>3.8 Goodhart en acción: pruebas insuficientes</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.8 Goodhart en acción: pruebas insuficientes</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>¿Qué habría pasado con pruebas pobres, sin valores frontera? La primera versión simulada, con dos errores, las habría superado todas:</p><pre class="code"><code class="language-python">PRUEBAS_COMPLETAS = PRUEBAS
+PRUEBAS = [
+    (base, 0),
+    ({**base, &quot;confusion&quot;: True}, 1),
+    (dict(confusion=True, urea_mmol_l=9.0, fr_rpm=32, pas_mmHg=85, pad_mmHg=50, edad=80), 5),
+]
+print(&quot;Fallos con pruebas pobres:&quot;, len(verificar(VERSIONES_SIMULADAS[0])))
+
+PRUEBAS = PRUEBAS_COMPLETAS
+print(&quot;Fallos con pruebas completas:&quot;, len(verificar(VERSIONES_SIMULADAS[0])))</code></pre><p><strong>Con pruebas pobres, el ciclo habría terminado en el primer intento con un código erróneo.</strong> Una paciente de 65 años con PAD de 60 mmHg habría recibido 0 puntos en lugar de 2. La calidad del ciclo es la calidad de sus pruebas.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: pruebas reservadas</h3><p>Para protegerte frente a Goodhart, separa las pruebas en dos grupos. El primero se devuelve al modelo durante el ciclo. El segundo son <strong>pruebas reservadas</strong>, que solo se usan al final. Si el código supera las primeras pero falla en las reservadas, el ciclo ha aprendido a aprobar el examen. No ha aprendido a resolver el problema.</p><pre class="code"><code class="language-python">PRUEBAS_RESERVADAS = [
+    (dict(confusion=False, urea_mmol_l=7.5, fr_rpm=30, pas_mmHg=88, pad_mmHg=58, edad=70), 4),
+    (dict(confusion=True, urea_mmol_l=6.9, fr_rpm=22, pas_mmHg=95, pad_mmHg=62, edad=40), 1),
+]
+
+espacio = {}
+exec(codigo, espacio)
+for entrada, esperado in PRUEBAS_RESERVADAS:
+    obtenido = espacio[&quot;curb65&quot;](**entrada)
+    print(&quot;correcto&quot; if obtenido == esperado else &quot;FALLO&quot;, &quot;·&quot;, entrada, &quot;→&quot;, obtenido)</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Escribir las pruebas después de ver el código:</strong> se acaban escribiendo pruebas que ese código ya supera.</p>
+<p><strong>No poner límite de intentos:</strong> el ciclo puede gastar toda la cuota de la API.</p>
+<p><strong>Ejecutar el código generado sin leerlo.</strong></p>
+<p><strong>Devolver al modelo solo «está mal»:</strong> sin indicar qué casos fallan y por qué, el modelo no tiene información para corregir.</p>
+<p><strong>Dar por correcta una función porque supera las pruebas:</strong> solo es correcta en lo que las pruebas comprueban.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 90 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> identificar qué valores frontera faltan en un conjunto de casos de prueba.</li>
+<li><strong>Misión clínica (con pistas):</strong> escribir la especificación y las pruebas de la escala de Wells para trombosis venosa profunda.</li>
+<li><strong>Misión reto (con asistente):</strong> ejecutar el ciclo de mejora recursiva para esa escala. Registrar las iteraciones y comprobar el resultado con pruebas reservadas.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente y sin ejecutar código.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q23-0"><p class="qq">¿Cuál es el orden correcto para programar con un asistente de IA?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: las pruebas se escriben antes de ver el código.">Especificación, casos de prueba, generación del código y verificación</button><button type="button" class="op" data-ok="0" data-fb="Si las pruebas se escriben después, se adaptan al código que ya existe.">Generación del código, casos de prueba y verificación</button><button type="button" class="op" data-ok="0" data-fb="Ejecutarse sin errores no significa ser correcto.">Generación del código y uso directo si no da errores</button><button type="button" class="op" data-ok="0" data-fb="La especificación es lo primero: define qué se quiere.">Casos de prueba, uso directo y especificación</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q23-1"><p class="qq">Una función CURB-65 usa edad &gt; 65. ¿Qué caso de prueba descubre el error?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el valor frontera es el que distingue &gt; de &gt;=.">Un paciente de exactamente 65 años</button><button type="button" class="op" data-ok="0" data-fb="Con 80 años, &gt; 65 y &gt;= 65 dan el mismo resultado.">Un paciente de 80 años</button><button type="button" class="op" data-ok="0" data-fb="Con 40 años, ninguna de las dos versiones suma el punto.">Un paciente de 40 años</button><button type="button" class="op" data-ok="0" data-fb="El caso frontera lo descubre.">Ningún caso puede descubrirlo</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q23-2"><p class="qq">¿Qué información conviene devolver al modelo cuando su código falla?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es la información que permite corregir.">Los casos concretos que fallan, con el resultado esperado y el obtenido</button><button type="button" class="op" data-ok="0" data-fb="Sin saber qué falla, el modelo no tiene en qué basarse.">Solo «está mal, inténtalo otra vez»</button><button type="button" class="op" data-ok="0" data-fb="Las reservadas no se enseñan al modelo: sirven para la comprobación final.">Las pruebas reservadas</button><button type="button" class="op" data-ok="0" data-fb="Nunca se envían datos de pacientes.">Los datos de un paciente real con el que falló</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q23-3"><p class="qq">Un ciclo de mejora recursiva supera todas sus pruebas en el primer intento. ¿Qué puedes concluir?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la garantía depende de la calidad de las pruebas.">Que el código es correcto en lo que comprueban las pruebas, y nada más</button><button type="button" class="op" data-ok="0" data-fb="Las pruebas pobres del apartado 3.8 dejaban pasar dos errores.">Que el código es correcto en cualquier caso</button><button type="button" class="op" data-ok="0" data-fb="Sin pruebas no habría forma de saberlo.">Que el modelo no necesitaba pruebas</button><button type="button" class="op" data-ok="0" data-fb="La temperatura no tiene que ver con la validez de las pruebas.">Que hay que aumentar la temperatura</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q23-4"><p class="qq">¿Por qué se fija un número máximo de intentos?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: evita bucles infinitos y gasto de cuota.">Para que el ciclo termine aunque el modelo no consiga corregir el código</button><button type="button" class="op" data-ok="0" data-fb="No hay una regla fija; depende del problema.">Porque el modelo empeora a partir del tercer intento</button><button type="button" class="op" data-ok="0" data-fb="Python no impone ese límite.">Porque Python no permite más de cinco iteraciones</button><button type="button" class="op" data-ok="0" data-fb="El límite no afecta a la velocidad del código final.">Para que el código sea más rápido</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>El ciclo de mejora recursiva genera código, lo ejecuta y lo verifica con pruebas. Devuelve los fallos al modelo hasta que se superan las pruebas o se agotan los intentos.</li>
+<li>La especificación y las pruebas se escriben <strong>antes</strong> del código, con atención a los valores frontera.</li>
+<li>Superar las pruebas solo garantiza lo que las pruebas comprueban (ley de Goodhart); las pruebas reservadas ayudan a detectarlo.</li>
+<li>El código generado por IA se lee antes de ejecutarlo, en un entorno aislado y sin datos de pacientes.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mejora recursiva</td>
+<td>Ciclo en el que un modelo corrige su propia salida a partir de una verificación externa</td>
+</tr>
+<tr>
+<td>Especificación</td>
+<td>Descripción precisa de lo que debe hacer una función</td>
+</tr>
+<tr>
+<td>Desarrollo guiado por pruebas</td>
+<td>Forma de programar en la que las pruebas se escriben antes que el código</td>
+</tr>
+<tr>
+<td>Criterio de parada</td>
+<td>Condición que detiene un ciclo iterativo</td>
+</tr>
+<tr>
+<td>Ley de Goodhart</td>
+<td>Cuando una medida se convierte en objetivo, deja de ser una buena medida</td>
+</tr>
+<tr>
+<td>Pruebas reservadas</td>
+<td>Casos que no se usan durante el ciclo y sirven para la comprobación final</td>
+</tr>
+<tr>
+<td><code>exec()</code></td>
+<td>Función de Python que ejecuta código contenido en una cadena de texto</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li>Lim WS, <em>et al.</em> Defining community acquired pneumonia severity on presentation to hospital: an international derivation and validation study. <em>Thorax</em>. 2003;58(5):377-382. doi:<a href="https://doi.org/10.1136/thorax.58.5.377" target="_blank" rel="noopener">10.1136/thorax.58.5.377</a></li>
+<li><a href="https://docs.python.org/es/3/tutorial/errors.html" target="_blank" rel="noopener">Tutorial de Python: errores y excepciones</a></li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_090_Programacion_asistida_por_IA_y_mejora_recursiva.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 90 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-90" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_080.html">← Tema 80</a><a class="btn ghost" href="tema_100.html">→ Tema 100</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

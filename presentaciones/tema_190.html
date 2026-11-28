@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 190. Simulación de Monte Carlo y distribuciones muestrales · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 190. Simulación de Monte Carlo y distribuciones muestrales</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 190</span>Simulación de Monte Carlo y distribuciones muestrales</h1>
+<p class="mod">Módulo 4. Probabilidad</p>
+<p class="ev"><b>Evaluación:</b> el examen del Módulo 4 se hace <strong>a mano</strong>. Resuelve primero cada ejercicio con papel y calculadora, y usa el código solo para comprobar.</p>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_190_Simulacion_de_Monte_Carlo_y_distribuciones_muestrales.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-190" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Explicar en qué consiste el método de Monte Carlo y para qué sirve.</li>
+<li>Distinguir la distribución de una variable en la población de la <strong>distribución muestral</strong> de un estadístico.</li>
+<li>Calcular e interpretar el <strong>error estándar</strong> de una media y de una proporción.</li>
+<li>Enunciar el <strong>teorema central del límite</strong> y comprobarlo por simulación con datos asimétricos.</li>
+<li>Explicar cómo influye el tamaño de la muestra en la precisión de una estimación.</li>
+<li>Medir la variabilidad de las respuestas de un modelo de lenguaje y reconocer la sobredispersión.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: muestras simuladas <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">Cada residente obtiene una media distinta</p><ul class='puntos'><li>La media varía de una muestra a otra: es la <b>distribución muestral</b>.</li><li>Su desviación típica es el <b>error estándar</b>: mide cuánto se equivoca una muestra típica.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Dos residentes estudian la <strong>estancia hospitalaria</strong> de los pacientes con neumonía de su hospital. Cada uno revisa al azar 30 historias del último año. El primero obtiene una estancia media de 6,2 días; el segundo, de 7,9 días.</p>
+<p>¿Se ha equivocado alguno? No necesariamente. <strong>Cada muestra es distinta</strong>, y por tanto también lo es su media. Si un tercer residente revisara otras 30 historias, obtendría un tercer valor.</p>
+<p>Esta variabilidad entre muestras no es un defecto: es inevitable, y se puede <strong>cuantificar</strong>. Los intervalos de confianza y los contrastes de hipótesis del Módulo 5 se basan en una idea: cuánto varía una media de una muestra a otra. Hoy lo veremos simulando miles de muestras con el ordenador: el método de <strong>Monte Carlo</strong>.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 El método de Monte Carlo</h3><p class="lema">Monte Carlo: el tablero de Galton simulado</p><ul class='puntos'><li>Simular muchas veces un proceso aleatorio permite estimar probabilidades sin fórmulas.</li><li>La simulación coincide con la teoría: es una forma de comprobar un cálculo.</li></ul><figure><img src="../figuras/tema_190_e2_1.png" alt="Ciclo de Monte Carlo: modelo, simular una muestra, calcular el estadístico, guardarlo y repetir miles de veces." loading="lazy"></figure></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Consiste en estimar una cantidad <strong>repitiendo muchas veces un experimento aleatorio simulado</strong> y resumiendo los resultados. Ya lo hemos usado para comprobar cálculos de probabilidad (Temas 140 a 170). Hoy lo usaremos para algo que sería imposible en la realidad: extraer miles de muestras de la misma población.</p>
+<p>Se llama así por el casino de Montecarlo. Lo desarrollaron en los años cuarenta Stanislaw Ulam y John von Neumann.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Población, muestra y distribución muestral</h3><figure><img src="../figuras/tema_190_e2_2.png" alt="Tres histogramas: la población, una muestra de 30 y la distribución muestral de la media, con su error estándar." loading="lazy"></figure><table>
+<thead>
+<tr>
+<th>Distribución</th>
+<th>Qué describe</th>
+<th>Su dispersión</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>De la variable en la <strong>población</strong></td>
+<td>Cómo varían los <strong>pacientes</strong></td>
+<td>Desviación típica σ</td>
+</tr>
+<tr>
+<td>De la variable en <strong>una muestra</strong></td>
+<td>Cómo varían los pacientes de esa muestra</td>
+<td>Desviación típica muestral <em>s</em></td>
+</tr>
+<tr>
+<td><strong>Muestral</strong> de la media</td>
+<td>Cómo varía la <strong>media</strong> de una muestra a otra</td>
+<td><strong>Error estándar</strong></td>
+</tr>
+</tbody>
+</table>
+<p>La <strong>distribución muestral</strong> de un estadístico es la distribución de los valores que tomaría ese estadístico en todas las muestras posibles del mismo tamaño.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 El error estándar</h3><figure><img src="../figuras/tema_190_esquema.png" alt="Dos histogramas: la PAS de los pacientes (DE 15 mmHg) y las medias de muestras de 25 (EE 3 mmHg)." loading="lazy"></figure><table>
+<thead>
+<tr>
+<th>Estadístico</th>
+<th>Error estándar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Media</td>
+<td>$EE(\bar{x}) = \dfrac{\sigma}{\sqrt{n}} \approx \dfrac{s}{\sqrt{n}}$</td>
+</tr>
+<tr>
+<td>Proporción</td>
+<td>$EE(\hat{p}) = \sqrt{\dfrac{p(1-p)}{n}}$</td>
+</tr>
+</tbody>
+</table>
+<p>El error estándar disminuye con la raíz cuadrada de <em>n</em>: para reducirlo a la mitad hay que <strong>cuadruplicar</strong> la muestra.</p>
+<p><strong>No confundas</strong> la desviación típica (dispersión de los pacientes) con el error estándar (precisión de la media). Al aumentar la muestra, la desviación típica de los pacientes no cambia; el error estándar, sí.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.4 El teorema central del límite</h3><p class="lema">Teorema central del límite</p><figure><img src="../figuras/tema_190_tcl.png" alt="Teorema central del límite" loading="lazy"></figure><ul class='puntos'><li>Aunque la variable sea asimétrica, la media de muestras grandes se distribuye casi como una normal.</li><li>Por eso los intervalos de confianza y las pruebas del Módulo 5 funcionan con muchas variables clínicas.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Toma muestras de tamaño <em>n</em> suficientemente grande de <strong>cualquier</strong> población con media μ y desviación típica σ. La distribución de la media muestral se aproxima a una normal:</p>
+<p>$$\bar{x} \approx N\left(\mu, \frac{\sigma}{\sqrt{n}}\right)$$</p>
+<p>aunque la variable original <strong>no</strong> sea normal. Con distribuciones moderadamente asimétricas suele bastar con <em>n</em> ≥ 30; con distribuciones muy asimétricas hace falta más. Este teorema explica por qué la normal aparece en casi toda la inferencia estadística.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">La PAS de una población tiene σ = 16 mmHg. ¿Cuál es el error estándar de la media en muestras de 64 pacientes?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: 16 / √64 = 16 / 8.">2 mmHg</button><button type="button" class="op" data-ok="0" data-fb="Esa es la desviación típica de los pacientes.">16 mmHg</button><button type="button" class="op" data-ok="0" data-fb="Eso es 16 / 64: hay que dividir entre la raíz de n.">0,25 mmHg</button><button type="button" class="op" data-ok="0" data-fb="Revisa la raíz cuadrada de 64.">4 mmHg</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 190.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_190_Simulacion_de_Monte_Carlo_y_distribuciones_muestrales.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: muestras simuladas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: muestras simuladas</h2><h3>3.1 Una población sintética de pacientes</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Una población sintética de pacientes</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Creamos una población de 100.000 ingresos por neumonía con una estancia <strong>asimétrica</strong>: la mayoría se va en pocos días y unos pocos permanecen mucho tiempo.</p><pre class="code"><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+
+rng = np.random.default_rng(seed=190)
+poblacion = rng.lognormal(mean=np.log(5.5), sigma=0.55, size=100_000).round(1) + 1
+
+mu, sigma = poblacion.mean(), poblacion.std()
+print(f&quot;Media poblacional μ = {mu:.2f} días · desviación típica σ = {sigma:.2f} días&quot;)
+
+plt.figure(figsize=(7, 4))
+plt.hist(poblacion, bins=80, color=&quot;lightsteelblue&quot;, edgecolor=&quot;white&quot;)
+plt.axvline(mu, color=&quot;firebrick&quot;, label=f&quot;μ = {mu:.1f} días&quot;)
+plt.xlim(0, 30)
+plt.xlabel(&quot;Estancia (días)&quot;)
+plt.ylabel(&quot;Número de pacientes&quot;)
+plt.title(&quot;Población: estancia de 100.000 ingresos por neumonía&quot;)
+plt.legend()
+plt.show()</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: muestras simuladas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: muestras simuladas</h2><h3>3.2 Una muestra, dos muestras, diez muestras</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 Una muestra, dos muestras, diez muestras</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">for i in range(1, 11):
+    muestra = rng.choice(poblacion, size=30, replace=False)
+    print(f&quot;Muestra {i:&gt;2}: media {muestra.mean():.2f} días&quot;)</code></pre><p>Cada residente obtendría un valor distinto, todos alrededor de μ. ¿Cuánto varían? Lo vemos con 10.000 muestras.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: muestras simuladas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: muestras simuladas</h2><h3>3.3 La distribución muestral de la media</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 La distribución muestral de la media</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">def medias_muestrales(n, repeticiones=10_000):
+    &quot;&quot;&quot;Medias de muchas muestras aleatorias de tamaño n de la población.&quot;&quot;&quot;
+    return np.array([rng.choice(poblacion, size=n).mean() for _ in range(repeticiones)])
+
+
+fig, ejes = plt.subplots(1, 3, figsize=(13, 3.8), sharex=True)
+for eje, n in zip(ejes, [5, 30, 120]):
+    medias = medias_muestrales(n)
+    ee_teorico = sigma / np.sqrt(n)
+    eje.hist(medias, bins=60, density=True, color=&quot;lightsteelblue&quot;, edgecolor=&quot;white&quot;)
+    x = np.linspace(medias.min(), medias.max(), 200)
+    eje.plot(x, np.exp(-((x - mu) ** 2) / (2 * ee_teorico ** 2)) / (ee_teorico * np.sqrt(2 * np.pi)),
+             color=&quot;firebrick&quot;, label=&quot;Normal del TCL&quot;)
+    eje.set_title(f&quot;n = {n}\nEE simulado {medias.std():.2f} · teórico {ee_teorico:.2f}&quot;)
+    eje.set_xlabel(&quot;Media de la muestra (días)&quot;)
+ejes[0].legend()
+plt.tight_layout()
+plt.show()</code></pre><p>Tres observaciones fundamentales:</p>
+<ol>
+<li>Las medias se concentran <strong>alrededor de μ</strong>: la media muestral no tiene sesgo.</li>
+<li>Al aumentar <em>n</em>, la distribución se <strong>estrecha</strong>: el error estándar simulado coincide con σ/√<em>n</em>.</li>
+<li>La población es muy asimétrica. Aun así, con <em>n</em> = 30 o más, la distribución de la media ya es <strong>casi normal</strong>: es el teorema central del límite. Con <em>n</em> = 5 todavía se aprecia la asimetría.</li>
+</ol></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: muestras simuladas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: muestras simuladas</h2><h3>3.4 El 95 % de las medias</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 El 95 % de las medias</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Si las medias siguen aproximadamente una normal, el 95 % de ellas estará a menos de 1,96 errores estándar de μ. Lo comprobamos:</p><pre class="code"><code class="language-python">n = 30
+medias = medias_muestrales(n)
+ee = sigma / np.sqrt(n)
+dentro = np.abs(medias - mu) &lt; 1.96 * ee
+print(f&quot;Medias a menos de 1,96 EE de μ: {dentro.mean():.1%}&quot;)</code></pre><p>Esta es la idea del <strong>intervalo de confianza</strong> del Tema 200. Si cada residente construye el intervalo media ± 1,96 EE con su muestra, alrededor del 95 % de esos intervalos contiene el verdadero valor μ.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: muestras simuladas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: muestras simuladas</h2><h3>3.5 Tamaño muestral y precisión</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 Tamaño muestral y precisión</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">tamanos = np.array([10, 20, 40, 80, 160, 320, 640])
+ee_simulado = [medias_muestrales(n, 3000).std() for n in tamanos]
+
+plt.figure(figsize=(7, 4))
+plt.plot(tamanos, ee_simulado, marker=&quot;o&quot;, label=&quot;Simulado&quot;)
+plt.plot(tamanos, sigma / np.sqrt(tamanos), linestyle=&quot;--&quot;, label=&quot;σ / √n&quot;)
+plt.xscale(&quot;log&quot;)
+plt.xticks(tamanos, tamanos)
+plt.xlabel(&quot;Tamaño de la muestra (escala logarítmica)&quot;)
+plt.ylabel(&quot;Error estándar de la media (días)&quot;)
+plt.title(&quot;Cuadruplicar la muestra reduce el error estándar a la mitad&quot;)
+plt.legend()
+plt.show()</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: muestras simuladas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: muestras simuladas</h2><h3>3.6 La distribución muestral de una proporción</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 La distribución muestral de una proporción</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Lo mismo ocurre con las proporciones. Si la prevalencia real de diabetes en una población es del 18 %, ¿cuánto varía la prevalencia estimada en muestras de 100 pacientes?</p>
+<p><strong>A mano:</strong> $EE = \sqrt{0{,}18 \times 0{,}82 / 100} \approx 0{,}038$. El 95 % de las muestras dará una prevalencia entre 0,18 ± 1,96 × 0,038. Es decir, entre el 10,5 % y el 25,5 % aproximadamente.</p><pre class="code"><code class="language-python">p = 0.18
+prevalencias = rng.binomial(n=100, p=p, size=10_000) / 100
+print(f&quot;EE simulado: {prevalencias.std():.3f} · teórico: {np.sqrt(p * (1 - p) / 100):.3f}&quot;)
+print(f&quot;Percentiles 2,5 y 97,5 de la prevalencia estimada: {np.percentile(prevalencias, [2.5, 97.5])}&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: muestras simuladas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: muestras simuladas</h2><h3>3.7 La variabilidad de un modelo de lenguaje</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.7 La variabilidad de un modelo de lenguaje</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>En el Tema 170 modelamos el número de aciertos de un modelo de IA con una binomial. Ese modelo asume que <strong>todas las preguntas tienen la misma probabilidad de acierto</strong>. En la práctica, unas preguntas son fáciles para el modelo y otras muy difíciles. Simulamos 50 preguntas con dificultad variable y repetimos el «examen» muchas veces.</p><pre class="code"><code class="language-python">n_preguntas, repeticiones = 50, 5000
+
+# Probabilidad de acierto de cada pregunta: media 0,8, pero muy desigual
+p_pregunta = rng.beta(a=2, b=0.5, size=n_preguntas)
+print(f&quot;Probabilidad media de acierto: {p_pregunta.mean():.2f}&quot;)
+
+# Cada repetición del examen responde a las mismas 50 preguntas
+aciertos_reales = (rng.random((repeticiones, n_preguntas)) &lt; p_pregunta).sum(axis=1)
+# Lo que predeciría una binomial con la misma media
+aciertos_binomial = rng.binomial(n_preguntas, p_pregunta.mean(), size=repeticiones)
+
+print(f&quot;Varianza con dificultad desigual: {aciertos_reales.var():.2f}&quot;)
+print(f&quot;Varianza de la binomial:          {aciertos_binomial.var():.2f}&quot;)</code></pre><p>Aquí ocurre algo contraintuitivo: <strong>repitiendo el mismo examen</strong>, la variabilidad es <em>menor</em> que la de la binomial. Las preguntas fáciles se aciertan casi siempre y las difíciles casi nunca. En cambio, supón que cada repetición es un examen de un <strong>área distinta</strong>: unas áreas le resultan fáciles al modelo y otras difíciles. Entonces la probabilidad media de acierto cambia de un examen a otro. La variabilidad es <em>mayor</em> que la binomial: es la <strong>sobredispersión</strong>.</p><pre class="code"><code class="language-python">p_area = rng.beta(a=8, b=2, size=repeticiones)          # acierto medio de cada área: 0,8 en promedio
+examenes_por_area = rng.binomial(n_preguntas, p_area)
+p_media = p_area.mean()
+print(f&quot;Varianza con exámenes de áreas distintas: {examenes_por_area.var():.2f}&quot;)
+print(f&quot;Varianza de la binomial con p = {p_media:.2f}:    {n_preguntas * p_media * (1 - p_media):.2f}&quot;)</code></pre><p><strong>Conclusión práctica:</strong> antes de aplicar un modelo de probabilidad a los resultados de un modelo de IA, responde a dos preguntas. ¿<strong>Qué</strong> se repite: la misma pregunta, el mismo examen o exámenes distintos? ¿Es realmente constante la probabilidad de acierto?</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: la misma pregunta, muchas veces, al modelo real</h3><p>Con una clave configurada, esta celda repite 10 veces una misma pregunta con temperatura alta y cuenta las respuestas distintas. Sin clave, no hace nada.</p><p>Esta celda prepara la conexión con el modelo de lenguaje (Tema 80). Lee la clave de Secretos sin mostrarla. Si no hay clave, el cuaderno funciona con respuestas de ejemplo. Si el modelo indicado ya no existe, cambia la variable <code>MODELO</code>.</p><pre class="code"><code class="language-python">%pip install -q google-genai
+
+MODELO = &quot;gemini-2.5-flash&quot;
+
+try:
+    from google.colab import userdata
+    from google import genai
+    from google.genai import types
+    cliente = genai.Client(api_key=userdata.get(&quot;GEMINI_API_KEY&quot;))
+    print(&quot;Conexión preparada con el modelo&quot;, MODELO)
+except Exception as error:
+    cliente = None
+    print(&quot;Sin clave o fuera de Colab: se usarán respuestas de ejemplo.&quot;, type(error).__name__)
+
+
+def preguntar(prompt, temperatura=0.2):
+    &quot;&quot;&quot;Envía un prompt al modelo y devuelve su texto (None si no hay conexión).&quot;&quot;&quot;
+    if cliente is None:
+        return None
+    respuesta = cliente.models.generate_content(
+        model=MODELO,
+        contents=prompt,
+        config=types.GenerateContentConfig(temperature=temperatura),
+    )
+    return respuesta.text</code></pre><pre class="code"><code class="language-python">from collections import Counter
+
+pregunta = (&quot;Un paciente con fiebre, tos productiva y crepitantes en la base derecha. &quot;
+            &quot;¿Cuál es el diagnóstico más probable? Responde con dos palabras como máximo.&quot;)
+
+if cliente is not None:
+    respuestas = [preguntar(pregunta, temperatura=1.5).strip().lower().rstrip(&quot;.&quot;) for _ in range(10)]
+    print(Counter(respuestas))
+else:
+    print(&quot;Configura tu clave para hacer el experimento con el modelo real.&quot;)</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Confundir desviación típica y error estándar</strong> al leer un artículo. Una media «± 0,4» puede ser una desviación típica muy pequeña o un error estándar con una dispersión grande.</p>
+<p><strong>Pensar que la muestra debe ser una fracción grande de la población.</strong> La precisión depende sobre todo del tamaño absoluto de la muestra, no del porcentaje de la población.</p>
+<p><strong>Aplicar el teorema central del límite a muestras muy pequeñas</strong> de variables muy asimétricas.</p>
+<p><strong>Creer que el TCL hace normales los datos.</strong> Lo que se aproxima a la normal es la <strong>media</strong> de muchas muestras, no la distribución de los pacientes.</p>
+<p><strong>Olvidar que la simulación tiene su propio error:</strong> con pocas repeticiones, el resultado de un Monte Carlo también varía.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: Simulación de Monte Carlo y método de la transformación inversa</h3><p>Una <strong>simulación de Monte Carlo</strong> estima una probabilidad repitiendo un experimento aleatorio muchas veces en el ordenador. Es la técnica que usa este tema para estudiar la media muestral.</p>
+<p>Para simular una distribución cualquiera basta un generador uniforme entre 0 y 1. El <strong>método de la transformación inversa</strong> aplica a cada número uniforme <em>u</em> la inversa de la función de distribución. Para una exponencial de media μ: $t = -\mu \ln(1-u)$.</p>
+<p><strong>En tus materiales SIMUSTAT:</strong> <a href="https://colab.research.google.com/drive/1IMUU6YaylInQ_SiS6qfUGGpVSYLCcYDd" target="_blank" rel="noopener">Tema 320. Simulación de Monte Carlo y las distribuciones muestrales</a>, apartado 1 y 2.</p><pre class="code"><code class="language-python">import math
+
+rng = np.random.default_rng(320)
+u = rng.uniform(size=100_000)
+t = -6 * np.log(1 - u)                  # exponencial de media 6 min (Tema 180)
+
+print(f&quot;Media simulada: {t.mean():.2f} min (teórica: 6)&quot;)
+print(f&quot;P(T &gt; 15) simulada: {(t &gt; 15).mean():.4f} | exacta: {math.exp(-15 / 6):.4f}&quot;)
+
+plt.hist(t, bins=80, density=True, color=&quot;steelblue&quot;, alpha=0.7, label=&quot;Simulación&quot;)
+x = np.linspace(0, 40, 200)
+plt.plot(x, np.exp(-x / 6) / 6, color=&quot;orange&quot;, lw=2, label=&quot;Densidad teórica&quot;)
+plt.xlim(0, 40)
+plt.xlabel(&quot;Minutos&quot;)
+plt.legend()
+plt.show()</code></pre><p>Con 100.000 repeticiones, la simulación difiere del cálculo exacto en menos de una milésima. Cuando no hay fórmula, la simulación da la respuesta; con más repeticiones, la estimación es más precisa.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 190 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> calcular a mano el error estándar de medias y proporciones con distintos tamaños muestrales.</li>
+<li><strong>Misión clínica (con pistas):</strong> simular la distribución muestral de la prevalencia de hipertensión con muestras de 50, 200 y 800 pacientes.</li>
+<li><strong>Misión reto (con asistente):</strong> repetir 20 veces una pregunta clínica a un modelo de IA y registrar las respuestas. Discutir si un modelo binomial describe su variabilidad.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde a mano, sin asistente y sin ejecutar código.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q22-0"><p class="qq">La PAS de una población tiene σ = 16 mmHg. ¿Cuál es el error estándar de la media en muestras de 64 pacientes?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: 16 / √64 = 16 / 8.">2 mmHg</button><button type="button" class="op" data-ok="0" data-fb="Esa es la desviación típica de los pacientes.">16 mmHg</button><button type="button" class="op" data-ok="0" data-fb="Eso es 16 / 64: hay que dividir entre la raíz de n.">0,25 mmHg</button><button type="button" class="op" data-ok="0" data-fb="Revisa la raíz cuadrada de 64.">4 mmHg</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-1"><p class="qq">Para reducir a la mitad el error estándar de una media, ¿cuánto hay que aumentar la muestra?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el EE depende de 1/√n, y √4 = 2.">Multiplicarla por 4</button><button type="button" class="op" data-ok="0" data-fb="Con el doble de muestra, el EE solo se divide entre √2 ≈ 1,41.">Multiplicarla por 2</button><button type="button" class="op" data-ok="0" data-fb="El efecto depende de la proporción, no de una cantidad fija.">Sumarle 30 pacientes</button><button type="button" class="op" data-ok="0" data-fb="Aumentar la muestra siempre lo reduce.">No se puede reducir</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-2"><p class="qq">¿Qué afirma el teorema central del límite?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto.">Que la media muestral se aproxima a una normal con muestras suficientemente grandes, sea cual sea la distribución de la variable</button><button type="button" class="op" data-ok="0" data-fb="Muchas variables no son normales.">Que toda variable biológica sigue una distribución normal</button><button type="button" class="op" data-ok="0" data-fb="Los datos no cambian; es la media la que se aproxima a la normal.">Que con muestras grandes los datos de los pacientes se vuelven normales</button><button type="button" class="op" data-ok="0" data-fb="La media muestral varía alrededor de la poblacional.">Que la media muestral es siempre igual a la poblacional</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-3"><p class="qq">Una prevalencia real del 50 % se estima con muestras de 100 personas. ¿Cuál es el error estándar de la proporción?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: √(0,5 × 0,5 / 100) = √0,0025.">0,05</button><button type="button" class="op" data-ok="0" data-fb="Esa es la prevalencia, no su error estándar.">0,5</button><button type="button" class="op" data-ok="0" data-fb="Eso es p(1 − p); falta dividir entre n y hacer la raíz.">0,25</button><button type="button" class="op" data-ok="0" data-fb="Esa es la varianza; falta la raíz cuadrada.">0,0025</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q22-4"><p class="qq">Al pasar de 50 a 500 pacientes en un estudio, ¿qué ocurre con la desviación típica de la edad de los pacientes?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la dispersión de los pacientes no depende del tamaño de la muestra.">Se mantiene aproximadamente igual</button><button type="button" class="op" data-ok="0" data-fb="Eso le ocurre, aproximadamente, al error estándar (√10 ≈ 3,2).">Disminuye a un tercio</button><button type="button" class="op" data-ok="0" data-fb="No hay motivo para que aumente.">Aumenta</button><button type="button" class="op" data-ok="0" data-fb="Los pacientes siguen teniendo edades distintas.">Se hace cero</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>El método de Monte Carlo estima cantidades repitiendo muchas veces un experimento simulado.</li>
+<li>La media de una muestra varía de una muestra a otra; su dispersión es el error estándar, σ/√<em>n</em>.</li>
+<li>El teorema central del límite hace que la media muestral sea aproximadamente normal con muestras grandes.</li>
+<li>Alrededor del 95 % de las medias muestrales está a menos de 1,96 EE de la media poblacional: es la base del intervalo de confianza.</li>
+<li>Antes de modelar los aciertos de un modelo de IA, hay que comprobar si la probabilidad de acierto es constante.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Método de Monte Carlo</td>
+<td>Estimación de una cantidad mediante la repetición de experimentos aleatorios simulados</td>
+</tr>
+<tr>
+<td>Estadístico</td>
+<td>Valor calculado a partir de una muestra</td>
+</tr>
+<tr>
+<td>Distribución muestral</td>
+<td>Distribución de un estadístico en todas las muestras posibles de un mismo tamaño</td>
+</tr>
+<tr>
+<td>Error estándar</td>
+<td>Desviación típica de la distribución muestral de un estadístico</td>
+</tr>
+<tr>
+<td>Teorema central del límite</td>
+<td>Resultado según el cual la media muestral se aproxima a una normal al aumentar <em>n</em></td>
+</tr>
+<tr>
+<td>Estimador insesgado</td>
+<td>Estimador cuya distribución muestral está centrada en el parámetro</td>
+</tr>
+<tr>
+<td>Sobredispersión</td>
+<td>Variabilidad mayor que la que predice el modelo de probabilidad supuesto</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li>Altman DG, Bland JM. Standard deviations and standard errors. <em>BMJ</em>. 2005;331(7521):903. doi:<a href="https://doi.org/10.1136/bmj.331.7521.903" target="_blank" rel="noopener">10.1136/bmj.331.7521.903</a></li>
+<li>Metropolis N, Ulam S. The Monte Carlo method. <em>J Am Stat Assoc</em>. 1949;44(247):335-341. doi:<a href="https://doi.org/10.1080/01621459.1949.10483310" target="_blank" rel="noopener">10.1080/01621459.1949.10483310</a></li>
+<li>SIMUSTAT Unidigital UMH. <a href="https://colab.research.google.com/drive/1IMUU6YaylInQ_SiS6qfUGGpVSYLCcYDd" target="_blank" rel="noopener">Tema 320. Simulación de Monte Carlo y las distribuciones muestrales</a>. Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.</li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_190_Simulacion_de_Monte_Carlo_y_distribuciones_muestrales.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 190 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-190" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_180.html">← Tema 180</a><a class="btn ghost" href="tema_200.html">→ Tema 200</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

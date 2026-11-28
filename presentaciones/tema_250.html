@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 250. Inferencia sobre medias: pruebas t para muestras independientes y relacionadas · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 250. Inferencia sobre medias: pruebas t para muestras independientes y relacionadas</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 250</span>Inferencia sobre medias: pruebas t para muestras independientes y relacionadas</h1>
+<p class="mod">Módulo 5. Generalización de conclusiones</p>
+<p class="ev"><b>Evaluación:</b> el examen del Módulo 5 se hace <strong>con Colab</strong>. Practica ejecutando e interpretando cada análisis.</p>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_250_Inferencia_sobre_medias_pruebas_t_independientes_y_relacionadas.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-250" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Elegir entre la prueba <em>t</em> para una muestra, para dos muestras independientes y para muestras relacionadas.</li>
+<li>Aplicar la prueba <em>t</em> de Welch y saber por qué es la opción recomendada para dos grupos independientes.</li>
+<li>Estimar la diferencia de medias con su intervalo de confianza y el tamaño del efecto (<em>d</em> de Cohen).</li>
+<li>Comprobar las condiciones de aplicación de forma gráfica y razonada.</li>
+<li>Reconocer cuándo conviene una alternativa no paramétrica.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: las tres pruebas t <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">HDL en hombres y mujeres de la cohorte</p><ul class='puntos'><li>Dos grupos distintos de pacientes: prueba t de Welch.</li><li>Se comunica la diferencia de medias con su IC, el valor p y el tamaño del efecto.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>En la cohorte cardiovascular, el colesterol HDL medio es de unos 49 mg/dL en los hombres y de unos 58 mg/dL en las mujeres. Antes de proponer puntos de corte distintos por sexo en el protocolo del centro, el equipo quiere saber dos cosas. ¿Es real esa diferencia en la población? ¿<strong>De qué tamaño</strong> es?</p>
+<p>Además, una enfermera ha medido la presión arterial a 30 hipertensos <strong>antes y después</strong> de 8 semanas de un programa de reducción de sal. Quiere saber si la PAS ha bajado.</p>
+<p>Las dos preguntas comparan <strong>medias</strong>, pero la segunda usa los <strong>mismos</strong> pacientes dos veces. Cada una requiere una versión distinta de la prueba <em>t</em> de Student.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 Las tres pruebas t</h3><p class="lema">Tres pruebas t para tres diseños</p><figure><img src="../figuras/tema_250_tres.png" alt="Tres pruebas t para tres diseños" loading="lazy"></figure><ul class='puntos'><li>Una media frente a un valor de referencia · dos grupos independientes · los mismos pacientes dos veces.</li><li>El diseño, no los datos, decide la prueba.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><table>
+<thead>
+<tr>
+<th>Prueba</th>
+<th>Pregunta</th>
+<th>Hipótesis nula</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>t</em> para una muestra</td>
+<td>¿La media es distinta de un valor de referencia?</td>
+<td>μ = μ₀</td>
+<td>¿La HbA1c media de nuestros diabéticos difiere del objetivo del 7 %?</td>
+</tr>
+<tr>
+<td><em>t</em> para dos muestras independientes</td>
+<td>¿Difieren las medias de dos grupos distintos?</td>
+<td>μ₁ = μ₂</td>
+<td>HDL en hombres y mujeres</td>
+</tr>
+<tr>
+<td><em>t</em> para muestras relacionadas (apareadas)</td>
+<td>¿Cambia la media en los mismos individuos?</td>
+<td>μ de las diferencias = 0</td>
+<td>PAS antes y después del programa</td>
+</tr>
+</tbody>
+</table>
+<p>En todas, el estadístico tiene la misma estructura:</p>
+<p>$$t = \frac{\text{diferencia observada} - \text{diferencia bajo } H_0}{\text{error estándar de la diferencia}}$$</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Welch o Student clásica</h3><figure><img src="../figuras/tema_250_e2_2.png" alt="Simulación con medias iguales y varianzas distintas: la t clásica da muchos más falsos positivos que el 5 % nominal; Welch, alrededor del 5 %." loading="lazy"></figure><p>La prueba <em>t</em> clásica para dos muestras supone que las <strong>varianzas son iguales</strong> en los dos grupos. La versión de <strong>Welch</strong> no lo supone y ajusta los grados de libertad. Cuando las varianzas son iguales, las dos dan casi lo mismo; cuando no lo son, la clásica puede equivocarse. Por eso se recomienda usar <strong>Welch por defecto</strong>, sin contrastar antes la igualdad de varianzas.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Muestras relacionadas</h3><p class="lema">Antes y después en los mismos pacientes</p><figure><img src="../figuras/tema_250_apareados.png" alt="Antes y después en los mismos pacientes" loading="lazy"></figure><ul class='puntos'><li>La variabilidad entre pacientes es mucho mayor que la del cambio dentro de cada paciente.</li><li>La prueba apareada analiza las diferencias: elimina esa variabilidad y gana potencia.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Con datos apareados se calcula para cada paciente la <strong>diferencia</strong> (después − antes) y se aplica la <em>t</em> para una muestra a esas diferencias. La prueba apareada elimina la variabilidad entre pacientes. Por eso es mucho más potente que comparar los dos momentos como grupos independientes (igual que McNemar frente a la <em>z</em> en el Tema 240).</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.4 Condiciones de aplicación</h3><figure><img src="../figuras/tema_250_esquema.png" alt="Tres comprobaciones antes de la prueba t: independencia, normalidad o n ≥ 30 y ausencia de atípicos extremos, con la alternativa de cada una." loading="lazy"></figure><table>
+<thead>
+<tr>
+<th>Condición</th>
+<th>Cómo valorarla</th>
+<th>Si no se cumple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Observaciones independientes (dentro de cada grupo)</td>
+<td>Por el diseño</td>
+<td>Otro método (datos agrupados, medidas repetidas)</td>
+</tr>
+<tr>
+<td>Normalidad de la variable (o de las diferencias)</td>
+<td>Histograma y gráfico Q-Q; con <em>n</em> ≥ 30 por grupo la prueba es robusta por el teorema central del límite</td>
+<td>Transformación (logaritmo) o prueba no paramétrica</td>
+</tr>
+<tr>
+<td>Ausencia de atípicos extremos</td>
+<td>Diagrama de caja</td>
+<td>Revisar si son errores (Tema 100); prueba no paramétrica</td>
+</tr>
+</tbody>
+</table>
+<p>Los contrastes formales de normalidad (Shapiro-Wilk) tienen poco valor: con muestras pequeñas casi nunca detectan nada, y con muestras grandes detectan desviaciones irrelevantes.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.5 Tamaño del efecto: d de Cohen</h3><figure><img src="../figuras/tema_250_e2_5.png" alt="Tres pares de curvas normales con d de Cohen 0,2, 0,5 y 0,8 y su solapamiento." loading="lazy"></figure><p>$$d = \frac{\bar{x}_1 - \bar{x}_2}{s_{\text{conjunta}}}$$</p>
+<p>Expresa la diferencia en unidades de desviación típica. Orientación habitual: 0,2 pequeño, 0,5 mediano, 0,8 grande. Para decidir la relevancia clínica, sin embargo, importa más la diferencia en las <strong>unidades originales</strong> (mg/dL, mmHg) comparada con la mínima diferencia clínicamente importante.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">Se mide la glucemia a 25 pacientes antes y después de un tratamiento. ¿Qué prueba usas?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: son los mismos pacientes medidos dos veces.">t para muestras relacionadas</button><button type="button" class="op" data-ok="0" data-fb="Ignoraría el apareamiento y perdería potencia.">t de Welch para muestras independientes</button><button type="button" class="op" data-ok="0" data-fb="La variable es cuantitativa.">Ji cuadrado</button><button type="button" class="op" data-ok="0" data-fb="McNemar es para variables binarias apareadas.">McNemar</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 250.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_250_Inferencia_sobre_medias_pruebas_t_independientes_y_relacionadas.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide denso" data-modo="colab" data-bloque="3. Demostración: las tres pruebas t" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: las tres pruebas t</h2><h3>3.1 Dos muestras independientes: HDL por sexo</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Dos muestras independientes: HDL por sexo</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">import numpy as np
+import pandas as pd
+from scipy import stats
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+cohorte = pd.read_csv(&quot;https://raw.githubusercontent.com/fborrasumh/bioestadistica/main/datos/cohorte_limpia.csv&quot;)
+hdl = cohorte.dropna(subset=[&quot;hdl_mg_dl&quot;])
+hombres = hdl.loc[hdl[&quot;sexo&quot;] == &quot;Hombre&quot;, &quot;hdl_mg_dl&quot;]
+mujeres = hdl.loc[hdl[&quot;sexo&quot;] == &quot;Mujer&quot;, &quot;hdl_mg_dl&quot;]
+
+print(hdl.groupby(&quot;sexo&quot;)[&quot;hdl_mg_dl&quot;].agg([&quot;count&quot;, &quot;mean&quot;, &quot;std&quot;]).round(1))
+
+fig, ejes = plt.subplots(1, 2, figsize=(10, 4))
+sns.boxplot(data=hdl, x=&quot;sexo&quot;, y=&quot;hdl_mg_dl&quot;, ax=ejes[0])
+ejes[0].set_ylabel(&quot;HDL (mg/dL)&quot;)
+for grupo, color in [(hombres, &quot;steelblue&quot;), (mujeres, &quot;indianred&quot;)]:
+    stats.probplot(grupo, plot=ejes[1])
+ejes[1].set_title(&quot;Gráfico Q-Q de los dos grupos&quot;)
+plt.tight_layout()
+plt.show()</code></pre><p>Los diagramas de caja muestran distribuciones razonablemente simétricas y los puntos del gráfico Q-Q siguen aproximadamente una recta. Con más de 170 pacientes por grupo, la prueba <em>t</em> es además robusta a desviaciones moderadas de la normalidad.</p><pre class="code"><code class="language-python">welch = stats.ttest_ind(mujeres, hombres, equal_var=False)
+clasica = stats.ttest_ind(mujeres, hombres, equal_var=True)
+ic = welch.confidence_interval()
+
+n1, n2 = len(mujeres), len(hombres)
+s_conjunta = np.sqrt(((n1 - 1) * mujeres.var() + (n2 - 1) * hombres.var()) / (n1 + n2 - 2))
+d = (mujeres.mean() - hombres.mean()) / s_conjunta
+
+print(f&quot;Diferencia (mujeres − hombres): {mujeres.mean() - hombres.mean():.1f} mg/dL &quot;
+      f&quot;(IC 95 %: {ic.low:.1f} a {ic.high:.1f})&quot;)
+print(f&quot;Welch:   t = {welch.statistic:.2f}, gl = {welch.df:.0f}, p = {welch.pvalue:.1e}&quot;)
+print(f&quot;Clásica: t = {clasica.statistic:.2f}, gl = {clasica.df:.0f}, p = {clasica.pvalue:.1e}&quot;)
+print(f&quot;d de Cohen = {d:.2f}&quot;)</code></pre><p><strong>Cómo se comunica:</strong> «El HDL medio fue de 58,4 mg/dL (DE 12,5) en mujeres y de 48,8 mg/dL (DE 9,7) en hombres. Diferencia de 9,6 mg/dL (IC 95 %: 7,3 a 11,9; prueba <em>t</em> de Welch, <em>p</em> &lt; 0,001; <em>d</em> = 0,86)».</p>
+<p>Una diferencia de casi 10 mg/dL es grande y clínicamente relevante. Por eso las guías usan umbrales de HDL bajo distintos por sexo (&lt; 40 mg/dL en hombres y &lt; 50 mg/dL en mujeres).</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: las tres pruebas t" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: las tres pruebas t</h2><h3>3.2 Muestras relacionadas: el programa de reducción de sal</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 Muestras relacionadas: el programa de reducción de sal</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">rng = np.random.default_rng(seed=250)
+antes = rng.normal(148, 14, 30).round()
+despues = (antes - rng.normal(5, 6, 30)).round()
+diferencias = despues - antes
+
+apareada = stats.ttest_rel(despues, antes)
+ic = apareada.confidence_interval()
+print(f&quot;PAS media antes: {antes.mean():.1f} · después: {despues.mean():.1f} mmHg&quot;)
+print(f&quot;Cambio medio: {diferencias.mean():.1f} mmHg (IC 95 %: {ic.low:.1f} a {ic.high:.1f})&quot;)
+print(f&quot;t apareada: t = {apareada.statistic:.2f}, gl = {apareada.df:.0f}, p = {apareada.pvalue:.1e}&quot;)
+
+uno = stats.ttest_1samp(diferencias, 0)
+print(f&quot;t para una muestra sobre las diferencias: t = {uno.statistic:.2f}, p = {uno.pvalue:.1e} (idéntica)&quot;)</code></pre><pre class="code"><code class="language-python">fig, ejes = plt.subplots(1, 2, figsize=(10, 4))
+for a, d_ in zip(antes, despues):
+    ejes[0].plot([0, 1], [a, d_], color=&quot;gray&quot;, alpha=0.5)
+ejes[0].set_xticks([0, 1], [&quot;Antes&quot;, &quot;Después&quot;])
+ejes[0].set_ylabel(&quot;PAS (mmHg)&quot;)
+ejes[0].set_title(&quot;Cada línea es un paciente&quot;)
+ejes[1].hist(diferencias, bins=10, color=&quot;lightsteelblue&quot;, edgecolor=&quot;white&quot;)
+ejes[1].axvline(0, color=&quot;black&quot;, linestyle=&quot;--&quot;)
+ejes[1].set_xlabel(&quot;Cambio de PAS (mmHg)&quot;)
+ejes[1].set_title(&quot;Distribución de las diferencias&quot;)
+plt.tight_layout()
+plt.show()</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: las tres pruebas t" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: las tres pruebas t</h2><h3>3.3 El error de ignorar el apareamiento</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 El error de ignorar el apareamiento</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">indep = stats.ttest_ind(despues, antes, equal_var=False)
+print(f&quot;Como si fueran grupos independientes: p = {indep.pvalue:.3f}&quot;)
+print(f&quot;Prueba apareada (correcta):           p = {apareada.pvalue:.1e}&quot;)
+print(f&quot;DE de la PAS entre pacientes: {antes.std(ddof=1):.1f} · DE de las diferencias: {diferencias.std(ddof=1):.1f} mmHg&quot;)</code></pre><p>La variabilidad <strong>entre pacientes</strong> (DE de unos 13 mmHg) es mucho mayor que la variabilidad del <strong>cambio</strong> dentro de cada paciente. La prueba apareada la elimina; la independiente la deja como ruido y no detecta el efecto.</p>
+<p>Como en el Tema 240: sin grupo control no se puede atribuir la reducción al programa. Parte puede deberse a la regresión a la media, porque se eligieron pacientes con la PAS alta.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: las tres pruebas t" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: las tres pruebas t</h2><h3>3.4 Una muestra: HbA1c de los diabéticos frente al objetivo</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Una muestra: HbA1c de los diabéticos frente al objetivo</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">analiticas = pd.read_csv(&quot;https://raw.githubusercontent.com/fborrasumh/bioestadistica/main/datos/analiticas.csv&quot;)
+datos = cohorte.merge(analiticas, on=&quot;id&quot;)
+hba1c = datos.loc[datos[&quot;diabetes&quot;] == &quot;Sí&quot;, &quot;hba1c_pct&quot;].dropna()
+
+r = stats.ttest_1samp(hba1c, popmean=7.0)
+ic = r.confidence_interval()
+print(f&quot;Diabéticos con HbA1c: {len(hba1c)}&quot;)
+print(f&quot;HbA1c media: {hba1c.mean():.2f} % (IC 95 %: {ic.low:.2f} a {ic.high:.2f})&quot;)
+print(f&quot;Frente al objetivo del 7 %: t = {r.statistic:.2f}, p = {r.pvalue:.3f}&quot;)
+print(f&quot;Pacientes por encima del objetivo: {(hba1c &gt; 7).mean():.0%}&quot;)</code></pre><p>La media está por encima del objetivo. Pero el dato clínicamente útil es también <strong>qué proporción de pacientes</strong> no lo alcanza. Una media cercana al objetivo puede esconder a muchos pacientes mal controlados.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: cuando la normalidad falla</h3><p>Con muestras pequeñas y variables muy asimétricas (como la creatinina o el NT-proBNP), hay dos opciones:</p>
+<ul>
+<li><strong>Transformar</strong> la variable con el logaritmo y aplicar la <em>t</em> a los logaritmos. La diferencia de medias de los logaritmos, exponenciada, es un <strong>cociente de medias geométricas</strong>.</li>
+<li>Usar una prueba <strong>no paramétrica</strong>: Mann-Whitney para dos grupos independientes y Wilcoxon de los rangos con signo para datos apareados (Tema 260).</li>
+</ul><pre class="code"><code class="language-python">creatinina = datos.dropna(subset=[&quot;creatinina_mg_dl&quot;])
+diab = creatinina.loc[creatinina[&quot;diabetes&quot;] == &quot;Sí&quot;, &quot;creatinina_mg_dl&quot;]
+no_diab = creatinina.loc[creatinina[&quot;diabetes&quot;] == &quot;No&quot;, &quot;creatinina_mg_dl&quot;]
+
+r_log = stats.ttest_ind(np.log(diab), np.log(no_diab), equal_var=False)
+ic = r_log.confidence_interval()
+cociente = np.exp(np.log(diab).mean() - np.log(no_diab).mean())
+print(f&quot;Cociente de medias geométricas (diabéticos / no diabéticos): {cociente:.2f} &quot;
+      f&quot;(IC 95 %: {np.exp(ic.low):.2f} a {np.exp(ic.high):.2f}), p = {r_log.pvalue:.3f}&quot;)
+print(f&quot;Mann-Whitney: p = {stats.mannwhitneyu(diab, no_diab).pvalue:.3f}&quot;)</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Usar la <em>t</em> para muestras independientes con datos apareados.</strong></p>
+<p><strong>Contrastar la igualdad de varianzas para elegir la prueba.</strong> Usa Welch directamente.</p>
+<p><strong>Exigir un Shapiro-Wilk no significativo</strong> con muestras grandes: la <em>t</em> es robusta.</p>
+<p><strong>Dar solo el valor p.</strong> Da las medias, la diferencia, su IC y el tamaño del efecto.</p>
+<p><strong>Hacer muchas pruebas <em>t</em> entre varios grupos</strong> en lugar de un análisis de la varianza (Tema 260).</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: Comparar las varianzas de dos grupos</h3><p>La <em>t</em> clásica supone que los dos grupos tienen la <strong>misma varianza</strong>. Hay dos pruebas para comprobarlo:</p>
+<ul>
+<li><strong>Prueba F:</strong> compara el cociente de las dos varianzas. Exige normalidad.</li>
+<li><strong>Prueba de Levene:</strong> es más robusta si los datos no son normales.</li>
+</ul>
+<p>En ambas, H₀ dice que las varianzas son iguales. Muchos autores recomiendan usar <strong>Welch siempre</strong>: funciona bien con varianzas iguales y con varianzas distintas. Así la decisión no depende de otra prueba previa.</p>
+<p><strong>En tus materiales SIMUSTAT:</strong> <a href="https://colab.research.google.com/drive/1URRViPWC_adC8BGr6Kn_Z8fjV4UGjgcA" target="_blank" rel="noopener">Tema 400. Contraste de dos medias poblacionales</a>, apartado 2.</p><pre class="code"><code class="language-python">f = mujeres.var() / hombres.var()
+gl1, gl2 = len(mujeres) - 1, len(hombres) - 1
+p_f = 2 * min(stats.f.sf(f, gl1, gl2), stats.f.cdf(f, gl1, gl2))
+lev = stats.levene(mujeres, hombres)
+
+print(f&quot;DE del HDL: mujeres {mujeres.std():.1f} | hombres {hombres.std():.1f} mg/dL&quot;)
+print(f&quot;Prueba F:   F = {f:.2f}, p = {p_f:.3f}&quot;)
+print(f&quot;Levene:     W = {lev.statistic:.2f}, p = {lev.pvalue:.3f}&quot;)</code></pre><p>Si las varianzas difieren, la <em>t</em> clásica puede dar un valor p erróneo. Welch, en cambio, sigue siendo válida. Usa la comparación de varianzas para describir los grupos, no para elegir la prueba.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 250 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> elegir la prueba <em>t</em> adecuada para seis diseños y calcular a mano un estadístico <em>t</em>.</li>
+<li><strong>Misión clínica (con pistas):</strong> comparar el IMC entre diabéticos y no diabéticos de la cohorte. Dar la diferencia, el IC 95 %, la <em>d</em> de Cohen y una frase de resultados.</li>
+<li><strong>Misión reto (con asistente):</strong> pedir al asistente el análisis de un ensayo antes-después, detectar si ha usado la prueba equivocada y corregirla.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q20-0"><p class="qq">Se mide la glucemia a 25 pacientes antes y después de un tratamiento. ¿Qué prueba usas?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: son los mismos pacientes medidos dos veces.">t para muestras relacionadas</button><button type="button" class="op" data-ok="0" data-fb="Ignoraría el apareamiento y perdería potencia.">t de Welch para muestras independientes</button><button type="button" class="op" data-ok="0" data-fb="La variable es cuantitativa.">Ji cuadrado</button><button type="button" class="op" data-ok="0" data-fb="McNemar es para variables binarias apareadas.">McNemar</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-1"><p class="qq">¿Por qué se recomienda la prueba t de Welch para dos grupos independientes?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: evita contrastar antes la igualdad de varianzas.">Porque no supone varianzas iguales y funciona bien tanto si lo son como si no</button><button type="button" class="op" data-ok="0" data-fb="Welch también se basa en la distribución t.">Porque no supone normalidad</button><button type="button" class="op" data-ok="0" data-fb="Es para muestras independientes.">Porque sirve para datos apareados</button><button type="button" class="op" data-ok="0" data-fb="No es así.">Porque siempre da valores p más pequeños</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-2"><p class="qq">Una diferencia de medias de PAS es de 4 mmHg (IC 95 %: −1 a 9). ¿Qué concluyes?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el IC contiene el 0.">No es estadísticamente significativa; el efecto real podría ser nulo o de hasta 9 mmHg</button><button type="button" class="op" data-ok="0" data-fb="4 mmHg es la estimación puntual.">La diferencia es de 4 mmHg con seguridad</button><button type="button" class="op" data-ok="0" data-fb="El IC incluye valores en los dos sentidos.">El tratamiento empeora la PAS</button><button type="button" class="op" data-ok="0" data-fb="La significación depende del IC.">Es significativa porque 4 &gt; 0</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-3"><p class="qq">¿Qué expresa una d de Cohen de 0,8?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto.">Una diferencia de medias de 0,8 desviaciones típicas, considerada grande</button><button type="button" class="op" data-ok="0" data-fb="La d está estandarizada.">Una diferencia de 0,8 en las unidades de la variable</button><button type="button" class="op" data-ok="0" data-fb="No es una probabilidad.">Una probabilidad del 80 % de que la diferencia sea real</button><button type="button" class="op" data-ok="0" data-fb="No es una correlación.">Una correlación de 0,8</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-4"><p class="qq">Con 12 pacientes por grupo y una variable muy asimétrica con atípicos, ¿qué es lo más adecuado?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: con muestras pequeñas la t no es robusta a esa asimetría.">Transformar con logaritmos o usar la prueba de Mann-Whitney</button><button type="button" class="op" data-ok="0" data-fb="Con n pequeño la normalidad importa más.">La t clásica, porque n es pequeño</button><button type="button" class="op" data-ok="0" data-fb="Solo se eliminan si son errores comprobados.">Eliminar los atípicos y hacer la t</button><button type="button" class="op" data-ok="0" data-fb="Los grupos son independientes.">La t apareada</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li><em>t</em> para una muestra, para dos independientes (Welch) o para relacionadas, según el diseño.</li>
+<li>La <em>t</em> apareada es la <em>t</em> para una muestra aplicada a las diferencias.</li>
+<li>Da siempre la diferencia de medias con su IC y el tamaño del efecto.</li>
+<li>Con <em>n</em> moderado la <em>t</em> es robusta; con <em>n</em> pequeño y asimetría, logaritmos o pruebas no paramétricas.</li>
+<li>Antes-después sin grupo control no demuestra causalidad.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Prueba <em>t</em> para una muestra</td>
+<td>Contraste de una media frente a un valor de referencia</td>
+</tr>
+<tr>
+<td>Prueba <em>t</em> para dos muestras independientes</td>
+<td>Contraste de la igualdad de las medias de dos grupos distintos</td>
+</tr>
+<tr>
+<td>Prueba <em>t</em> de Welch</td>
+<td>Versión de la <em>t</em> para dos muestras que no supone varianzas iguales</td>
+</tr>
+<tr>
+<td>Prueba <em>t</em> para muestras relacionadas</td>
+<td>Contraste de la media de las diferencias apareadas frente a 0</td>
+</tr>
+<tr>
+<td>Gráfico Q-Q</td>
+<td>Gráfico que compara los cuantiles de los datos con los de una distribución normal</td>
+</tr>
+<tr>
+<td><em>d</em> de Cohen</td>
+<td>Diferencia de medias dividida por la desviación típica conjunta</td>
+</tr>
+<tr>
+<td>Media geométrica</td>
+<td>Exponencial de la media de los logaritmos</td>
+</tr>
+<tr>
+<td>Prueba de Mann-Whitney</td>
+<td>Alternativa no paramétrica a la <em>t</em> para dos muestras independientes</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li>Ruxton GD. The unequal variance t-test is an underused alternative to Student's t-test and the Mann-Whitney U test. <em>Behav Ecol</em>. 2006;17(4):688-690. doi:<a href="https://doi.org/10.1093/beheco/ark016" target="_blank" rel="noopener">10.1093/beheco/ark016</a></li>
+<li>Bland JM, Altman DG. Transformations, means, and confidence intervals. <em>BMJ</em>. 1996;312(7038):1079. doi:<a href="https://doi.org/10.1136/bmj.312.7038.1079" target="_blank" rel="noopener">10.1136/bmj.312.7038.1079</a></li>
+<li>SIMUSTAT Unidigital UMH. <a href="https://colab.research.google.com/drive/1URRViPWC_adC8BGr6Kn_Z8fjV4UGjgcA" target="_blank" rel="noopener">Tema 400. Contraste de dos medias poblacionales</a>. Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.</li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_250_Inferencia_sobre_medias_pruebas_t_independientes_y_relacionadas.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 250 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-250" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_240.html">← Tema 240</a><a class="btn ghost" href="tema_260.html">→ Tema 260</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

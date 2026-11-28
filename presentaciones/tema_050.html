@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 50. Funciones en Python para la implementación de índices y escalas clínicas · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 50. Funciones en Python para la implementación de índices y escalas clínicas</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 50</span>Funciones en Python para la implementación de índices y escalas clínicas</h1>
+<p class="mod">Módulo 2. Programando con IA</p>
+
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_050_Funciones_indices_y_escalas_clinicas.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-50" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Definir funciones con <code>def</code>, parámetros y valor de retorno.</li>
+<li>Documentar una función para que otra persona sepa qué hace, qué recibe y qué devuelve.</li>
+<li>Implementar índices y escalas clínicas como funciones reutilizables.</li>
+<li>Usar parámetros con valor por defecto y llamadas por nombre.</li>
+<li>Comprobar una función con <strong>casos de prueba</strong> (<code>assert</code>) antes de confiar en ella, sea tuya o del asistente de IA.</li>
+<li>Rechazar valores de entrada imposibles en lugar de devolver un resultado absurdo.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: escalas clínicas como funciones <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">Rosa: fibrilación auricular, dos cálculos que se repiten cada día</p><figure><img src="../figuras/tema_050_caja.png" alt="Rosa: fibrilación auricular, dos cálculos que se repiten cada día" loading="lazy"></figure><ul class='puntos'><li>CHA₂DS₂-VASc orienta la anticoagulación; el aclaramiento de creatinina, la dosis.</li><li>Una <b>función</b> recibe los datos del paciente y devuelve el resultado: se escribe una vez y se usa siempre.</li><li>Una función mal escrita se equivoca con todos los pacientes: hay que probarla.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p><strong>Rosa</strong>, de 78 años (paciente sintética), acude a Urgencias con palpitaciones. El electrocardiograma muestra una <strong>fibrilación auricular</strong> no conocida. Es hipertensa y diabética, sin ictus previos ni enfermedad vascular. Pesa 58 kg y su creatinina sérica es de 1,3 mg/dL.</p>
+<p>El médico necesita dos cálculos para decidir el tratamiento:</p>
+<ol>
+<li>La escala <strong>CHA₂DS₂-VASc</strong>, que estima el riesgo de ictus y orienta la anticoagulación.</li>
+<li>El <strong>aclaramiento de creatinina</strong>, porque la dosis de varios anticoagulantes depende de la función renal.</li>
+</ol>
+<p>Estos cálculos se repiten cada día con cientos de pacientes. Escribirlos una sola vez, comprobarlos bien y reutilizarlos es justo lo que permite una <strong>función</strong>. Y si el asistente de IA escribe la función por nosotros, necesitamos una manera de <strong>comprobar</strong> que la ha escrito bien.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 Qué es una función</h3><p class="lema">Anatomía de una función</p><figure><img src="../figuras/tema_050_anatomia.png" alt="Anatomía de una función" loading="lazy"></figure><ul class='puntos'><li><b>def</b>, nombre y parámetros; el cuerpo sangrado; <b>return</b> devuelve el resultado.</li><li>Sin return, la función calcula pero quien la llama recibe None.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Una <strong>función</strong> es un bloque de código con nombre. Recibe datos (<strong>parámetros</strong>), hace un cálculo y devuelve un resultado (<strong>valor de retorno</strong>). Ya has usado funciones de Python: <code>print()</code>, <code>len()</code>, <code>round()</code>, <code>max()</code>. Ahora escribirás las tuyas.</p>
+<pre><code class="language-python">def nombre_de_la_funcion(parametro_1, parametro_2):
+    &quot;&quot;&quot;Explicación de lo que hace la función.&quot;&quot;&quot;
+    resultado = ...
+    return resultado
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Parte</th>
+<th>Para qué sirve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>def</code></td>
+<td>Indica que se define una función</td>
+</tr>
+<tr>
+<td>Parámetros</td>
+<td>Los datos que necesita, entre paréntesis</td>
+</tr>
+<tr>
+<td><em>Docstring</em> (entre triples comillas)</td>
+<td>Documenta qué hace, qué recibe y qué devuelve</td>
+</tr>
+<tr>
+<td><code>return</code></td>
+<td>Devuelve el resultado a quien llamó a la función</td>
+</tr>
+</tbody>
+</table>
+<p>Definir una función <strong>no la ejecuta</strong>: solo la guarda. Se ejecuta al <strong>llamarla</strong>: <code>imc(68, 1.63)</code>.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Por qué usar funciones</h3><figure><img src="../figuras/tema_050_e2_2.png" alt="Una función cha2ds2_vasc se usa en la consulta, en el informe de alta y en las pruebas; un cambio se corrige en un solo sitio." loading="lazy"></figure><ul>
+<li><strong>Una sola fuente de verdad:</strong> si la fórmula cambia, se corrige en un único sitio.</li>
+<li><strong>Legibilidad:</strong> <code>cha2ds2_vasc(...)</code> se entiende mejor que diez líneas de sumas.</li>
+<li><strong>Verificación:</strong> una función se puede probar con casos de resultado conocido.</li>
+</ul></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Casos de prueba</h3><p class="lema">Los casos de prueba salen de la guía clínica, no del código</p><figure><img src="../figuras/tema_050_pruebas.png" alt="Los casos de prueba salen de la guía clínica, no del código" loading="lazy"></figure><ul class='puntos'><li>Para cada caso: datos de entrada y resultado esperado, calculado a mano.</li><li>Los valores frontera (75 años, 65 años) son los que descubren los errores.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Un <strong>caso de prueba</strong> compara el resultado de la función con un valor conocido. Ese valor se calcula a mano o se toma de una fuente fiable. La instrucción <code>assert condición</code> no hace nada si la condición es verdadera y detiene el programa con <code>AssertionError</code> si es falsa.</p>
+<pre><code class="language-python">assert round(imc(68, 1.63), 1) == 25.6
+</code></pre>
+<p>Es la herramienta central de este módulo: <strong>ninguna función, propia o generada por IA, se da por buena sin pasar sus casos de prueba</strong>.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">¿Qué devuelve una función que calcula un resultado y lo muestra con print, pero no tiene return?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: sin return, una función devuelve None aunque haya mostrado algo en pantalla.">None</button><button type="button" class="op" data-ok="0" data-fb="Python no devuelve automáticamente el último cálculo.">El último valor calculado</button><button type="button" class="op" data-ok="0" data-fb="print solo muestra; no entrega el valor.">El texto mostrado por print</button><button type="button" class="op" data-ok="0" data-fb="No hay error al llamarla; el problema aparece al usar el resultado.">Un error</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 50.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_050_Funciones_indices_y_escalas_clinicas.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: escalas clínicas como funciones" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: escalas clínicas como funciones</h2><h3>3.1 Una primera función: el IMC</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Una primera función: el IMC</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">def imc(peso_kg, talla_m):
+    &quot;&quot;&quot;Calcula el índice de masa corporal.
+
+    Parámetros:
+        peso_kg: peso en kilogramos.
+        talla_m: talla en metros.
+    Devuelve:
+        IMC en kg/m².
+    &quot;&quot;&quot;
+    return peso_kg / talla_m ** 2
+
+
+print(f&quot;{imc(68, 1.63):.1f} kg/m²&quot;)
+print(f&quot;{imc(92, 1.80):.1f} kg/m²&quot;)</code></pre><p>La documentación de una función se consulta con <code>help()</code>:</p><pre class="code"><code class="language-python">help(imc)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: escalas clínicas como funciones" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: escalas clínicas como funciones</h2><h3>3.2 Funciones que usan otras funciones</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 Funciones que usan otras funciones</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">def categoria_imc(valor_imc):
+    &quot;&quot;&quot;Devuelve la categoría de la OMS para un IMC de adulto.&quot;&quot;&quot;
+    if valor_imc &lt; 18.5:
+        return &quot;bajo peso&quot;
+    elif valor_imc &lt; 25:
+        return &quot;normal&quot;
+    elif valor_imc &lt; 30:
+        return &quot;sobrepeso&quot;
+    else:
+        return &quot;obesidad&quot;
+
+
+def informe_peso(peso_kg, talla_m):
+    &quot;&quot;&quot;Devuelve un texto con el IMC y su categoría.&quot;&quot;&quot;
+    valor = imc(peso_kg, talla_m)
+    return f&quot;IMC {valor:.1f} kg/m² ({categoria_imc(valor)})&quot;
+
+
+print(informe_peso(58, 1.55))</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: escalas clínicas como funciones" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: escalas clínicas como funciones</h2><h3>3.3 Casos de prueba</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 Casos de prueba</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Los casos de prueba se eligen para comprobar <strong>el cálculo</strong> y <strong>los límites entre categorías</strong>. Si la celda no muestra nada salvo el mensaje final, todas las pruebas se han superado.</p><pre class="code"><code class="language-python">assert round(imc(68, 1.63), 1) == 25.6
+assert categoria_imc(18.4) == &quot;bajo peso&quot;
+assert categoria_imc(18.5) == &quot;normal&quot;
+assert categoria_imc(24.9) == &quot;normal&quot;
+assert categoria_imc(25.0) == &quot;sobrepeso&quot;
+assert categoria_imc(30.0) == &quot;obesidad&quot;
+print(&quot;Todas las pruebas superadas&quot;)</code></pre></div></section>
+<section class="slide denso" data-modo="colab" data-bloque="3. Demostración: escalas clínicas como funciones" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: escalas clínicas como funciones</h2><h3>3.4 La escala CHA₂DS₂-VASc</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 La escala CHA₂DS₂-VASc</b>. Antes de ejecutar, escribe qué esperas obtener.</p><table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Puntos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>C</strong>: insuficiencia cardiaca congestiva</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>H</strong>: hipertensión arterial</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>A₂</strong>: edad ≥ 75 años</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>D</strong>: diabetes mellitus</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>S₂</strong>: ictus o accidente isquémico transitorio previo</td>
+<td>2</td>
+</tr>
+<tr>
+<td><strong>V</strong>: enfermedad vascular (infarto previo, arteriopatía periférica, placa aórtica)</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>A</strong>: edad de 65 a 74 años</td>
+<td>1</td>
+</tr>
+<tr>
+<td><strong>Sc</strong>: sexo femenino</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>La guía europea de fibrilación auricular de 2024 propone una versión sin el criterio de sexo (CHA₂DS₂-VA). Aquí programamos la clásica, todavía muy citada, y en la práctica se adapta en una línea.</p>
+<p>Los criterios ausentes tienen el valor por defecto <code>False</code>. Por eso, al llamar a la función, indica solo los presentes, <strong>por su nombre</strong>.</p><pre class="code"><code class="language-python">def cha2ds2_vasc(edad, mujer, insuficiencia_cardiaca=False, hipertension=False,
+                 diabetes=False, ictus_previo=False, enfermedad_vascular=False):
+    &quot;&quot;&quot;Calcula la escala CHA2DS2-VASc de riesgo de ictus en fibrilación auricular.&quot;&quot;&quot;
+    puntos = 0
+    puntos += insuficiencia_cardiaca
+    puntos += hipertension
+    puntos += diabetes
+    puntos += 2 * ictus_previo
+    puntos += enfermedad_vascular
+    puntos += mujer
+    if edad &gt;= 75:
+        puntos += 2
+    elif edad &gt;= 65:
+        puntos += 1
+    return puntos
+
+
+# Rosa: 78 años, mujer, hipertensa y diabética
+print(&quot;CHA2DS2-VASc de Rosa:&quot;, cha2ds2_vasc(78, mujer=True, hipertension=True, diabetes=True))</code></pre><p>Rosa suma 5 puntos: 2 por la edad, 1 por la hipertensión, 1 por la diabetes y 1 por ser mujer. Comprobamos la función con casos calculados a mano, incluidos los límites de edad:</p><pre class="code"><code class="language-python">assert cha2ds2_vasc(50, mujer=False) == 0
+assert cha2ds2_vasc(64, mujer=False) == 0
+assert cha2ds2_vasc(65, mujer=False) == 1
+assert cha2ds2_vasc(75, mujer=False) == 2
+assert cha2ds2_vasc(78, mujer=True, hipertension=True, diabetes=True) == 5
+assert cha2ds2_vasc(80, mujer=True, insuficiencia_cardiaca=True, hipertension=True,
+                    diabetes=True, ictus_previo=True, enfermedad_vascular=True) == 9
+print(&quot;Todas las pruebas superadas&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: escalas clínicas como funciones" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: escalas clínicas como funciones</h2><h3>3.5 Aclaramiento de creatinina y validación de los datos</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 Aclaramiento de creatinina y validación de los datos</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>La fórmula de <strong>Cockcroft-Gault</strong> estima el aclaramiento de creatinina:</p>
+<p>$$\text{ClCr (mL/min)} = \frac{(140 - \text{edad}) \times \text{peso (kg)}}{72 \times \text{creatinina (mg/dL)}} \times 0{,}85 \text{ si es mujer}$$</p>
+<p>Una función clínica no debe devolver un resultado absurdo si recibe un dato imposible. Con <code>raise ValueError(...)</code> la función <strong>se niega a calcular</strong> y explica por qué.</p><pre class="code"><code class="language-python">def cockcroft_gault(edad, peso_kg, creatinina_mg_dl, mujer):
+    &quot;&quot;&quot;Aclaramiento de creatinina (mL/min) según Cockcroft-Gault.&quot;&quot;&quot;
+    if creatinina_mg_dl &lt;= 0:
+        raise ValueError(&quot;La creatinina debe ser mayor que 0 mg/dL&quot;)
+    if not 18 &lt;= edad &lt;= 120:
+        raise ValueError(&quot;La fórmula está validada en adultos&quot;)
+    aclaramiento = (140 - edad) * peso_kg / (72 * creatinina_mg_dl)
+    if mujer:
+        aclaramiento *= 0.85
+    return aclaramiento
+
+
+print(f&quot;Aclaramiento de Rosa: {cockcroft_gault(78, 58, 1.3, mujer=True):.0f} mL/min&quot;)</code></pre><pre class="code"><code class="language-python">assert round(cockcroft_gault(60, 72, 1.0, mujer=False)) == 80
+assert round(cockcroft_gault(60, 72, 1.0, mujer=True)) == 68
+
+try:
+    cockcroft_gault(70, 70, 0, mujer=False)
+except ValueError as error:
+    print(&quot;Dato rechazado:&quot;, error)</code></pre><p><strong>Comprobación a mano del primer caso:</strong> (140 − 60) × 72 / (72 × 1,0) = 80 mL/min. En una mujer, 80 × 0,85 = 68 mL/min.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: escalas clínicas como funciones" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: escalas clínicas como funciones</h2><h3>3.6 Verificar una función escrita por el asistente</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 Verificar una función escrita por el asistente</b>. Antes de ejecutar, escribe qué esperas obtener.</p><figure><img src="../figuras/tema_050_esquema.png" alt="Flujo: la función del asistente da 100 con 120/80; el valor esperado es 93,3; se corrige con pad + (pas − pad) / 3." loading="lazy"></figure><p>Supón que pides al asistente de IA: <em>«Escribe en Python una función que calcule la presión arterial media a partir de la sistólica y la diastólica»</em> y te devuelve esto:</p><pre class="code"><code class="language-python">def presion_arterial_media(pas, pad):
+    &quot;&quot;&quot;Presión arterial media (versión propuesta por un asistente).&quot;&quot;&quot;
+    return (pas + pad) / 2</code></pre><p>El código funciona sin errores, pero ¿es correcto? Lo comprobamos con un caso conocido: con 120/80 mmHg, la PAM aproximada es 80 + (120 − 80) / 3 = 93,3 mmHg. Quita el <code>#</code> de la última línea para ejecutar la prueba.</p><pre class="code"><code class="language-python">resultado = presion_arterial_media(120, 80)
+print(f&quot;Resultado de la función: {resultado:.1f} mmHg&quot;)
+# assert round(resultado, 1) == 93.3</code></pre><p>La función devuelve 100 mmHg. Calcula la <strong>media aritmética</strong> de las dos cifras, no la presión arterial media fisiológica. La fisiológica pondera más la diastólica, porque el corazón pasa más tiempo en diástole. <strong>El código se ejecutaba sin error y el resultado era clínicamente incorrecto.</strong> Solo el caso de prueba lo ha descubierto. La versión correcta:</p><pre class="code"><code class="language-python">def presion_arterial_media(pas, pad):
+    &quot;&quot;&quot;Presión arterial media aproximada: PAD + (PAS - PAD) / 3.&quot;&quot;&quot;
+    return pad + (pas - pad) / 3
+
+
+assert round(presion_arterial_media(120, 80), 1) == 93.3
+print(&quot;Prueba superada&quot;)</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: filtrado glomerular estimado (CKD-EPI 2021)</h3><p>La ecuación CKD-EPI de 2021, sin coeficiente racial, es la recomendada actualmente para estimar el filtrado glomerular:</p>
+<p>$$\text{FGe} = 142 \times \min\left(\frac{Cr}{\kappa}, 1\right)^{\alpha} \times \max\left(\frac{Cr}{\kappa}, 1\right)^{-1{,}200} \times 0{,}9938^{\text{edad}} \times 1{,}012 \text{ si es mujer}$$</p>
+<p>con κ = 0,7 y α = −0,241 en mujeres, y κ = 0,9 y α = −0,302 en varones. La creatinina (Cr) se expresa en mg/dL y el resultado en mL/min/1,73 m².</p><pre class="code"><code class="language-python">def fge_ckd_epi_2021(creatinina_mg_dl, edad, mujer):
+    &quot;&quot;&quot;Filtrado glomerular estimado (mL/min/1,73 m²), ecuación CKD-EPI 2021.&quot;&quot;&quot;
+    kappa = 0.7 if mujer else 0.9
+    alfa = -0.241 if mujer else -0.302
+    cociente = creatinina_mg_dl / kappa
+    fge = 142 * min(cociente, 1) ** alfa * max(cociente, 1) ** -1.200 * 0.9938 ** edad
+    if mujer:
+        fge *= 1.012
+    return fge
+
+
+print(f&quot;FGe de Rosa: {fge_ckd_epi_2021(1.3, 78, mujer=True):.0f} mL/min/1,73 m²&quot;)</code></pre><p>Si no hay valores de referencia publicados, comprueba <strong>propiedades</strong> que la función debe cumplir. Por ejemplo: a más creatinina, menos filtrado; a más edad, menos filtrado.</p><pre class="code"><code class="language-python">assert fge_ckd_epi_2021(2.0, 60, mujer=False) &lt; fge_ckd_epi_2021(1.0, 60, mujer=False)
+assert fge_ckd_epi_2021(1.0, 80, mujer=False) &lt; fge_ckd_epi_2021(1.0, 40, mujer=False)
+print(&quot;Propiedades comprobadas&quot;)</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Olvidar <code>return</code>.</strong> Una función sin <code>return</code> devuelve <code>None</code>; el error aparece después, al usar ese <code>None</code> en un cálculo.</p>
+<p><strong>Confundir <code>print</code> con <code>return</code>.</strong> <code>print</code> muestra un valor en pantalla; <code>return</code> lo entrega para usarlo en otros cálculos.</p>
+<p><strong>Cambiar el orden de los parámetros.</strong> <code>imc(1.63, 68)</code> da 0,0004 kg/m² sin ningún error. Llamar por nombre (<code>imc(peso_kg=68, talla_m=1.63)</code>) lo evita.</p>
+<p><strong>Variables locales.</strong> Las variables creadas dentro de una función no existen fuera de ella.</p>
+<p><strong>Confiar en código que «funciona».</strong> Que una función se ejecute sin errores no significa que sea correcta, como se ha visto con la presión arterial media.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: Variables locales y objetos mutables</h3><p>Una variable que se crea <strong>dentro</strong> de una función es <strong>local</strong>: solo existe mientras la función se ejecuta. Si fuera hay otra variable con el mismo nombre, la función no la cambia.</p>
+<p>Con las listas y los diccionarios es distinto. Son objetos <strong>mutables</strong>: si la función los modifica, cambia el original. Los números, los textos y las tuplas son <strong>inmutables</strong>: una función no los puede cambiar.</p>
+<p><strong>En tus materiales SIMUSTAT:</strong> <a href="https://colab.research.google.com/drive/1O6LhqoSghAkw55UWJRhejZOFiROFAqB5" target="_blank" rel="noopener">Tema 110. Definición de funciones I</a>, apartado 4. <strong>En tus materiales SIMUSTAT:</strong> <a href="https://colab.research.google.com/drive/1kbhZnG7MAZft4-hQFFGxk-gyH3_1D_Z7" target="_blank" rel="noopener">Tema 120. Definición de funciones II</a>, apartado 3.</p><pre class="code"><code class="language-python">dosis_mg = 500
+
+def ajustar_insuficiencia_renal(dosis_mg):
+    dosis_mg = dosis_mg / 2          # variable local: solo existe aquí dentro
+    return dosis_mg
+
+print(&quot;Dosis ajustada:&quot;, ajustar_insuficiencia_renal(dosis_mg), &quot;mg&quot;)
+print(&quot;Variable de fuera, sin cambios:&quot;, dosis_mg, &quot;mg&quot;)
+
+def anotar(glucemias, valor):
+    glucemias.append(valor)          # modifica la lista original
+
+glucemias = [110, 98]
+anotar(glucemias, 65)
+print(&quot;Lista original, modificada:&quot;, glucemias)
+
+copia = glucemias.copy()             # una copia protege el original
+anotar(copia, 240)
+print(&quot;Original:&quot;, glucemias, &quot;| Copia:&quot;, copia)</code></pre><p><strong>Regla práctica:</strong> si una función no debe cambiar los datos del paciente, dale una copia (<code>.copy()</code>). Y devuelve el resultado con <code>return</code>; no lo dejes en una variable global.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 50 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> completar la función de superficie corporal de Mosteller y escribir sus casos de prueba.</li>
+<li><strong>Misión clínica (con pistas):</strong> programar la escala CURB-65 como función y comprobar sus valores frontera.</li>
+<li><strong>Misión reto (con asistente):</strong> pedir al asistente la escala de Glasgow como función. Escribir tú los casos de prueba y corregir lo que falle.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente y sin ejecutar código.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q20-0"><p class="qq">¿Qué devuelve una función que calcula un resultado y lo muestra con print, pero no tiene return?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: sin return, una función devuelve None aunque haya mostrado algo en pantalla.">None</button><button type="button" class="op" data-ok="0" data-fb="Python no devuelve automáticamente el último cálculo.">El último valor calculado</button><button type="button" class="op" data-ok="0" data-fb="print solo muestra; no entrega el valor.">El texto mostrado por print</button><button type="button" class="op" data-ok="0" data-fb="No hay error al llamarla; el problema aparece al usar el resultado.">Un error</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-1"><p class="qq">Un varón de 70 años es hipertenso y tuvo un ictus hace dos años. ¿Cuál es su CHA₂DS₂-VASc?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: 1 por la edad (65 a 74), 1 por la hipertensión y 2 por el ictus previo.">4</button><button type="button" class="op" data-ok="0" data-fb="El ictus previo suma 2 puntos, no 1.">3</button><button type="button" class="op" data-ok="0" data-fb="Con 70 años la edad suma 1 punto, no 2.">5</button><button type="button" class="op" data-ok="0" data-fb="Revisa cuántos criterios cumple.">2</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-2"><p class="qq">¿Qué ocurre al ejecutar assert round(imc(68, 1.63), 1) == 25.6 si la función es correcta?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: assert solo interrumpe cuando la condición es falsa.">Nada: la ejecución continúa sin mensajes</button><button type="button" class="op" data-ok="0" data-fb="assert no muestra nada si la condición se cumple.">Se muestra True</button><button type="button" class="op" data-ok="0" data-fb="assert no imprime el valor comprobado.">Se muestra el IMC</button><button type="button" class="op" data-ok="0" data-fb="Eso ocurre solo si la condición es falsa.">Se produce AssertionError</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-3"><p class="qq">El asistente propone una función que se ejecuta sin errores. ¿Qué debes hacer antes de usarla?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: que se ejecute no significa que el cálculo sea correcto.">Comprobarla con casos de prueba de resultado conocido</button><button type="button" class="op" data-ok="0" data-fb="La función de presión arterial media del apartado 3.6 se ejecutaba sin error y era incorrecta.">Nada, si no hay errores es correcta</button><button type="button" class="op" data-ok="0" data-fb="El asistente puede confirmar con seguridad un error.">Pedir al asistente que confirme que es correcta</button><button type="button" class="op" data-ok="0" data-fb="Repetir la ejecución da el mismo resultado, correcto o no.">Ejecutarla dos veces</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-4"><p class="qq">¿Por qué conviene que cockcroft_gault() lance un ValueError si la creatinina es 0?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es mejor detenerse y explicar el problema que calcular algo sin sentido.">Para no devolver un resultado absurdo con un dato imposible</button><button type="button" class="op" data-ok="0" data-fb="El problema es dividir entre cero, y además el dato es clínicamente imposible.">Porque Python no permite dividir entre números pequeños</button><button type="button" class="op" data-ok="0" data-fb="La validación no tiene que ver con la velocidad.">Para que la función sea más rápida</button><button type="button" class="op" data-ok="0" data-fb="assert y raise son herramientas distintas.">Porque assert no funciona con ceros</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>Una función encapsula un cálculo clínico: se escribe una vez, se documenta y se reutiliza.</li>
+<li><code>return</code> entrega el resultado; <code>print</code> solo lo muestra.</li>
+<li>Los parámetros con valor por defecto y las llamadas por nombre hacen las escalas más legibles y seguras.</li>
+<li><strong>Ninguna función se usa sin pasar sus casos de prueba</strong>, y menos si la ha escrito un asistente de IA.</li>
+<li>Ante datos imposibles, la función debe negarse a calcular.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Función</td>
+<td>Bloque de código con nombre que recibe parámetros y devuelve un resultado</td>
+</tr>
+<tr>
+<td>Parámetro</td>
+<td>Dato que recibe una función</td>
+</tr>
+<tr>
+<td>Valor de retorno</td>
+<td>Resultado que entrega una función con <code>return</code></td>
+</tr>
+<tr>
+<td><em>Docstring</em></td>
+<td>Texto de documentación al inicio de una función</td>
+</tr>
+<tr>
+<td>Valor por defecto</td>
+<td>Valor que toma un parámetro si no se indica al llamar a la función</td>
+</tr>
+<tr>
+<td>Caso de prueba</td>
+<td>Comprobación de que una función da el resultado esperado en un caso conocido</td>
+</tr>
+<tr>
+<td><code>assert</code></td>
+<td>Instrucción que detiene el programa si una condición es falsa</td>
+</tr>
+<tr>
+<td><code>raise</code></td>
+<td>Instrucción que lanza un error de forma deliberada</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li><a href="https://docs.python.org/es/3/tutorial/controlflow.html#defining-functions" target="_blank" rel="noopener">Tutorial de Python: definir funciones</a></li>
+<li>Cockcroft DW, Gault MH. Prediction of creatinine clearance from serum creatinine. <em>Nephron</em>. 1976;16(1):31-41. doi:<a href="https://doi.org/10.1159/000180580" target="_blank" rel="noopener">10.1159/000180580</a></li>
+<li>Inker LA, <em>et al.</em> New creatinine- and cystatin C-based equations to estimate GFR without race. <em>N Engl J Med</em>. 2021;385(19):1737-1749. doi:<a href="https://doi.org/10.1056/NEJMoa2102953" target="_blank" rel="noopener">10.1056/NEJMoa2102953</a></li>
+<li>Lip GY, <em>et al.</em> Refining clinical risk stratification for predicting stroke and thromboembolism in atrial fibrillation using a novel risk factor-based approach: the Euro Heart Survey on Atrial Fibrillation. <em>Chest</em>. 2010;137(2):263-272. doi:<a href="https://doi.org/10.1378/chest.09-1584" target="_blank" rel="noopener">10.1378/chest.09-1584</a></li>
+<li>SIMUSTAT Unidigital UMH. <a href="https://colab.research.google.com/drive/1O6LhqoSghAkw55UWJRhejZOFiROFAqB5" target="_blank" rel="noopener">Tema 110. Definición de funciones I</a>. Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.</li>
+<li>SIMUSTAT Unidigital UMH. <a href="https://colab.research.google.com/drive/1kbhZnG7MAZft4-hQFFGxk-gyH3_1D_Z7" target="_blank" rel="noopener">Tema 120. Definición de funciones II</a>. Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.</li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_050_Funciones_indices_y_escalas_clinicas.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 50 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-50" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_040.html">← Tema 40</a><a class="btn ghost" href="tema_060.html">→ Tema 60</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

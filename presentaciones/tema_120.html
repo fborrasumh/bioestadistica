@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 120. Estadística descriptiva univariante: medidas de tendencia central, dispersión y forma · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 120. Estadística descriptiva univariante: medidas de tendencia central, dispersión y forma</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 120</span>Estadística descriptiva univariante: medidas de tendencia central, dispersión y forma</h1>
+<p class="mod">Módulo 3. Procesado inicial de datos</p>
+
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_120_Estadistica_descriptiva_univariante.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-120" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Calcular e interpretar la media, la mediana y la moda.</li>
+<li>Calcular e interpretar el rango, la varianza, la desviación típica, el rango intercuartílico y el coeficiente de variación.</li>
+<li>Describir la forma de una distribución: simetría y asimetría.</li>
+<li>Elegir el resumen adecuado según la forma de la distribución: media y desviación típica, o mediana y rango intercuartílico.</li>
+<li>Representar una variable cuantitativa con un histograma y un diagrama de caja.</li>
+<li>Redactar la descripción de una variable como en la «Tabla 1» de un artículo.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: describir variables clínicas <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">Once estancias por neumonía: ¿media o mediana?</p><ul class='puntos'><li>La media se desplaza hacia el valor extremo; la mediana no.</li><li>Para planificar camas, la «estancia típica» la describe mejor la mediana con su dispersión.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Un hospital quiere conocer la <strong>estancia</strong> de los pacientes ingresados por neumonía. Revisa 11 ingresos (sintéticos) y obtiene, en días:</p>
+<p><strong>3, 4, 4, 5, 5, 5, 6, 6, 7, 8, 32</strong></p>
+<p>El paciente de 32 días tuvo complicaciones y pasó por la UCI. La media es 7,7 días; la mediana, 5 días.</p>
+<p>La gerencia quiere usar la cifra para planificar camas. Si dice «la estancia media es de casi 8 días», sobreestima lo que ocurre a la mayoría de los pacientes. Si dice «la estancia típica es de 5 días» y la acompaña de su dispersión, describe mejor la realidad.</p>
+<p>Elegir bien el <strong>resumen</strong> de una variable no es un detalle técnico: cambia las decisiones que se toman con él.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 Tendencia central</h3><figure><img src="../figuras/tema_120_esquema.png" alt="Decisión: si la variable es simétrica y sin valores extremos, media ± DE; si no, mediana [Q1–Q3]." loading="lazy"></figure><table>
+<thead>
+<tr>
+<th>Medida</th>
+<th>Definición</th>
+<th>Ventaja</th>
+<th>Inconveniente</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Media</strong> $\bar{x}$</td>
+<td>Suma de los valores dividida entre su número</td>
+<td>Usa toda la información</td>
+<td>Muy sensible a los valores extremos</td>
+</tr>
+<tr>
+<td><strong>Mediana</strong></td>
+<td>Valor central de los datos ordenados (percentil 50)</td>
+<td>Robusta frente a valores extremos</td>
+<td>Ignora la magnitud de los extremos</td>
+</tr>
+<tr>
+<td><strong>Moda</strong></td>
+<td>Valor más frecuente</td>
+<td>Útil en variables categóricas</td>
+<td>Puede no ser única</td>
+</tr>
+</tbody>
+</table>
+<p>$$\bar{x} = \frac{1}{n}\sum_{i=1}^{n} x_i$$</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Dispersión</h3><p class="lema">El diagrama de caja resume la distribución</p><figure><img src="../figuras/tema_120_caja.png" alt="El diagrama de caja resume la distribución" loading="lazy"></figure><ul class='puntos'><li>La caja va del primer al tercer cuartil: contiene el 50 % central (RIC).</li><li>Los puntos más allá de 1,5 RIC se señalan como posibles atípicos: hay que revisarlos, no borrarlos.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><table>
+<thead>
+<tr>
+<th>Medida</th>
+<th>Definición</th>
+<th>Se acompaña de</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rango</td>
+<td>Máximo − mínimo</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Varianza</strong> $s^2$</td>
+<td>Media de las desviaciones al cuadrado respecto a la media (dividiendo entre $n-1$)</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>Desviación típica</strong> $s$</td>
+<td>Raíz cuadrada de la varianza; en las unidades de la variable</td>
+<td>Media</td>
+</tr>
+<tr>
+<td><strong>Rango intercuartílico</strong> (RIC)</td>
+<td>Q3 − Q1: amplitud del 50 % central de los datos</td>
+<td>Mediana</td>
+</tr>
+<tr>
+<td>Coeficiente de variación</td>
+<td>$s / \bar{x}$, en porcentaje: dispersión relativa</td>
+<td>Comparar variables con distintas unidades</td>
+</tr>
+</tbody>
+</table>
+<p>$$s = \sqrt{\frac{1}{n-1}\sum_{i=1}^{n}(x_i - \bar{x})^2}$$</p>
+<p>Se divide entre $n-1$, y no entre $n$, por una razón. En una muestra, la media se calcula con los mismos datos. Por eso, las desviaciones respecto a ella tienden a ser algo menores que respecto a la media real de la población.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Forma</h3><p class="lema">La forma decide el resumen</p><figure><img src="../figuras/tema_120_forma.png" alt="La forma decide el resumen" loading="lazy"></figure><ul class='puntos'><li>Simétrica: media ≈ mediana → media y DE.</li><li>Asimétrica: la media se va hacia la cola → mediana y RIC.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><table>
+<thead>
+<tr>
+<th>Forma</th>
+<th>Relación entre media y mediana</th>
+<th>Ejemplo clínico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simétrica</td>
+<td>Media ≈ mediana</td>
+<td>Presión arterial sistólica, talla</td>
+</tr>
+<tr>
+<td>Asimétrica a la derecha (positiva)</td>
+<td>Media &gt; mediana</td>
+<td>Estancia hospitalaria, creatinina, triglicéridos</td>
+</tr>
+<tr>
+<td>Asimétrica a la izquierda (negativa)</td>
+<td>Media &lt; mediana</td>
+<td>Edad en una unidad de geriatría, puntuación de Apgar</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Regla para la Tabla 1 de un artículo:</strong></p>
+<ul>
+<li>Variable aproximadamente simétrica: <strong>media ± desviación típica</strong>.</li>
+<li>Variable asimétrica o con valores extremos: <strong>mediana [Q1–Q3]</strong>, es decir, mediana y rango intercuartílico.</li>
+</ul></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">Las estancias de 5 pacientes son 2, 3, 3, 4 y 18 días. ¿Cuál es la mediana?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es el valor central de los datos ordenados.">3 días</button><button type="button" class="op" data-ok="0" data-fb="Esa es la media, que arrastra el valor de 18 días.">6 días</button><button type="button" class="op" data-ok="0" data-fb="4 es el cuarto valor, no el central.">4 días</button><button type="button" class="op" data-ok="0" data-fb="Ese es el rango.">16 días</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 120.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_120_Estadistica_descriptiva_univariante.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: describir variables clínicas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: describir variables clínicas</h2><h3>3.1 Cálculo a mano y comprobación</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Cálculo a mano y comprobación</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Con las 11 estancias del caso, calculamos paso a paso y comprobamos con Python.</p><pre class="code"><code class="language-python">import numpy as np
+import pandas as pd
+
+estancias = pd.Series([3, 4, 4, 5, 5, 5, 6, 6, 7, 8, 32])
+
+n = len(estancias)
+media = estancias.sum() / n
+desviaciones = estancias - media
+varianza = (desviaciones ** 2).sum() / (n - 1)
+desviacion_tipica = varianza ** 0.5
+
+print(f&quot;n = {n}&quot;)
+print(f&quot;Media: {media:.2f} días&quot;)
+print(f&quot;Varianza: {varianza:.2f} días²&quot;)
+print(f&quot;Desviación típica: {desviacion_tipica:.2f} días&quot;)</code></pre><pre class="code"><code class="language-python">print(f&quot;Pandas → media {estancias.mean():.2f}, desviación típica {estancias.std():.2f}&quot;)
+print(f&quot;Mediana: {estancias.median()} días · Moda: {estancias.mode().tolist()} días&quot;)</code></pre><p>La mediana es el sexto de los 11 valores ordenados: 5 días. La moda también es 5: aparece tres veces.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: describir variables clínicas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: describir variables clínicas</h2><h3>3.2 Cuartiles, rango intercuartílico y efecto del valor extremo</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 Cuartiles, rango intercuartílico y efecto del valor extremo</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">q1, q3 = estancias.quantile([0.25, 0.75])
+print(f&quot;Q1 = {q1} · Q3 = {q3} · RIC = {q3 - q1} días&quot;)
+print(f&quot;Rango: {estancias.min()} a {estancias.max()} días&quot;)
+
+sin_extremo = estancias[estancias &lt; 32]
+print(f&quot;\nSin el paciente de 32 días: media {sin_extremo.mean():.2f} · mediana {sin_extremo.median()}&quot;)
+print(f&quot;Con él:                       media {estancias.mean():.2f} · mediana {estancias.median()}&quot;)</code></pre><p>Un solo paciente desplaza la media más de 2 días; la mediana apenas cambia. Por eso, en variables con valores extremos, la mediana y el RIC describen mejor lo típico.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: describir variables clínicas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: describir variables clínicas</h2><h3>3.3 Describir una variable del registro</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 Describir una variable del registro</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">DATOS = &quot;https://raw.githubusercontent.com/fborrasumh/bioestadistica/main/datos/&quot;
+cohorte = pd.read_csv(DATOS + &quot;cohorte_limpia.csv&quot;)
+analiticas = pd.read_csv(DATOS + &quot;analiticas.csv&quot;)
+datos = cohorte.merge(analiticas, on=&quot;id&quot;, how=&quot;left&quot;)
+
+
+def describir(serie, unidad):
+    &quot;&quot;&quot;Resumen descriptivo completo de una variable cuantitativa.&quot;&quot;&quot;
+    q1, q3 = serie.quantile([0.25, 0.75])
+    return pd.Series({
+        &quot;n&quot;: serie.notna().sum(),
+        &quot;media&quot;: serie.mean(),
+        &quot;desviación típica&quot;: serie.std(),
+        &quot;mediana&quot;: serie.median(),
+        &quot;Q1&quot;: q1,
+        &quot;Q3&quot;: q3,
+        &quot;mínimo&quot;: serie.min(),
+        &quot;máximo&quot;: serie.max(),
+        &quot;CV (%)&quot;: serie.std() / serie.mean() * 100,
+        &quot;asimetría&quot;: serie.skew(),
+    }, name=f&quot;{serie.name} ({unidad})&quot;).round(2)
+
+
+pd.concat([
+    describir(datos[&quot;pas_mmHg&quot;], &quot;mmHg&quot;),
+    describir(datos[&quot;creatinina_mg_dl&quot;], &quot;mg/dL&quot;),
+    describir(datos[&quot;glucemia_mg_dl&quot;], &quot;mg/dL&quot;),
+], axis=1)</code></pre><p>El coeficiente de <strong>asimetría</strong> es cercano a 0 en distribuciones simétricas. Es positivo si hay cola a la derecha y negativo si la cola está a la izquierda. La PAS es casi simétrica (media ≈ mediana); la creatinina y la glucemia son asimétricas a la derecha (media &gt; mediana).</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: describir variables clínicas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: describir variables clínicas</h2><h3>3.4 Histograma con media y mediana</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Histograma con media y mediana</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">import matplotlib.pyplot as plt
+
+fig, ejes = plt.subplots(1, 2, figsize=(11, 4))
+for eje, variable, unidad in zip(ejes, [&quot;pas_mmHg&quot;, &quot;creatinina_mg_dl&quot;], [&quot;mmHg&quot;, &quot;mg/dL&quot;]):
+    serie = datos[variable].dropna()
+    eje.hist(serie, bins=25, color=&quot;lightsteelblue&quot;, edgecolor=&quot;white&quot;)
+    eje.axvline(serie.mean(), color=&quot;firebrick&quot;, label=f&quot;Media {serie.mean():.2f}&quot;)
+    eje.axvline(serie.median(), color=&quot;black&quot;, linestyle=&quot;--&quot;, label=f&quot;Mediana {serie.median():.2f}&quot;)
+    eje.set_xlabel(f&quot;{variable} ({unidad})&quot;)
+    eje.set_ylabel(&quot;Número de pacientes&quot;)
+    eje.legend()
+ejes[0].set_title(&quot;Distribución simétrica&quot;)
+ejes[1].set_title(&quot;Distribución asimétrica a la derecha&quot;)
+plt.tight_layout()
+plt.show()</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: describir variables clínicas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: describir variables clínicas</h2><h3>3.5 Diagrama de caja</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 Diagrama de caja</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>El <strong>diagrama de caja</strong> (<em>boxplot</em>) resume la distribución en cinco números. La caja va de Q1 a Q3 y la línea interior es la mediana. Los bigotes llegan hasta el último valor dentro de 1,5 × RIC. Los puntos aislados son los valores atípicos según el criterio de Tukey (Tema 100).</p><pre class="code"><code class="language-python">plt.figure(figsize=(6, 4))
+plt.boxplot(datos[&quot;creatinina_mg_dl&quot;].dropna(), widths=0.5)
+plt.ylabel(&quot;Creatinina sérica (mg/dL)&quot;)
+plt.xticks([])
+plt.title(&quot;Diagrama de caja de la creatinina&quot;)
+plt.show()</code></pre><p>Comparar grupos con diagramas de caja es muy eficaz:</p><pre class="code"><code class="language-python">grupos = [datos.loc[datos[&quot;centro&quot;] == centro, &quot;pas_mmHg&quot;].dropna() for centro in [&quot;CS Norte&quot;, &quot;CS Sur&quot;, &quot;CS Centro&quot;]]
+plt.figure(figsize=(7, 4))
+plt.boxplot(grupos)
+plt.xticks([1, 2, 3], [&quot;CS Norte&quot;, &quot;CS Sur&quot;, &quot;CS Centro&quot;])
+plt.ylabel(&quot;Presión arterial sistólica (mmHg)&quot;)
+plt.title(&quot;PAS por centro de salud&quot;)
+plt.show()</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: describir variables clínicas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: describir variables clínicas</h2><h3>3.6 La descripción para la Tabla 1</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 La descripción para la Tabla 1</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">def tabla1(serie, unidad, decimales=1):
+    &quot;&quot;&quot;Devuelve media ± DE si la variable es aproximadamente simétrica, y mediana [Q1-Q3] si no.&quot;&quot;&quot;
+    s = serie.dropna()
+    if abs(s.skew()) &lt; 0.5:
+        return f&quot;{s.mean():.{decimales}f} ± {s.std():.{decimales}f} {unidad}&quot;
+    q1, q3 = s.quantile([0.25, 0.75])
+    return f&quot;{s.median():.{decimales}f} [{q1:.{decimales}f}–{q3:.{decimales}f}] {unidad}&quot;
+
+
+for variable, unidad, d in [(&quot;edad&quot;, &quot;años&quot;, 1), (&quot;pas_mmHg&quot;, &quot;mmHg&quot;, 1),
+                            (&quot;imc&quot;, &quot;kg/m²&quot;, 1), (&quot;creatinina_mg_dl&quot;, &quot;mg/dL&quot;, 2)]:
+    print(f&quot;{variable:&gt;18}: {tabla1(datos[variable], unidad, d)}&quot;)</code></pre><p>El umbral de 0,5 para el coeficiente de asimetría es una <strong>regla práctica</strong>, no un criterio universal. La decisión final se toma también mirando el histograma y con criterio clínico.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: la trampa de numpy y la desviación típica</h3><p>Pandas divide entre $n - 1$ (desviación típica <strong>muestral</strong>), pero <code>numpy.std()</code> divide por defecto entre $n$ (poblacional). Con muestras pequeñas la diferencia se nota. Un asistente de IA puede usar cualquiera de las dos sin avisar.</p><pre class="code"><code class="language-python">print(f&quot;pandas .std():          {estancias.std():.3f}&quot;)
+print(f&quot;numpy np.std():         {np.std(estancias):.3f}   ← divide entre n&quot;)
+print(f&quot;numpy np.std(ddof=1):   {np.std(estancias, ddof=1):.3f}&quot;)</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: la regla de la media ± 2 desviaciones típicas</h3><p>En una distribución <strong>aproximadamente normal</strong>, alrededor del 95 % de los valores están entre la media − 2 DE y la media + 2 DE. En una distribución asimétrica esta regla falla, y a veces da límites imposibles:</p><pre class="code"><code class="language-python">print(f&quot;Estancias: media − 2 DE = {estancias.mean() - 2 * estancias.std():.1f} días  ← una estancia negativa no existe&quot;)</code></pre><p>Atención a «media ± DE» en una variable que no puede ser negativa. Si la DE es mayor que la mitad de la media, la distribución es asimétrica. Ese resumen no es el adecuado.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Describir con media ± DE una variable claramente asimétrica</strong>, como la estancia o la creatinina.</p>
+<p><strong>Confundir la desviación típica con el error estándar.</strong> La DE describe la dispersión de los pacientes; el error estándar, la precisión de la media. Lo veremos en el Tema 200.</p>
+<p><strong>Eliminar valores extremos reales para que la media «quede mejor».</strong></p>
+<p><strong>Comparar dispersiones de variables con unidades distintas</strong> con la DE en lugar del coeficiente de variación.</p>
+<p><strong>Dar demasiados decimales:</strong> una presión arterial media de 127,4183 mmHg aparenta una precisión que la medición no tiene.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: La curtosis</h3><p>La asimetría dice hacia qué lado está la cola. La <strong>curtosis</strong> dice cuánto peso tienen las colas: cuántos valores extremos hay comparado con una normal.</p>
+<p>pandas calcula el <strong>exceso de curtosis</strong> (<code>.kurt()</code>). Vale 0 en una normal. Si es positivo, hay más valores extremos que en una normal (colas pesadas). Si es negativo, hay menos (colas ligeras).</p>
+<p><strong>En tus materiales SIMUSTAT:</strong> <a href="https://colab.research.google.com/drive/1dfJOHT5wc2pnlZKbkqWTzqOQ0fLK7kdN" target="_blank" rel="noopener">Tema 200. Análisis descriptivo de variables</a>, apartado 5 (medidas de forma).</p><pre class="code"><code class="language-python">for variable in [&quot;pas_mmHg&quot;, &quot;glucemia_mg_dl&quot;, &quot;hdl_mg_dl&quot;]:
+    x = cohorte[variable].dropna()
+    print(f&quot;{variable:16}  asimetría = {x.skew():5.2f}   exceso de curtosis = {x.kurt():5.2f}&quot;)</code></pre><p>Una curtosis alta avisa de que hay valores extremos. En ese caso, revisa si son errores (Tema 100). Si son reales, la media y la DE resumen mal la variable: usa la mediana y el RIC.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 120 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> calcular a mano la media, la mediana y la desviación típica de 7 valores de hemoglobina.</li>
+<li><strong>Misión clínica (con pistas):</strong> describir el colesterol LDL y la HbA1c de la cohorte y decidir el resumen adecuado para cada una.</li>
+<li><strong>Misión reto (con asistente):</strong> pedir al asistente la descripción de cuatro variables, comprobar si usa $n$ o $n-1$ y corregir los resúmenes inadecuados.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente y sin ejecutar código.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q21-0"><p class="qq">Las estancias de 5 pacientes son 2, 3, 3, 4 y 18 días. ¿Cuál es la mediana?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es el valor central de los datos ordenados.">3 días</button><button type="button" class="op" data-ok="0" data-fb="Esa es la media, que arrastra el valor de 18 días.">6 días</button><button type="button" class="op" data-ok="0" data-fb="4 es el cuarto valor, no el central.">4 días</button><button type="button" class="op" data-ok="0" data-fb="Ese es el rango.">16 días</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-1"><p class="qq">¿Cómo debe describirse la creatinina de una cohorte con una clara asimetría a la derecha?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la mediana y el RIC son robustos frente a la cola de valores altos.">Mediana [Q1–Q3]</button><button type="button" class="op" data-ok="0" data-fb="En variables asimétricas, la media y la DE describen mal lo típico.">Media ± desviación típica</button><button type="button" class="op" data-ok="0" data-fb="La moda sola no describe la dispersión.">Moda</button><button type="button" class="op" data-ok="0" data-fb="El rango depende solo de los dos valores extremos.">Mínimo y máximo</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-2"><p class="qq">En una muestra, la media es 7,7 y la mediana 5. ¿Qué forma tiene probablemente la distribución?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: unos pocos valores altos elevan la media por encima de la mediana.">Asimétrica a la derecha</button><button type="button" class="op" data-ok="0" data-fb="En una distribución simétrica media y mediana son parecidas.">Simétrica</button><button type="button" class="op" data-ok="0" data-fb="En ese caso la media sería menor que la mediana.">Asimétrica a la izquierda</button><button type="button" class="op" data-ok="0" data-fb="La relación entre media y mediana es un buen indicio de la forma.">No se puede saber nada</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-3"><p class="qq">¿Por qué la desviación típica muestral divide entre n − 1?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: dividir entre n − 1 corrige esa infraestimación.">Porque las desviaciones respecto a la media muestral tienden a ser menores que respecto a la poblacional</button><button type="button" class="op" data-ok="0" data-fb="No tiene que ver con los enteros.">Para que el resultado sea siempre un número entero</button><button type="button" class="op" data-ok="0" data-fb="Se usan todos los valores.">Porque se excluye el valor máximo</button><button type="button" class="op" data-ok="0" data-fb="Tiene una justificación estadística: corregir el sesgo.">Es una convención sin justificación</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-4"><p class="qq">Quieres comparar la variabilidad del peso (kg) y de la glucemia (mg/dL) en la cohorte. ¿Qué medida usas?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es una medida relativa, sin unidades.">El coeficiente de variación</button><button type="button" class="op" data-ok="0" data-fb="Está en las unidades de cada variable y no son comparables.">La desviación típica</button><button type="button" class="op" data-ok="0" data-fb="Tiene las unidades al cuadrado: todavía menos comparable.">La varianza</button><button type="button" class="op" data-ok="0" data-fb="Depende de las unidades y de los extremos.">El rango</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>La media usa todos los datos pero se deja arrastrar por los extremos; la mediana es robusta.</li>
+<li>La desviación típica acompaña a la media; el rango intercuartílico, a la mediana.</li>
+<li>La forma de la distribución decide el resumen: media ± DE si es simétrica, mediana [Q1–Q3] si es asimétrica.</li>
+<li>El histograma y el diagrama de caja muestran lo que los números resumen.</li>
+<li>Comprueba siempre si el cálculo de la desviación típica divide entre $n$ o $n-1$.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Media</td>
+<td>Suma de los valores dividida entre su número</td>
+</tr>
+<tr>
+<td>Mediana</td>
+<td>Valor que deja la mitad de los datos por debajo y la mitad por encima</td>
+</tr>
+<tr>
+<td>Moda</td>
+<td>Valor más frecuente</td>
+</tr>
+<tr>
+<td>Percentil</td>
+<td>Valor que deja por debajo un porcentaje dado de los datos</td>
+</tr>
+<tr>
+<td>Cuartiles</td>
+<td>Percentiles 25 (Q1), 50 (Q2, la mediana) y 75 (Q3)</td>
+</tr>
+<tr>
+<td>Varianza</td>
+<td>Media de las desviaciones al cuadrado respecto a la media</td>
+</tr>
+<tr>
+<td>Desviación típica</td>
+<td>Raíz cuadrada de la varianza</td>
+</tr>
+<tr>
+<td>Coeficiente de variación</td>
+<td>Desviación típica dividida entre la media</td>
+</tr>
+<tr>
+<td>Asimetría</td>
+<td>Grado en que una distribución se aparta de la simetría</td>
+</tr>
+<tr>
+<td>Diagrama de caja</td>
+<td>Gráfico que resume la distribución con la mediana, los cuartiles y los valores atípicos</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li>Altman DG, Bland JM. Quartiles, quintiles, centiles, and other quantiles. <em>BMJ</em>. 1994;309(6960):996. doi:<a href="https://doi.org/10.1136/bmj.309.6960.996" target="_blank" rel="noopener">10.1136/bmj.309.6960.996</a></li>
+<li>Altman DG, Bland JM. Standard deviations and standard errors. <em>BMJ</em>. 2005;331(7521):903. doi:<a href="https://doi.org/10.1136/bmj.331.7521.903" target="_blank" rel="noopener">10.1136/bmj.331.7521.903</a></li>
+<li><a href="https://pandas.pydata.org/docs/user_guide/basics.html#descriptive-statistics" target="_blank" rel="noopener">Pandas: estadística descriptiva</a></li>
+<li>SIMUSTAT Unidigital UMH. <a href="https://colab.research.google.com/drive/1dfJOHT5wc2pnlZKbkqWTzqOQ0fLK7kdN" target="_blank" rel="noopener">Tema 200. Análisis descriptivo de variables</a>. Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.</li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_120_Estadistica_descriptiva_univariante.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 120 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-120" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_110.html">← Tema 110</a><a class="btn ghost" href="tema_130.html">→ Tema 130</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

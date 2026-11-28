@@ -80,7 +80,7 @@ def main():
     html = re.sub(r'<p class="fa-idea">.*?</p>',
                   '<p class="fa-idea">Práctica de los 30 cuadernos de Colab de la asignatura (CC BY 4.0). Motor de corrección basado en PyMedIA, del mismo autor.</p>', html, count=1)
     html = re.sub(r'<p class="sh-lede" data-i18n="s.ruta.lede">.*?</p>',
-                  '<p class="sh-lede" data-i18n="s.ruta.lede">Los 30 temas de la asignatura en sus 5 módulos. Cada tema enlaza a su cuaderno de Colab y tiene tres misiones: básica (sin ayuda), clínica (con pistas) y reto (con asistente).</p>', html, count=1)
+                  '<p class="sh-lede" data-i18n="s.ruta.lede">Los 30 temas de la asignatura en sus 5 módulos. Cada tema enlaza a su cuaderno de Colab y a su presentación de clase, y tiene tres misiones: básica (sin ayuda), clínica (con pistas) y reto (con asistente). Antes de empezar: Tema 0, guía del entorno (<a href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_000_Guia_del_entorno_Google_Colab.ipynb" target="_blank" rel="noopener">cuaderno ↗</a> · <a href="presentaciones/tema_000.html" target="_blank" rel="noopener">presentación ↗</a>).</p>', html, count=1)
     html = re.sub(r'<footer class="fa-foot"><hr><p><b>PyMedIA</b>',
                   '<footer class="fa-foot"><hr><p><b>Bioestadística</b>', html, count=1)
     html = sustituye(html, "Cada tema de los cuadernos tiene misiones con casos de consulta, urgencias y planta.",
@@ -107,7 +107,8 @@ def main():
 
     # ── interfaz ──
     html = sustituye(html, "${esc(t('Unidad {0}', u.u))}", "${esc(t('Módulo {0}', u.u))}")
-    html = sustituye(html, """<a href="${videoUrl(x.video)}" target="_blank" rel="noopener">${esc(t('Vídeo'))} ↗</a>""", "")
+    html = sustituye(html, """<a href="${videoUrl(x.video)}" target="_blank" rel="noopener">${esc(t('Vídeo'))} ↗</a>""",
+                     """<a href="presentaciones/tema_${String(x.n).padStart(3, '0')}.html" target="_blank" rel="noopener">${esc(t('Presentación'))} ↗</a>""")
     html = re.sub(r"const REFUERZO = \{.*?\};", "const REFUERZO = refuerzos();", html, count=1)
     html = re.sub(r"const REF_ERR = \{.*?\};",
                   "const REF_ERR = {SyntaxError: 'm20-2', IndentationError: 'm40-2', NameError: 'm20-2', TypeError: 'm20-2', IndexError: 'm40-2', KeyError: 'm20-2'};", html, count=1)

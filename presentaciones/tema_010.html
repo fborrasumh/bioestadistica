@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 10. Introducción a la bioestadística computacional en ciencias de la salud: entorno Google Colab y asistentes de inteligencia artificial · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 10. Introducción a la bioestadística computacional en ciencias de la salud: entorno Google Colab y asistentes de inteligencia artificial</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 10</span>Introducción a la bioestadística computacional en ciencias de la salud: entorno Google Colab y asistentes de inteligencia artificial</h1>
+<p class="mod">Módulo 1. Descubriendo Python</p>
+
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_010_Introduccion_bioestadistica_computacional.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-10" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Explicar qué aporta la bioestadística a la práctica clínica y a la medicina basada en la evidencia.</li>
+<li>Distinguir población, muestra, parámetro y estadístico en un problema clínico.</li>
+<li>Clasificar las variables clínicas según su tipo y su escala de medida.</li>
+<li>Identificar las principales fuentes de datos en ciencias de la salud.</li>
+<li>Ejecutar y documentar cálculos clínicos sencillos en un cuaderno de Colab.</li>
+<li>Usar un asistente de inteligencia artificial con seguridad: sin datos de pacientes, sin exponer la clave de acceso y verificando siempre su respuesta.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>6.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Recorrido por el cuaderno <span class=min>5 min</span></li><li><b>4.</b> Demostración: cálculos clínicos en Python <span class=min>15 min</span></li><li><b>5.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>6.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">De Carmen a 3.000 pacientes</p><figure><img src="../figuras/tema_010_escala.png" alt="De Carmen a 3.000 pacientes" loading="lazy"></figure><ul class='puntos'><li>Con <b>una</b> paciente decide el juicio clínico: 148/92 mmHg es hipertensión.</li><li>Con <b>3.000</b> pacientes las preguntas son otras: ¿qué proporción está controlada? ¿funciona el programa?</li><li>Responderlas exige datos, estadística y, hoy, código.</li></ul><p class="pregunta"><b>Pregunta para la clase:</b> ¿Cómo sabríais si el control de la hipertensión de vuestro centro ha mejorado este año?</p></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>En una consulta de Atención Primaria se atiende a <strong>Carmen</strong>, de 58 años (paciente sintética). La enfermera registra:</p>
+<table>
+<thead>
+<tr>
+<th>Dato</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Peso</td>
+<td>68 kg</td>
+</tr>
+<tr>
+<td>Talla</td>
+<td>1,63 m</td>
+</tr>
+<tr>
+<td>Presión arterial</td>
+<td>148/92 mmHg</td>
+</tr>
+<tr>
+<td>Glucemia en ayunas</td>
+<td>112 mg/dL</td>
+</tr>
+<tr>
+<td>Fumadora</td>
+<td>Sí</td>
+</tr>
+<tr>
+<td>Grado de disnea (escala mMRC, de 0 a 4)</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Ingresos hospitalarios en el último año</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Con estos datos, el médico decide con su juicio clínico. La presión arterial está en rango de hipertensión (≥ 140/90 mmHg). La glucemia en ayunas, entre 100 y 125 mg/dL, indica glucemia basal alterada.</p>
+<p>Pero el centro de salud atiende a <strong>3.000 personas con hipertensión</strong>, y las preguntas cambian de escala:</p>
+<ul>
+<li>¿Qué proporción tiene la presión arterial controlada?</li>
+<li>¿Es peor el control en fumadores que en no fumadores, o la diferencia es fruto del azar?</li>
+<li>¿Ha mejorado el control desde que se cambió el protocolo?</li>
+</ul>
+<p>Responder exige <strong>convertir los registros clínicos en datos</strong>, <strong>resumirlos</strong> y <strong>cuantificar la incertidumbre</strong>. Ese es el objeto de la bioestadística, y en esta asignatura lo haremos con código.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 Bioestadística y medicina basada en la evidencia</h3><figure><img src="../figuras/tema_010_e2_1.png" alt="Diagrama de Venn: la decisión clínica une evidencia científica, experiencia clínica y valores del paciente; la bioestadística aporta describir, medir la incertidumbre y generalizar." loading="lazy"></figure><p>La <strong>bioestadística</strong> es la aplicación de los métodos estadísticos a las ciencias de la vida y de la salud. Proporciona las herramientas para:</p>
+<ul>
+<li><strong>Describir</strong> lo observado en un grupo de pacientes.</li>
+<li><strong>Medir la incertidumbre</strong> de cualquier conclusión que se extraiga de datos.</li>
+<li><strong>Generalizar</strong> lo observado en un grupo a la población de la que procede.</li>
+</ul>
+<p>La <strong>medicina basada en la evidencia</strong> integra la mejor evidencia científica disponible con la experiencia clínica y los valores del paciente. Casi toda esa evidencia se apoya en métodos bioestadísticos. Por ejemplo: la eficacia de un fármaco, la fiabilidad de una prueba diagnóstica o los valores de referencia de un análisis. Sin bioestadística no se puede leer críticamente un artículo científico.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Población, muestra, parámetro y estadístico</h3><p class="lema">Población y muestra, parámetro y estadístico</p><figure><img src="../figuras/tema_010_poblacion.png" alt="Población y muestra, parámetro y estadístico" loading="lazy"></figure><ul class='puntos'><li>La <b>población</b> es todo el grupo que interesa; casi nunca se puede medir entero.</li><li>La <b>muestra</b> es la parte que se mide: de ella sale un <b>estadístico</b> (x̄, p̂).</li><li>La inferencia usa el estadístico para estimar el <b>parámetro</b> (μ, p) de la población.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Definición</th>
+<th>En el caso de Carmen</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Población</strong></td>
+<td>Conjunto completo de individuos sobre el que se quiere concluir</td>
+<td>Todas las personas con hipertensión del departamento de salud</td>
+</tr>
+<tr>
+<td><strong>Muestra</strong></td>
+<td>Subconjunto de la población que se estudia realmente</td>
+<td>300 pacientes con hipertensión del centro, elegidos al azar</td>
+</tr>
+<tr>
+<td><strong>Parámetro</strong></td>
+<td>Valor numérico que describe a la población (casi siempre desconocido)</td>
+<td>Proporción real de pacientes con la presión controlada</td>
+</tr>
+<tr>
+<td><strong>Estadístico</strong></td>
+<td>Valor numérico calculado en la muestra</td>
+<td>Proporción de pacientes controlados entre los 300 estudiados</td>
+</tr>
+</tbody>
+</table>
+<p>La estadística inferencial, que veremos en el Módulo 5, permite pasar del estadístico al parámetro con un margen de error conocido.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Tipos de variables</h3><p class="lema">Qué tipo de variable es cada dato</p><figure><img src="../figuras/tema_010_variables.png" alt="Qué tipo de variable es cada dato" loading="lazy"></figure><ul class='puntos'><li>El tipo de variable decide cómo se resume, cómo se representa y qué prueba se usa.</li><li>Ordinal no es cuantitativa: entre NYHA II y III no hay «una unidad».</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Cada característica registrada de un paciente es una <strong>variable</strong>. Su tipo determina cómo se resume, cómo se representa y qué prueba estadística se usa.</p>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Subtipo</th>
+<th>Característica</th>
+<th>Ejemplos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cuantitativa</td>
+<td>Continua</td>
+<td>Puede tomar cualquier valor en un intervalo</td>
+<td>Peso, talla, glucemia, presión arterial</td>
+</tr>
+<tr>
+<td>Cuantitativa</td>
+<td>Discreta</td>
+<td>Toma valores enteros, normalmente recuentos</td>
+<td>Ingresos en el último año, número de hijos</td>
+</tr>
+<tr>
+<td>Cualitativa</td>
+<td>Nominal</td>
+<td>Categorías sin orden</td>
+<td>Grupo sanguíneo, sexo, fumador (sí/no)</td>
+</tr>
+<tr>
+<td>Cualitativa</td>
+<td>Ordinal</td>
+<td>Categorías con un orden natural</td>
+<td>Disnea mMRC, estadio tumoral, escala de Glasgow por tramos</td>
+</tr>
+</tbody>
+</table>
+<p>Una variable cualitativa con solo dos categorías (fumador sí/no, curado sí/no) se llama <strong>dicotómica</strong> o <strong>binaria</strong>. Es la más frecuente en los ensayos clínicos.</p>
+<p>Una <strong>variable derivada</strong> se calcula a partir de otras: el IMC se obtiene del peso y la talla.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.4 Por qué programar</h3><figure><img src="../figuras/tema_010_e2_4.png" alt="Comparación de hoja de cálculo y código en reproducibilidad, escalabilidad y trazabilidad." loading="lazy"></figure><p>Una hoja de cálculo es suficiente para 30 pacientes. Para 3.000, o para repetir el mismo análisis cada mes con datos nuevos, el código ofrece tres ventajas:</p>
+<ul>
+<li><strong>Reproducibilidad:</strong> cualquier persona puede repetir el análisis y obtener el mismo resultado.</li>
+<li><strong>Escalabilidad:</strong> el mismo código sirve para 30 o para 300.000 pacientes.</li>
+<li><strong>Trazabilidad:</strong> cada paso queda escrito y se puede revisar, como un protocolo.</li>
+</ul></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.5 Inteligencia artificial: tres normas</h3><p class="lema">Tres normas para trabajar con IA</p><figure><img src="../figuras/tema_010_normas_ia.png" alt="Tres normas para trabajar con IA" loading="lazy"></figure><ul class='puntos'><li>La IA es una herramienta de trabajo diaria en esta asignatura.</li><li>Estas tres normas se aplican en todos los temas y en los exámenes con Colab.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Colab y la app Bioestadística incluyen asistentes basados en <strong>modelos de lenguaje de gran tamaño</strong> (LLM). Escriben y explican código con rapidez, pero <strong>pueden equivocarse con total seguridad</strong>, también en estadística. En el Tema 80 estudiaremos por qué.</p>
+<ol>
+<li><strong>Nunca</strong> introduzcas datos reales de pacientes (Reglamento (UE) 2016/679, de protección de datos, y secreto profesional).</li>
+<li>La <strong>clave de acceso</strong> es personal, como una contraseña: se guarda en Secretos, nunca en el código.</li>
+<li><strong>Toda respuesta se verifica</strong>: se ejecuta, se comprueba con un caso conocido y se entiende línea a línea.</li>
+</ol></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>Ampliación: fuentes de datos en ciencias de la salud</h3><table>
+<thead>
+<tr>
+<th>Fuente</th>
+<th>Ejemplo</th>
+<th>Ventaja</th>
+<th>Limitación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Historia clínica electrónica</td>
+<td>Registros de Atención Primaria</td>
+<td>Gran volumen y datos reales de la práctica</td>
+<td>Datos incompletos o registrados con distintos criterios</td>
+</tr>
+<tr>
+<td>Registros poblacionales</td>
+<td>Registros de cáncer, de mortalidad</td>
+<td>Cobertura de toda una población</td>
+<td>Pocas variables por paciente</td>
+</tr>
+<tr>
+<td>Encuestas de salud</td>
+<td>Encuesta Nacional de Salud de España</td>
+<td>Información de la población general</td>
+<td>Datos declarados, no medidos</td>
+</tr>
+<tr>
+<td>Ensayos clínicos</td>
+<td>Comparación de dos tratamientos</td>
+<td>Máximo control del sesgo</td>
+<td>Pacientes seleccionados, no siempre representativos</td>
+</tr>
+<tr>
+<td>Datos abiertos</td>
+<td>Portales de datos de organismos sanitarios</td>
+<td>Acceso libre y reutilizable</td>
+<td>Hay que comprobar su calidad y su licencia</td>
+</tr>
+</tbody>
+</table>
+<p>En esta asignatura trabajaremos con <strong>datos sintéticos</strong> (generados por ordenador con características realistas) y con <strong>datos abiertos</strong>. Nunca con datos de pacientes identificables.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">El grado de disnea según la escala mMRC (0 a 4) es una variable:</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: sus categorías tienen un orden natural, pero la distancia entre ellas no es necesariamente igual.">Cualitativa ordinal</button><button type="button" class="op" data-ok="0" data-fb="Solo toma cinco valores que expresan categorías, no una medida continua.">Cuantitativa continua</button><button type="button" class="op" data-ok="0" data-fb="Los números son etiquetas de categorías ordenadas, no recuentos.">Cuantitativa discreta</button><button type="button" class="op" data-ok="0" data-fb="Sus categorías sí tienen un orden.">Cualitativa nominal</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 10.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_010_Introduccion_bioestadistica_computacional.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Recorrido por el cuaderno" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Recorrido por el cuaderno</h2><p class="colab-cta">▶ En tu cuaderno: <b>3. Recorrido por el cuaderno</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Repaso rápido de lo trabajado en el Tema 0:</p>
+<ol>
+<li>Comprueba que estás en <strong>tu copia</strong>. Debe estar en tu Drive. Si ya la has renombrado, su nombre no empieza por <em>Copia de</em>.</li>
+<li>Abre el <strong>índice</strong> en la barra lateral y localiza el apartado 4.</li>
+<li>Ejecuta la celda siguiente y observa el número que aparece a su izquierda.</li>
+<li>Vuelve a ejecutarla: el número aumenta, porque indica el orden de ejecución.</li>
+</ol><pre class="code"><code class="language-python">print(&quot;Mi cuaderno de Bioestadística está listo&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Demostración: cálculos clínicos en Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Demostración: cálculos clínicos en Python</h2><h3>4.1 Índice de masa corporal</h3><p class="colab-cta">▶ En tu cuaderno: <b>4.1 Índice de masa corporal</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>$$\text{IMC} = \frac{\text{peso (kg)}}{\text{talla (m)}^2}$$</p>
+<p>Cada dato se guarda en una <strong>variable</strong> con un nombre que indica qué es y en qué unidad está. En Python la potencia se escribe <code>**</code> y el separador decimal es el <strong>punto</strong>.</p><pre class="code"><code class="language-python"># Datos de la paciente Carmen (sintéticos)
+peso_kg = 68
+talla_m = 1.63
+
+imc = peso_kg / talla_m ** 2
+imc</code></pre><p>Para presentar el resultado con su unidad y redondeado se usa una <strong>cadena formateada</strong> (<em>f-string</em>): <code>{imc:.1f}</code> inserta el valor con un decimal.</p><pre class="code"><code class="language-python">print(f&quot;IMC de Carmen: {imc:.1f} kg/m²&quot;)</code></pre><p><strong>Interpretación:</strong> según la Organización Mundial de la Salud, un IMC entre 25,0 y 29,9 kg/m² corresponde a sobrepeso.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Demostración: cálculos clínicos en Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Demostración: cálculos clínicos en Python</h2><h3>4.2 Presión arterial media</h3><p class="colab-cta">▶ En tu cuaderno: <b>4.2 Presión arterial media</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>La presión arterial media (PAM) estima la presión de perfusión de los órganos:</p>
+<p>$$\text{PAM} \approx \text{PAD} + \frac{\text{PAS} - \text{PAD}}{3}$$</p>
+<p>Los paréntesis fijan el orden de las operaciones, igual que en matemáticas.</p><pre class="code"><code class="language-python">pas_mmHg = 148   # presión arterial sistólica
+pad_mmHg = 92    # presión arterial diastólica
+
+pam_mmHg = pad_mmHg + (pas_mmHg - pad_mmHg) / 3
+print(f&quot;Presión arterial media: {pam_mmHg:.0f} mmHg&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Demostración: cálculos clínicos en Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Demostración: cálculos clínicos en Python</h2><h3>4.3 Superficie corporal</h3><p class="colab-cta">▶ En tu cuaderno: <b>4.3 Superficie corporal</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>La superficie corporal se usa para ajustar la dosis de muchos fármacos, como los quimioterápicos. La fórmula de Mosteller es:</p>
+<p>$$\text{SC (m}^2) = \sqrt{\frac{\text{talla (cm)} \times \text{peso (kg)}}{3600}}$$</p>
+<p>La raíz cuadrada se obtiene elevando a 0,5. Observa que esta fórmula usa la talla <strong>en centímetros</strong>: por eso la variable lleva la unidad en el nombre.</p><pre class="code"><code class="language-python">talla_cm = talla_m * 100
+superficie_corporal_m2 = (talla_cm * peso_kg / 3600) ** 0.5
+print(f&quot;Superficie corporal: {superficie_corporal_m2:.2f} m²&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Demostración: cálculos clínicos en Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Demostración: cálculos clínicos en Python</h2><h3>4.4 Cambio de unidades</h3><p class="colab-cta">▶ En tu cuaderno: <b>4.4 Cambio de unidades</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>La glucemia se expresa en mg/dL en España y en mmol/L en otros países y en muchos artículos. Para pasar de mg/dL a mmol/L se divide entre 18 (aproximadamente, la masa molar de la glucosa dividida entre 10).</p><pre class="code"><code class="language-python">glucemia_mg_dl = 112
+glucemia_mmol_l = glucemia_mg_dl / 18
+print(f&quot;Glucemia: {glucemia_mg_dl} mg/dL = {glucemia_mmol_l:.1f} mmol/L&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Demostración: cálculos clínicos en Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Demostración: cálculos clínicos en Python</h2><h3>4.5 Comprobar un resultado</h3><p class="colab-cta">▶ En tu cuaderno: <b>4.5 Comprobar un resultado</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Antes de fiarte de un cálculo, propio o del asistente, compruébalo con un valor que conozcas. La comparación <code>==</code> devuelve <code>True</code> (verdadero) o <code>False</code> (falso).</p>
+<p>Hemos calculado a mano que el IMC de Carmen es 25,6 kg/m². Comprobémoslo:</p><pre class="code"><code class="language-python">round(imc, 1) == 25.6</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Demostración: cálculos clínicos en Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Demostración: cálculos clínicos en Python</h2><h3>4.6 Una mirada al destino del curso</h3><p class="colab-cta">▶ En tu cuaderno: <b>4.6 Una mirada al destino del curso</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>La celda siguiente genera <strong>200 pacientes sintéticos</strong> y compara la presión arterial sistólica de fumadores y no fumadores. <strong>No hace falta entender este código todavía.</strong> Al final del Módulo 3 sabrás escribirlo. En el Módulo 5 sabrás decidir si la diferencia es real o fruto del azar.</p><pre class="code"><code class="language-python">import numpy as np
+import pandas as pd
+
+rng = np.random.default_rng(seed=1964)
+pacientes = pd.DataFrame({
+    &quot;edad&quot;: rng.integers(40, 80, size=200),
+    &quot;fumador&quot;: rng.choice([&quot;sí&quot;, &quot;no&quot;], size=200, p=[0.3, 0.7]),
+    &quot;pas_mmHg&quot;: rng.normal(135, 15, size=200).round(),
+})
+
+pacientes.groupby(&quot;fumador&quot;)[&quot;pas_mmHg&quot;].describe().round(1)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Demostración: cálculos clínicos en Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Demostración: cálculos clínicos en Python</h2><h3>4.7 La clave de acceso, sin exponerla</h3><p class="colab-cta">▶ En tu cuaderno: <b>4.7 La clave de acceso, sin exponerla</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Si ya guardaste tu clave en <strong>Secretos</strong> (apartado siguiente), esta celda comprueba si existe sin mostrarla. Busca los dos nombres que usaremos en el curso: <code>GEMINI_API_KEY</code> y <code>OPENAI_API_KEY</code>.</p><pre class="code"><code class="language-python">for nombre in [&quot;GEMINI_API_KEY&quot;, &quot;OPENAI_API_KEY&quot;]:
+    try:
+        from google.colab import userdata
+        clave = userdata.get(nombre)
+        print(f&quot;{nombre}: configurada&quot;)
+    except Exception as error:
+        print(f&quot;{nombre}: no configurada ({type(error).__name__})&quot;)</code></pre></div></section>
+<section class="slide denso" data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: cómo obtener una clave de acceso (API key)</h3><p>Para la asignatura basta con <strong>una</strong> clave. Recomendamos la de <strong>Google Gemini</strong>, que tiene un nivel gratuito sin tarjeta de crédito. La de <strong>OpenAI</strong> es de pago y es opcional.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Google Gemini</th>
+<th>OpenAI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Coste</td>
+<td>Nivel gratuito con límites de uso; no pide tarjeta</td>
+<td>De pago: se compran créditos por adelantado (mínimo 5 dólares)</td>
+</tr>
+<tr>
+<td>Dónde se obtiene</td>
+<td>Google AI Studio (aistudio.google.com)</td>
+<td>Plataforma de OpenAI (platform.openai.com)</td>
+</tr>
+<tr>
+<td>Nombre del secreto en Colab</td>
+<td><code>GEMINI_API_KEY</code></td>
+<td><code>OPENAI_API_KEY</code></td>
+</tr>
+<tr>
+<td>Requisito de edad</td>
+<td>18 años</td>
+<td>Según sus condiciones de uso</td>
+</tr>
+</tbody>
+</table>
+<h4>Opción A. Clave gratuita de Google Gemini</h4>
+<ol>
+<li>Entra en <a href="https://aistudio.google.com/" target="_blank" rel="noopener">Google AI Studio</a> con tu cuenta de Google y acepta las condiciones de uso.</li>
+<li>Pulsa <strong>Get API key</strong> (Obtener clave de API) en el menú lateral.</li>
+<li>Pulsa <strong>Create API key</strong> (Crear clave de API). Si te lo pide, elige crearla en un proyecto nuevo: AI Studio lo prepara solo.</li>
+<li>Copia la clave y guárdala en el panel <strong>Secretos</strong> de Colab con el nombre <code>GEMINI_API_KEY</code> (pasos al final de este apartado).</li>
+<li>Comprueba en la lista de claves que el proyecto aparece como gratuito (<em>Free</em>). No actives la facturación: no es necesaria para la asignatura.</li>
+</ol>
+<p>Si un aviso dice que el nivel gratuito no está disponible para tu proyecto, crea la clave en otro proyecto. Si el problema sigue, consulta al profesor. No actives la facturación para resolverlo.</p>
+<h4>Opción B. Clave de pago de OpenAI</h4>
+<ol>
+<li>Entra en la <a href="https://platform.openai.com/" target="_blank" rel="noopener">plataforma de OpenAI</a> con tu cuenta. La cuenta de ChatGPT sirve para entrar, pero la API se paga aparte. La suscripción a ChatGPT no incluye el uso de la API.</li>
+<li>En la sección de facturación (<strong>Billing</strong>), añade un método de pago y compra el mínimo de créditos.</li>
+<li><strong>Desactiva la recarga automática</strong> (<em>auto-reload</em>), que viene activada por defecto, para no hacer cargos sin darte cuenta. Los créditos caducan al año y no se devuelven.</li>
+<li>En <strong>API keys</strong>, pulsa <strong>Create new secret key</strong> y ponle un nombre. Cópiala en ese momento: después no se vuelve a mostrar.</li>
+<li>Guárdala en <strong>Secretos</strong> de Colab con el nombre <code>OPENAI_API_KEY</code>.</li>
+</ol>
+<h4>Guardar la clave en Colab</h4>
+<ol>
+<li>Abre el panel <strong>Secretos</strong> (icono de la llave en la barra lateral izquierda).</li>
+<li>Pulsa <strong>Añadir nuevo secreto</strong>.</li>
+<li>Escribe el nombre exacto (<code>GEMINI_API_KEY</code> o <code>OPENAI_API_KEY</code>) y pega la clave en el valor.</li>
+<li>Activa el interruptor de acceso del cuaderno.</li>
+<li>Ejecuta la celda del apartado 4.7 para comprobarlo.</li>
+</ol>
+<h4>Normas de seguridad</h4>
+<ul>
+<li>La clave es personal: no se comparte, no se escribe en el código y no se envía por correo ni por mensajería.</li>
+<li>¿Crees que alguien ha visto tu clave? <strong>Bórrala</strong> en AI Studio o en la plataforma de OpenAI y crea otra.</li>
+<li>Las condiciones de estos servicios prohíben usarlos en la práctica clínica real o para dar consejo médico. En la asignatura los usamos solo para aprender, con datos sintéticos.</li>
+<li>Ni el nivel gratuito ni el de pago autorizan a enviar datos de pacientes.</li>
+</ul></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Demostración: cálculos clínicos en Python" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Demostración: cálculos clínicos en Python</h2><h3>4.8 Pedir ayuda al asistente con seguridad</h3><figure><img src="../figuras/tema_010_esquema.png" alt="Flujo: escribe la petición; si identifica a alguien, quita los datos; pide código y explicación; compara con un caso conocido." loading="lazy"></figure><table>
+<thead>
+<tr>
+<th>Petición inadecuada</th>
+<th>Petición adecuada</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>«Calcula el IMC de Carmen López, NHC 123456, que pesa 68 kg y mide 1,63 m»</td>
+<td>«Escribe en Python el cálculo del IMC a partir de dos variables, peso_kg y talla_m, y explica cada línea»</td>
+</tr>
+<tr>
+<td>Identifica a una persona y pide solo un número</td>
+<td>No identifica a nadie, pide código y explicación, y el resultado se puede verificar</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Prueba:</strong> abre el asistente de Colab y pídele la superficie corporal con la fórmula de Mosteller. Compara su resultado con el del apartado 4.3. Si no coinciden, averigua por qué antes de dar por buena ninguna de las dos versiones.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Usar la coma decimal.</strong> En Python, <code>1,63</code> no es un número: es una pareja de valores (1 y 63). Ejecuta la celda y observa el resultado.</p><pre class="code"><code class="language-python">talla_con_coma = 1,63
+print(talla_con_coma, type(talla_con_coma))</code></pre><p><strong>Mezclar unidades.</strong> Si se escribe la talla en centímetros (163) en la fórmula del IMC, el resultado es 10.000 veces menor. Poner la unidad en el nombre (<code>talla_m</code>, <code>talla_cm</code>) previene el error.</p>
+<p><strong>Olvidar los paréntesis.</strong> <code>92 + 148 - 92 / 3</code> no es la presión arterial media: Python divide antes de sumar.</p><pre class="code"><code class="language-python">print(&quot;Sin paréntesis:&quot;, 92 + 148 - 92 / 3)
+print(&quot;Con paréntesis:&quot;, 92 + (148 - 92) / 3)</code></pre><p><strong>Ejecutar las celdas fuera de orden.</strong> Si una celda usa una variable antes de que se ejecute la celda que la define, Python responde con <code>NameError</code>.</p>
+<p><strong>Confundir mayúsculas y minúsculas.</strong> <code>Peso_kg</code> y <code>peso_kg</code> son variables distintas.</p>
+<p><strong>Exponer la clave de acceso</strong> escribiéndola en una celda y compartiendo después el cuaderno.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="5. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>5. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 10 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> clasificar las variables de una historia clínica sintética según su tipo y su escala de medida.</li>
+<li><strong>Misión clínica (con pistas):</strong> calcular el IMC, la presión arterial media y la superficie corporal de un paciente y redactar su interpretación.</li>
+<li><strong>Misión reto (con asistente):</strong> configurar el asistente con tu clave, revisar qué datos se envían y verificar el código que te proponga.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>: forma parte del caso práctico integrador (25 % de la nota).</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="6. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>6. Autoevaluación</h2><p>Responde sin asistente y sin ejecutar código. Si no has ejecutado la configuración del cuaderno, hazlo antes.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="6. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>6. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q25-0"><p class="qq">El grado de disnea según la escala mMRC (0 a 4) es una variable:</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: sus categorías tienen un orden natural, pero la distancia entre ellas no es necesariamente igual.">Cualitativa ordinal</button><button type="button" class="op" data-ok="0" data-fb="Solo toma cinco valores que expresan categorías, no una medida continua.">Cuantitativa continua</button><button type="button" class="op" data-ok="0" data-fb="Los números son etiquetas de categorías ordenadas, no recuentos.">Cuantitativa discreta</button><button type="button" class="op" data-ok="0" data-fb="Sus categorías sí tienen un orden.">Cualitativa nominal</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q25-1"><p class="qq">En un estudio sobre 300 pacientes hipertensos de un centro, el 62 % tiene la presión controlada. Ese 62 % es:</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: se calcula en la muestra estudiada.">Un estadístico</button><button type="button" class="op" data-ok="0" data-fb="El parámetro sería la proporción en toda la población, que no conocemos.">Un parámetro</button><button type="button" class="op" data-ok="0" data-fb="La población es el conjunto de individuos, no un valor numérico.">Una población</button><button type="button" class="op" data-ok="0" data-fb="La variable es «presión controlada (sí/no)»; el 62 % es un resumen de ella.">Una variable</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q25-2"><p class="qq">¿Qué muestra la celda talla = 1,80 seguida de print(talla)?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la coma separa dos valores y Python crea una pareja (tupla).">(1, 80)</button><button type="button" class="op" data-ok="0" data-fb="El separador decimal en Python es el punto, no la coma.">1.8</button><button type="button" class="op" data-ok="0" data-fb="Python no interpreta la coma como separador decimal.">1,80</button><button type="button" class="op" data-ok="0" data-fb="No hay error: la expresión es válida, aunque no hace lo que se pretendía.">Un error</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q25-3"><p class="qq">¿Cuál de estas expresiones calcula correctamente la presión arterial media con PAS = 148 y PAD = 92?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: los paréntesis obligan a restar antes de dividir.">92 + (148 - 92) / 3</button><button type="button" class="op" data-ok="0" data-fb="Python divide 92 entre 3 antes de sumar y restar.">92 + 148 - 92 / 3</button><button type="button" class="op" data-ok="0" data-fb="Divide entre 3 toda la suma, no solo la diferencia.">(92 + 148 - 92) / 3</button><button type="button" class="op" data-ok="0" data-fb="No resta la diastólica antes de dividir.">92 + 148 / 3</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q25-4"><p class="qq">¿Cuál de estas peticiones a un asistente de IA cumple las normas de la asignatura?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: no contiene datos identificativos y produce código verificable.">Pedir una función que calcule el IMC y que explique cada línea</button><button type="button" class="op" data-ok="0" data-fb="Nunca se introducen datos reales de pacientes.">Pegar el informe de alta de un paciente real para que lo resuma</button><button type="button" class="op" data-ok="0" data-fb="La clave nunca se comparte.">Escribir la API key en el mensaje para que el asistente la configure</button><button type="button" class="op" data-ok="0" data-fb="Toda respuesta se verifica antes de usarla.">Copiar su respuesta en un informe sin ejecutarla</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>La bioestadística convierte observaciones clínicas en conclusiones fundadas y cuantifica su incertidumbre.</li>
+<li>Se estudia una <strong>muestra</strong> para conocer una <strong>población</strong>; el <strong>estadístico</strong> estima el <strong>parámetro</strong>.</li>
+<li>El tipo de variable decide cómo se resume y se analiza.</li>
+<li>En Python, el separador decimal es el punto y las variables deben llevar la unidad en el nombre.</li>
+<li>El asistente de IA ayuda, pero no sustituye la verificación ni tu juicio. Nunca le envíes datos de pacientes ni la clave de acceso.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bioestadística</td>
+<td>Aplicación de los métodos estadísticos a las ciencias de la vida y de la salud</td>
+</tr>
+<tr>
+<td>Población</td>
+<td>Conjunto completo de individuos sobre el que se quiere concluir</td>
+</tr>
+<tr>
+<td>Muestra</td>
+<td>Subconjunto de la población que se estudia</td>
+</tr>
+<tr>
+<td>Parámetro</td>
+<td>Valor que describe a la población</td>
+</tr>
+<tr>
+<td>Estadístico</td>
+<td>Valor calculado en la muestra</td>
+</tr>
+<tr>
+<td>Variable</td>
+<td>Característica que se registra en cada individuo</td>
+</tr>
+<tr>
+<td>Variable dicotómica</td>
+<td>Variable cualitativa con dos categorías</td>
+</tr>
+<tr>
+<td>Datos sintéticos</td>
+<td>Datos generados por ordenador que imitan las características de datos reales</td>
+</tr>
+<tr>
+<td>LLM</td>
+<td>Modelo de lenguaje de gran tamaño, base de los asistentes de IA</td>
+</tr>
+<tr>
+<td>API key</td>
+<td>Clave personal que autoriza el uso de un servicio de IA desde el código</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li><a href="https://docs.python.org/es/3/tutorial/" target="_blank" rel="noopener">Tutorial oficial de Python en español</a></li>
+<li><a href="https://research.google.com/colaboratory/faq.html" target="_blank" rel="noopener">Preguntas frecuentes de Google Colab</a></li>
+<li><a href="https://www.who.int/news-room/fact-sheets/detail/obesity-and-overweight" target="_blank" rel="noopener">Clasificación del IMC de la Organización Mundial de la Salud</a></li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_010_Introduccion_bioestadistica_computacional.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 10 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-10" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_000.html">← Tema 0</a><a class="btn ghost" href="tema_020.html">→ Tema 20</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

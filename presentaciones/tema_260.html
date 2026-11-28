@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 260. Comparación de más de dos grupos: análisis de la varianza y pruebas no paramétricas · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 260. Comparación de más de dos grupos: análisis de la varianza y pruebas no paramétricas</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 260</span>Comparación de más de dos grupos: análisis de la varianza y pruebas no paramétricas</h1>
+<p class="mod">Módulo 5. Generalización de conclusiones</p>
+<p class="ev"><b>Evaluación:</b> el examen del Módulo 5 se hace <strong>con Colab</strong>. Practica ejecutando e interpretando cada análisis.</p>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_260_Comparacion_de_mas_de_dos_grupos_ANOVA_y_pruebas_no_parametricas.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-260" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Explicar por qué no se deben hacer muchas pruebas <em>t</em> para comparar más de dos grupos.</li>
+<li>Aplicar e interpretar el <strong>análisis de la varianza (ANOVA) de un factor</strong> y su tamaño del efecto (η²).</li>
+<li>Identificar qué grupos difieren con <strong>comparaciones post hoc</strong> (Tukey) y corregir las comparaciones múltiples (Bonferroni y Holm).</li>
+<li>Aplicar las pruebas no paramétricas de <strong>Mann-Whitney</strong>, <strong>Wilcoxon</strong> y <strong>Kruskal-Wallis</strong> cuando proceda.</li>
+<li>Reconocer el <em>p-hacking</em> y la importancia de registrar el análisis antes de ver los datos.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: ANOVA, post hoc y alternativas <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">Buscar hasta encontrar algo «significativo»</p><figure><img src="../figuras/tema_260_multiples.png" alt="Buscar hasta encontrar algo «significativo»" loading="lazy"></figure><ul class='puntos'><li>Con 20 comparaciones sin ningún efecto real, la probabilidad de algún p < 0,05 es del 64 %.</li><li>Lo que se encuentra buscando sin plan es una hipótesis, no una conclusión.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>En la cohorte cardiovascular, la presión sistólica media parece aumentar con el peso. Es de unos 122 mmHg con normopeso, 126 con sobrepeso y 133 en los obesos. Un residente propone comparar los grupos de dos en dos con tres pruebas <em>t</em>.</p>
+<p>Otro residente ha revisado la base de datos. Ha comparado entre los tres centros de salud la glucemia, el colesterol, el HDL, el IMC, la PAS… La glucemia «sale significativa» (<em>p</em> = 0,04). Quiere enviarlo a un congreso.</p>
+<p>Los dos tienen el mismo problema: <strong>cuantas más comparaciones se hacen, más probable es encontrar un resultado significativo por azar</strong>. Hoy veremos cómo comparar varios grupos con una sola prueba, cómo localizar después las diferencias y cómo protegerse de los falsos positivos.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 El problema de las comparaciones múltiples</h3><figure><img src="../figuras/tema_260_e2_1.png" alt="Curva de la probabilidad de al menos un falso positivo según el número de comparaciones: 5 %, 14 %, 40 % y 64 % con 1, 3, 10 y 20." loading="lazy"></figure><p>Supón que cada prueba tiene α = 0,05 y que las hipótesis nulas son ciertas. La probabilidad de <strong>al menos un falso positivo</strong> en <em>k</em> pruebas independientes es $1 - 0{,}95^k$:</p>
+<table>
+<thead>
+<tr>
+<th>Comparaciones</th>
+<th>Probabilidad de al menos un falso positivo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>5 %</td>
+</tr>
+<tr>
+<td>3 (tres grupos dos a dos)</td>
+<td>14 %</td>
+</tr>
+<tr>
+<td>10 (cinco grupos dos a dos)</td>
+<td>40 %</td>
+</tr>
+<tr>
+<td>20</td>
+<td>64 %</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 El ANOVA de un factor</h3><p class="lema">ANOVA: variabilidad entre grupos frente a dentro de los grupos</p><figure><img src="../figuras/tema_260_anova.png" alt="ANOVA: variabilidad entre grupos frente a dentro de los grupos" loading="lazy"></figure><ul class='puntos'><li>F = varianza entre grupos / varianza dentro de los grupos.</li><li>Un ANOVA significativo dice que alguna media difiere; Tukey dice cuáles.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Contrasta con <strong>una sola prueba</strong> $H_0$: μ₁ = μ₂ = … = μₖ. Descompone la variabilidad total en dos partes:</p>
+<ul>
+<li><strong>Entre grupos</strong>: cuánto se alejan las medias de los grupos de la media global.</li>
+<li><strong>Dentro de los grupos</strong>: cuánto varían los pacientes alrededor de la media de su grupo.</li>
+</ul>
+<p>$$F = \frac{\text{varianza entre grupos}}{\text{varianza dentro de los grupos}}$$</p>
+<p>Si $H_0$ es cierta, <em>F</em> será cercano a 1. Un <em>F</em> grande indica que las medias difieren más de lo que explicaría la variabilidad entre pacientes. El tamaño del efecto es $\eta^2$ = SC entre / SC total: la proporción de la variabilidad explicada por el grupo.</p>
+<p>Un ANOVA significativo dice que <strong>al menos una media es distinta</strong>, pero no cuál. Para eso se hacen las <strong>comparaciones post hoc</strong>, que controlan el error global (Tukey para todas las parejas).</p>
+<p><strong>Condiciones:</strong> independencia, normalidad aproximada en cada grupo y varianzas parecidas. Si las varianzas difieren mucho, se usa el <strong>ANOVA de Welch</strong>.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Correcciones por comparaciones múltiples</h3><figure><img src="../figuras/tema_260_esquema.png" alt="Cuatro valores p: Bonferroni declara 1 significativo y Holm 3." loading="lazy"></figure><table>
+<thead>
+<tr>
+<th>Método</th>
+<th>Cómo funciona</th>
+<th>Característica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bonferroni</td>
+<td>Multiplica cada <em>p</em> por el número de comparaciones <em>k</em></td>
+<td>Sencillo, muy conservador</td>
+</tr>
+<tr>
+<td>Holm</td>
+<td>Ordena los <em>p</em> y aplica umbrales escalonados</td>
+<td>Siempre al menos tan potente como Bonferroni; recomendado</td>
+</tr>
+<tr>
+<td>Tukey</td>
+<td>Específico para todas las parejas tras un ANOVA</td>
+<td>El estándar post hoc</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.4 Pruebas no paramétricas</h3><p class="lema">Las pruebas no paramétricas trabajan con rangos</p><figure><img src="../figuras/tema_260_rangos.png" alt="Las pruebas no paramétricas trabajan con rangos" loading="lazy"></figure><ul class='puntos'><li>Ordenan los valores y usan su posición: no suponen normalidad y resisten a los atípicos.</li><li>Útiles con muestras pequeñas, datos muy asimétricos y escalas ordinales (dolor, Rankin).</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Trabajan con los <strong>rangos</strong> (el orden) de los datos, no con sus valores. Por eso no suponen normalidad y son robustas a los atípicos. Contrastan si una distribución tiende a dar valores mayores que otra.</p>
+<table>
+<thead>
+<tr>
+<th>Diseño</th>
+<th>Paramétrica</th>
+<th>No paramétrica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dos grupos independientes</td>
+<td><em>t</em> de Welch</td>
+<td><strong>Mann-Whitney</strong></td>
+</tr>
+<tr>
+<td>Dos medidas apareadas</td>
+<td><em>t</em> apareada</td>
+<td><strong>Wilcoxon</strong> de los rangos con signo</td>
+</tr>
+<tr>
+<td>Más de dos grupos independientes</td>
+<td>ANOVA</td>
+<td><strong>Kruskal-Wallis</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Úsalas en tres casos. Muestras pequeñas con distribuciones muy asimétricas. Atípicos que no son errores. Variables <strong>ordinales</strong> (escalas de dolor, de Rankin, niveles de triaje).</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">Quieres comparar la HbA1c media entre cuatro pautas de insulina. ¿Qué análisis haces?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: una sola prueba global y después las parejas con control del error.">Un ANOVA y, si es significativo, comparaciones post hoc de Tukey</button><button type="button" class="op" data-ok="0" data-fb="La probabilidad de algún falso positivo sería cercana al 26 %.">Seis pruebas t, una por pareja</button><button type="button" class="op" data-ok="0" data-fb="La variable es cuantitativa.">Una ji cuadrado</button><button type="button" class="op" data-ok="0" data-fb="McNemar es para proporciones apareadas.">McNemar</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 260.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_260_Comparacion_de_mas_de_dos_grupos_ANOVA_y_pruebas_no_parametricas.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: ANOVA, post hoc y alternativas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: ANOVA, post hoc y alternativas</h2><h3>3.1 PAS según la categoría de IMC</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 PAS según la categoría de IMC</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">import numpy as np
+import pandas as pd
+from scipy import stats
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+cohorte = pd.read_csv(&quot;https://raw.githubusercontent.com/fborrasumh/bioestadistica/main/datos/cohorte_limpia.csv&quot;)
+categorias = [&quot;Normopeso&quot;, &quot;Sobrepeso&quot;, &quot;Obesidad&quot;]
+cohorte[&quot;categoria_imc&quot;] = pd.cut(cohorte[&quot;imc&quot;], [0, 25, 30, 100], labels=categorias, right=False)
+datos = cohorte.dropna(subset=[&quot;pas_mmHg&quot;, &quot;categoria_imc&quot;])
+
+print(datos.groupby(&quot;categoria_imc&quot;, observed=True)[&quot;pas_mmHg&quot;].agg([&quot;count&quot;, &quot;mean&quot;, &quot;std&quot;]).round(1))
+
+plt.figure(figsize=(7, 4))
+sns.boxplot(data=datos, x=&quot;categoria_imc&quot;, y=&quot;pas_mmHg&quot;, order=categorias)
+plt.xlabel(&quot;Categoría de IMC (&lt; 25 · 25 a 29,9 · ≥ 30 kg/m²)&quot;)
+plt.ylabel(&quot;PAS (mmHg)&quot;)
+plt.show()</code></pre><p>Las desviaciones típicas son parecidas (la mayor no llega a 1,5 veces la menor) y las distribuciones son razonablemente simétricas: el ANOVA clásico es adecuado.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: ANOVA, post hoc y alternativas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: ANOVA, post hoc y alternativas</h2><h3>3.2 El ANOVA</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 El ANOVA</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">grupos = [datos.loc[datos[&quot;categoria_imc&quot;] == k, &quot;pas_mmHg&quot;] for k in categorias]
+anova = stats.f_oneway(*grupos)
+
+media_global = datos[&quot;pas_mmHg&quot;].mean()
+sc_entre = sum(len(g) * (g.mean() - media_global) ** 2 for g in grupos)
+sc_total = ((datos[&quot;pas_mmHg&quot;] - media_global) ** 2).sum()
+k, n = len(grupos), len(datos)
+
+print(f&quot;F = {anova.statistic:.2f} con {k - 1} y {n - k} grados de libertad, p = {anova.pvalue:.1e}&quot;)
+print(f&quot;η² = {sc_entre / sc_total:.3f}&quot;)</code></pre><p>Hay evidencia de que la PAS media no es igual en las tres categorías. Pero η² indica que la categoría de IMC explica solo una pequeña parte de la variabilidad de la PAS. Influyen muchos otros factores: edad, tratamiento, sal, genética. Esto es habitual en Medicina: un factor puede tener un efecto real y relevante sobre la media sin explicar gran parte de la variabilidad individual.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: ANOVA, post hoc y alternativas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: ANOVA, post hoc y alternativas</h2><h3>3.3 ¿Qué grupos difieren? Tukey</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 ¿Qué grupos difieren? Tukey</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">tukey = stats.tukey_hsd(*grupos)
+ic = tukey.confidence_interval(confidence_level=0.95)
+for i in range(k):
+    for j in range(i + 1, k):
+        print(f&quot;{categorias[j]:&gt;10} − {categorias[i]:&lt;10}: {-tukey.statistic[i, j]:5.1f} mmHg &quot;
+              f&quot;(IC 95 %: {-ic.high[i, j]:5.1f} a {-ic.low[i, j]:5.1f}) · p ajustada = {tukey.pvalue[i, j]:.4f}&quot;)</code></pre><p>Los obesos tienen una PAS media unos 11 mmHg mayor que los pacientes con normopeso y unos 7 mmHg mayor que los que tienen sobrepeso. La diferencia entre sobrepeso y normopeso (4 mmHg) no alcanza la significación tras el ajuste: su IC incluye el 0.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: ANOVA, post hoc y alternativas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: ANOVA, post hoc y alternativas</h2><h3>3.4 La alternativa no paramétrica: Kruskal-Wallis</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 La alternativa no paramétrica: Kruskal-Wallis</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">kw = stats.kruskal(*grupos)
+print(f&quot;Kruskal-Wallis: H = {kw.statistic:.2f}, p = {kw.pvalue:.1e}&quot;)
+print(&quot;Medianas:&quot;, datos.groupby(&quot;categoria_imc&quot;, observed=True)[&quot;pas_mmHg&quot;].median().to_dict())</code></pre><p>Con datos bien comportados, el ANOVA y Kruskal-Wallis llegan a la misma conclusión. El ANOVA aporta además las diferencias de medias con sus intervalos, que son más fáciles de interpretar clínicamente.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: ANOVA, post hoc y alternativas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: ANOVA, post hoc y alternativas</h2><h3>3.5 La búsqueda del residente: corregir las comparaciones múltiples</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 La búsqueda del residente: corregir las comparaciones múltiples</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">from statsmodels.stats.multitest import multipletests
+
+variables = [&quot;pas_mmHg&quot;, &quot;pad_mmHg&quot;, &quot;colesterol_mg_dl&quot;, &quot;hdl_mg_dl&quot;, &quot;glucemia_mg_dl&quot;, &quot;imc&quot;, &quot;peso_kg&quot;, &quot;edad&quot;]
+valores_p = []
+for v in variables:
+    x = cohorte.dropna(subset=[v])
+    valores_p.append(stats.f_oneway(*[x.loc[x[&quot;centro&quot;] == ce, v] for ce in x[&quot;centro&quot;].unique()]).pvalue)
+
+_, p_bonf, _, _ = multipletests(valores_p, method=&quot;bonferroni&quot;)
+_, p_holm, _, _ = multipletests(valores_p, method=&quot;holm&quot;)
+resultados = pd.DataFrame({&quot;p sin corregir&quot;: valores_p, &quot;p Bonferroni&quot;: p_bonf, &quot;p Holm&quot;: p_holm}, index=variables)
+resultados.round(3)</code></pre><p>La glucemia «significativa» deja de serlo al tener en cuenta que se han hecho 8 comparaciones. Con 8 variables sin ninguna diferencia real, lo esperable es que alguna salga con <em>p</em> &lt; 0,05 un tercio de las veces. El resultado puede ser real, pero es una <strong>hipótesis para un nuevo estudio</strong>, no una conclusión.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: ANOVA, post hoc y alternativas" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: ANOVA, post hoc y alternativas</h2><h3>3.6 Simulación: el p-hacking funciona</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 Simulación: el p-hacking funciona</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">rng = np.random.default_rng(seed=260)
+estudios_con_hallazgo = 0
+for _ in range(2000):
+    # 20 variables sin ninguna diferencia real entre 3 centros de 50 pacientes
+    p = [stats.f_oneway(*rng.normal(0, 1, (3, 50))).pvalue for _ in range(20)]
+    estudios_con_hallazgo += min(p) &lt; 0.05
+print(f&quot;Estudios con al menos un «hallazgo» significativo: {estudios_con_hallazgo / 2000:.0%}&quot;)</code></pre><p>Casi dos de cada tres estudios encuentran algo «significativo» en datos que son puro ruido. Por eso los ensayos clínicos deben <strong>registrar</strong> su variable principal y su plan de análisis antes de empezar (ClinicalTrials.gov, EU CTR). Los análisis no previstos se presentan como exploratorios.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: Mann-Whitney y Wilcoxon</h3><p>Dolor en una escala de 0 a 10 tras dos técnicas analgésicas, en 14 y 15 pacientes (variable ordinal, muestras pequeñas). Y en 12 pacientes antes y después de una sesión de fisioterapia.</p><pre class="code"><code class="language-python">tecnica_a = np.array([2, 3, 3, 4, 2, 5, 3, 1, 4, 3, 2, 6, 3, 2])
+tecnica_b = np.array([4, 5, 6, 3, 5, 7, 4, 6, 5, 8, 4, 5, 6, 3, 5])
+mw = stats.mannwhitneyu(tecnica_a, tecnica_b)
+print(f&quot;Medianas: A {np.median(tecnica_a):.0f} · B {np.median(tecnica_b):.0f} · Mann-Whitney p = {mw.pvalue:.4f}&quot;)
+
+antes = np.array([7, 6, 8, 5, 7, 9, 6, 7, 8, 6, 5, 7])
+despues = np.array([5, 5, 6, 5, 4, 7, 6, 5, 6, 4, 4, 6])
+w = stats.wilcoxon(despues, antes)
+print(f&quot;Mediana del cambio: {np.median(despues - antes):.1f} puntos · Wilcoxon p = {w.pvalue:.4f}&quot;)</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Hacer todas las pruebas <em>t</em> dos a dos</strong> sin corregir.</p>
+<p><strong>Concluir qué grupos difieren a partir del ANOVA</strong>, sin post hoc.</p>
+<p><strong>Buscar significación variable tras variable</strong> y presentar solo la que sale.</p>
+<p><strong>Creer que las pruebas no paramétricas «no tienen supuestos»:</strong> requieren independencia, y Mann-Whitney compara distribuciones, no exactamente medianas.</p>
+<p><strong>Usar pruebas no paramétricas por defecto</strong> con muestras grandes y datos razonables: se pierde la estimación del efecto en unidades clínicas.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: ¿Qué grupos difieren? La prueba de Tukey</h3><p>El ANOVA solo dice si <strong>alguna</strong> media es distinta. No dice cuál. La prueba <strong>HSD de Tukey</strong> compara todos los pares de grupos. Además, mantiene en el 5 % la probabilidad de <strong>al menos un</strong> falso positivo en el conjunto de comparaciones.</p>
+<p>Úsala después de un ANOVA, con grupos de tamaño parecido y variables aproximadamente normales.</p>
+<p><strong>En tus materiales SIMUSTAT:</strong> <a href="https://colab.research.google.com/drive/1hIecxDRGXpjn11UQhI6Fou-cZyzPfjwB" target="_blank" rel="noopener">Tema 410. Comparación de k medias</a>, apartado 3.</p><pre class="code"><code class="language-python">from statsmodels.stats.multicomp import pairwise_tukeyhsd
+
+tukey = pairwise_tukeyhsd(endog=datos[&quot;pas_mmHg&quot;], groups=datos[&quot;categoria_imc&quot;].astype(str), alpha=0.05)
+print(tukey.summary())</code></pre><p>Lee cada fila así: <code>meandiff</code> es la diferencia de medias (segundo grupo menos primero). <code>lower</code> y <code>upper</code> dan su IC 95 % ajustado. <code>reject = True</code> indica que la diferencia es significativa después de ajustar por todas las comparaciones.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 260 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> elegir la prueba adecuada para ocho diseños y calcular la probabilidad de falsos positivos con <em>k</em> comparaciones.</li>
+<li><strong>Misión clínica (con pistas):</strong> comparar la PAS entre los cuatro grupos de edad de la cohorte con ANOVA y Tukey, y redactar el resultado.</li>
+<li><strong>Misión reto (con asistente):</strong> pedir al asistente que «encuentre algo significativo» en la cohorte. Aplicar la corrección de Holm a todo lo que haya probado y escribir el párrafo de limitaciones.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q21-0"><p class="qq">Quieres comparar la HbA1c media entre cuatro pautas de insulina. ¿Qué análisis haces?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: una sola prueba global y después las parejas con control del error.">Un ANOVA y, si es significativo, comparaciones post hoc de Tukey</button><button type="button" class="op" data-ok="0" data-fb="La probabilidad de algún falso positivo sería cercana al 26 %.">Seis pruebas t, una por pareja</button><button type="button" class="op" data-ok="0" data-fb="La variable es cuantitativa.">Una ji cuadrado</button><button type="button" class="op" data-ok="0" data-fb="McNemar es para proporciones apareadas.">McNemar</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-1"><p class="qq">Un ANOVA da p = 0,002. ¿Qué puedes concluir?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: para saber cuáles hacen falta las comparaciones post hoc.">Que al menos una media difiere de las demás</button><button type="button" class="op" data-ok="0" data-fb="Puede que solo un grupo difiera.">Que todas las medias son distintas entre sí</button><button type="button" class="op" data-ok="0" data-fb="Eso lo indica η², no el valor p.">Que el factor explica el 99,8 % de la variabilidad</button><button type="button" class="op" data-ok="0" data-fb="Hay que ver la magnitud de las diferencias.">Que la diferencia es clínicamente relevante</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-2"><p class="qq">Haces 5 contrastes y obtienes p = 0,012 en uno. Con la corrección de Bonferroni, ¿cuál es su valor p ajustado?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: 0,012 × 5 = 0,06, que ya no es menor de 0,05.">0,06</button><button type="button" class="op" data-ok="0" data-fb="Hay que ajustar por el número de comparaciones.">0,012</button><button type="button" class="op" data-ok="0" data-fb="Se multiplica por k, no se divide.">0,0024</button><button type="button" class="op" data-ok="0" data-fb="Revisa la regla.">0,05</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-3"><p class="qq">Comparas la puntuación de la escala de Rankin (0 a 6) entre tres tratamientos con 15 pacientes cada uno. ¿Qué prueba usas?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: variable ordinal y más de dos grupos independientes.">Kruskal-Wallis</button><button type="button" class="op" data-ok="0" data-fb="Con una escala ordinal de pocos valores, mejor una prueba de rangos.">ANOVA</button><button type="button" class="op" data-ok="0" data-fb="Es para dos medidas apareadas.">Wilcoxon de los rangos con signo</button><button type="button" class="op" data-ok="0" data-fb="Es para dos grupos.">Mann-Whitney</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q21-4"><p class="qq">¿Por qué deben registrarse los ensayos clínicos y su análisis principal antes de empezar?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: protege frente al p-hacking y al sesgo de publicación.">Para evitar elegir después de ver los datos la variable o el análisis que salen significativos</button><button type="button" class="op" data-ok="0" data-fb="No modifica el valor p.">Porque así el valor p es siempre menor</button><button type="button" class="op" data-ok="0" data-fb="No tiene relación.">Para poder usar pruebas no paramétricas</button><button type="button" class="op" data-ok="0" data-fb="Si hay varias variables principales, sigue siendo necesario corregir.">Para no tener que corregir por comparaciones múltiples</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>Comparar <em>k</em> grupos dos a dos multiplica los falsos positivos.</li>
+<li>El ANOVA contrasta con una sola prueba si alguna media difiere; Tukey localiza qué parejas.</li>
+<li>Con muchas comparaciones, corrige con Holm (o Bonferroni).</li>
+<li>Mann-Whitney, Wilcoxon y Kruskal-Wallis para variables ordinales, muestras pequeñas o datos muy asimétricos.</li>
+<li>Lo que se encuentra buscando sin plan es una hipótesis, no una conclusión.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Análisis de la varianza (ANOVA)</td>
+<td>Contraste de la igualdad de las medias de más de dos grupos</td>
+</tr>
+<tr>
+<td>Estadístico <em>F</em></td>
+<td>Cociente entre la varianza entre grupos y la varianza dentro de los grupos</td>
+</tr>
+<tr>
+<td>η² (eta cuadrado)</td>
+<td>Proporción de la variabilidad total explicada por el factor</td>
+</tr>
+<tr>
+<td>Comparaciones post hoc</td>
+<td>Comparaciones entre parejas de grupos tras un ANOVA significativo, con control del error</td>
+</tr>
+<tr>
+<td>Prueba de Tukey</td>
+<td>Método post hoc para todas las parejas de grupos</td>
+</tr>
+<tr>
+<td>Corrección de Bonferroni</td>
+<td>Ajuste que multiplica cada valor p por el número de comparaciones</td>
+</tr>
+<tr>
+<td>Método de Holm</td>
+<td>Ajuste escalonado de los valores p, más potente que Bonferroni</td>
+</tr>
+<tr>
+<td>Prueba de Kruskal-Wallis</td>
+<td>Alternativa no paramétrica al ANOVA de un factor</td>
+</tr>
+<tr>
+<td>Prueba de Wilcoxon de los rangos con signo</td>
+<td>Alternativa no paramétrica a la <em>t</em> apareada</td>
+</tr>
+<tr>
+<td><em>p-hacking</em></td>
+<td>Multiplicar los análisis hasta encontrar un resultado significativo</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li>Bland JM, Altman DG. Multiple significance tests: the Bonferroni method. <em>BMJ</em>. 1995;310(6973):170. doi:<a href="https://doi.org/10.1136/bmj.310.6973.170" target="_blank" rel="noopener">10.1136/bmj.310.6973.170</a></li>
+<li>Holm S. A simple sequentially rejective multiple test procedure. <em>Scand J Stat</em>. 1979;6(2):65-70. Disponible en: <a href="https://www.jstor.org/stable/4615733" target="_blank" rel="noopener">JSTOR</a>.</li>
+<li>Simmons JP, Nelson LD, Simonsohn U. False-positive psychology: undisclosed flexibility in data collection and analysis allows presenting anything as significant. <em>Psychol Sci</em>. 2011;22(11):1359-1366. doi:<a href="https://doi.org/10.1177/0956797611417632" target="_blank" rel="noopener">10.1177/0956797611417632</a></li>
+<li>SIMUSTAT Unidigital UMH. <a href="https://colab.research.google.com/drive/1hIecxDRGXpjn11UQhI6Fou-cZyzPfjwB" target="_blank" rel="noopener">Tema 410. Comparación de k medias</a>. Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.</li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_260_Comparacion_de_mas_de_dos_grupos_ANOVA_y_pruebas_no_parametricas.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 260 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-260" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_250.html">← Tema 250</a><a class="btn ghost" href="tema_270.html">→ Tema 270</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

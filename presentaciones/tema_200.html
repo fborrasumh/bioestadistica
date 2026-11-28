@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 200. Estimación puntual e intervalos de confianza · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 200. Estimación puntual e intervalos de confianza</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 200</span>Estimación puntual e intervalos de confianza</h1>
+<p class="mod">Módulo 5. Generalización de conclusiones</p>
+<p class="ev"><b>Evaluación:</b> el examen del Módulo 5 se hace <strong>con Colab</strong>. Practica ejecutando e interpretando cada análisis.</p>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_200_Estimacion_puntual_e_intervalos_de_confianza.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-200" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Distinguir un parámetro de su estimador y describir las propiedades de un buen estimador.</li>
+<li>Calcular e interpretar el intervalo de confianza de una media con la distribución <em>t</em> de Student.</li>
+<li>Calcular el intervalo de confianza de una proporción con los métodos de Wald y de Wilson, y saber cuándo usar cada uno.</li>
+<li>Interpretar correctamente un intervalo de confianza del 95 %.</li>
+<li>Explicar de qué depende la anchura de un intervalo.</li>
+<li>Calcular el tamaño muestral necesario para estimar una media o una proporción con una precisión dada.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: estimar con incertidumbre <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">74 de 120 hipertensos controlados: ¿cumplimos el objetivo del 65 %?</p><figure><img src="../figuras/tema_200_caso.png" alt="74 de 120 hipertensos controlados: ¿cumplimos el objetivo del 65 %?" loading="lazy"></figure><ul class='puntos'><li>61,7 % es una estimación: con otros 120 pacientes saldría otra cifra.</li><li>El IC 95 % (52,7 % a 69,9 %) incluye el objetivo: con 120 pacientes no se puede afirmar ni negar que se cumpla.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>Un centro de salud quiere conocer qué proporción de sus pacientes con hipertensión tiene la presión arterial <strong>controlada</strong> (&lt; 140/90 mmHg). No puede revisar a los 3.000, así que elige al azar 120 y encuentra que 74 están controlados: un <strong>61,7 %</strong>.</p>
+<p>El coordinador lo presenta así: «El 61,7 % de nuestros hipertensos está controlado». Pero esa cifra procede de una muestra. Si hubieran elegido otros 120 pacientes, el resultado habría sido distinto (Tema 190). La pregunta honesta es: <strong>¿entre qué valores está, con una confianza razonable, el porcentaje real de los 3.000?</strong></p>
+<p>Con los métodos de hoy la respuesta es: entre el 52,7 % y el 69,9 %, con una confianza del 95 %. Ese intervalo dice algo que el 61,7 % solo no dice: la estimación es <strong>imprecisa</strong>. Con 120 pacientes no se puede afirmar si el control supera el objetivo del 65 % de la gerencia.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 Parámetro, estimador y estimación</h3><figure><img src="../figuras/tema_200_e2_1.png" alt="Cuatro dianas con estimaciones de muestras distintas: insesgado o sesgado, eficiente o poco eficiente." loading="lazy"></figure><table>
+<thead>
+<tr>
+<th>Concepto</th>
+<th>Definición</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parámetro</td>
+<td>Valor desconocido de la población</td>
+<td>Proporción real de hipertensos controlados, <em>p</em></td>
+</tr>
+<tr>
+<td>Estimador</td>
+<td>Fórmula que se aplica a la muestra</td>
+<td>Proporción muestral, $\hat{p} = x/n$</td>
+</tr>
+<tr>
+<td>Estimación puntual</td>
+<td>Valor que da el estimador en una muestra concreta</td>
+<td>$\hat{p}$ = 74/120 = 0,617</td>
+</tr>
+<tr>
+<td>Estimación por intervalo</td>
+<td>Rango de valores compatibles con los datos</td>
+<td>IC 95 %: 0,527 a 0,699</td>
+</tr>
+</tbody>
+</table>
+<p>Un buen estimador tiene tres propiedades. Es <strong>insesgado</strong>: su distribución muestral está centrada en el parámetro. Es <strong>eficiente</strong>: tiene poca variabilidad. Es <strong>consistente</strong>: se acerca al parámetro al aumentar <em>n</em>. La media y la proporción muestrales cumplen las tres propiedades.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 Intervalo de confianza de una media</h3><figure><img src="../figuras/tema_200_e2_2.png" alt="Curvas normal y t de Student con 9 grados de libertad, con sus valores críticos ±1,96 y ±2,26." loading="lazy"></figure><p>Como no se conoce σ, se usa <em>s</em> y la distribución <strong><em>t</em> de Student</strong> con <em>n</em> − 1 grados de libertad. Sus colas son algo más gruesas que las de la normal, para compensar esa incertidumbre adicional:</p>
+<p>$$IC_{95\%} = \bar{x} \pm t_{0{,}975;\, n-1} \cdot \frac{s}{\sqrt{n}}$$</p>
+<p>Con <em>n</em> grande, $t_{0,975}$ se acerca a 1,96. Con <em>n</em> = 10 vale 2,26.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Intervalo de confianza de una proporción</h3><figure><img src="../figuras/tema_200_esquema.png" alt="Con 1 caso de 20, Wald va de −0,046 a 0,146 y Wilson de 0,009 a 0,236." loading="lazy"></figure><p><strong>Método de Wald</strong> (el de los libros clásicos):</p>
+<p>$$IC_{95\%} = \hat{p} \pm 1{,}96\sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$</p>
+<p>Funciona mal con muestras pequeñas o con proporciones cercanas a 0 o a 1. Puede dar límites negativos o mayores de 1, y su cobertura real es inferior al 95 %. El <strong>método de Wilson</strong> corrige estos problemas y es el recomendado en general.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.4 Qué significa «confianza del 95 %»</h3><p class="lema">El 95 % se refiere al método, no a un intervalo concreto</p><figure><img src="../figuras/tema_200_cien.png" alt="El 95 % se refiere al método, no a un intervalo concreto" loading="lazy"></figure><ul class='puntos'><li>Si cada residente calcula su IC 95 %, unos 95 de cada 100 intervalos contienen el valor real.</li><li>Nadie sabe si su intervalo es de los que fallan: por eso se habla de confianza.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>El 95 % se refiere al <strong>método</strong>, no a un intervalo concreto. Si se repitiera el estudio muchas veces, con un intervalo cada vez, <strong>alrededor del 95 % de esos intervalos contendría el parámetro</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Interpretación</th>
+<th>¿Correcta?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>«Con este método, el 95 % de los intervalos contienen el valor real»</td>
+<td>Sí</td>
+</tr>
+<tr>
+<td>«Los valores del intervalo son compatibles con los datos; los de fuera, poco compatibles»</td>
+<td>Sí</td>
+</tr>
+<tr>
+<td>«Hay un 95 % de probabilidad de que <em>p</em> esté en 0,527 a 0,699»</td>
+<td>No, en sentido estricto: <em>p</em> es fijo y el intervalo concreto lo contiene o no</td>
+</tr>
+<tr>
+<td>«El 95 % de los pacientes tiene valores en el intervalo»</td>
+<td><strong>No</strong>: eso es un intervalo de referencia (Tema 180)</td>
+</tr>
+</tbody>
+</table></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.5 De qué depende la anchura</h3><p class="lema">Más pacientes, intervalo más estrecho (pero despacio)</p><figure><img src="../figuras/tema_200_anchura.png" alt="Más pacientes, intervalo más estrecho (pero despacio)" loading="lazy"></figure><ul class='puntos'><li>La anchura depende de 1/√n: para reducirla a la mitad hay que multiplicar n por 4.</li><li>También crece con la variabilidad y con el nivel de confianza.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><table>
+<thead>
+<tr>
+<th>Factor</th>
+<th>Efecto sobre la anchura</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Mayor tamaño muestral <em>n</em></td>
+<td>Más estrecho (en proporción a $1/\sqrt{n}$)</td>
+</tr>
+<tr>
+<td>Mayor variabilidad <em>s</em></td>
+<td>Más ancho</td>
+</tr>
+<tr>
+<td>Mayor nivel de confianza (99 % frente a 95 %)</td>
+<td>Más ancho</td>
+</tr>
+</tbody>
+</table></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">Un estudio da una media de colesterol LDL de 128 mg/dL (IC 95 %: 122 a 134). ¿Qué afirmación es correcta?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el intervalo expresa la precisión de la estimación de la media.">Los valores de 122 a 134 mg/dL son compatibles con los datos como media de la población</button><button type="button" class="op" data-ok="0" data-fb="Eso sería un intervalo de referencia; los pacientes varían mucho más.">El 95 % de los pacientes tiene un LDL entre 122 y 134 mg/dL</button><button type="button" class="op" data-ok="0" data-fb="La media muestral se conoce: es 128.">La media de la muestra está entre 122 y 134 con un 95 % de probabilidad</button><button type="button" class="op" data-ok="0" data-fb="Cada estudio obtendrá una media distinta.">El 95 % de los estudios obtendrá una media de 128 mg/dL</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 200.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_200_Estimacion_puntual_e_intervalos_de_confianza.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: estimar con incertidumbre" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: estimar con incertidumbre</h2><h3>3.1 Intervalo de confianza de una media, a mano y con scipy</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Intervalo de confianza de una media, a mano y con scipy</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>En 10 pacientes con insuficiencia renal crónica, la hemoglobina (g/dL) es: 10,2 · 11,5 · 9,8 · 12,1 · 10,7 · 11,0 · 9,5 · 10,9 · 11,8 · 10,4.</p>
+<p><strong>A mano:</strong> $\bar{x}$ = 10,79; <em>s</em> = 0,85; EE = 0,85 / √10 = 0,268; $t_{0,975;9}$ = 2,262; margen = 2,262 × 0,268 = 0,61. IC 95 %: 10,18 a 11,40 g/dL.</p><pre class="code"><code class="language-python">import numpy as np
+from scipy import stats
+
+hb = np.array([10.2, 11.5, 9.8, 12.1, 10.7, 11.0, 9.5, 10.9, 11.8, 10.4])
+n, media, s = len(hb), hb.mean(), hb.std(ddof=1)
+ee = s / np.sqrt(n)
+t = stats.t.ppf(0.975, df=n - 1)
+
+print(f&quot;Media {media:.2f} · s {s:.2f} · EE {ee:.3f} · t {t:.3f}&quot;)
+print(f&quot;IC 95 % a mano: {media - t * ee:.2f} a {media + t * ee:.2f} g/dL&quot;)
+print(&quot;IC 95 % con scipy:&quot;, np.round(stats.t.interval(0.95, df=n - 1, loc=media, scale=ee), 2))</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: estimar con incertidumbre" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: estimar con incertidumbre</h2><h3>3.2 Qué significa el 95 %: cien residentes</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 Qué significa el 95 %: cien residentes</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Simulamos que 100 residentes estiman la PAS media de una población con μ = 130 mmHg, cada uno con su muestra de 25 pacientes.</p><pre class="code"><code class="language-python">import matplotlib.pyplot as plt
+
+rng = np.random.default_rng(seed=200)
+mu, sigma, n = 130, 15, 25
+
+plt.figure(figsize=(8, 6))
+fallos = 0
+for i in range(100):
+    muestra = rng.normal(mu, sigma, n)
+    li, ls = stats.t.interval(0.95, df=n - 1, loc=muestra.mean(), scale=muestra.std(ddof=1) / np.sqrt(n))
+    contiene = li &lt;= mu &lt;= ls
+    fallos += not contiene
+    plt.plot([li, ls], [i, i], color=&quot;steelblue&quot; if contiene else &quot;firebrick&quot;, linewidth=1.5)
+plt.axvline(mu, color=&quot;black&quot;, linestyle=&quot;--&quot;, label=&quot;μ = 130 mmHg&quot;)
+plt.xlabel(&quot;Presión arterial sistólica (mmHg)&quot;)
+plt.ylabel(&quot;Residente&quot;)
+plt.title(f&quot;100 intervalos de confianza del 95 %: {100 - fallos} contienen μ&quot;)
+plt.legend()
+plt.show()</code></pre><p>Cada residente obtiene un intervalo distinto. Casi todos contienen μ; unos pocos (en rojo) no, y <strong>ninguno de ellos sabe si su intervalo es de los que fallan</strong>. Esa es la incertidumbre que el intervalo de confianza hace explícita.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: estimar con incertidumbre" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: estimar con incertidumbre</h2><h3>3.3 Intervalo de confianza de una proporción: el caso</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 Intervalo de confianza de una proporción: el caso</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">from statsmodels.stats.proportion import proportion_confint
+
+controlados, n = 74, 120
+print(f&quot;Proporción estimada: {controlados / n:.3f}&quot;)
+for metodo in [&quot;normal&quot;, &quot;wilson&quot;]:
+    li, ls = proportion_confint(controlados, n, alpha=0.05, method=metodo)
+    nombre = &quot;Wald&quot; if metodo == &quot;normal&quot; else &quot;Wilson&quot;
+    print(f&quot;IC 95 % {nombre:&gt;6}: {li:.3f} a {ls:.3f}&quot;)</code></pre><p>Con 120 pacientes y una proporción intermedia, los dos métodos casi coinciden. El objetivo del 65 % queda <strong>dentro</strong> del intervalo. Los datos son compatibles con un control inferior al objetivo y también con uno superior.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: estimar con incertidumbre" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: estimar con incertidumbre</h2><h3>3.4 Cuando Wald falla: proporciones extremas</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Cuando Wald falla: proporciones extremas</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>En un ensayo con 40 pacientes, 1 sufre una reacción alérgica. Estimamos la proporción:</p><pre class="code"><code class="language-python">p_hat = 1 / 40
+margen = 1.96 * np.sqrt(p_hat * (1 - p_hat) / 40)
+print(f&quot;IC 95 %   Wald (fórmula): {p_hat - margen:.3f} a {p_hat + margen:.3f}&quot;)
+li, ls = proportion_confint(1, 40, alpha=0.05, method=&quot;wilson&quot;)
+print(f&quot;IC 95 %         Wilson: {li:.3f} a {ls:.3f}&quot;)</code></pre><p>Wald da un límite inferior <strong>negativo</strong>, que no tiene sentido para una proporción. Wilson da un intervalo asimétrico y coherente. Usa Wilson salvo que <em>n</em> sea grande y la proporción esté lejos de 0 y de 1.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: estimar con incertidumbre" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: estimar con incertidumbre</h2><h3>3.5 La exactitud de un modelo de IA, con su intervalo</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 La exactitud de un modelo de IA, con su intervalo</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Un modelo de lenguaje responde a 50 preguntas de examen de Cardiología y acierta 41 (82 %). ¿Qué podemos decir de su exactitud en el conjunto de preguntas de ese tipo?</p><pre class="code"><code class="language-python">li, ls = proportion_confint(41, 50, method=&quot;wilson&quot;)
+print(f&quot;Exactitud: 82 % (IC 95 %: {li:.1%} a {ls:.1%})&quot;)</code></pre><p>Un 82 % de exactitud sobre 50 preguntas es compatible con una exactitud real de entre el 69 % y el 90 %. A veces, un artículo o un fabricante da la exactitud de un modelo de IA <strong>sin intervalo y sin el número de preguntas</strong>. Con esa cifra no se puede saber cuánta incertidumbre tiene.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: estimar con incertidumbre" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: estimar con incertidumbre</h2><h3>3.6 La anchura depende del tamaño muestral</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.6 La anchura depende del tamaño muestral</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">tamanos = [30, 60, 120, 240, 480, 960]
+anchuras = []
+for n in tamanos:
+    li, ls = proportion_confint(round(0.617 * n), n, method=&quot;wilson&quot;)
+    anchuras.append(ls - li)
+    print(f&quot;n = {n:&gt;3}: IC 95 % de {li:.3f} a {ls:.3f} (anchura {ls - li:.3f})&quot;)</code></pre></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: estimar con incertidumbre" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: estimar con incertidumbre</h2><h3>3.7 ¿Cuántos pacientes hacen falta?</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.7 ¿Cuántos pacientes hacen falta?</b>. Antes de ejecutar, escribe qué esperas obtener.</p><p>Para estimar una proporción con un margen de error <em>e</em> (la mitad de la anchura del intervalo) y una confianza del 95 %:</p>
+<p>$$n = \frac{1{,}96^2 \cdot p(1-p)}{e^2}$$</p>
+<p>Si no se conoce <em>p</em>, se usa <em>p</em> = 0,5, que da el <em>n</em> más grande (la opción más prudente).</p>
+<p>Para una media, con desviación típica esperada σ: $n = \left(\dfrac{1{,}96\,\sigma}{e}\right)^2$.</p>
+<p><strong>A mano:</strong> para estimar el control de la hipertensión con un margen de ±5 puntos, suponiendo <em>p</em> = 0,6: <em>n</em> = 1,96² × 0,6 × 0,4 / 0,05² ≈ 369 pacientes.</p><pre class="code"><code class="language-python">import math
+
+def n_proporcion(p, margen, z=1.96):
+    return math.ceil(z ** 2 * p * (1 - p) / margen ** 2)
+
+def n_media(sigma, margen, z=1.96):
+    return math.ceil((z * sigma / margen) ** 2)
+
+print(&quot;Proporción, p = 0,6, margen ±5 %:&quot;, n_proporcion(0.6, 0.05))
+print(&quot;Proporción, p desconocida, margen ±5 %:&quot;, n_proporcion(0.5, 0.05))
+print(&quot;Media de PAS, σ = 15 mmHg, margen ±2 mmHg:&quot;, n_media(15, 2))</code></pre></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: el intervalo de confianza de una media en la cohorte</h3><pre class="code"><code class="language-python">import pandas as pd
+
+cohorte = pd.read_csv(&quot;https://raw.githubusercontent.com/fborrasumh/bioestadistica/main/datos/cohorte_limpia.csv&quot;)
+for variable, unidad in [(&quot;pas_mmHg&quot;, &quot;mmHg&quot;), (&quot;imc&quot;, &quot;kg/m²&quot;), (&quot;hdl_mg_dl&quot;, &quot;mg/dL&quot;)]:
+    x = cohorte[variable].dropna()
+    li, ls = stats.t.interval(0.95, df=len(x) - 1, loc=x.mean(), scale=x.std() / np.sqrt(len(x)))
+    print(f&quot;{variable:&gt;10}: media {x.mean():.1f} {unidad} (IC 95 %: {li:.1f} a {ls:.1f}) · n = {len(x)}&quot;)</code></pre><p>Así se comunica una estimación en un artículo: <strong>estimación puntual, intervalo de confianza y tamaño de la muestra</strong>.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Dar una estimación sin su intervalo de confianza.</strong></p>
+<p><strong>Interpretar el IC como el rango de valores de los pacientes.</strong> Eso es el intervalo de referencia.</p>
+<p><strong>Usar el método de Wald con proporciones extremas o muestras pequeñas.</strong></p>
+<p><strong>Usar 1,96 en lugar de <em>t</em></strong> con muestras pequeñas: el intervalo sale demasiado estrecho.</p>
+<p><strong>Calcular el IC con la desviación típica en lugar del error estándar.</strong></p>
+<p><strong>Pensar que un IC del 99 % es «mejor» que uno del 95 %:</strong> es más seguro, pero menos preciso.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: Intervalos unilaterales e intervalo de una varianza</h3><p><strong>Intervalo unilateral.</strong> A veces solo importa un lado. Por ejemplo: «el colesterol medio no supera X». El intervalo unilateral al 95 % pone todo el 5 % de error en un lado. Por eso usa el valor crítico de 0,05, no el de 0,025. Decide si es unilateral <strong>antes</strong> de ver los datos.</p>
+<p><strong>Intervalo de una varianza.</strong> La precisión de una DE también se estima. Si la variable es normal, el intervalo usa la distribución ji cuadrado con <em>n</em> − 1 grados de libertad. Este intervalo es muy sensible a la falta de normalidad.</p>
+<p><strong>En tus materiales SIMUSTAT:</strong> <a href="https://colab.research.google.com/drive/1E3ZnSADV8illRxGCETQRZ5WWA3Q30vQ-" target="_blank" rel="noopener">Tema 340. Intervalos de confianza</a>, apartado 3. <strong>En tus materiales SIMUSTAT:</strong> <a href="https://colab.research.google.com/drive/1R4EMXLhHqQMuq9OxEzunVhHCPrcKFxkR" target="_blank" rel="noopener">Tema 390. Inferencia de una media poblacional</a>, apartado 4.</p><pre class="code"><code class="language-python">col = cohorte[&quot;colesterol_mg_dl&quot;].dropna()
+n, media, de = len(col), col.mean(), col.std()
+ee = de / np.sqrt(n)
+
+t_bil, t_uni = stats.t.ppf(0.975, n - 1), stats.t.ppf(0.95, n - 1)
+print(f&quot;n = {n}, media = {media:.1f} mg/dL, DE = {de:.1f} mg/dL&quot;)
+print(f&quot;IC 95 % bilateral: {media - t_bil * ee:.1f} a {media + t_bil * ee:.1f} mg/dL&quot;)
+print(f&quot;Límite superior unilateral 95 %: la media es como máximo {media + t_uni * ee:.1f} mg/dL&quot;)
+
+chi_inf, chi_sup = stats.chi2.ppf([0.025, 0.975], n - 1)
+var_ic = ((n - 1) * de**2 / chi_sup, (n - 1) * de**2 / chi_inf)
+print(f&quot;IC 95 % de la DE: {np.sqrt(var_ic[0]):.1f} a {np.sqrt(var_ic[1]):.1f} mg/dL&quot;)</code></pre><p>El límite unilateral queda más cerca de la media que el límite superior bilateral. El intervalo de la DE no es simétrico, porque la ji cuadrado es asimétrica.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 200 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> interpretar correctamente cinco intervalos de confianza tomados de resúmenes de artículos.</li>
+<li><strong>Misión clínica (con pistas):</strong> estimar con su IC 95 % la prevalencia de obesidad y el colesterol LDL medio de la cohorte. Calcular el tamaño muestral para repetir el estudio con más precisión.</li>
+<li><strong>Misión reto (con asistente):</strong> evaluar un modelo de IA con 30 preguntas y dar su exactitud con IC de Wilson. Calcular cuántas preguntas harían falta para un margen de ±5 puntos.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q23-0"><p class="qq">Un estudio da una media de colesterol LDL de 128 mg/dL (IC 95 %: 122 a 134). ¿Qué afirmación es correcta?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el intervalo expresa la precisión de la estimación de la media.">Los valores de 122 a 134 mg/dL son compatibles con los datos como media de la población</button><button type="button" class="op" data-ok="0" data-fb="Eso sería un intervalo de referencia; los pacientes varían mucho más.">El 95 % de los pacientes tiene un LDL entre 122 y 134 mg/dL</button><button type="button" class="op" data-ok="0" data-fb="La media muestral se conoce: es 128.">La media de la muestra está entre 122 y 134 con un 95 % de probabilidad</button><button type="button" class="op" data-ok="0" data-fb="Cada estudio obtendrá una media distinta.">El 95 % de los estudios obtendrá una media de 128 mg/dL</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q23-1"><p class="qq">Con el mismo nivel de confianza, ¿cómo cambia la anchura del IC de una media si la muestra pasa de 100 a 400 pacientes?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: la anchura depende de 1/√n, y √4 = 2.">Se reduce aproximadamente a la mitad</button><button type="button" class="op" data-ok="0" data-fb="Habría que multiplicar la muestra por 16.">Se reduce a la cuarta parte</button><button type="button" class="op" data-ok="0" data-fb="Con más pacientes la estimación es más precisa.">No cambia</button><button type="button" class="op" data-ok="0" data-fb="Con más pacientes el intervalo se estrecha.">Se duplica</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q23-2"><p class="qq">En 25 pacientes, 0 presentan una complicación. ¿Qué método de IC de la proporción es más adecuado?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: Wald daría un intervalo de 0 a 0, que no refleja ninguna incertidumbre.">Wilson</button><button type="button" class="op" data-ok="0" data-fb="Con 0 casos, Wald da un intervalo de anchura cero.">Wald</button><button type="button" class="op" data-ok="0" data-fb="La proporción observada es 0, pero la real puede no serlo (Tema 170).">Ninguno: la proporción es 0</button><button type="button" class="op" data-ok="0" data-fb="Ese no es un método de IC para proporciones.">La media ± 1,96 DE</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q23-3"><p class="qq">¿Qué pasa con la anchura del IC si se pasa de un nivel de confianza del 95 % al 99 %?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: más confianza exige un intervalo más ancho.">Aumenta</button><button type="button" class="op" data-ok="0" data-fb="Un intervalo más estrecho daría menos confianza, no más.">Disminuye</button><button type="button" class="op" data-ok="0" data-fb="El valor crítico pasa de 1,96 a 2,58.">No cambia</button><button type="button" class="op" data-ok="0" data-fb="La anchura no depende del signo.">Depende del signo de la media</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q23-4"><p class="qq">Quieres estimar una prevalencia desconocida con un margen de ±10 puntos y 95 % de confianza. ¿Cuántos pacientes necesitas aproximadamente?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: 1,96² × 0,5 × 0,5 / 0,1² ≈ 96,04, que se redondea hacia arriba.">97</button><button type="button" class="op" data-ok="0" data-fb="Ese es el tamaño para un margen de ±5 puntos.">385</button><button type="button" class="op" data-ok="0" data-fb="Con 10 pacientes el margen sería mucho mayor.">10</button><button type="button" class="op" data-ok="0" data-fb="Revisa la fórmula con p = 0,5.">50</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>Toda estimación se acompaña de su intervalo de confianza y del tamaño de la muestra.</li>
+<li>IC de una media: $\bar{x} \pm t \cdot s/\sqrt{n}$; IC de una proporción: preferiblemente Wilson.</li>
+<li>El 95 % se refiere al método: el 95 % de los intervalos así construidos contiene el parámetro.</li>
+<li>La anchura disminuye con <em>n</em>, aumenta con la variabilidad y con el nivel de confianza.</li>
+<li>El tamaño muestral se calcula antes del estudio a partir de la precisión deseada.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Parámetro</td>
+<td>Valor numérico desconocido de la población</td>
+</tr>
+<tr>
+<td>Estimador</td>
+<td>Fórmula que se aplica a la muestra para aproximar un parámetro</td>
+</tr>
+<tr>
+<td>Estimación puntual</td>
+<td>Valor único que estima un parámetro</td>
+</tr>
+<tr>
+<td>Intervalo de confianza</td>
+<td>Rango de valores que, con un método dado, contiene el parámetro en una proporción conocida de las muestras</td>
+</tr>
+<tr>
+<td>Nivel de confianza</td>
+<td>Proporción de intervalos que contendrían el parámetro si se repitiera el muestreo</td>
+</tr>
+<tr>
+<td>Distribución <em>t</em> de Student</td>
+<td>Distribución que se usa en lugar de la normal cuando se estima σ con la muestra</td>
+</tr>
+<tr>
+<td>Grados de libertad</td>
+<td>Número de valores que pueden variar libremente; en el IC de una media, <em>n</em> − 1</td>
+</tr>
+<tr>
+<td>Margen de error</td>
+<td>Mitad de la anchura del intervalo de confianza</td>
+</tr>
+<tr>
+<td>Método de Wilson</td>
+<td>Método recomendado para el IC de una proporción</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li>Gardner MJ, Altman DG. Confidence intervals rather than P values: estimation rather than hypothesis testing. <em>Br Med J (Clin Res Ed)</em>. 1986;292(6522):746-750. doi:<a href="https://doi.org/10.1136/bmj.292.6522.746" target="_blank" rel="noopener">10.1136/bmj.292.6522.746</a></li>
+<li>Brown LD, Cai TT, DasGupta A. Interval estimation for a binomial proportion. <em>Stat Sci</em>. 2001;16(2):101-133. doi:<a href="https://doi.org/10.1214/ss/1009213286" target="_blank" rel="noopener">10.1214/ss/1009213286</a></li>
+<li>SIMUSTAT Unidigital UMH. <a href="https://colab.research.google.com/drive/1E3ZnSADV8illRxGCETQRZ5WWA3Q30vQ-" target="_blank" rel="noopener">Tema 340. Intervalos de confianza</a>. Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.</li>
+<li>SIMUSTAT Unidigital UMH. <a href="https://colab.research.google.com/drive/1R4EMXLhHqQMuq9OxEzunVhHCPrcKFxkR" target="_blank" rel="noopener">Tema 390. Inferencia de una media poblacional</a>. Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.</li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_200_Estimacion_puntual_e_intervalos_de_confianza.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 200 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-200" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_190.html">← Tema 190</a><a class="btn ghost" href="tema_210.html">→ Tema 210</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

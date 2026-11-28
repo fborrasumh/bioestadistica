@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tema 270. Modelos de regresión lineal simple y múltiple · Presentación · Bioestadística (1964)</title>
+<meta name="description" content="Presentación de clase del cuaderno. Modo clase magistral, modo Colab o sesión completa. Fernando Borrás Rocher, UMH. CC BY 4.0.">
+<link rel="stylesheet" href="lib/katex.min.css">
+<link rel="stylesheet" href="lib/hljs-github.min.css">
+<style>
+:root{--tinta:#0F2237;--suave:#5D7691;--acento:#C8461F;--naranja:#E4572E;--fondo:#F4F6FA;--borde:#D9E2EC;--mag:#1F5E99;--lab:#1E7A4C}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--tinta);background:var(--fondo);overflow:hidden}
+a{color:var(--acento)}
+.barra{position:fixed;top:0;left:0;right:0;height:52px;display:flex;align-items:center;gap:10px;padding:0 14px;background:#0F2237;color:#fff;z-index:5}
+.barra .logo{font-family:Georgia,serif;font-weight:800;font-size:19px;color:#fff;text-decoration:none;white-space:nowrap}
+.barra .logo em{font-style:normal;color:var(--naranja)}
+.barra .tt{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#C9D6E3;font-size:14px}
+.modos{display:flex;border:1px solid #33475B;border-radius:10px;overflow:hidden}
+.modos button,.barra .ico{background:transparent;color:#fff;border:0;padding:8px 11px;font:inherit;font-size:14px;cursor:pointer;min-height:38px}
+.modos button[aria-pressed=true]{background:var(--naranja)}
+.barra .ico{border:1px solid #33475B;border-radius:10px}
+button:focus-visible,a:focus-visible{outline:3px solid #F2A900;outline-offset:2px}
+.progreso{position:fixed;top:52px;left:0;height:4px;background:var(--naranja);transition:width .25s;z-index:5}
+.deck{position:fixed;top:56px;bottom:46px;left:0;right:0}
+.slide{display:none;position:absolute;inset:0;overflow:auto;padding:28px max(4vw,22px) 24px}
+.slide.on{display:block;animation:ent .25s ease}
+@keyframes ent{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on{animation:none}.progreso{transition:none}}
+.slide .in{max-width:1180px;margin:0 auto;font-size:clamp(17px,1.55vw,23px);line-height:1.5}
+.slide.denso .in{font-size:clamp(15px,1.25vw,19px)}
+.slide h1{font-size:clamp(30px,3.8vw,52px);line-height:1.12;margin:.2em 0 .3em}
+.slide h1 .num{display:block;font-size:.45em;color:var(--acento);letter-spacing:.04em;margin-bottom:.3em}
+.slide h2{font-size:clamp(24px,2.6vw,36px);margin:0 0 .4em;border-left:7px solid var(--naranja);padding-left:14px;line-height:1.2}
+.slide h3{font-size:1.15em;color:var(--mag);margin:.2em 0 .5em}
+.slide.portada .in{display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.eyebrow,.autor,.help{color:var(--suave)}
+.help{font-size:.85em}
+.mod{font-weight:700;color:var(--mag);font-size:1.1em;margin:0}
+.lema{font-size:1.45em;font-weight:700;color:#1F3B57;margin:.1em 0 .5em;line-height:1.25}
+figure{margin:.4em 0 .8em;text-align:center}
+figure img{max-width:100%;max-height:48vh;height:auto;border-radius:8px;background:#fff}
+.puntos li{margin:.25em 0}
+.pregunta{background:#FFF4E5;border-left:6px solid #C98200;padding:.6em 1em;border-radius:8px;color:#7A4306}
+.colab-cta{background:#E8F5EE;border-left:6px solid var(--lab);padding:.5em 1em;border-radius:8px}
+pre.code{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:12px 14px;overflow:auto;font-size:.78em;line-height:1.45}
+pre.code code{font-family:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;background:none;padding:0}
+pre:not(.code){background:#fff;border:1px solid var(--borde);border-radius:10px;padding:10px;overflow:auto;font-size:.75em}
+code{background:#EAF1F8;border-radius:4px;padding:0 4px;font-size:.9em}
+table{border-collapse:collapse;margin:.5em 0;font-size:.9em;background:#fff}
+th,td{border:1px solid var(--borde);padding:6px 10px;text-align:left;vertical-align:top}
+th{background:#EAF1F8}
+.dos{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:.6em 0}
+.ses{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px}
+.ses.mag{border-top:6px solid var(--mag)}.ses.lab{border-top:6px solid var(--lab)}
+.ses h3{margin:.2em 0}.ses.lab h3{color:var(--lab)}
+.min{color:var(--suave);font-size:.85em}
+.acc{display:flex;gap:10px;flex-wrap:wrap;margin:1em 0}
+.btn{display:inline-block;padding:11px 16px;border-radius:10px;background:var(--acento);color:#fff;text-decoration:none;font-weight:600;font-size:.8em}
+.btn.ghost{background:#fff;color:var(--acento);border:1px solid var(--borde)}
+[class^=tag-]{position:sticky;top:-14px;float:right;font-size:13px;font-weight:700;padding:4px 10px;border-radius:999px;color:#fff;z-index:1}
+.tag-magistral{background:var(--mag)}.tag-colab{background:var(--lab)}
+.quiz{background:#fff;border:1px solid var(--borde);border-radius:14px;padding:12px 18px;margin:.6em 0}
+.qq{font-weight:600;margin:.2em 0 .5em}
+.ops{display:grid;gap:8px}
+.op{text-align:left;font:inherit;font-size:.9em;padding:10px 14px;border:1px solid var(--borde);border-radius:10px;background:#F8FAFC;cursor:pointer;min-height:44px}
+.op:hover{border-color:var(--mag)}
+.op.bien{background:#E3F4EA;border-color:var(--lab)}.op.mal{background:#FCE8E4;border-color:var(--acento)}
+.fb{margin:.5em 0 0;font-size:.9em}
+.notas{max-width:1180px;margin:18px auto 0;background:#FFFBEA;border:1px dashed #C98200;border-radius:12px;padding:10px 18px;font-size:16px;line-height:1.5}
+.notas h4{margin:.2em 0;color:#7A4306}
+.pie{position:fixed;bottom:0;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:space-between;padding:0 14px;background:#fff;border-top:1px solid var(--borde);font-size:14px;color:var(--suave);z-index:5}
+.pie button{font:inherit;padding:7px 14px;border:1px solid var(--borde);border-radius:9px;background:#fff;cursor:pointer;min-height:36px}
+#indice{position:fixed;inset:56px 0 46px 0;background:rgba(15,34,55,.96);color:#fff;overflow:auto;padding:24px;z-index:6}
+#indice ol{max-width:900px;margin:0 auto;columns:2;gap:30px}
+#indice li{margin:4px 0;break-inside:avoid}
+#indice a{color:#fff}
+#indice .m{font-size:12px;color:#9FB0C3}
+@media (max-width:760px){.dos{grid-template-columns:1fr}.barra .tt,.barra .logo{display:none}.barra{gap:6px;padding:0 8px}.barra .ico{padding:6px 8px;font-size:12px}#indice ol{columns:1}.modos button{padding:6px 5px;font-size:12px}}
+@media print{.barra,.pie,.progreso{display:none}body{overflow:visible}.deck{position:static}.slide{display:block!important;position:relative;page-break-after:always;overflow:visible}.notas{display:none}}
+</style>
+</head>
+<body>
+<header class="barra">
+  <a class="logo" href="../cuadernos.html" title="Todos los cuadernos">Bio<em>estadística</em></a>
+  <span class="tt">Tema 270. Modelos de regresión lineal simple y múltiple</span>
+  <div class="modos" role="group" aria-label="Tipo de sesión">
+    <button type="button" data-m="todo" aria-pressed="true">Completa</button>
+    <button type="button" data-m="magistral" aria-pressed="false">🎓 Magistral</button>
+    <button type="button" data-m="colab" aria-pressed="false">💻 Colab</button>
+  </div>
+  <button class="ico" type="button" id="bNotas" aria-pressed="false" title="Notas del profesor (N)">Notas</button>
+  <button class="ico" type="button" id="bIndice" title="Índice (Esc)">Índice</button>
+</header>
+<div class="progreso" id="prog"></div>
+<main class="deck" id="deck">
+<section class="slide portada" data-modo="ambos" data-bloque="Portada" aria-roledescription="diapositiva"><div class="in"><p class="eyebrow">Bioestadística (1964) · Grado en Medicina · Curso 2027-2028</p>
+<h1><span class="num">Tema 270</span>Modelos de regresión lineal simple y múltiple</h1>
+<p class="mod">Módulo 5. Generalización de conclusiones</p>
+<p class="ev"><b>Evaluación:</b> el examen del Módulo 5 se hace <strong>con Colab</strong>. Practica ejecutando e interpretando cada análisis.</p>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_270_Modelos_de_regresion_lineal_simple_y_multiple.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a><a class="btn ghost" href="https://fborrasumh.github.io/bioestadistica/#tema-270" target="_blank" rel="noopener">Misiones en la app ↗</a></div>
+<p class="autor">Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · CC BY 4.0</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Objetivos" aria-roledescription="diapositiva"><div class="in"><h2>Objetivos de aprendizaje</h2><p>Al terminar esta sesión serás capaz de:</p>
+<ol>
+<li>Ajustar un modelo de regresión lineal simple e interpretar su pendiente, su intervalo de confianza y su R².</li>
+<li>Ajustar un modelo de regresión lineal <strong>múltiple</strong> con variables cuantitativas y cualitativas, e interpretar cada coeficiente <strong>ajustado</strong> por las demás.</li>
+<li>Reconocer la <strong>confusión</strong> y usar la regresión múltiple para controlarla.</li>
+<li>Comprobar las condiciones del modelo con el análisis de los residuos.</li>
+<li>Reconocer los límites del ajuste estadístico: confusión residual y confusión por indicación.</li>
+</ol></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Plan" aria-roledescription="diapositiva"><div class="in"><h2>Cómo usar esta presentación</h2>
+<p>Usa el selector de arriba para dar el tema en <b>una sesión completa</b> o en <b>dos sesiones intercaladas</b>.</p>
+<div class="dos"><div class="ses mag"><h3>🎓 Sesión de clase magistral</h3><ul><li><b>1.</b> Caso clínico de partida <span class=min>5 min</span></li><li><b>2.</b> Conceptos clave <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Explica los conceptos, haz la pausa activa y cierra con las ideas clave.</p></div>
+<div class="ses lab"><h3>💻 Sesión de Colab</h3><ul><li><b>3.</b> Demostración: de la recta al modelo múltiple <span class=min>20 min</span></li><li><b>4.</b> Práctica en la app Bioestadística <span class=min>10 min</span></li><li><b>5.</b> Autoevaluación <span class=min>5 min</span></li></ul><p class="help">Cada estudiante abre su copia del cuaderno, predice el resultado y después ejecuta la celda.</p></div></div>
+<p class="help">Teclas: ← → para pasar · <kbd>N</kbd> notas del profesor · <kbd>M</kbd> cambiar de modo · <kbd>F</kbd> pantalla completa · <kbd>Esc</kbd> índice.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="1. Caso clínico de partida" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>1. Caso clínico de partida</h2><p class="lema">PAS y creatinina: ¿o es la edad?</p><figure><img src="../figuras/tema_270_confusion.png" alt="PAS y creatinina: ¿o es la edad?" loading="lazy"></figure><ul class='puntos'><li>En toda la cohorte, más PAS se asocia con más creatinina.</li><li>Dentro de cada grupo de edad, la relación casi desaparece: la edad confundía la asociación.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>En la cohorte cardiovascular, los pacientes con la presión sistólica más alta tienen también la creatinina más alta. Un residente lo interpreta como prueba de que la hipertensión daña el riñón de estos pacientes. Propone intensificar el tratamiento antihipertensivo para proteger la función renal.</p>
+<p>Antes de aceptarlo, hay que preguntarse: ¿hay <strong>otra variable</strong> que eleve a la vez la PAS y la creatinina? La edad es la candidata evidente: con los años sube la presión arterial y disminuye la función renal (Tema 130). Si la edad explica la asociación, entre pacientes de <strong>la misma edad</strong> la PAS y la creatinina no deberían estar relacionadas.</p>
+<p>La <strong>regresión lineal múltiple</strong> permite hacer esa comparación «a igualdad de edad» y estimar el efecto de cada variable <strong>ajustado</strong> por las demás.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.1 La regresión lineal simple</h3><p class="lema">La recta de regresión</p><figure><img src="../figuras/tema_270_recta.png" alt="La recta de regresión" loading="lazy"></figure><ul class='puntos'><li>Pendiente: cambio medio de Y por cada unidad de X.</li><li>Mínimos cuadrados: la recta que hace mínima la suma de los residuos al cuadrado.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><p>$$Y = \beta_0 + \beta_1 X + \varepsilon$$</p>
+<table>
+<thead>
+<tr>
+<th>Elemento</th>
+<th>Significado</th>
+<th>En PAS = β₀ + β₁ · edad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>β₀ (ordenada en el origen)</td>
+<td>Valor medio de <em>Y</em> cuando <em>X</em> = 0</td>
+<td>PAS a los 0 años: sin sentido clínico, fuera del rango de los datos</td>
+</tr>
+<tr>
+<td>β₁ (pendiente)</td>
+<td>Cambio medio de <em>Y</em> por cada unidad de <em>X</em></td>
+<td>mmHg que aumenta la PAS por cada año</td>
+</tr>
+<tr>
+<td>ε (error o residuo)</td>
+<td>Lo que el modelo no explica</td>
+<td>Variabilidad entre pacientes de la misma edad</td>
+</tr>
+<tr>
+<td>R²</td>
+<td>Proporción de la variabilidad de <em>Y</em> explicada por el modelo</td>
+<td>Entre 0 y 1</td>
+</tr>
+</tbody>
+</table>
+<p>Se estima por <strong>mínimos cuadrados</strong>: la recta que hace mínima la suma de los residuos al cuadrado. Para β₁ se calcula un IC 95 % y un contraste de $H_0$: β₁ = 0. El Tema 130 vio la correlación; la regresión, además, cuantifica cuánto cambia <em>Y</em>.</p></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.2 La regresión lineal múltiple</h3><figure><img src="../figuras/tema_270_e2_2.png" alt="Puntos de PAS frente a edad por sexo con dos rectas paralelas del modelo ajustado; la distancia entre ellas es el coeficiente de mujer." loading="lazy"></figure><p>$$Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \dots + \beta_k X_k + \varepsilon$$</p>
+<p>Cada coeficiente $\beta_j$ es el cambio medio de <em>Y</em> por unidad de $X_j$ <strong>manteniendo constantes las demás variables del modelo</strong>. Es un efecto <strong>ajustado</strong>.</p>
+<p>Las variables <strong>cualitativas</strong> entran como variables indicadoras (0/1). Con <code>sexo</code>, el coeficiente de «Mujer» es la diferencia media entre mujeres y hombres (la categoría de referencia), a igualdad de las demás variables.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.3 Confusión</h3><figure><img src="../figuras/tema_270_e2_3.png" alt="Esquema causal en el que la edad causa la PAS y la creatinina, y barras del coeficiente de la PAS crudo y ajustado por edad." loading="lazy"></figure><p>Una variable es <strong>de confusión</strong> si está asociada a la exposición y al resultado, y no es un paso intermedio entre ambas. Distorsiona la asociación observada.</p>
+<pre><code>           Edad
+         ↙      ↘
+      PAS   ···?···   Creatinina
+</code></pre>
+<p>Señal de confusión: el coeficiente de la exposición <strong>cambia mucho</strong> al añadir la variable al modelo (como orientación, más de un 10 %).</p>
+<p>El ajuste solo controla las variables <strong>medidas e incluidas</strong>. Siempre puede quedar <strong>confusión residual</strong> por variables no medidas o mal medidas. Por eso los estudios observacionales, aun ajustados, no demuestran causalidad. El ensayo clínico aleatorizado sigue siendo la referencia: la aleatorización reparte por igual también los factores que no se han medido.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="2. Conceptos clave" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>2. Conceptos clave</h2><h3>2.4 Condiciones del modelo</h3><p class="lema">Mirar los residuos</p><figure><img src="../figuras/tema_270_residuos.png" alt="Mirar los residuos" loading="lazy"></figure><ul class='puntos'><li>Una nube sin patrón: el modelo es adecuado.</li><li>Una curva indica falta de linealidad; un embudo, varianza no constante.</li></ul></div><aside class="notas" hidden><h4>Notas del profesor · desarrollo para el estudio</h4><table>
+<thead>
+<tr>
+<th>Condición</th>
+<th>Cómo comprobarla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Linealidad</td>
+<td>Residuos frente a valores ajustados: sin patrón curvo</td>
+</tr>
+<tr>
+<td>Independencia de las observaciones</td>
+<td>Por el diseño</td>
+</tr>
+<tr>
+<td>Varianza constante de los residuos (homocedasticidad)</td>
+<td>Residuos frente a ajustados: sin forma de embudo</td>
+</tr>
+<tr>
+<td>Normalidad de los residuos</td>
+<td>Gráfico Q-Q de los residuos (importa poco con <em>n</em> grande)</td>
+</tr>
+<tr>
+<td>Sin colinealidad extrema entre predictores</td>
+<td>Correlación entre los predictores</td>
+</tr>
+</tbody>
+</table></aside></section>
+<section class="slide " data-modo="magistral" data-bloque="Pausa activa" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Pausa activa</h2><p class='help'>Piensa 30 segundos, comenta con quien tienes al lado y vota.</p><div class="quiz" id="pausa-0"><p class="qq">En el modelo PAS = 92 + 0,56 · edad, ¿qué significa 0,56?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es la pendiente.">La PAS media aumenta 0,56 mmHg por cada año de edad</button><button type="button" class="op" data-ok="0" data-fb="La pendiente no es la correlación.">La correlación entre PAS y edad es 0,56</button><button type="button" class="op" data-ok="0" data-fb="Esa interpretación correspondería a R², y tampoco sería causal.">El 56 % de la PAS se debe a la edad</button><button type="button" class="op" data-ok="0" data-fb="Eso sería la ordenada en el origen, sin sentido clínico aquí.">La PAS de un recién nacido</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Puente a Colab" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>En la sesión de Colab</h2>
+<p>Lo que acabas de ver se comprueba con datos en el cuaderno del Tema 270.</p>
+<ol><li>Abre el cuaderno y guarda tu copia: <b>Archivo → Guardar una copia en Drive</b>.</li><li>Ejecuta la celda de configuración.</li><li>Ve a la demostración y predice cada resultado antes de ejecutar.</li></ol>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_270_Modelos_de_regresion_lineal_simple_y_multiple.ipynb" target="_blank" rel="noopener">Abrir el cuaderno en Colab ↗</a></div></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: de la recta al modelo múltiple" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: de la recta al modelo múltiple</h2><h3>3.1 Regresión simple: PAS y edad</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.1 Regresión simple: PAS y edad</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import statsmodels.formula.api as smf
+
+cohorte = pd.read_csv(&quot;https://raw.githubusercontent.com/fborrasumh/bioestadistica/main/datos/cohorte_limpia.csv&quot;)
+
+simple = smf.ols(&quot;pas_mmHg ~ edad&quot;, data=cohorte).fit()
+b0, b1 = simple.params
+li, ls = simple.conf_int().loc[&quot;edad&quot;]
+print(f&quot;PAS = {b0:.1f} + {b1:.3f} · edad&quot;)
+print(f&quot;Pendiente: {b1:.3f} mmHg por año (IC 95 %: {li:.3f} a {ls:.3f}), p = {simple.pvalues[&#x27;edad&#x27;]:.1e}&quot;)
+print(f&quot;Por cada 10 años: {10 * b1:.1f} mmHg más&quot;)
+print(f&quot;R² = {simple.rsquared:.3f} · n = {int(simple.nobs)}&quot;)</code></pre><pre class="code"><code class="language-python">x = np.linspace(cohorte[&quot;edad&quot;].min(), cohorte[&quot;edad&quot;].max(), 100)
+prediccion = simple.get_prediction(pd.DataFrame({&quot;edad&quot;: x})).summary_frame(alpha=0.05)
+
+plt.figure(figsize=(7, 4.5))
+plt.scatter(cohorte[&quot;edad&quot;], cohorte[&quot;pas_mmHg&quot;], alpha=0.35, s=15)
+plt.plot(x, prediccion[&quot;mean&quot;], color=&quot;firebrick&quot;, label=&quot;Recta ajustada&quot;)
+plt.fill_between(x, prediccion[&quot;mean_ci_lower&quot;], prediccion[&quot;mean_ci_upper&quot;], color=&quot;firebrick&quot;, alpha=0.25,
+                 label=&quot;IC 95 % de la media&quot;)
+plt.fill_between(x, prediccion[&quot;obs_ci_lower&quot;], prediccion[&quot;obs_ci_upper&quot;], color=&quot;gray&quot;, alpha=0.12,
+                 label=&quot;Intervalo de predicción 95 % (pacientes)&quot;)
+plt.xlabel(&quot;Edad (años)&quot;)
+plt.ylabel(&quot;PAS (mmHg)&quot;)
+plt.legend()
+plt.show()</code></pre><p>Hay dos bandas distintas. El <strong>IC de la media</strong> (estrecho) dice dónde está la PAS media de los pacientes de cada edad. El <strong>intervalo de predicción</strong> (ancho) dice dónde estará la PAS de <strong>un paciente concreto</strong>. La edad explica alrededor de una cuarta parte de la variabilidad de la PAS. Es un predictor importante, pero con la edad de un paciente no se puede adivinar su presión.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: de la recta al modelo múltiple" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: de la recta al modelo múltiple</h2><h3>3.2 Regresión múltiple: PAS, edad, IMC, sexo y diabetes</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.2 Regresión múltiple: PAS, edad, IMC, sexo y diabetes</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">multiple = smf.ols(&quot;pas_mmHg ~ edad + imc + sexo + diabetes&quot;, data=cohorte).fit()
+tabla = pd.DataFrame({
+    &quot;Coeficiente&quot;: multiple.params,
+    &quot;IC 95 % inf.&quot;: multiple.conf_int()[0],
+    &quot;IC 95 % sup.&quot;: multiple.conf_int()[1],
+    &quot;p&quot;: multiple.pvalues,
+}).round(3)
+print(f&quot;n = {int(multiple.nobs)} · R² = {multiple.rsquared:.3f} · R² ajustado = {multiple.rsquared_adj:.3f}&quot;)
+tabla</code></pre><p><strong>Interpretación de los coeficientes:</strong></p>
+<ul>
+<li><strong>Edad:</strong> a igualdad de IMC, sexo y diabetes, cada año más se asocia con una PAS media unos 0,55 mmHg mayor.</li>
+<li><strong>IMC:</strong> a igualdad de edad, sexo y diabetes, cada kg/m² más se asocia con unos 0,85 mmHg más de PAS. Son unos 4 mmHg por cada 5 kg/m².</li>
+<li><strong>Sexo y diabetes:</strong> sus IC incluyen el 0; con estos datos no hay evidencia de diferencias de PAS a igualdad de las demás variables.</li>
+</ul>
+<p>Fíjate en que el modelo se ajusta con 380 pacientes, no con 400: los que tienen algún dato perdido se excluyen. Siempre hay que indicar el <em>n</em> del modelo.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: de la recta al modelo múltiple" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: de la recta al modelo múltiple</h2><h3>3.3 Confusión: PAS y creatinina</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.3 Confusión: PAS y creatinina</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">analiticas = pd.read_csv(&quot;https://raw.githubusercontent.com/fborrasumh/bioestadistica/main/datos/analiticas.csv&quot;)
+renal = cohorte.merge(analiticas, on=&quot;id&quot;).dropna(subset=[&quot;creatinina_mg_dl&quot;])
+
+cruda = smf.ols(&quot;creatinina_mg_dl ~ pas_mmHg&quot;, data=renal).fit()
+ajustada = smf.ols(&quot;creatinina_mg_dl ~ pas_mmHg + edad&quot;, data=renal).fit()
+
+for nombre, m in [(&quot;Sin ajustar&quot;, cruda), (&quot;Ajustado por edad&quot;, ajustada)]:
+    b = m.params[&quot;pas_mmHg&quot;] * 10
+    li, ls = m.conf_int().loc[&quot;pas_mmHg&quot;] * 10
+    print(f&quot;{nombre:&gt;18}: {b:.3f} mg/dL por cada 10 mmHg (IC 95 %: {li:.3f} a {ls:.3f}), p = {m.pvalues[&#x27;pas_mmHg&#x27;]:.3f}&quot;)
+
+cambio = 1 - ajustada.params[&quot;pas_mmHg&quot;] / cruda.params[&quot;pas_mmHg&quot;]
+print(f&quot;El coeficiente de la PAS se reduce un {cambio:.0%} al ajustar por edad&quot;)</code></pre><p>Al comparar pacientes de la misma edad, la asociación entre PAS y creatinina baja más de dos tercios y deja de ser significativa. Buena parte de la asociación cruda se debía a la edad: los pacientes mayores tienen a la vez la PAS y la creatinina más altas. En esta cohorte, la asociación ajustada es pequeña. Esto <strong>no</strong> demuestra que la hipertensión no dañe el riñón (lo hace, a largo plazo). Demuestra que la asociación cruda no servía como prueba.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: de la recta al modelo múltiple" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: de la recta al modelo múltiple</h2><h3>3.4 Diagnóstico del modelo: los residuos</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.4 Diagnóstico del modelo: los residuos</b>. Antes de ejecutar, escribe qué esperas obtener.</p><pre class="code"><code class="language-python">import scipy.stats as stats
+
+fig, ejes = plt.subplots(1, 2, figsize=(10, 4))
+ejes[0].scatter(multiple.fittedvalues, multiple.resid, alpha=0.4, s=15)
+ejes[0].axhline(0, color=&quot;black&quot;, linestyle=&quot;--&quot;)
+ejes[0].set_xlabel(&quot;PAS ajustada por el modelo (mmHg)&quot;)
+ejes[0].set_ylabel(&quot;Residuo (mmHg)&quot;)
+ejes[0].set_title(&quot;Residuos frente a ajustados&quot;)
+stats.probplot(multiple.resid, plot=ejes[1])
+ejes[1].set_title(&quot;Gráfico Q-Q de los residuos&quot;)
+plt.tight_layout()
+plt.show()</code></pre><p>Los residuos se reparten de forma homogénea alrededor de 0, sin curvas ni forma de embudo. Además, siguen aproximadamente la recta del gráfico Q-Q: el modelo lineal es adecuado.</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="3. Demostración: de la recta al modelo múltiple" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>3. Demostración: de la recta al modelo múltiple</h2><h3>3.5 Una trampa: la confusión por indicación</h3><p class="colab-cta">▶ En tu cuaderno: <b>3.5 Una trampa: la confusión por indicación</b>. Antes de ejecutar, escribe qué esperas obtener.</p><figure><img src="../figuras/tema_270_esquema.png" alt="Esquema: la PAS elevada lleva al tratamiento, no al revés; un caso difícil lleva a usar el asistente y a peor evolución." loading="lazy"></figure><pre class="code"><code class="language-python">indicacion = smf.ols(&quot;pas_mmHg ~ edad + imc + hta_tratada&quot;, data=cohorte).fit()
+b = indicacion.params[&quot;hta_tratada[T.Sí]&quot;]
+li, ls = indicacion.conf_int().loc[&quot;hta_tratada[T.Sí]&quot;]
+print(f&quot;Coeficiente del tratamiento antihipertensivo: {b:+.1f} mmHg (IC 95 %: {li:.1f} a {ls:.1f})&quot;)</code></pre><p>El modelo dice que los pacientes tratados tienen una PAS <strong>unos 17 mmHg mayor</strong>. ¿Los antihipertensivos suben la presión? No: se trata a los que tienen la presión alta. El tratamiento es una <strong>consecuencia</strong> de la PAS elevada, no su causa. Es la <strong>confusión por indicación</strong>, el sesgo más frecuente al evaluar tratamientos con datos observacionales. Por eso la eficacia de un fármaco se demuestra con ensayos aleatorizados.</p>
+<p>Lo mismo ocurre al evaluar herramientas de IA con datos de la historia clínica. Si los médicos usan más el asistente en los casos difíciles, los casos con asistente evolucionan peor. Y eso ocurre aunque el asistente no haga daño.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: predecir con el modelo</h3><pre class="code"><code class="language-python">pacientes = pd.DataFrame({&quot;edad&quot;: [45, 70], &quot;imc&quot;: [24, 33], &quot;sexo&quot;: [&quot;Mujer&quot;, &quot;Hombre&quot;], &quot;diabetes&quot;: [&quot;No&quot;, &quot;Sí&quot;]})
+pred = multiple.get_prediction(pacientes).summary_frame(alpha=0.05)
+for i, fila in pacientes.iterrows():
+    print(f&quot;{fila[&#x27;sexo&#x27;]} de {fila[&#x27;edad&#x27;]} años, IMC {fila[&#x27;imc&#x27;]}, diabetes {fila[&#x27;diabetes&#x27;]}: &quot;
+          f&quot;PAS esperada {pred.loc[i, &#x27;mean&#x27;]:.0f} mmHg (intervalo de predicción 95 %: &quot;
+          f&quot;{pred.loc[i, &#x27;obs_ci_lower&#x27;]:.0f} a {pred.loc[i, &#x27;obs_ci_upper&#x27;]:.0f})&quot;)</code></pre><p>Los modelos predictivos se tratan en el Tema 290. Ya se ve aquí su límite: aunque el modelo estime bien la media, un paciente individual puede estar muy lejos de ella.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: errores frecuentes</h3><p><strong>Interpretar un coeficiente ajustado como causal.</strong></p>
+<p><strong>Ajustar por una variable intermedia</strong> del camino causal. Por ejemplo, ajustar por la PAS el efecto de la obesidad sobre los eventos. Así se elimina parte del efecto que se quiere medir.</p>
+<p><strong>Extrapolar fuera del rango de los datos.</strong> La ordenada en el origen (edad 0) no tiene sentido.</p>
+<p><strong>Confundir el IC de la media con el intervalo de predicción.</strong></p>
+<p><strong>Incluir demasiadas variables para el tamaño muestral.</strong> Como orientación, al menos 10 a 20 observaciones por predictor.</p>
+<p><strong>Seleccionar las variables por su valor p.</strong> Elígelas por conocimiento clínico, antes de ver los datos.</p></div></section>
+<section class="slide " data-modo="magistral" data-bloque="Ampliación" aria-roledescription="diapositiva"><span class=tag-magistral>🎓 Clase magistral</span><div class="in"><h2>Ampliación</h2><h3>Ampliación: Comparar y elegir modelos</h3><p>Un modelo <strong>anidado</strong> es el mismo modelo con menos variables. Hay tres formas de compararlo con el modelo completo:</p>
+<table>
+<thead>
+<tr>
+<th>Criterio</th>
+<th>Qué mide</th>
+<th>Cómo se lee</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Prueba F parcial</strong></td>
+<td>si las variables quitadas aportan algo</td>
+<td><em>p</em> &lt; 0,05: el modelo completo es mejor</td>
+</tr>
+<tr>
+<td><strong>R² ajustado</strong></td>
+<td>variabilidad explicada, penalizando cada variable</td>
+<td>mayor es mejor</td>
+</tr>
+<tr>
+<td><strong>AIC</strong></td>
+<td>ajuste penalizado por complejidad</td>
+<td>menor es mejor</td>
+</tr>
+</tbody>
+</table>
+<p>Los dos modelos se deben ajustar <strong>con los mismos pacientes</strong>. Por eso, quita antes los valores perdidos de todas las variables.</p>
+<p><strong>En tus materiales SIMUSTAT:</strong> <a href="https://colab.research.google.com/drive/1grLb-PnvbVToKJwhFBmElP4TwH4D4Na5" target="_blank" rel="noopener">Tema 440. Modelos de regresión lineal múltiple</a>, apartado 4.</p><pre class="code"><code class="language-python">from statsmodels.stats.anova import anova_lm
+
+variables = [&quot;pas_mmHg&quot;, &quot;edad&quot;, &quot;imc&quot;, &quot;sexo&quot;, &quot;diabetes&quot;]
+mismos = cohorte.dropna(subset=variables)
+completo = smf.ols(&quot;pas_mmHg ~ edad + imc + sexo + diabetes&quot;, data=mismos).fit()
+anidado = smf.ols(&quot;pas_mmHg ~ edad + imc + sexo&quot;, data=mismos).fit()
+
+print(anova_lm(anidado, completo).round(3))
+for nombre, m in [(&quot;Anidado (sin diabetes)&quot;, anidado), (&quot;Completo&quot;, completo)]:
+    print(f&quot;{nombre:24} R² ajustado = {m.rsquared_adj:.3f}   AIC = {m.aic:.1f}&quot;)</code></pre><p>Si la prueba F no es significativa y el AIC apenas cambia, el modelo más sencillo es suficiente. Pero la elección final es también clínica. Una variable de confusión conocida se mantiene en el modelo, aunque no sea significativa (Tema 280).</p></div></section>
+<section class="slide " data-modo="colab" data-bloque="4. Práctica en la app Bioestadística" aria-roledescription="diapositiva"><span class=tag-colab>💻 Colab</span><div class="in"><h2>4. Práctica en la app Bioestadística</h2><p>Abre la <strong><a href="https://fborrasumh.github.io/bioestadistica/" target="_blank" rel="noopener">unidad 270 de la app Bioestadística</a></strong> y completa sus misiones:</p>
+<ol>
+<li><strong>Misión básica (sin asistente):</strong> interpretar los coeficientes de cuatro modelos publicados y decidir cuáles son ajustados.</li>
+<li><strong>Misión clínica (con pistas):</strong> estimar la asociación entre el IMC y el HDL, crudo y ajustado por sexo, y decidir si hay confusión.</li>
+<li><strong>Misión reto (con asistente):</strong> pedir al asistente un modelo para «el efecto del tratamiento antihipertensivo» con los datos de la cohorte. Detectar la confusión por indicación y redactar por qué el resultado no es válido.</li>
+</ol>
+<p>Al terminar, exporta el <strong>informe de la unidad</strong>.</p></div></section>
+<section class="slide " data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p>Responde sin asistente.</p></div></section>
+<section class="slide denso" data-modo="ambos" data-bloque="5. Autoevaluación" aria-roledescription="diapositiva"><div class="in"><h2>5. Autoevaluación</h2><p class='help'>Elige una opción: verás la explicación.</p><div class="quiz" id="q20-0"><p class="qq">En el modelo PAS = 92 + 0,56 · edad, ¿qué significa 0,56?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es la pendiente.">La PAS media aumenta 0,56 mmHg por cada año de edad</button><button type="button" class="op" data-ok="0" data-fb="La pendiente no es la correlación.">La correlación entre PAS y edad es 0,56</button><button type="button" class="op" data-ok="0" data-fb="Esa interpretación correspondería a R², y tampoco sería causal.">El 56 % de la PAS se debe a la edad</button><button type="button" class="op" data-ok="0" data-fb="Eso sería la ordenada en el origen, sin sentido clínico aquí.">La PAS de un recién nacido</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-1"><p class="qq">En un modelo múltiple, el coeficiente del IMC es 0,85 mmHg por kg/m². ¿Cómo se interpreta?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: es un efecto ajustado.">Por cada kg/m² más, la PAS media es 0,85 mmHg mayor a igualdad de las demás variables del modelo</button><button type="button" class="op" data-ok="0" data-fb="Es una asociación media observacional, no un efecto causal individual.">Bajar 1 kg/m² reduce la PAS 0,85 mmHg en cualquier paciente</button><button type="button" class="op" data-ok="0" data-fb="El coeficiente no es una proporción explicada.">El IMC explica el 85 % de la PAS</button><button type="button" class="op" data-ok="0" data-fb="En un modelo múltiple el coeficiente está ajustado.">Es el efecto sin ajustar del IMC</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-2"><p class="qq">Al añadir la edad al modelo, el coeficiente de la PAS sobre la creatinina pasa de 0,11 a 0,03. ¿Qué indica?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el coeficiente cambia mucho al ajustar.">Que la edad confundía buena parte de la asociación entre PAS y creatinina</button><button type="button" class="op" data-ok="0" data-fb="La edad es una variable de confusión.">Que la edad es un error de medida</button><button type="button" class="op" data-ok="0" data-fb="El coeficiente sigue siendo positivo, aunque menor.">Que la PAS protege el riñón</button><button type="button" class="op" data-ok="0" data-fb="Es el resultado esperable si hay confusión.">Que el modelo está mal ajustado</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-3"><p class="qq">Los pacientes que reciben estatinas tienen más eventos cardiovasculares que los que no las reciben, incluso ajustando por edad. ¿Cuál es la explicación más probable?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: el tratamiento es un marcador del riesgo basal.">Confusión por indicación: se prescriben estatinas a los pacientes de mayor riesgo</button><button type="button" class="op" data-ok="0" data-fb="Los ensayos aleatorizados demuestran lo contrario.">Las estatinas causan eventos cardiovasculares</button><button type="button" class="op" data-ok="0" data-fb="El problema es de diseño, no de tamaño.">El modelo tiene pocos pacientes</button><button type="button" class="op" data-ok="0" data-fb="No explica la dirección del efecto.">Falta normalidad en los residuos</button></div><p class="fb" aria-live="polite"></p></div><div class="quiz" id="q20-4"><p class="qq">¿Qué intervalo usas para decir entre qué valores estará la PAS de un paciente concreto según el modelo?</p><div class="ops"><button type="button" class="op" data-ok="1" data-fb="Correcto: incluye la variabilidad individual además de la incertidumbre de la media.">El intervalo de predicción</button><button type="button" class="op" data-ok="0" data-fb="Ese intervalo es para la PAS media de los pacientes con esas características.">El IC 95 % de la media</button><button type="button" class="op" data-ok="0" data-fb="Ese intervalo es para el coeficiente.">El IC 95 % de la pendiente</button><button type="button" class="op" data-ok="0" data-fb="R² no es un intervalo.">El R²</button></div><p class="fb" aria-live="polite"></p></div></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Ideas clave" aria-roledescription="diapositiva"><div class="in"><h2>Ideas clave</h2><ul>
+<li>La pendiente es el cambio medio de <em>Y</em> por unidad de <em>X</em>; R², la proporción de variabilidad explicada.</li>
+<li>En la regresión múltiple, cada coeficiente está ajustado por las demás variables del modelo.</li>
+<li>La confusión se detecta cuando el coeficiente cambia mucho al ajustar.</li>
+<li>El ajuste no elimina la confusión residual ni la confusión por indicación.</li>
+<li>Comprueba los residuos e indica siempre el <em>n</em> del modelo.</li>
+</ul></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Glosario" aria-roledescription="diapositiva"><div class="in"><h2>Glosario</h2><table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Regresión lineal simple</td>
+<td>Modelo que relaciona una variable cuantitativa con un predictor mediante una recta</td>
+</tr>
+<tr>
+<td>Pendiente (β₁)</td>
+<td>Cambio medio de la respuesta por unidad del predictor</td>
+</tr>
+<tr>
+<td>Mínimos cuadrados</td>
+<td>Método que estima los coeficientes minimizando la suma de los residuos al cuadrado</td>
+</tr>
+<tr>
+<td>Residuo</td>
+<td>Diferencia entre el valor observado y el valor ajustado por el modelo</td>
+</tr>
+<tr>
+<td>R²</td>
+<td>Proporción de la variabilidad de la respuesta explicada por el modelo</td>
+</tr>
+<tr>
+<td>Regresión lineal múltiple</td>
+<td>Modelo con varios predictores, cuyos coeficientes están ajustados entre sí</td>
+</tr>
+<tr>
+<td>Variable indicadora</td>
+<td>Variable 0/1 que representa una categoría de una variable cualitativa</td>
+</tr>
+<tr>
+<td>Confusión</td>
+<td>Distorsión de una asociación por una tercera variable asociada a la exposición y al resultado</td>
+</tr>
+<tr>
+<td>Confusión residual</td>
+<td>Confusión que persiste tras el ajuste, por variables no medidas o mal medidas</td>
+</tr>
+<tr>
+<td>Confusión por indicación</td>
+<td>Confusión debida a que el tratamiento se indica según el pronóstico del paciente</td>
+</tr>
+<tr>
+<td>Intervalo de predicción</td>
+<td>Intervalo para el valor de un individuo nuevo</td>
+</tr>
+</tbody>
+</table></div></section>
+<section class="slide " data-modo="ambos" data-bloque="Para saber más" aria-roledescription="diapositiva"><div class="in"><h2>Para saber más</h2><ul>
+<li>Schneider A, Hommel G, Blettner M. Linear regression analysis: part 14 of a series on evaluation of scientific publications. <em>Dtsch Arztebl Int</em>. 2010;107(44):776-782. doi:<a href="https://doi.org/10.3238/arztebl.2010.0776" target="_blank" rel="noopener">10.3238/arztebl.2010.0776</a></li>
+<li>Kyriacou DN, Lewis RJ. Confounding by indication in clinical research. <em>JAMA</em>. 2016;316(17):1818-1819. doi:<a href="https://doi.org/10.1001/jama.2016.16435" target="_blank" rel="noopener">10.1001/jama.2016.16435</a></li>
+<li>Hernán MA, Robins JM. <em>Causal Inference: What If</em>. Boca Ratón: Chapman &amp; Hall/CRC; 2020. Disponible gratis en: <a href="https://miguelhernan.org/whatifbook" target="_blank" rel="noopener">miguelhernan.org/whatifbook</a>.</li>
+<li>SIMUSTAT Unidigital UMH. <a href="https://colab.research.google.com/drive/1grLb-PnvbVToKJwhFBmElP4TwH4D4Na5" target="_blank" rel="noopener">Tema 440. Modelos de regresión lineal múltiple</a>. Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.</li>
+</ul></div></section>
+<section class="slide portada" data-modo="ambos" data-bloque="Cierre" aria-roledescription="diapositiva"><div class="in"><h2>Para seguir</h2>
+<div class="acc"><a class="btn" href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_270_Modelos_de_regresion_lineal_simple_y_multiple.ipynb" target="_blank" rel="noopener">Cuaderno del Tema 270 en Colab ↗</a><a class="btn" href="https://fborrasumh.github.io/bioestadistica/#tema-270" target="_blank" rel="noopener">Misiones del tema en la app ↗</a><a class="btn ghost" href="../cuadernos.html">Todos los cuadernos</a></div>
+<div class="acc"><a class="btn ghost" href="tema_260.html">← Tema 260</a><a class="btn ghost" href="tema_280.html">→ Tema 280</a></div></div></section>
+</main>
+<div id="indice" hidden><ol id="lista"></ol></div>
+<footer class="pie"><button type="button" id="bAnt" aria-label="Diapositiva anterior">← Anterior</button><span id="cont" aria-live="polite"></span><button type="button" id="bSig" aria-label="Diapositiva siguiente">Siguiente →</button></footer>
+<script src="lib/katex.min.js"></script>
+<script src="lib/auto-render.min.js"></script>
+<script src="lib/highlight.min.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const todas = [...document.querySelectorAll('.slide')];
+let modo = 'todo', vis = [], pos = 0, notas = false;
+const guarda = (k, v) => { try { localStorage.setItem('bioest-pres-' + k, v); } catch (e) {} };
+const lee = k => { try { return localStorage.getItem('bioest-pres-' + k); } catch (e) { return null; } };
+function filtra(m, mantener) {
+  const actual = vis[pos];
+  modo = m;
+  vis = todas.filter(s => m === 'todo' || s.dataset.modo === 'ambos' || s.dataset.modo === m);
+  document.querySelectorAll('.modos button').forEach(b => b.setAttribute('aria-pressed', b.dataset.m === m));
+  const i = mantener && actual ? vis.indexOf(actual) : -1;
+  pos = i >= 0 ? i : 0;
+  pintaIndice(); muestra();
+  guarda('modo', m);
+}
+function muestra() {
+  todas.forEach(s => s.classList.remove('on'));
+  const s = vis[pos]; if (!s) return;
+  s.classList.add('on'); s.scrollTop = 0;
+  s.querySelectorAll('.notas').forEach(n => n.hidden = !notas);
+  $('cont').textContent = `${pos + 1} / ${vis.length} · ${s.dataset.bloque}`;
+  $('prog').style.width = `${(pos + 1) / vis.length * 100}%`;
+  $('bAnt').disabled = pos === 0; $('bSig').disabled = pos === vis.length - 1;
+  history.replaceState(null, '', `#${modo}-${pos + 1}`);
+}
+const ir = d => { pos = Math.max(0, Math.min(vis.length - 1, pos + d)); muestra(); };
+function pintaIndice() {
+  $('lista').innerHTML = vis.map((s, i) => { const h = s.querySelector('h3, h2, h1'); return `<li><a href="#" data-i="${i}">${(h ? h.textContent : s.dataset.bloque)}</a> <span class="m">${s.dataset.bloque}</span></li>`; }).join('');
+}
+$('lista').addEventListener('click', e => { const a = e.target.closest('a'); if (!a) return; e.preventDefault(); pos = +a.dataset.i; $('indice').hidden = true; muestra(); });
+document.querySelectorAll('.modos button').forEach(b => b.onclick = () => filtra(b.dataset.m, true));
+$('bAnt').onclick = () => ir(-1); $('bSig').onclick = () => ir(1);
+$('bNotas').onclick = () => { notas = !notas; $('bNotas').setAttribute('aria-pressed', notas); muestra(); };
+$('bIndice').onclick = () => { $('indice').hidden = !$('indice').hidden; };
+document.addEventListener('keydown', e => {
+  if (e.target.closest('input,textarea')) return;
+  if (['ArrowRight', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); ir(1); }
+  else if (['ArrowLeft', 'PageUp'].includes(e.key)) { e.preventDefault(); ir(-1); }
+  else if (e.key === 'Home') { pos = 0; muestra(); } else if (e.key === 'End') { pos = vis.length - 1; muestra(); }
+  else if (e.key === 'n' || e.key === 'N') $('bNotas').click();
+  else if (e.key === 'f' || e.key === 'F') { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.(); }
+  else if (e.key === 'm' || e.key === 'M') { const ms = ['todo', 'magistral', 'colab']; filtra(ms[(ms.indexOf(modo) + 1) % 3], true); }
+  else if (e.key === 'Escape') $('bIndice').click();
+});
+let x0 = null;
+$('deck').addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, {passive: true});
+$('deck').addEventListener('touchend', e => { if (x0 === null) return; const dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1); x0 = null; });
+document.addEventListener('click', e => {
+  const b = e.target.closest('.op'); if (!b) return;
+  const q = b.closest('.quiz');
+  q.querySelectorAll('.op').forEach(o => o.classList.remove('bien', 'mal'));
+  const ok = b.dataset.ok === '1';
+  b.classList.add(ok ? 'bien' : 'mal');
+  q.querySelector('.fb').textContent = (ok ? '✓ ' : '✗ ') + b.dataset.fb;
+});
+window.addEventListener('load', () => {
+  if (window.renderMathInElement) renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false});
+  if (window.hljs) document.querySelectorAll('pre.code code').forEach(c => hljs.highlightElement(c));
+});
+const h = location.hash.match(/^#(todo|magistral|colab)-(\d+)$/);
+const q = new URLSearchParams(location.search).get('modo');
+filtra(h ? h[1] : (['todo', 'magistral', 'colab'].includes(q) ? q : (lee('modo') || 'todo')), false);
+if (h) { pos = Math.min(vis.length - 1, +h[2] - 1); muestra(); }
+</script>
+</body>
+</html>

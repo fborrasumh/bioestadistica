@@ -514,7 +514,7 @@ table{border-collapse:collapse;width:100%;font-size:13.8px}th{background:var(--p
 
 <!-- 1 · RUTA -->
 <section class="screen" data-step="1">
-  <header class="sh" style="--c:#6B4FD8"><div class="sh-ico"><svg class="i"><use href="#i-book"/></svg></div><div><p class="sh-step" data-i18n="s.paso1">Paso 1 de 3</p><h2 data-i18n="s.ruta">Tu ruta</h2><p class="sh-lede" data-i18n="s.ruta.lede">Los 30 temas de la asignatura en sus 5 módulos. Cada tema enlaza a su cuaderno de Colab y tiene tres misiones: básica (sin ayuda), clínica (con pistas) y reto (con asistente).</p></div></header>
+  <header class="sh" style="--c:#6B4FD8"><div class="sh-ico"><svg class="i"><use href="#i-book"/></svg></div><div><p class="sh-step" data-i18n="s.paso1">Paso 1 de 3</p><h2 data-i18n="s.ruta">Tu ruta</h2><p class="sh-lede" data-i18n="s.ruta.lede">Los 30 temas de la asignatura en sus 5 módulos. Cada tema enlaza a su cuaderno de Colab y a su presentación de clase, y tiene tres misiones: básica (sin ayuda), clínica (con pistas) y reto (con asistente). Antes de empezar: Tema 0, guía del entorno (<a href="https://colab.research.google.com/github/fborrasumh/bioestadistica/blob/main/cuadernos/Tema_000_Guia_del_entorno_Google_Colab.ipynb" target="_blank" rel="noopener">cuaderno ↗</a> · <a href="presentaciones/tema_000.html" target="_blank" rel="noopener">presentación ↗</a>).</p></div></header>
   <div class="card" id="rutaResumen"></div>
   <div id="rutaRepaso"></div>
   <div id="rutaTemas"></div>
@@ -4903,7 +4903,7 @@ function pintaRuta() {
   const sig = siguienteMision();
   $('rutaTemas').innerHTML = UNIDADES.map(u => `<h2 class="sec-title" style="margin-top:22px">${esc(t('Módulo {0}', u.u))} · ${esc(txt(u.t))} <a class="muted" style="font-size:13px;font-weight:600" href="${u.url}" target="_blank" rel="noopener">↗</a></h2>` +
     TEMAS.filter(x => x.u === u.u).map(x => `<div class="card pm-tema" id="tema-${x.n}" tabindex="-1"><h3 class="pm-h3">${esc(t('Tema {0}', x.n))} · ${esc(txt(x.t))}</h3>
-      <div class="links"><a href="${x.cuaderno}" target="_blank" rel="noopener">${esc(t('Cuaderno de Colab'))} ↗</a></div>
+      <div class="links"><a href="${x.cuaderno}" target="_blank" rel="noopener">${esc(t('Cuaderno de Colab'))} ↗</a><a href="presentaciones/tema_${String(x.n).padStart(3, '0')}.html" target="_blank" rel="noopener">${esc(t('Presentación'))} ↗</a></div>
       <div class="pm-ms">${misionesDeTema(x.n).map(m => { const p = S.prog[m.id]; const hecha = p && p.done; return `<button class="pm-m ${hecha ? 'hecha' : ''} ${sig && sig.id === m.id ? 'sig' : ''}" type="button" data-abre="${m.id}"><span>${m.k === 'quiz' ? '<span class="pm-tag">' + esc(t('test')) + '</span>' : m.k === 'predict' ? '<span class="pm-tag">' + esc(t('predice')) + '</span>' : ''}${esc(txt(m.t))}<small>${esc(t('Nivel {0}', m.nivel))}</small></span><span class="pm-st" aria-label="${hecha ? p.stars : 0}/3">${ESTRELLAS(hecha ? p.stars : 0)}</span></button>`; }).join('')}</div></div>`).join('')).join('');
 }
 const guardaBorrador = () => { const ed = $('mEd'); if (ed && INST && cur().k === 'code') S.borr[S.cur + '|' + P(S.cur).k] = ed.value; const rp = $('mResp'); if (rp && cur().k === 'predict') S.borr[S.cur + '|' + P(S.cur).k] = rp.value; };
