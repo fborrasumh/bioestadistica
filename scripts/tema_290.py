@@ -325,9 +325,9 @@ c.md("""
 
 c.titulo(2, "Para saber más")
 c.md("""
-- Collins GS, *et al.* TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. *BMJ*. 2024;385:e078378.
-- Van Calster B, *et al.* Calibration: the Achilles heel of predictive analytics. *BMC Med*. 2019;17(1):230.
-- Christodoulou E, *et al.* A systematic review shows no performance benefit of machine learning over logistic regression for clinical prediction models. *J Clin Epidemiol*. 2019;110:12-22.
+- Collins GS, *et al.* TRIPOD+AI statement: updated guidance for reporting clinical prediction models that use regression or machine learning methods. *BMJ*. 2024;385:e078378. doi:[10.1136/bmj-2023-078378](https://doi.org/10.1136/bmj-2023-078378)
+- Van Calster B, *et al.* Calibration: the Achilles heel of predictive analytics. *BMC Med*. 2019;17(1):230. doi:[10.1186/s12916-019-1466-7](https://doi.org/10.1186/s12916-019-1466-7)
+- Christodoulou E, *et al.* A systematic review shows no performance benefit of machine learning over logistic regression for clinical prediction models. *J Clin Epidemiol*. 2019;110:12-22. doi:[10.1016/j.jclinepi.2019.02.004](https://doi.org/10.1016/j.jclinepi.2019.02.004)
 """)
 
 c.pie(290)

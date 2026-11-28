@@ -319,9 +319,9 @@ c.md("""
 
 c.titulo(2, "Para saber más")
 c.md("""
-- McNemar Q. Note on the sampling error of the difference between correlated proportions or percentages. *Psychometrika*. 1947;12(2):153-157.
-- Landis JR, Koch GG. The measurement of observer agreement for categorical data. *Biometrics*. 1977;33(1):159-174.
-- Feinstein AR, Cicchetti DV. High agreement but low kappa: I. The problems of two paradoxes. *J Clin Epidemiol*. 1990;43(6):543-549.
+- McNemar Q. Note on the sampling error of the difference between correlated proportions or percentages. *Psychometrika*. 1947;12(2):153-157. doi:[10.1007/BF02295996](https://doi.org/10.1007/BF02295996)
+- Landis JR, Koch GG. The measurement of observer agreement for categorical data. *Biometrics*. 1977;33(1):159-174. doi:[10.2307/2529310](https://doi.org/10.2307/2529310)
+- Feinstein AR, Cicchetti DV. High agreement but low kappa: I. The problems of two paradoxes. *J Clin Epidemiol*. 1990;43(6):543-549. doi:[10.1016/0895-4356(90)90158-L](https://doi.org/10.1016/0895-4356%2890%2990158-L)
 """)
 
 c.pie(240)

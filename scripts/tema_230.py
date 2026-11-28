@@ -313,9 +313,9 @@ c.md("""
 
 c.titulo(2, "Para saber más")
 c.md("""
-- Laupacis A, Sackett DL, Roberts RS. An assessment of clinically useful measures of the consequences of treatment. *N Engl J Med*. 1988;318(26):1728-1733.
-- Altman DG. Confidence intervals for the number needed to treat. *BMJ*. 1998;317(7168):1309-1312.
-- SCORE2 working group and ESC Cardiovascular risk collaboration. SCORE2 risk prediction algorithms: new models to estimate 10-year risk of cardiovascular disease in Europe. *Eur Heart J*. 2021;42(25):2439-2454.
+- Laupacis A, Sackett DL, Roberts RS. An assessment of clinically useful measures of the consequences of treatment. *N Engl J Med*. 1988;318(26):1728-1733. doi:[10.1056/NEJM198806303182605](https://doi.org/10.1056/NEJM198806303182605)
+- Altman DG. Confidence intervals for the number needed to treat. *BMJ*. 1998;317(7168):1309-1312. doi:[10.1136/bmj.317.7168.1309](https://doi.org/10.1136/bmj.317.7168.1309)
+- SCORE2 working group and ESC Cardiovascular risk collaboration. SCORE2 risk prediction algorithms: new models to estimate 10-year risk of cardiovascular disease in Europe. *Eur Heart J*. 2021;42(25):2439-2454. doi:[10.1093/eurheartj/ehab309](https://doi.org/10.1093/eurheartj/ehab309)
 """)
 
 c.pie(230)

@@ -341,7 +341,7 @@ c.md("""
 c.titulo(2, "Para saber más")
 c.md("""
 - [Documentación del módulo math: funciones combinatorias](https://docs.python.org/es/3/library/math.html#number-theoretic-functions)
-- Bland JM, Altman DG. Statistics notes: the odds ratio. *BMJ*. 2000;320(7247):1468. (Introduce la relación entre probabilidad y *odds* que usaremos en el Tema 230.)
+- Bland JM, Altman DG. Statistics notes: the odds ratio. *BMJ*. 2000;320(7247):1468. doi:[10.1136/bmj.320.7247.1468](https://doi.org/10.1136/bmj.320.7247.1468) (Introduce la relación entre probabilidad y *odds* que usaremos en el Tema 230.)
 """)
 
 c.pie(140)

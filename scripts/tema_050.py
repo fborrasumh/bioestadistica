@@ -414,9 +414,9 @@ c.md("""
 c.titulo(2, "Para saber más")
 c.md("""
 - [Tutorial de Python: definir funciones](https://docs.python.org/es/3/tutorial/controlflow.html#defining-functions)
-- Cockcroft DW, Gault MH. Prediction of creatinine clearance from serum creatinine. *Nephron*. 1976;16(1):31-41.
-- Inker LA, *et al.* New creatinine- and cystatin C-based equations to estimate GFR without race. *N Engl J Med*. 2021;385(19):1737-1749.
-- Lip GY, *et al.* Refining clinical risk stratification for predicting stroke and thromboembolism in atrial fibrillation using a novel risk factor-based approach: the Euro Heart Survey on Atrial Fibrillation. *Chest*. 2010;137(2):263-272.
+- Cockcroft DW, Gault MH. Prediction of creatinine clearance from serum creatinine. *Nephron*. 1976;16(1):31-41. doi:[10.1159/000180580](https://doi.org/10.1159/000180580)
+- Inker LA, *et al.* New creatinine- and cystatin C-based equations to estimate GFR without race. *N Engl J Med*. 2021;385(19):1737-1749. doi:[10.1056/NEJMoa2102953](https://doi.org/10.1056/NEJMoa2102953)
+- Lip GY, *et al.* Refining clinical risk stratification for predicting stroke and thromboembolism in atrial fibrillation using a novel risk factor-based approach: the Euro Heart Survey on Atrial Fibrillation. *Chest*. 2010;137(2):263-272. doi:[10.1378/chest.09-1584](https://doi.org/10.1378/chest.09-1584)
 - SIMUSTAT Unidigital UMH. [Tema 110. Definición de funciones I](https://colab.research.google.com/drive/1O6LhqoSghAkw55UWJRhejZOFiROFAqB5). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 - SIMUSTAT Unidigital UMH. [Tema 120. Definición de funciones II](https://colab.research.google.com/drive/1kbhZnG7MAZft4-hQFFGxk-gyH3_1D_Z7). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 """)

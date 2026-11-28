@@ -327,9 +327,9 @@ c.md("""
 
 c.titulo(2, "Para saber más")
 c.md("""
-- Wasserstein RL, Lazar NA. The ASA statement on p-values: context, process, and purpose. *Am Stat*. 2016;70(2):129-133.
-- Altman DG, Bland JM. Absence of evidence is not evidence of absence. *BMJ*. 1995;311(7003):485.
-- Greenland S, *et al.* Statistical tests, P values, confidence intervals, and power: a guide to misinterpretations. *Eur J Epidemiol*. 2016;31(4):337-350.
+- Wasserstein RL, Lazar NA. The ASA statement on p-values: context, process, and purpose. *Am Stat*. 2016;70(2):129-133. doi:[10.1080/00031305.2016.1154108](https://doi.org/10.1080/00031305.2016.1154108)
+- Altman DG, Bland JM. Absence of evidence is not evidence of absence. *BMJ*. 1995;311(7003):485. doi:[10.1136/bmj.311.7003.485](https://doi.org/10.1136/bmj.311.7003.485)
+- Greenland S, *et al.* Statistical tests, P values, confidence intervals, and power: a guide to misinterpretations. *Eur J Epidemiol*. 2016;31(4):337-350. doi:[10.1007/s10654-016-0149-3](https://doi.org/10.1007/s10654-016-0149-3)
 """)
 
 c.pie(210)

@@ -360,9 +360,9 @@ c.md("""
 c.titulo(2, "Para saber más")
 c.md("""
 - Greenhalgh T. *How to Read a Paper: The Basics of Evidence-Based Healthcare*. 6.ª ed. Hoboken: Wiley-Blackwell; 2019.
-- Red EQUATOR (*Enhancing the QUAlity and Transparency Of health Research*): guías de publicación en equator-network.org.
-- Guyatt GH, *et al.* GRADE: an emerging consensus on rating quality of evidence and strength of recommendations. *BMJ*. 2008;336(7650):924-926.
-- Ioannidis JPA. Why most published research findings are false. *PLoS Med*. 2005;2(8):e124.
+- Red EQUATOR (*Enhancing the QUAlity and Transparency Of health Research*): guías de publicación en [equator-network.org](https://www.equator-network.org).
+- Guyatt GH, *et al.* GRADE: an emerging consensus on rating quality of evidence and strength of recommendations. *BMJ*. 2008;336(7650):924-926. doi:[10.1136/bmj.39489.470347.AD](https://doi.org/10.1136/bmj.39489.470347.AD)
+- Ioannidis JPA. Why most published research findings are false. *PLoS Med*. 2005;2(8):e124. doi:[10.1371/journal.pmed.0020124](https://doi.org/10.1371/journal.pmed.0020124)
 """)
 
 c.pie(300)

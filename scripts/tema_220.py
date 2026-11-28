@@ -284,8 +284,8 @@ c.md("""
 
 c.titulo(2, "Para saber más")
 c.md("""
-- Newcombe RG. Interval estimation for the difference between independent proportions: comparison of eleven methods. *Stat Med*. 1998;17(8):873-890.
-- Altman DG. *Practical Statistics for Medical Research*. Londres: Chapman & Hall; 1991. Capítulo 10.
+- Newcombe RG. Interval estimation for the difference between independent proportions: comparison of eleven methods. *Stat Med*. 1998;17(8):873-890. doi:[10.1002/(SICI)1097-0258(19980430)17:8&lt;873::AID-SIM779&gt;3.0.CO;2-I](https://doi.org/10.1002/%28SICI%291097-0258%2819980430%2917:8%3C873::AID-SIM779%3E3.0.CO;2-I)
+- Altman DG. *Practical Statistics for Medical Research*. Londres: Chapman & Hall; 1991. Capítulo 10. doi:[10.1201/9780429258589](https://doi.org/10.1201/9780429258589)
 """)
 
 c.pie(220)

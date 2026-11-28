@@ -370,7 +370,7 @@ c.titulo(2, "Para saber más")
 c.md("""
 - [Documentación de la API de Gemini](https://ai.google.dev/gemini-api/docs)
 - [Documentación de la API de OpenAI](https://platform.openai.com/docs)
-- Thirunavukarasu AJ, *et al.* Large language models in medicine. *Nat Med*. 2023;29(8):1930-1940.
+- Thirunavukarasu AJ, *et al.* Large language models in medicine. *Nat Med*. 2023;29(8):1930-1940. doi:[10.1038/s41591-023-02448-8](https://doi.org/10.1038/s41591-023-02448-8)
 """)
 
 c.pie(80)

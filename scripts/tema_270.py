@@ -335,9 +335,9 @@ c.md("""
 
 c.titulo(2, "Para saber más")
 c.md("""
-- Schneider A, Hommel G, Blettner M. Linear regression analysis: part 14 of a series on evaluation of scientific publications. *Dtsch Arztebl Int*. 2010;107(44):776-782.
-- Kyriacou DN, Lewis RJ. Confounding by indication in clinical research. *JAMA*. 2016;316(17):1818-1819.
-- Hernán MA, Robins JM. *Causal Inference: What If*. Boca Ratón: Chapman & Hall/CRC; 2020.
+- Schneider A, Hommel G, Blettner M. Linear regression analysis: part 14 of a series on evaluation of scientific publications. *Dtsch Arztebl Int*. 2010;107(44):776-782. doi:[10.3238/arztebl.2010.0776](https://doi.org/10.3238/arztebl.2010.0776)
+- Kyriacou DN, Lewis RJ. Confounding by indication in clinical research. *JAMA*. 2016;316(17):1818-1819. doi:[10.1001/jama.2016.16435](https://doi.org/10.1001/jama.2016.16435)
+- Hernán MA, Robins JM. *Causal Inference: What If*. Boca Ratón: Chapman & Hall/CRC; 2020. Disponible gratis en: [miguelhernan.org/whatifbook](https://miguelhernan.org/whatifbook).
 - SIMUSTAT Unidigital UMH. [Tema 440. Modelos de regresión lineal múltiple](https://colab.research.google.com/drive/1grLb-PnvbVToKJwhFBmElP4TwH4D4Na5). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 """)
 

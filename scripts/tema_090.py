@@ -391,7 +391,7 @@ c.md("""
 
 c.titulo(2, "Para saber más")
 c.md("""
-- Lim WS, *et al.* Defining community acquired pneumonia severity on presentation to hospital: an international derivation and validation study. *Thorax*. 2003;58(5):377-382.
+- Lim WS, *et al.* Defining community acquired pneumonia severity on presentation to hospital: an international derivation and validation study. *Thorax*. 2003;58(5):377-382. doi:[10.1136/thorax.58.5.377](https://doi.org/10.1136/thorax.58.5.377)
 - [Tutorial de Python: errores y excepciones](https://docs.python.org/es/3/tutorial/errors.html)
 """)
 

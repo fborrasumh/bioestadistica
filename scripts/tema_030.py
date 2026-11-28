@@ -324,8 +324,8 @@ c.md("""
 c.titulo(2, "Para saber más")
 c.md("""
 - [Tutorial de Python: la sentencia if](https://docs.python.org/es/3/tutorial/controlflow.html#if-statements)
-- Singer M, *et al.* The Third International Consensus Definitions for Sepsis and Septic Shock (Sepsis-3). *JAMA*. 2016;315(8):801-810.
-- Mancia G, *et al.* 2023 ESH Guidelines for the management of arterial hypertension. *J Hypertens*. 2023;41(12):1874-2071.
+- Singer M, *et al.* The Third International Consensus Definitions for Sepsis and Septic Shock (Sepsis-3). *JAMA*. 2016;315(8):801-810. doi:[10.1001/jama.2016.0287](https://doi.org/10.1001/jama.2016.0287)
+- Mancia G, *et al.* 2023 ESH Guidelines for the management of arterial hypertension. *J Hypertens*. 2023;41(12):1874-2071. doi:[10.1097/HJH.0000000000003480](https://doi.org/10.1097/HJH.0000000000003480)
 """)
 
 c.pie(30)

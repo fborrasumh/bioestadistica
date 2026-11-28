@@ -312,9 +312,9 @@ c.md("""
 
 c.titulo(2, "Para saber más")
 c.md("""
-- Bland JM, Altman DG. Multiple significance tests: the Bonferroni method. *BMJ*. 1995;310(6973):170.
-- Holm S. A simple sequentially rejective multiple test procedure. *Scand J Stat*. 1979;6(2):65-70.
-- Simmons JP, Nelson LD, Simonsohn U. False-positive psychology: undisclosed flexibility in data collection and analysis allows presenting anything as significant. *Psychol Sci*. 2011;22(11):1359-1366.
+- Bland JM, Altman DG. Multiple significance tests: the Bonferroni method. *BMJ*. 1995;310(6973):170. doi:[10.1136/bmj.310.6973.170](https://doi.org/10.1136/bmj.310.6973.170)
+- Holm S. A simple sequentially rejective multiple test procedure. *Scand J Stat*. 1979;6(2):65-70. Disponible en: [JSTOR](https://www.jstor.org/stable/4615733).
+- Simmons JP, Nelson LD, Simonsohn U. False-positive psychology: undisclosed flexibility in data collection and analysis allows presenting anything as significant. *Psychol Sci*. 2011;22(11):1359-1366. doi:[10.1177/0956797611417632](https://doi.org/10.1177/0956797611417632)
 - SIMUSTAT Unidigital UMH. [Tema 410. Comparación de k medias](https://colab.research.google.com/drive/1hIecxDRGXpjn11UQhI6Fou-cZyzPfjwB). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 """)
 

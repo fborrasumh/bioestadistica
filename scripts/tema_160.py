@@ -366,10 +366,10 @@ c.md("""
 
 c.titulo(2, "Para saber más")
 c.md("""
-- Altman DG, Bland JM. Diagnostic tests 1: sensitivity and specificity. *BMJ*. 1994;308(6943):1552.
-- Altman DG, Bland JM. Diagnostic tests 2: predictive values. *BMJ*. 1994;309(6947):102.
-- Altman DG, Bland JM. Diagnostic tests 3: receiver operating characteristic plots. *BMJ*. 1994;309(6948):188.
-- Bossuyt PM, *et al.* STARD 2015: an updated list of essential items for reporting diagnostic accuracy studies. *BMJ*. 2015;351:h5527.
+- Altman DG, Bland JM. Diagnostic tests 1: sensitivity and specificity. *BMJ*. 1994;308(6943):1552. doi:[10.1136/bmj.308.6943.1552](https://doi.org/10.1136/bmj.308.6943.1552)
+- Altman DG, Bland JM. Diagnostic tests 2: predictive values. *BMJ*. 1994;309(6947):102. doi:[10.1136/bmj.309.6947.102](https://doi.org/10.1136/bmj.309.6947.102)
+- Altman DG, Bland JM. Diagnostic tests 3: receiver operating characteristic plots. *BMJ*. 1994;309(6948):188. doi:[10.1136/bmj.309.6948.188](https://doi.org/10.1136/bmj.309.6948.188)
+- Bossuyt PM, *et al.* STARD 2015: an updated list of essential items for reporting diagnostic accuracy studies. *BMJ*. 2015;351:h5527. doi:[10.1136/bmj.h5527](https://doi.org/10.1136/bmj.h5527)
 - SIMUSTAT Unidigital UMH. [Tema 280. Conceptos de probabilidad y su uso en la evaluación de pruebas diagnósticas](https://colab.research.google.com/drive/1Gp4XYiZjO1WChLRRTHugtbQziSoJOR7N). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 """)
 

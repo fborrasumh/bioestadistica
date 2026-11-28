@@ -348,8 +348,8 @@ c.md("""
 
 c.titulo(2, "Para saber más")
 c.md("""
-- Gardner MJ, Altman DG. Confidence intervals rather than P values: estimation rather than hypothesis testing. *Br Med J (Clin Res Ed)*. 1986;292(6522):746-750.
-- Brown LD, Cai TT, DasGupta A. Interval estimation for a binomial proportion. *Stat Sci*. 2001;16(2):101-133.
+- Gardner MJ, Altman DG. Confidence intervals rather than P values: estimation rather than hypothesis testing. *Br Med J (Clin Res Ed)*. 1986;292(6522):746-750. doi:[10.1136/bmj.292.6522.746](https://doi.org/10.1136/bmj.292.6522.746)
+- Brown LD, Cai TT, DasGupta A. Interval estimation for a binomial proportion. *Stat Sci*. 2001;16(2):101-133. doi:[10.1214/ss/1009213286](https://doi.org/10.1214/ss/1009213286)
 - SIMUSTAT Unidigital UMH. [Tema 340. Intervalos de confianza](https://colab.research.google.com/drive/1E3ZnSADV8illRxGCETQRZ5WWA3Q30vQ-). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 - SIMUSTAT Unidigital UMH. [Tema 390. Inferencia de una media poblacional](https://colab.research.google.com/drive/1R4EMXLhHqQMuq9OxEzunVhHCPrcKFxkR). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 """)

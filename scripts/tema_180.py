@@ -356,8 +356,8 @@ c.md("""
 
 c.titulo(2, "Para saber más")
 c.md("""
-- Altman DG, Bland JM. The normal distribution. *BMJ*. 1995;310(6975):298.
-- Clinical and Laboratory Standards Institute. *Defining, establishing, and verifying reference intervals in the clinical laboratory*. Guía EP28-A3c. CLSI; 2010.
+- Altman DG, Bland JM. The normal distribution. *BMJ*. 1995;310(6975):298. doi:[10.1136/bmj.310.6975.298](https://doi.org/10.1136/bmj.310.6975.298)
+- Clinical and Laboratory Standards Institute. *Defining, establishing, and verifying reference intervals in the clinical laboratory*. Guía EP28-A3c. CLSI; 2010. Disponible en: [clsi.org](https://clsi.org/shop/standards/ep28/).
 - [Documentación de scipy.stats.norm](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.norm.html)
 - SIMUSTAT Unidigital UMH. [Tema 300. Variables aleatorias continuas](https://colab.research.google.com/drive/1ZEHacTllQDLH3cAQhLf7x6l0WIk98clg). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 """)

@@ -316,7 +316,7 @@ c.titulo(2, "Para saber más")
 c.md("""
 - [Pandas: unir, combinar y concatenar](https://pandas.pydata.org/docs/user_guide/merging.html)
 - [Pandas: agrupar datos con groupby](https://pandas.pydata.org/docs/user_guide/groupby.html)
-- American Diabetes Association. Standards of Care in Diabetes. *Diabetes Care* (edición anual): objetivos de HbA1c.
+- American Diabetes Association. Standards of Care in Diabetes. *Diabetes Care* (edición anual): objetivos de HbA1c. Edición 2026 disponible en: [Diabetes Care, suplemento 1](https://diabetesjournals.org/care/issue/49/Supplement_1).
 """)
 
 c.pie(110)

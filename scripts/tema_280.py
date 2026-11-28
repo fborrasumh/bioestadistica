@@ -295,9 +295,9 @@ c.md("""
 
 c.titulo(2, "Para saber más")
 c.md("""
-- Peduzzi P, Concato J, Kemper E, Holford TR, Feinstein AR. A simulation study of the number of events per variable in logistic regression analysis. *J Clin Epidemiol*. 1996;49(12):1373-1379.
-- Riley RD, *et al.* Calculating the sample size required for developing a clinical prediction model. *BMJ*. 2020;368:m441.
-- Sperandei S. Understanding logistic regression analysis. *Biochem Med (Zagreb)*. 2014;24(1):12-18.
+- Peduzzi P, Concato J, Kemper E, Holford TR, Feinstein AR. A simulation study of the number of events per variable in logistic regression analysis. *J Clin Epidemiol*. 1996;49(12):1373-1379. doi:[10.1016/S0895-4356(96)00236-3](https://doi.org/10.1016/S0895-4356%2896%2900236-3)
+- Riley RD, *et al.* Calculating the sample size required for developing a clinical prediction model. *BMJ*. 2020;368:m441. doi:[10.1136/bmj.m441](https://doi.org/10.1136/bmj.m441)
+- Sperandei S. Understanding logistic regression analysis. *Biochem Med (Zagreb)*. 2014;24(1):12-18. doi:[10.11613/BM.2014.003](https://doi.org/10.11613/BM.2014.003)
 """)
 
 c.pie(280)

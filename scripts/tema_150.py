@@ -334,9 +334,9 @@ c.md("""
 
 c.titulo(2, "Para saber más")
 c.md("""
-- Gigerenzer G, *et al.* Helping doctors and patients make sense of health statistics. *Psychol Sci Public Interest*. 2007;8(2):53-96.
-- Deeks JJ, Altman DG. Diagnostic tests 4: likelihood ratios. *BMJ*. 2004;329(7458):168-169.
-- Fagan TJ. Nomogram for Bayes's theorem. *N Engl J Med*. 1975;293(5):257.
+- Gigerenzer G, *et al.* Helping doctors and patients make sense of health statistics. *Psychol Sci Public Interest*. 2007;8(2):53-96. doi:[10.1111/j.1539-6053.2008.00033.x](https://doi.org/10.1111/j.1539-6053.2008.00033.x)
+- Deeks JJ, Altman DG. Diagnostic tests 4: likelihood ratios. *BMJ*. 2004;329(7458):168-169. doi:[10.1136/bmj.329.7458.168](https://doi.org/10.1136/bmj.329.7458.168)
+- Fagan TJ. Nomogram for Bayes's theorem. *N Engl J Med*. 1975;293(5):257. doi:[10.1056/NEJM197507312930513](https://doi.org/10.1056/NEJM197507312930513)
 """)
 
 c.pie(150)
