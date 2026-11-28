@@ -69,6 +69,7 @@ Para resumir una serie se usa una variable que se inicializa **antes** del bucle
 `total = total + valor` puede abreviarse como `total += valor`.
 """)
 c.titulo(3, "2.3 El bucle while")
+c.diagrama('Diagrama de flujo de un while que divide la concentración entre 2 mientras sea al menos 10 mg/L: 100, 50, 25, 12,5 y 6,25; 4 vidas medias.', nombre="e2_3")
 c.md("""
 ```python
 while condición:

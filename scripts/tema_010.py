@@ -67,6 +67,7 @@ Responder exige **convertir los registros clínicos en datos**, **resumirlos** y
 # 2
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Bioestadística y medicina basada en la evidencia")
+c.diagrama('Diagrama de Venn: la decisión clínica une evidencia científica, experiencia clínica y valores del paciente; la bioestadística aporta describir, medir la incertidumbre y generalizar.', nombre="e2_1")
 c.md("""
 La **bioestadística** es la aplicación de los métodos estadísticos a las ciencias de la vida y de la salud. Proporciona las herramientas para:
 
@@ -103,6 +104,7 @@ Una variable cualitativa con solo dos categorías (fumador sí/no, curado sí/no
 Una **variable derivada** se calcula a partir de otras: el IMC se obtiene del peso y la talla.
 """)
 c.titulo(3, "2.4 Por qué programar")
+c.diagrama('Comparación de hoja de cálculo y código en reproducibilidad, escalabilidad y trazabilidad.', nombre="e2_4")
 c.md("""
 Una hoja de cálculo es suficiente para 30 pacientes. Para 3.000, o para repetir el mismo análisis cada mes con datos nuevos, el código ofrece tres ventajas:
 

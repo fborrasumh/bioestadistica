@@ -56,6 +56,7 @@ Un **modelo de lenguaje de gran tamaño** (LLM, *large language model*) es una r
 Así, tras «El paciente refiere dolor torácico de características…», el token «opresivas» tendrá una probabilidad alta, y «azules», una muy baja. El modelo no consulta una base de datos ni comprueba hechos: **genera lo probable**.
 """)
 c.titulo(3, "2.2 La temperatura")
+c.diagrama('Tres gráficos de barras con la probabilidad de cinco tokens a temperatura 0,2, 1 y 2: con más temperatura, los tokens poco probables ganan peso.', nombre="e2_2")
 c.md("""
 La **temperatura** controla cómo se elige el siguiente token:
 

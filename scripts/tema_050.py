@@ -68,6 +68,7 @@ def nombre_de_la_funcion(parametro_1, parametro_2):
 Definir una función **no la ejecuta**: solo la guarda. Se ejecuta al **llamarla**: `imc(68, 1.63)`.
 """)
 c.titulo(3, "2.2 Por qué usar funciones")
+c.diagrama('Una función cha2ds2_vasc se usa en la consulta, en el informe de alta y en las pruebas; un cambio se corrige en un solo sitio.', nombre="e2_2")
 c.md("""
 - **Una sola fuente de verdad:** si la fórmula cambia, se corrige en un único sitio.
 - **Legibilidad:** `cha2ds2_vasc(...)` se entiende mejor que diez líneas de sumas.

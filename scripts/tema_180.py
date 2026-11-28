@@ -48,6 +48,7 @@ La distribución normal explica cómo se construyen los intervalos de referencia
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Variables continuas y función de densidad")
+c.diagrama('Curva de densidad de la PAS con el área entre 120 y 140 mmHg sombreada; la probabilidad de un valor exacto es 0.', nombre="e2_1")
 c.md("""
 Una variable continua (peso, glucemia, presión arterial) puede tomar cualquier valor en un intervalo. Su comportamiento se describe con una **función de densidad** *f*(*x*):
 

@@ -77,6 +77,7 @@ c.md("""
 El azar se controla con el tamaño muestral y se cuantifica con el IC y el valor p. **Los sesgos no**: un estudio enorme y sesgado da una respuesta precisa y equivocada.
 """)
 c.titulo(3, "2.3 Diez preguntas para leer un resumen")
+c.diagrama('Las diez preguntas de lectura crítica agrupadas en cuatro bloques: pregunta y diseño, resultados, sesgos y aplicación.', nombre="e2_3")
 c.md("""
 1. ¿Cuál es la pregunta PICO?
 2. ¿Qué diseño es? ¿Permite conclusiones causales?

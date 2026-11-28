@@ -53,6 +53,7 @@ Antes de calcular nada hay que **representar cada dato con el tipo adecuado**. S
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Tipos de datos básicos")
+c.diagrama('Los cinco tipos de dato (int, float, str, bool, None) con un ejemplo clínico de cada uno; el dato ausente no es un cero.', nombre="e2_1")
 c.md("""
 | Tipo en Python | Nombre | Ejemplo | Variable clínica que suele representar |
 | --- | --- | --- | --- |

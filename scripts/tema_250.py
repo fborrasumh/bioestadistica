@@ -57,6 +57,7 @@ En todas, el estadístico tiene la misma estructura:
 $$t = \\frac{\\text{diferencia observada} - \\text{diferencia bajo } H_0}{\\text{error estándar de la diferencia}}$$
 """)
 c.titulo(3, "2.2 Welch o Student clásica")
+c.diagrama('Simulación con medias iguales y varianzas distintas: la t clásica da muchos más falsos positivos que el 5 % nominal; Welch, alrededor del 5 %.', nombre="e2_2")
 c.md("""
 La prueba *t* clásica para dos muestras supone que las **varianzas son iguales** en los dos grupos. La versión de **Welch** no lo supone y ajusta los grados de libertad. Cuando las varianzas son iguales, las dos dan casi lo mismo; cuando no lo son, la clásica puede equivocarse. Por eso se recomienda usar **Welch por defecto**, sin contrastar antes la igualdad de varianzas.
 """)
@@ -76,6 +77,7 @@ c.md("""
 Los contrastes formales de normalidad (Shapiro-Wilk) tienen poco valor: con muestras pequeñas casi nunca detectan nada, y con muestras grandes detectan desviaciones irrelevantes.
 """)
 c.titulo(3, "2.5 Tamaño del efecto: d de Cohen")
+c.diagrama('Tres pares de curvas normales con d de Cohen 0,2, 0,5 y 0,8 y su solapamiento.', nombre="e2_5")
 c.md("""
 $$d = \\frac{\\bar{x}_1 - \\bar{x}_2}{s_{\\text{conjunta}}}$$
 

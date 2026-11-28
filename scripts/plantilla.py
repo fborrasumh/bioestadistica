@@ -79,9 +79,9 @@ class Cuaderno:
         if d.get("codigo"):
             self.code(f"#@title {d.get('titulo_codigo', 'Figura: ' + d['titulo'])}\n" + d["codigo"].strip(), oculta=True)
 
-    def diagrama(self, alt, ancho=760):
-        """Inserta el diagrama del tema (figuras/tema_XXX_esquema.png), con texto alternativo."""
-        self.md(f'<img src="{FIGURAS}/tema_{self.numero:03d}_esquema.png" width="{ancho}" alt="{html.escape(alt)}">')
+    def diagrama(self, alt, ancho=760, nombre="esquema"):
+        """Inserta un diagrama del tema (figuras/tema_XXX_<nombre>.png), con texto alternativo."""
+        self.md(f'<img src="{FIGURAS}/tema_{self.numero:03d}_{nombre}.png" width="{ancho}" alt="{html.escape(alt)}">')
 
     def cabecera(self, numero, titulo, modulo, duracion, practica=True, nota=""):
         badge = (

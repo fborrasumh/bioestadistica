@@ -45,6 +45,7 @@ Los dos tienen el mismo problema: **cuantas más comparaciones se hacen, más pr
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 El problema de las comparaciones múltiples")
+c.diagrama('Curva de la probabilidad de al menos un falso positivo según el número de comparaciones: 5 %, 14 %, 40 % y 64 % con 1, 3, 10 y 20.', nombre="e2_1")
 c.md("""
 Supón que cada prueba tiene α = 0,05 y que las hipótesis nulas son ciertas. La probabilidad de **al menos un falso positivo** en *k* pruebas independientes es $1 - 0{,}95^k$:
 

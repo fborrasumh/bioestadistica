@@ -48,6 +48,7 @@ La primera impresiona más; la segunda es la que necesita el paciente para decid
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 La tabla 2 × 2")
+c.diagrama('Tabla 2 × 2 con las fórmulas de riesgo y odds de cada fila, y del RR y la OR.', nombre="e2_1")
 c.md("""
 | | Evento sí | Evento no | Total |
 | --- | --- | --- | --- |

@@ -72,6 +72,7 @@ c.md("""
 Lo que hace que el ciclo funcione no es el modelo, sino la **calidad del criterio de verificación**. Un modelo excelente con pruebas pobres produce código que parece correcto y no lo es.
 """)
 c.titulo(3, "2.2 Primero la especificación y las pruebas")
+c.diagrama('Cuatro pasos en orden: especificación, casos de prueba, pedir el código y ejecutar las pruebas; escribir las pruebas después del código es un error.', nombre="e2_2")
 c.md("""
 El orden correcto, que en ingeniería del software se llama **desarrollo guiado por pruebas**:
 
@@ -98,6 +99,7 @@ c.md("""
 - Conviene guardar algunas pruebas **reservadas** que el modelo no ve, para comprobar al final. Volveremos sobre esta idea en el Módulo 5.
 """)
 c.titulo(3, "2.5 Seguridad")
+c.diagrama('Cuatro comprobaciones antes de ejecutar código generado por IA: leerlo, entorno aislado, permisos mínimos y sin datos de pacientes.', nombre="e2_5")
 c.md("""
 Ejecutar código generado por IA es ejecutar código de un desconocido:
 

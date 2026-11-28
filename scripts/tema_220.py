@@ -46,6 +46,7 @@ Son las dos situaciones típicas de inferencia con proporciones: comparar **una*
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Una proporción frente a un valor de referencia")
+c.diagrama('Distribución binomial del número de fumadores si la prevalencia fuera del 22 %, con el valor observado de la cohorte.', nombre="e2_1")
 c.md("""
 - $H_0$: *p* = $p_0$ (la proporción de la población es la de referencia).
 - $H_1$: *p* ≠ $p_0$.
@@ -55,6 +56,7 @@ Si $H_0$ es cierta, el número de casos en *n* pacientes sigue una distribución
 $$z = \\frac{\\hat{p} - p_0}{\\sqrt{p_0(1-p_0)/n}}$$
 """)
 c.titulo(3, "2.2 Dos proporciones independientes")
+c.diagrama('Proporción de fumadores en hombres y mujeres con sus IC 95 %, y la diferencia con su IC.', nombre="e2_2")
 c.md("""
 - $H_0$: $p_1 = p_2$.
 - Estimación del efecto: la **diferencia de proporciones** $\\hat{p}_1 - \\hat{p}_2$, con su IC 95 %.

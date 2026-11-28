@@ -58,6 +58,7 @@ $$Y = \\beta_0 + \\beta_1 X + \\varepsilon$$
 Se estima por **mínimos cuadrados**: la recta que hace mínima la suma de los residuos al cuadrado. Para β₁ se calcula un IC 95 % y un contraste de $H_0$: β₁ = 0. El Tema 130 vio la correlación; la regresión, además, cuantifica cuánto cambia *Y*.
 """)
 c.titulo(3, "2.2 La regresión lineal múltiple")
+c.diagrama('Puntos de PAS frente a edad por sexo con dos rectas paralelas del modelo ajustado; la distancia entre ellas es el coeficiente de mujer.', nombre="e2_2")
 c.md("""
 $$Y = \\beta_0 + \\beta_1 X_1 + \\beta_2 X_2 + \\dots + \\beta_k X_k + \\varepsilon$$
 
@@ -66,6 +67,7 @@ Cada coeficiente $\\beta_j$ es el cambio medio de *Y* por unidad de $X_j$ **mant
 Las variables **cualitativas** entran como variables indicadoras (0/1). Con `sexo`, el coeficiente de «Mujer» es la diferencia media entre mujeres y hombres (la categoría de referencia), a igualdad de las demás variables.
 """)
 c.titulo(3, "2.3 Confusión")
+c.diagrama('Esquema causal en el que la edad causa la PAS y la creatinina, y barras del coeficiente de la PAS crudo y ajustado por edad.', nombre="e2_3")
 c.md("""
 Una variable es **de confusión** si está asociada a la exposición y al resultado, y no es un paso intermedio entre ambas. Distorsiona la asociación observada.
 

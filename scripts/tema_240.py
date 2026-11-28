@@ -46,6 +46,7 @@ La primera pregunta no se responde con la prueba *z* de dos proporciones indepen
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Datos apareados")
+c.diagrama('Dos gráficos de puntos: grupos independientes frente a datos apareados, donde una línea une a cada paciente consigo mismo.', nombre="e2_1")
 c.md("""
 Los datos son apareados cuando cada observación de un grupo tiene una pareja natural en el otro:
 

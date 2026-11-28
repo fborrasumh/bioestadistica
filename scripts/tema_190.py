@@ -46,12 +46,14 @@ Esta variabilidad entre muestras no es un defecto: es inevitable, y se puede **c
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 El método de Monte Carlo")
+c.diagrama('Ciclo de Monte Carlo: modelo, simular una muestra, calcular el estadístico, guardarlo y repetir miles de veces.', nombre="e2_1")
 c.md("""
 Consiste en estimar una cantidad **repitiendo muchas veces un experimento aleatorio simulado** y resumiendo los resultados. Ya lo hemos usado para comprobar cálculos de probabilidad (Temas 140 a 170). Hoy lo usaremos para algo que sería imposible en la realidad: extraer miles de muestras de la misma población.
 
 Se llama así por el casino de Montecarlo. Lo desarrollaron en los años cuarenta Stanislaw Ulam y John von Neumann.
 """)
 c.titulo(3, "2.2 Población, muestra y distribución muestral")
+c.diagrama('Tres histogramas: la población, una muestra de 30 y la distribución muestral de la media, con su error estándar.', nombre="e2_2")
 c.md("""
 | Distribución | Qué describe | Su dispersión |
 | --- | --- | --- |

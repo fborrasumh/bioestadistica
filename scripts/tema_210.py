@@ -62,6 +62,7 @@ El contraste supone que $H_0$ es cierta y mide hasta qué punto los datos son **
 El contraste es **bilateral** si $H_1$ admite diferencias en cualquier sentido, y **unilateral** si solo en uno. En Medicina se usan casi siempre contrastes bilaterales.
 """)
 c.titulo(3, "2.2 El valor p")
+c.diagrama('Distribución del estadístico si H₀ es cierta, con las dos colas más allá del valor observado sombreadas: su suma es el valor p.', nombre="e2_2")
 c.md("""
 El **valor p** es la probabilidad de obtener un resultado **igual o más extremo** que el observado **si la hipótesis nula fuera cierta**.
 

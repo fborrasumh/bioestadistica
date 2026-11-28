@@ -54,6 +54,7 @@ c.md("""
 | | VP + FN | FP + VN | Total |
 """)
 c.titulo(3, "2.2 Los índices")
+c.diagrama('Tabla 2 × 2 que muestra qué casillas usa cada índice: sensibilidad y especificidad por columnas, valores predictivos por filas.', nombre="e2_2")
 c.md("""
 | Índice | Fórmula | Pregunta que responde | ¿Depende de la prevalencia? |
 | --- | --- | --- | --- |

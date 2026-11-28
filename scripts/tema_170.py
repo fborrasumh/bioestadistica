@@ -46,6 +46,7 @@ Para responderla necesitamos un **modelo de probabilidad para recuentos**. Los r
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Variable aleatoria discreta")
+c.diagrama('Función de probabilidad y función de distribución del número de hijos enfermos de 3, con E(X) = 0,75.', nombre="e2_1")
 c.md("""
 Una **variable aleatoria** asigna un número a cada resultado de un experimento aleatorio. Es **discreta** si toma valores aislados, normalmente recuentos: 0, 1, 2…
 

@@ -62,12 +62,14 @@ Saber que ha ocurrido B **reduce el espacio muestral** a los casos de B. Por eje
 **Cuidado con el orden:** P(positivo | cáncer) = 0,90 no es lo mismo que P(cáncer | positivo) ≈ 0,09. Confundirlas es la esencia de la falacia del caso.
 """)
 c.titulo(3, "2.2 Independencia")
+c.diagrama('Dos cuadrados de áreas: con independencia, A ocupa la misma proporción en B y en no B; con dependencia, no.', nombre="e2_2")
 c.md("""
 A y B son **independientes** si saber que ocurrió uno no cambia la probabilidad del otro:
 
 $$P(A \\mid B) = P(A) \\quad\\Longleftrightarrow\\quad P(A \\cap B) = P(A) \\cdot P(B)$$
 """)
 c.titulo(3, "2.3 Multiplicación, probabilidad total y Bayes")
+c.diagrama('Árbol de probabilidades de la mamografía: prevalencia 1 %, sensibilidad 0,90 y falsos positivos 0,09; P(enferma | +) = 9,2 %.', nombre="e2_3")
 c.md("""
 **Regla de la multiplicación:** $P(A \\cap B) = P(A \\mid B)\\, P(B)$
 
@@ -101,6 +103,7 @@ El teorema de Bayes se entiende mucho mejor con **frecuencias naturales**, como 
 ```
 """)
 c.titulo(3, "2.5 Odds y cocientes de probabilidad")
+c.diagrama('Curvas de probabilidad posprueba frente a preprueba para LR de 10, 2, 1, 0,5 y 0,1.', nombre="e2_5")
 c.md("""
 Las ***odds*** expresan la probabilidad como cociente entre que ocurra y que no ocurra:
 

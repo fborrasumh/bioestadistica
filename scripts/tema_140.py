@@ -48,6 +48,7 @@ El médico no puede predecir qué ocurrirá en un embarazo concreto, pero sí cu
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Experimento, espacio muestral y suceso")
+c.diagrama('Cuadro de Punnett de dos portadores: espacio muestral AA, Aa, aA y aa; enfermo 1/4, portador sano 2/4 y no enfermo 3/4.', nombre="e2_1")
 c.md("""
 | Concepto | Definición | En el caso |
 | --- | --- | --- |

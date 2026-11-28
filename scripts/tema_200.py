@@ -46,6 +46,7 @@ Con los métodos de hoy la respuesta es: entre el 52,7 % y el 69,9 %, con una co
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Parámetro, estimador y estimación")
+c.diagrama('Cuatro dianas con estimaciones de muestras distintas: insesgado o sesgado, eficiente o poco eficiente.', nombre="e2_1")
 c.md("""
 | Concepto | Definición | Ejemplo |
 | --- | --- | --- |
@@ -57,6 +58,7 @@ c.md("""
 Un buen estimador tiene tres propiedades. Es **insesgado**: su distribución muestral está centrada en el parámetro. Es **eficiente**: tiene poca variabilidad. Es **consistente**: se acerca al parámetro al aumentar *n*. La media y la proporción muestrales cumplen las tres propiedades.
 """)
 c.titulo(3, "2.2 Intervalo de confianza de una media")
+c.diagrama('Curvas normal y t de Student con 9 grados de libertad, con sus valores críticos ±1,96 y ±2,26.', nombre="e2_2")
 c.md("""
 Como no se conoce σ, se usa *s* y la distribución ***t* de Student** con *n* − 1 grados de libertad. Sus colas son algo más gruesas que las de la normal, para compensar esa incertidumbre adicional:
 

@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 
 from diapositivas import DIAPOS, FIGS
 from diapositivas.diagramas import TEMAS as ESQUEMAS
+from diapositivas.diagramas2 import EXTRA
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 SALIDA = os.path.join(AQUI, "..", "figuras")
@@ -36,6 +37,14 @@ for tema in ESQUEMAS:  # un diagrama por tema (tema_XXX_esquema.png)
         continue
     fig = FIGS[(tema, "esquema")]()
     ruta = os.path.join(SALIDA, f"tema_{tema:03d}_esquema.png")
+    fig.savefig(ruta, facecolor="white")
+    plt.close(fig)
+    print(ruta.split("/")[-1])
+for tema, nombre in EXTRA:  # diagramas de los apartados 2.x (tema_XXX_e2_N.png)
+    if temas and tema not in temas:
+        continue
+    fig = FIGS[(tema, nombre)]()
+    ruta = os.path.join(SALIDA, f"tema_{tema:03d}_{nombre}.png")
     fig.savefig(ruta, facecolor="white")
     plt.close(fig)
     print(ruta.split("/")[-1])

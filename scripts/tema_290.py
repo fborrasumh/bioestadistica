@@ -51,6 +51,7 @@ Como médico de la comisión que decide si se compra, debes saber hacer las preg
 
 c.titulo(2, "2. Conceptos clave (10 min)")
 c.titulo(3, "2.1 Explicar o predecir")
+c.diagrama('Dos esquemas: explicar, con X, Y y un confusor Z; predecir, con varios predictores que entran en un modelo que da un riesgo.', nombre="e2_1")
 c.md("""
 | | Modelo explicativo | Modelo predictivo |
 | --- | --- | --- |
@@ -86,6 +87,7 @@ Un modelo puede discriminar bien y estar mal calibrado: ordenar bien a los pacie
 La **exactitud** (porcentaje de aciertos con un umbral) es una mala medida cuando el evento es poco frecuente.
 """)
 c.titulo(3, "2.4 TRIPOD+AI")
+c.diagrama('Etapas de un estudio de predicción con lo que TRIPOD+AI pide en cada una: datos, variables, desarrollo, evaluación, equidad y uso.', nombre="e2_4")
 c.md("""
 La declaración **TRIPOD+AI** (*BMJ*, 2024) es la guía internacional para comunicar estudios de modelos predictivos, tanto de regresión como de aprendizaje automático. Algunos de sus apartados:
 

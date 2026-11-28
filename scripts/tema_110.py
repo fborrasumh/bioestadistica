@@ -61,6 +61,7 @@ Dos tablas se unen por una **clave**: una columna que identifica a cada paciente
 **Después de cada unión, comprueba el número de filas.** Si la clave está repetida en una de las tablas, la unión multiplica filas sin avisar.
 """)
 c.titulo(3, "2.2 Frecuencias")
+c.diagrama('Barras de frecuencia absoluta y relativa de las categorías de IMC de la cohorte, con la frecuencia acumulada en una línea.', nombre="e2_2")
 c.md("""
 | Frecuencia | Definición | Ejemplo con 400 pacientes |
 | --- | --- | --- |
