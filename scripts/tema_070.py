@@ -392,6 +392,7 @@ c.md("""
 - [Documentación del módulo csv](https://docs.python.org/es/3/library/csv.html)
 - [Documentación del módulo json](https://docs.python.org/es/3/library/json.html)
 - [Especificación de HL7 FHIR](https://hl7.org/fhir/)
+- SIMUSTAT Unidigital UMH. [Tema 100. Módulos para el tratamiento de ficheros](https://colab.research.google.com/drive/1q9hZcqKVktdQi5eDZGycieGFHDVABz2i). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 """)
 
 c.pie(70)

@@ -338,6 +338,7 @@ c.md("""
 - Schneider A, Hommel G, Blettner M. Linear regression analysis: part 14 of a series on evaluation of scientific publications. *Dtsch Arztebl Int*. 2010;107(44):776-782.
 - Kyriacou DN, Lewis RJ. Confounding by indication in clinical research. *JAMA*. 2016;316(17):1818-1819.
 - Hernán MA, Robins JM. *Causal Inference: What If*. Boca Ratón: Chapman & Hall/CRC; 2020.
+- SIMUSTAT Unidigital UMH. [Tema 440. Modelos de regresión lineal múltiple](https://colab.research.google.com/drive/1grLb-PnvbVToKJwhFBmElP4TwH4D4Na5). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 """)
 
 c.pie(270)

@@ -358,6 +358,7 @@ c.titulo(2, "Para saber más")
 c.md("""
 - Altman DG, Bland JM. Standard deviations and standard errors. *BMJ*. 2005;331(7521):903.
 - Metropolis N, Ulam S. The Monte Carlo method. *J Am Stat Assoc*. 1949;44(247):335-341.
+- SIMUSTAT Unidigital UMH. [Tema 320. Simulación de Monte Carlo y las distribuciones muestrales](https://colab.research.google.com/drive/1IMUU6YaylInQ_SiS6qfUGGpVSYLCcYDd). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 """)
 
 c.pie(190)

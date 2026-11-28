@@ -385,6 +385,8 @@ c.md("""
 - [Documentación del módulo random](https://docs.python.org/es/3/library/random.html)
 - [Documentación del módulo statistics](https://docs.python.org/es/3/library/statistics.html)
 - [Galería de ejemplos de Matplotlib](https://matplotlib.org/stable/gallery/index.html)
+- SIMUSTAT Unidigital UMH. [Tema 140. Procesado de imágenes 2D con NumPy](https://colab.research.google.com/drive/1quCl69jOeY89qRlmjrMjFC-k-8s-8NMT). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
+- SIMUSTAT Unidigital UMH. [Tema 150. Procesado de imágenes 3D con NumPy](https://colab.research.google.com/drive/1eyZmZuo3DvMjGsdQ7m6W947P-v25a0z0). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 """)
 
 c.pie(60)

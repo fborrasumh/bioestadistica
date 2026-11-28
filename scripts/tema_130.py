@@ -343,6 +343,7 @@ c.md("""
 - Messerli FH. Chocolate consumption, cognitive function, and Nobel laureates. *N Engl J Med*. 2012;367(16):1562-1564.
 - Hill AB. The environment and disease: association or causation? *Proc R Soc Med*. 1965;58(5):295-300.
 - [Galería de ejemplos de Seaborn](https://seaborn.pydata.org/examples/index.html)
+- SIMUSTAT Unidigital UMH. [Tema 210. Relación entre variables](https://colab.research.google.com/drive/1a9AGIVjIXXhIXdhwpWX0PiHnJdH212a4). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 """)
 
 c.pie(130)

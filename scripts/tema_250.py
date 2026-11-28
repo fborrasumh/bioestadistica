@@ -323,6 +323,7 @@ c.titulo(2, "Para saber más")
 c.md("""
 - Ruxton GD. The unequal variance t-test is an underused alternative to Student's t-test and the Mann-Whitney U test. *Behav Ecol*. 2006;17(4):688-690.
 - Bland JM, Altman DG. Transformations, means, and confidence intervals. *BMJ*. 1996;312(7038):1079.
+- SIMUSTAT Unidigital UMH. [Tema 400. Contraste de dos medias poblacionales](https://colab.research.google.com/drive/1URRViPWC_adC8BGr6Kn_Z8fjV4UGjgcA). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 """)
 
 c.pie(250)

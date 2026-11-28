@@ -370,6 +370,7 @@ c.md("""
 - Altman DG, Bland JM. Diagnostic tests 2: predictive values. *BMJ*. 1994;309(6947):102.
 - Altman DG, Bland JM. Diagnostic tests 3: receiver operating characteristic plots. *BMJ*. 1994;309(6948):188.
 - Bossuyt PM, *et al.* STARD 2015: an updated list of essential items for reporting diagnostic accuracy studies. *BMJ*. 2015;351:h5527.
+- SIMUSTAT Unidigital UMH. [Tema 280. Conceptos de probabilidad y su uso en la evaluación de pruebas diagnósticas](https://colab.research.google.com/drive/1Gp4XYiZjO1WChLRRTHugtbQziSoJOR7N). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 """)
 
 c.pie(160)

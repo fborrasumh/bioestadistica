@@ -356,6 +356,7 @@ c.md("""
 - Altman DG, Bland JM. Quartiles, quintiles, centiles, and other quantiles. *BMJ*. 1994;309(6960):996.
 - Altman DG, Bland JM. Standard deviations and standard errors. *BMJ*. 2005;331(7521):903.
 - [Pandas: estadística descriptiva](https://pandas.pydata.org/docs/user_guide/basics.html#descriptive-statistics)
+- SIMUSTAT Unidigital UMH. [Tema 200. Análisis descriptivo de variables](https://colab.research.google.com/drive/1dfJOHT5wc2pnlZKbkqWTzqOQ0fLK7kdN). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 """)
 
 c.pie(120)

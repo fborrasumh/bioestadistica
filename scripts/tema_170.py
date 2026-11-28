@@ -346,6 +346,7 @@ c.titulo(2, "Para saber más")
 c.md("""
 - Hanley JA, Lippman-Hand A. If nothing goes wrong, is everything all right? Interpreting zero numerators. *JAMA*. 1983;249(13):1743-1745.
 - [Documentación de scipy.stats](https://docs.scipy.org/doc/scipy/reference/stats.html)
+- SIMUSTAT Unidigital UMH. [Tema 290. Variables aleatorias discretas](https://colab.research.google.com/drive/15moQecMrAv4YYAcljLCkNV0M9Z3apCVn). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 """)
 
 c.pie(170)

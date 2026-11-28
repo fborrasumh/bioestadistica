@@ -413,6 +413,8 @@ c.md("""
 - [Guía de inicio de Pandas](https://pandas.pydata.org/docs/getting_started/index.html)
 - [Pandas: trabajar con datos perdidos](https://pandas.pydata.org/docs/user_guide/missing_data.html)
 - Sterne JAC, *et al.* Multiple imputation for missing data in epidemiological and clinical research: potential and pitfalls. *BMJ*. 2009;338:b2393.
+- SIMUSTAT Unidigital UMH. [Tema 70. Módulos math, random, time e instalación de módulos externos](https://colab.research.google.com/drive/1s8vuaHhH94JDhDjfMf2DbsdpK7d29usU). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
+- SIMUSTAT Unidigital UMH. [Tema 170. Gestión de datos con Pandas y tratamiento de valores anómalos](https://colab.research.google.com/drive/1f_m55KKTYuHCMu2ZrnnoDyw5lCkCgXhd). Cuaderno de Google Colab. Elche: Universidad Miguel Hernández; 2023.
 """)
 
 c.pie(100)
