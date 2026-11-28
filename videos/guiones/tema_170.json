@@ -1,0 +1,71 @@
+{
+ "tema": 170,
+ "titulo": "Variables aleatorias discretas: distribuciones binomial y de Poisson",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "¿Brote o azar?",
+   "subtitulo": "Variables aleatorias discretas: distribuciones binomial y de Poisson",
+   "texto": "Hola. Muchas preguntas clínicas son recuentos: cuántos pacientes responden, cuántas infecciones hay este mes. En este tema vas a modelar esos recuentos con dos distribuciones, la binomial y la de Poisson."
+  },
+  {
+   "titulo": "Ocho infecciones en marzo",
+   "ideas": [
+    "Media habitual: 3 al mes",
+    "8 o más: en 1 de cada 80 meses, aproximadamente",
+    "Raro bajo el azar: justifica investigar"
+   ],
+   "fig": "video_170_caso.png",
+   "codigo_de": "1. Caso",
+   "texto": "Cirugía General registra de media tres infecciones de herida quirúrgica al mes. En marzo hay ocho. ¿Hay que activar el protocolo de brote? El número de infecciones varía de un mes a otro por puro azar. Si nada hubiera cambiado, ocho o más casos ocurrirían, aproximadamente, en uno de cada ochenta meses. Es raro bajo el modelo de azar. Eso justifica investigar, pero no prueba que haya un brote."
+  },
+  {
+   "titulo": "Una variable aleatoria discreta",
+   "ideas": [
+    "Función de probabilidad: P(X = k)",
+    "Función de distribución: P(X ≤ k)",
+    "Esperanza y varianza"
+   ],
+   "fig": "tema_170_e2_1.png",
+   "texto": "Una variable aleatoria discreta toma valores que se cuentan: cero, uno, dos. Se describe con su función de probabilidad, que da la probabilidad de cada valor, y con su función de distribución, que acumula las probabilidades hasta un valor. Su esperanza es el valor medio a largo plazo, y su varianza mide cuánto se aleja de él."
+  },
+  {
+   "titulo": "Binomial: éxitos en n ensayos independientes",
+   "ideas": [
+    "n ensayos, misma p, independientes",
+    "Media n·p · varianza n·p·(1 − p)"
+   ],
+   "fig": "tema_170_binomial.png",
+   "texto": "La binomial cuenta los éxitos en un número fijo de ensayos independientes, todos con la misma probabilidad. Por ejemplo, cuántos pacientes de un grupo responden a un tratamiento. Su media es n por p. Si diez pacientes tienen cada uno un treinta por ciento de responder, se esperan tres. Y su varianza, n por p por uno menos p. Si los ensayos no son independientes, o la probabilidad cambia, ya no es binomial."
+  },
+  {
+   "titulo": "Poisson: recuentos de sucesos raros",
+   "ideas": [
+    "Sucesos en un intervalo, sin máximo fijo",
+    "Media = varianza = λ",
+    "Varianza mucho mayor: sobredispersión"
+   ],
+   "fig": "tema_170_poisson.png",
+   "texto": "La de Poisson cuenta sucesos en un intervalo de tiempo o de espacio, sin un máximo fijo: infecciones al mes, ingresos en la UCI en una noche. Tiene un solo parámetro, la tasa lambda. Su media y su varianza son iguales a lambda. Si la varianza observada es mucho mayor, hay sobredispersión, típica de contagios o de conglomerados."
+  },
+  {
+   "titulo": "¿Binomial, Poisson o ninguna?",
+   "ideas": [
+    "n ensayos fijos → binomial",
+    "Tasa en un intervalo → Poisson",
+    "0 casos no es riesgo cero: regla del tres"
+   ],
+   "fig": "tema_170_esquema.png",
+   "texto": "Para elegir, pregúntate qué cuentas. Si son éxitos en un número fijo de ensayos, binomial. Si son sucesos con una tasa en un intervalo, Poisson. Y un aviso: no observar ningún caso no demuestra que el riesgo sea cero. Con cero casos en n pacientes, el límite superior aproximado del riesgo es tres dividido entre n. Es la regla del tres."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 170 en Colab",
+    "Misiones: elegir modelo, ingresos en UCI, aciertos de una IA"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema ciento setenta y calcula la probabilidad de ocho o más infecciones. Después, en la app Bioestadística, tienes tres misiones: decidir si un recuento es binomial, de Poisson o ninguna; la probabilidad de cuatro o más ingresos en la UCI en una noche; y simular los aciertos de un modelo de IA en cuarenta preguntas. Nos vemos en el tema ciento ochenta."
+  }
+ ]
+}

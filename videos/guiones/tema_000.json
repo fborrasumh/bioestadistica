@@ -1,0 +1,69 @@
+{
+ "tema": 0,
+ "titulo": "Guía del entorno de trabajo: cuadernos Jupyter y Google Colab",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Tu laboratorio: Google Colab",
+   "subtitulo": "Guía del entorno de trabajo: cuadernos Jupyter y Google Colab",
+   "texto": "Hola. Antes del primer tema, vamos a preparar tu laboratorio de trabajo. En esta asignatura no usarás una hoja de cálculo. Usarás cuadernos de Google Colab. En tres minutos verás qué son, cómo se guardan y cómo se trabaja con ellos sin miedo a romper nada."
+  },
+  {
+   "titulo": "Un cuaderno es un protocolo que se puede repetir",
+   "ideas": [
+    "Texto, código y resultados en un solo documento",
+    "Se ejecuta en el navegador: no se instala nada",
+    "Cualquier persona puede repetir el análisis"
+   ],
+   "texto": "Un cuaderno Jupyter reúne en un solo documento la explicación, el código de los cálculos y sus resultados. Google Colab lo abre en el navegador y lo ejecuta en un servidor de Google, así que no hay que instalar nada. En medicina esto es esencial. Si un análisis no se puede repetir, no se puede revisar. El cuaderno es como el protocolo de un laboratorio: dice qué se hizo, con qué datos y en qué orden."
+  },
+  {
+   "titulo": "Primero, guarda tu copia",
+   "ideas": [
+    "Abrir en Colab",
+    "Archivo → Guardar una copia en Drive",
+    "Trabaja siempre en tu copia"
+   ],
+   "pregunta": "¿Dónde está tu copia? En Drive, carpeta Colab Notebooks.",
+   "texto": "El primer paso es siempre el mismo. Abre el cuaderno con el botón Abrir en Colab. El original es de solo lectura para ti. Antes de escribir nada, ve a Archivo y elige Guardar una copia en Drive. Colab crea la copia en la carpeta Colab Notebooks de tu Drive. Ponle un nombre claro, con el número del tema y tu nombre. A partir de ahí, trabaja siempre en tu copia."
+  },
+  {
+   "titulo": "Las celdas se ejecutan en orden",
+   "ideas": [
+    "Celdas de texto: Markdown y fórmulas",
+    "Celdas de código: botón ▶ o Mayús + Intro",
+    "El número [3] dice el orden de ejecución"
+   ],
+   "fig": "tema_000_esquema.png",
+   "texto": "Un cuaderno tiene dos tipos de celdas. Las de texto se escriben en Markdown y pueden llevar fórmulas. Las de código contienen Python: se ejecutan con el botón de la izquierda o con mayúsculas más intro. Las celdas comparten memoria, pero solo después de ejecutarse. El número que aparece a la izquierda indica el orden real de ejecución. Si algo falla de forma extraña, usa Entorno de ejecución y Ejecutar todo."
+  },
+  {
+   "titulo": "Un error es información, no un fracaso",
+   "ideas": [
+    "Lee el mensaje desde la última línea",
+    "NameError: la variable no existe o no se ejecutó",
+    "Corrige, vuelve a ejecutar y comprueba"
+   ],
+   "texto": "Vas a ver mensajes de error. Es normal, y es útil. Léelos desde la última línea, porque ahí está la causa. Por ejemplo, NameError indica que una variable no existe: o nunca se definió, o la celda que la define no se ha ejecutado todavía. Corrige, vuelve a ejecutar y comprueba el resultado. Así trabaja cualquier persona que programa, también los profesionales."
+  },
+  {
+   "titulo": "La clave del asistente, en Secretos",
+   "ideas": [
+    "La clave de acceso es personal, como una contraseña",
+    "Se guarda en el panel de Secretos (la llave)",
+    "Nunca datos reales de pacientes"
+   ],
+   "texto": "Colab tiene un asistente de inteligencia artificial, y en algunos temas usarás un modelo de lenguaje con tu propia clave de acceso. Esa clave es personal, como una contraseña. Se guarda en el panel de Secretos, el icono de la llave, y nunca se escribe en el código. Y una norma sin excepciones: nunca introduzcas datos reales de pacientes en un asistente."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Abre la guía en Colab y guarda tu copia",
+    "Ejecuta cada celda de código",
+    "Reto final: tu primer cuaderno clínico"
+   ],
+   "texto": "Ahora te toca a ti. Abre la guía en Colab, guarda tu copia y ejecuta cada celda a medida que lees. Prueba el formulario de la calculadora del índice de masa corporal y escribe tu primera fórmula. Al final te espera un pequeño reto: tu primer cuaderno clínico. Con esto, estás preparado para el Tema diez."
+  }
+ ]
+}

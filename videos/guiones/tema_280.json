@@ -1,0 +1,69 @@
+{
+ "tema": 280,
+ "titulo": "Modelo de regresión logística",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Predecir un sí o un no",
+   "subtitulo": "Modelo de regresión logística",
+   "texto": "Hola. Muchos resultados clínicos son un sí o un no: evento o no evento, curación o no. En este tema vas a usar la regresión logística, el modelo multivariante más usado en la investigación clínica."
+  },
+  {
+   "titulo": "¿Es la diabetes o es la edad?",
+   "ideas": [
+    "Diabéticos: más eventos (OR cruda 1,77)",
+    "Pero son algo mayores",
+    "¿Cuánto se debe a cada factor?"
+   ],
+   "texto": "En el tema doscientos treinta viste que los diabéticos de la cohorte tienen más eventos cardiovasculares a cinco años, con una odds ratio cruda de uno coma setenta y siete. Pero los diabéticos son, de media, algo mayores, y la edad es el factor de riesgo más potente. ¿Cuánto del exceso se debe a la diabetes y cuánto a la edad? Y el equipo quiere además una herramienta que dé la probabilidad de evento de cada paciente, como SCORE2."
+  },
+  {
+   "titulo": "Para un evento sí o no: la curva logística",
+   "ideas": [
+    "Una recta da probabilidades < 0 o > 1",
+    "La logística modela el logaritmo de la odds"
+   ],
+   "fig": "tema_280_logistica.png",
+   "texto": "Para un evento binario, una recta no sirve. Puede predecir probabilidades negativas o mayores que uno. Y el efecto de un factor no es igual en toda la escala: pasar del uno al dos por ciento de riesgo no es lo mismo que pasar del cincuenta al cincuenta y uno. La regresión logística modela el logaritmo de la odds como una combinación lineal de los factores, y devuelve siempre probabilidades entre cero y uno."
+  },
+  {
+   "titulo": "De los coeficientes a la probabilidad",
+   "ideas": [
+    "z = β₀ + β₁x₁ + …",
+    "odds = eᶻ",
+    "p = odds / (1 + odds)"
+   ],
+   "fig": "tema_280_esquema.png",
+   "texto": "El cálculo de la probabilidad de un paciente tiene tres pasos. Primero, se suma el término independiente y cada coeficiente multiplicado por el valor del paciente: eso es z. Segundo, la odds es e elevado a z. Tercero, la probabilidad es la odds dividida entre uno más la odds. Es lo que hacen por dentro las escalas de riesgo."
+  },
+  {
+   "titulo": "Se leen como odds ratios ajustadas",
+   "ideas": [
+    "OR = e^β",
+    "IC que cruza el 1: no significativa",
+    "Cuantitativas: OR por 10 años, por 10 mmHg"
+   ],
+   "fig": "tema_280_forest.png",
+   "texto": "Cada coeficiente, elevado a e, es una odds ratio ajustada por las demás variables. Una odds ratio mayor que uno indica más odds de evento; menor que uno, menos. Si su intervalo cruza el uno, no es significativa. Para variables cuantitativas, exprésala por un incremento con sentido clínico: por cada diez años de edad o por cada diez milímetros de presión, no por cada unidad."
+  },
+  {
+   "titulo": "Pocos eventos por variable: coeficientes inestables",
+   "ideas": [
+    "Limita el número de eventos, no de pacientes",
+    "Orientación: ≥ 10 eventos por variable",
+    "Con pocos, la OR se exagera"
+   ],
+   "fig": "tema_280_epv.png",
+   "texto": "Lo que limita un modelo logístico no es el número de pacientes, sino el de eventos. Como orientación, se piden al menos diez eventos por cada variable del modelo. Con menos, las odds ratios varían muchísimo de una muestra a otra y tienden a exagerarse. Y un factor que no sale significativo en un modelo pequeño no queda descartado: puede faltar potencia."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 280 en Colab",
+    "Misiones: coeficientes y OR, Mantel-Haenszel, eventos por variable"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema doscientos ochenta y ajusta el modelo de riesgo cardiovascular de la cohorte. Después, en la app Bioestadística, tienes tres misiones: pasar de coeficientes a odds ratios y probabilidades, la odds ratio del tabaco cruda y ajustada por sexo con Mantel-Haenszel, y decidir cuántas variables caben en un modelo. Nos vemos en el tema doscientos noventa."
+  }
+ ]
+}

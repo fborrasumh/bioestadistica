@@ -1,0 +1,68 @@
+{
+ "tema": 240,
+ "titulo": "Datos apareados y concordancia: McNemar y kappa de Cohen",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Los mismos casos, dos veces",
+   "subtitulo": "Análisis de datos apareados y de concordancia: prueba de McNemar e índice kappa de Cohen",
+   "texto": "Hola. A veces se comparan dos pruebas, dos modelos o dos observadores con los mismos pacientes. Esos datos son apareados, y se analizan de otra manera. En este tema vas a ver cómo."
+  },
+  {
+   "titulo": "Dos modelos de IA, los mismos 200 casos",
+   "ideas": [
+    "Si aciertan o fallan los dos, no informan",
+    "McNemar compara los discordantes: 22 frente a 8"
+   ],
+   "fig": "tema_240_caso.png",
+   "texto": "Urgencias evalúa un asistente de inteligencia artificial que propone el nivel de triaje. El modelo nuevo y el anterior se prueban con los mismos doscientos casos, con el triaje correcto fijado por un panel de expertos. El nuevo acierta el ochenta y uno por ciento. ¿Es mejor? Los casos en que aciertan los dos, o fallan los dos, no dicen cuál es mejor. Lo que importa son los discordantes: veintidós casos en que solo acierta el nuevo, frente a ocho en que solo acierta el anterior."
+  },
+  {
+   "titulo": "Grupos independientes o datos apareados",
+   "ideas": [
+    "Mismos pacientes o mismas preguntas: apareados",
+    "El apareamiento aumenta la potencia",
+    "…si se analiza como tal"
+   ],
+   "fig": "tema_240_e2_1.png",
+   "texto": "¿Cuándo son apareados los datos? Cuando cada observación de un grupo tiene su pareja en el otro: el mismo paciente antes y después, la misma radiografía leída por dos radiólogos, el mismo caso resuelto por dos modelos. El apareamiento elimina la variabilidad entre pacientes y aumenta la potencia. Pero solo si se analiza como apareado. Con una ji cuadrado normal se pierde esa ventaja."
+  },
+  {
+   "titulo": "McNemar: solo los pares discordantes",
+   "ideas": [
+    "a y d no informan",
+    "Se comparan b y c",
+    "Sin diferencia, b ≈ c"
+   ],
+   "fig": "tema_240_esquema.png",
+   "texto": "La prueba de McNemar ordena los pares en una tabla. Las casillas en que los dos aciertan o los dos fallan no informan sobre la diferencia. McNemar compara solo las dos casillas discordantes. Si los modelos fueran igual de buenos, los discordantes se repartirían por igual entre las dos casillas. Veintidós frente a ocho es un reparto muy desigual."
+  },
+  {
+   "titulo": "Kappa: el acuerdo que no se debe al azar",
+   "ideas": [
+    "κ = (observado − esperado) / (1 − esperado)",
+    "Ordinales: kappa ponderada"
+   ],
+   "fig": "tema_240_kappa.png",
+   "texto": "La segunda pregunta es otra: ¿coinciden el modelo y la enfermera de triaje? Para la concordancia se usa la kappa de Cohen. Parte del acuerdo observado y le resta el acuerdo que se esperaría solo por azar. Una kappa de uno es acuerdo perfecto; de cero, el que daría el azar. En escalas ordinales, como los niveles de triaje, se usa la kappa ponderada, que castiga más los desacuerdos grandes."
+  },
+  {
+   "titulo": "Asociación perfecta, concordancia nula",
+   "ideas": [
+    "Siempre un nivel más: asociados y nunca de acuerdo",
+    "Ji cuadrado: asociación · kappa: concordancia"
+   ],
+   "fig": "tema_240_asociacion.png",
+   "texto": "Cuidado con confundir asociación y concordancia. Si un observador puntúa siempre un nivel más que otro, sus puntuaciones están perfectamente asociadas, pero nunca coinciden. La ji cuadrado mide asociación; la kappa, concordancia. Y otra cosa: dos observadores pueden estar muy de acuerdo y equivocarse los dos. Concordancia no es validez."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 240 en Colab",
+    "Misiones: kappa a mano, dos cribados, ¿ayuda la pista?"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema doscientos cuarenta y compara los dos modelos con McNemar y su concordancia con kappa. Después, en la app Bioestadística, tienes tres misiones: la kappa de Cohen a mano, dos pruebas de cribado en los mismos pacientes, y un reto con tus propios datos: ¿mejora tu resultado tras la pista de la app? Nos vemos en el tema doscientos cincuenta."
+  }
+ ]
+}

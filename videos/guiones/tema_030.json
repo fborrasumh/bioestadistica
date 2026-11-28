@@ -1,0 +1,70 @@
+{
+ "tema": 30,
+ "titulo": "Lógica booleana y estructuras condicionales aplicadas a la clasificación clínica",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Reglas clínicas en código",
+   "subtitulo": "Lógica booleana y estructuras condicionales aplicadas a la clasificación clínica",
+   "texto": "Hola. Muchas decisiones clínicas son reglas: si se cumple esto, entonces aquello. En este tema vas a escribir esas reglas en Python, y vas a aprender dónde suelen estar los errores: en las fronteras."
+  },
+  {
+   "titulo": "Antonio en Urgencias: la escala qSOFA",
+   "ideas": [
+    "FR ≥ 22 rpm · PAS ≤ 100 mmHg · alteración mental",
+    "Cada criterio es una comparación: sí o no",
+    "La puntuación decide la conducta"
+   ],
+   "fig": "tema_030_qsofa.png",
+   "texto": "Antonio tiene setenta y siete años y llega a Urgencias con fiebre y sospecha de infección respiratoria. Respira a veinticuatro por minuto, tiene una sistólica de noventa y seis y está desorientado. La escala qSOFA suma un punto por cada criterio: frecuencia respiratoria de veintidós o más, sistólica de cien o menos y alteración del estado mental. Antonio suma tres. Cada criterio es una pregunta de sí o no, y eso, en Python, es una comparación."
+  },
+  {
+   "titulo": "Comparar es responder sí o no",
+   "ideas": [
+    "fr_rpm >= 22 → True o False",
+    ">= incluye el 22; > lo excluye",
+    "Copia los límites exactos de la guía"
+   ],
+   "fig": "tema_030_esquema.png",
+   "texto": "Una comparación produce verdadero o falso. Y aquí está el primer error típico. Mayor o igual que veintidós incluye el veintidós. Mayor que veintidós lo excluye. Un paciente que respira exactamente a veintidós por minuto cumple el criterio en la guía. Si escribes mal el signo, tu código lo deja fuera. Copia siempre los límites exactos de la guía clínica."
+  },
+  {
+   "titulo": "and, or, not",
+   "ideas": [
+    "and: hacen falta las dos condiciones",
+    "or: basta con una",
+    "Hipertensión: PAS ≥ 140 or PAD ≥ 90"
+   ],
+   "fig": "tema_030_logicos.png",
+   "texto": "Las comparaciones se combinan con tres operadores. And exige que se cumplan las dos. Or se conforma con una. Not invierte el resultado. La hipertensión se define como una sistólica de ciento cuarenta o más, o una diastólica de noventa o más. Si escribes and en lugar de or, pierdes a todos los pacientes que solo tienen alta una de las dos."
+  },
+  {
+   "titulo": "if, elif, else: gana el primer criterio que se cumple",
+   "ideas": [
+    "Solo se ejecuta una rama",
+    "Ordena las categorías desde un extremo",
+    "¿IMC de 25: normal o sobrepeso?"
+   ],
+   "pregunta": "¿Qué categoría daría vuestro código a un IMC de exactamente 30?",
+   "fig": "tema_030_imc.png",
+   "texto": "Para clasificar en varias categorías se usan if, elif y else. Python comprueba las condiciones en orden y ejecuta solo la primera que se cumple. Por eso conviene empezar por un extremo, por ejemplo por la obesidad, y bajar. Y otra vez, las fronteras. ¿Un índice de masa corporal de exactamente veinticinco es normal o sobrepeso? ¿Y uno de treinta? Tu código debe responder lo mismo que la guía."
+  },
+  {
+   "titulo": "Primero, comprueba que el dato existe",
+   "ideas": [
+    "if pas is None: no se puede clasificar",
+    "Un dato ausente no es un valor normal"
+   ],
+   "texto": "Un último consejo. Antes de aplicar una regla, comprueba que el dato existe. Si la sistólica no está registrada, vale None, y cualquier comparación con ella dará un error. Peor aún sería tratar un dato ausente como si fuera normal. Primero pregunta si el dato es None, y solo después clasifica."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 30 en Colab",
+    "Misiones: predecir condiciones, glucemia y PA, CURB-65"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema treinta y programa la escala qSOFA de Antonio. Después, en la app Bioestadística, tienes tres misiones: predecir el resultado de comparaciones y condiciones, clasificar la glucemia en ayunas y la presión arterial, y programar la escala CURB-65 de gravedad de la neumonía. Nos vemos en el tema cuarenta."
+  }
+ ]
+}

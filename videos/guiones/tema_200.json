@@ -1,0 +1,68 @@
+{
+ "tema": 200,
+ "titulo": "Estimación puntual e intervalos de confianza",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Estimar con incertidumbre",
+   "subtitulo": "Estimación puntual e intervalos de confianza",
+   "texto": "Hola. Empieza el Módulo cinco, la generalización de conclusiones. En este tema vas a aprender a dar una cifra que sale de una muestra con la incertidumbre que le corresponde: el intervalo de confianza."
+  },
+  {
+   "titulo": "74 de 120 hipertensos controlados",
+   "ideas": [
+    "61,7 % es una estimación",
+    "IC 95 %: 52,7 % a 69,9 %",
+    "Incluye el objetivo del 65 %"
+   ],
+   "fig": "tema_200_caso.png",
+   "texto": "Un centro de salud tiene tres mil pacientes con hipertensión y el objetivo de que el sesenta y cinco por ciento esté controlado. Elige al azar ciento veinte y encuentra setenta y cuatro controlados: un sesenta y uno coma siete por ciento. ¿No se cumple el objetivo? Con otros ciento veinte pacientes saldría otra cifra. El intervalo de confianza del noventa y cinco por ciento va del cincuenta y dos coma siete al sesenta y nueve coma nueve, e incluye el objetivo. Con esta muestra no se puede afirmar ni negar que se cumpla."
+  },
+  {
+   "titulo": "Un buen estimador: sin sesgo y preciso",
+   "ideas": [
+    "Sesgo: apunta fuera del centro",
+    "Precisión: poca dispersión entre muestras"
+   ],
+   "fig": "tema_200_e2_1.png",
+   "texto": "Una estimación puntual es un solo número: una media o una proporción de la muestra. Un buen estimador es insesgado, es decir, en promedio acierta el valor real, y es preciso: varía poco de una muestra a otra. Piensa en una diana. El sesgo es apuntar fuera del centro. La falta de precisión es que los disparos se dispersan."
+  },
+  {
+   "titulo": "El 95 % se refiere al método",
+   "ideas": [
+    "≈ 95 de cada 100 intervalos contienen el valor real",
+    "Nadie sabe si el suyo es de los que fallan"
+   ],
+   "fig": "tema_200_cien.png",
+   "texto": "¿Qué significa el noventa y cinco por ciento? Imagina cien residentes, cada uno con su muestra y su intervalo. Unos noventa y cinco intervalos contienen el valor real, y unos cinco no. El noventa y cinco por ciento se refiere al método, no a un intervalo concreto. Nadie sabe si su intervalo es de los que fallan. Por eso se habla de confianza, y no de probabilidad."
+  },
+  {
+   "titulo": "Más pacientes, intervalo más estrecho, pero despacio",
+   "ideas": [
+    "La anchura depende de 1/√n",
+    "Para la mitad de anchura: 4 veces n",
+    "Crece con la variabilidad y la confianza"
+   ],
+   "fig": "tema_200_anchura.png",
+   "texto": "La anchura del intervalo depende de tres cosas. Del tamaño de la muestra, a través de uno partido por la raíz de n: para reducirla a la mitad hay que multiplicar por cuatro el número de pacientes. De la variabilidad de los datos. Y del nivel de confianza: un intervalo del noventa y nueve por ciento es más ancho que uno del noventa y cinco. Por eso el tamaño muestral se calcula antes del estudio."
+  },
+  {
+   "titulo": "Proporciones pequeñas: mejor Wilson",
+   "ideas": [
+    "1 caso de 20: Wald da un límite negativo",
+    "Wilson: de 0,009 a 0,236"
+   ],
+   "fig": "tema_200_esquema.png",
+   "texto": "Para una proporción hay varios métodos. El más conocido, el de Wald, falla con proporciones pequeñas. Con un caso de veinte pacientes da un límite inferior negativo, y una proporción negativa no tiene sentido. El método de Wilson da un intervalo razonable, de cero coma cero cero nueve a cero coma doscientos treinta y seis. Para medias se usa la t de Student. Y toda estimación se comunica con su intervalo y su n."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 200 en Colab",
+    "Misiones: interpretar IC, obesidad y LDL, exactitud de una IA"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema doscientos y calcula los intervalos del centro de salud y de la cohorte. Recuerda que el examen de este módulo es con Colab. En la app Bioestadística tienes tres misiones: interpretar intervalos de confianza, la prevalencia de obesidad y el LDL medio con su intervalo, y la exactitud de un modelo de IA con treinta preguntas. Nos vemos en el tema doscientos diez."
+  }
+ ]
+}

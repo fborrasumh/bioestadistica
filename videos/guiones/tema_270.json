@@ -1,0 +1,68 @@
+{
+ "tema": 270,
+ "titulo": "Modelos de regresión lineal simple y múltiple",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Ajustar por lo que confunde",
+   "subtitulo": "Modelos de regresión lineal simple y múltiple",
+   "texto": "Hola. En este tema vas a pasar de la correlación a la regresión. Vas a medir cuánto cambia una variable con otra y, sobre todo, a ajustar por las variables que pueden confundir la relación."
+  },
+  {
+   "titulo": "PAS y creatinina: ¿o es la edad?",
+   "ideas": [
+    "En toda la cohorte: más PAS, más creatinina",
+    "Dentro de cada edad: casi desaparece"
+   ],
+   "fig": "tema_270_confusion.png",
+   "texto": "En la cohorte, los pacientes con la presión sistólica más alta tienen también la creatinina más alta. Un residente lo interpreta como prueba de que la hipertensión daña el riñón, y propone intensificar el tratamiento. Pero ya viste en el tema ciento treinta que la edad eleva las dos. Dentro de cada grupo de edad, la relación casi desaparece. La regresión múltiple permite medirlo."
+  },
+  {
+   "titulo": "La recta de regresión",
+   "ideas": [
+    "Pendiente: cambio medio de Y por unidad de X",
+    "Mínimos cuadrados",
+    "R²: variabilidad explicada"
+   ],
+   "fig": "tema_270_recta.png",
+   "texto": "La regresión lineal simple ajusta una recta a la nube de puntos. La pendiente es el cambio medio de la variable respuesta por cada unidad de la explicativa, por ejemplo, cuántos milímetros sube la presión por cada año de edad. La recta se elige por mínimos cuadrados: la que hace mínima la suma de los residuos al cuadrado. Y el coeficiente R cuadrado dice qué proporción de la variabilidad explica el modelo."
+  },
+  {
+   "titulo": "La regresión múltiple ajusta",
+   "ideas": [
+    "Cada coeficiente, con las demás variables constantes",
+    "Rectas paralelas por sexo"
+   ],
+   "fig": "tema_270_e2_2.png",
+   "texto": "En la regresión múltiple entran varias variables a la vez. Cada coeficiente es el efecto de su variable con las demás constantes: está ajustado. Aquí, el modelo de presión sistólica con la edad y el sexo da dos rectas paralelas. La pendiente de la edad es la misma en hombres y mujeres, y la distancia entre las rectas es la diferencia por sexo a igual edad."
+  },
+  {
+   "titulo": "Detectar la confusión",
+   "ideas": [
+    "La edad causa PAS y creatinina",
+    "Si el coeficiente cambia mucho al ajustar, había confusión"
+   ],
+   "fig": "tema_270_e2_3.png",
+   "texto": "La confusión se detecta comparando el coeficiente crudo con el ajustado. Si el coeficiente de la presión sobre la creatinina cambia mucho al añadir la edad al modelo, la edad confundía la relación. Pero el ajuste solo controla lo que se ha medido. Queda la confusión residual, y la confusión por indicación: los pacientes con la presión más alta son los que reciben más tratamiento, y eso tampoco lo corrige el modelo."
+  },
+  {
+   "titulo": "Mirar los residuos",
+   "ideas": [
+    "Nube sin patrón: modelo adecuado",
+    "Curva: falta de linealidad",
+    "Embudo: varianza no constante"
+   ],
+   "fig": "tema_270_residuos.png",
+   "texto": "Un modelo hay que revisarlo. Se representan los residuos, la diferencia entre lo observado y lo predicho, frente a los valores predichos. Una nube sin patrón indica que el modelo es adecuado. Una curva indica que la relación no es lineal. Un embudo, que la variabilidad no es constante. Y en cualquier informe, indica siempre cuántos pacientes entraron en el modelo."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 270 en Colab",
+    "Misiones: coeficientes, IMC y HDL por sexo, efecto del tratamiento"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema doscientos setenta y ajusta la relación entre la presión y la creatinina por la edad. Después, en la app Bioestadística, tienes tres misiones: interpretar coeficientes de regresión, la asociación cruda y ajustada por sexo entre el índice de masa corporal y el HDL, y el supuesto efecto del tratamiento antihipertensivo. Nos vemos en el tema doscientos ochenta."
+  }
+ ]
+}

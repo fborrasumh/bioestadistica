@@ -1,0 +1,70 @@
+{
+ "tema": 210,
+ "titulo": "Fundamentos del contraste de hipótesis: significación, errores y potencia",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Qué significa p = 0,03",
+   "subtitulo": "Fundamentos del contraste de hipótesis: significación estadística, errores y potencia",
+   "texto": "Hola. El valor p aparece en casi todos los artículos médicos, y casi todo el mundo lo interpreta mal. En este tema vas a ver qué significa de verdad, qué errores puedes cometer y por qué el intervalo de confianza dice más."
+  },
+  {
+   "titulo": "5 mmHg de diferencia, p = 0,03",
+   "ideas": [
+    "Si el fármaco no hiciera nada…",
+    "¿cuántas veces el azar daría una diferencia así?",
+    "Eso es p: no la probabilidad de que no funcione"
+   ],
+   "fig": "tema_210_permutacion.png",
+   "texto": "Un ensayo con cuarenta pacientes por grupo compara un nuevo antihipertensivo con placebo. La sistólica baja ocho milímetros con el fármaco y tres con placebo: cinco de diferencia, con una p de cero coma cero tres. ¿Qué significa? Supón que el fármaco no hace nada. Si repartes al azar a los pacientes entre los dos grupos muchas veces, solo un tres por ciento de los repartos da una diferencia así de grande o mayor. Eso es el valor p."
+  },
+  {
+   "titulo": "El razonamiento del contraste",
+   "ideas": [
+    "Plantear H₀ y H₁",
+    "Suponer que H₀ es cierta",
+    "Calcular p y compararlo con α"
+   ],
+   "fig": "tema_210_esquema.png",
+   "texto": "Todo contraste sigue los mismos pasos. Planteas la hipótesis nula, que no hay efecto, y la alternativa. Supones que la nula es cierta. Calculas cuán compatibles son tus datos con ella: el valor p. Y lo comparas con un nivel fijado de antemano, normalmente cero coma cero cinco. Un valor p pequeño indica que los datos son poco compatibles con la nula. No es la probabilidad de que la nula sea cierta."
+  },
+  {
+   "titulo": "Dos errores posibles y la potencia",
+   "ideas": [
+    "α: falso positivo",
+    "β: no detectar un efecto real",
+    "Potencia = 1 − β"
+   ],
+   "fig": "tema_210_errores.png",
+   "texto": "Puedes equivocarte de dos maneras. El error de tipo uno, alfa, es rechazar la nula siendo cierta: un falso positivo. El error de tipo dos, beta, es no detectar un efecto que existe: un falso negativo. La potencia es uno menos beta, la probabilidad de detectar el efecto. Aumenta con el tamaño de la muestra y con el tamaño del efecto. Por eso un p mayor que cero coma cero cinco en un estudio pequeño no demuestra que no haya efecto."
+  },
+  {
+   "titulo": "El intervalo de confianza dice más que el valor p",
+   "ideas": [
+    "IC 95 % sin el 0 ↔ p < 0,05",
+    "Solo el IC dice si el efecto es relevante"
+   ],
+   "pregunta": "¿Cuál de estos cuatro estudios cambiaría vuestra práctica?",
+   "fig": "tema_210_ic_p.png",
+   "texto": "El intervalo de confianza de la diferencia da la misma decisión que el contraste: si no contiene el cero, el valor p es menor que cero coma cero cinco. Pero además dice la magnitud del efecto. Mira estos cuatro estudios. Dos son significativos, pero uno tiene un efecto trivial. Otro no es significativo, pero es compatible con un beneficio importante. Significación estadística no es relevancia clínica."
+  },
+  {
+   "titulo": "Tres frases que no debes decir",
+   "ideas": [
+    "«p = 0,03: 3 % de probabilidad de que no funcione»",
+    "«p > 0,05: no hay diferencia»",
+    "«Muy significativo: efecto grande»"
+   ],
+   "texto": "Tres frases que no debes decir. Primera: con p igual a cero coma cero tres, hay un tres por ciento de probabilidad de que el fármaco no funcione. Falso. Segunda: como p es mayor que cero coma cero cinco, no hay diferencia. Falso: puede faltar potencia. Tercera: es muy significativo, así que el efecto es grande. Falso: con muchos pacientes, un efecto pequeño da un p muy pequeño."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 210 en Colab",
+    "Misiones: interpretar p, HbA1c, tamaño muestral simulado"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema doscientos diez y contrasta la diferencia del ensayo por permutación, sin fórmulas. Después, en la app Bioestadística, tienes tres misiones: interpretaciones correctas e incorrectas del valor p, una diferencia de HbA1c entre dos pautas, y el tamaño muestral de un ensayo comprobado por simulación. Nos vemos en el tema doscientos veinte."
+  }
+ ]
+}

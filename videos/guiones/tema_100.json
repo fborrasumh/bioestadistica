@@ -1,0 +1,69 @@
+{
+ "tema": 100,
+ "titulo": "Estructuras de datos con Pandas: valores perdidos y atípicos en registros clínicos",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Limpiar antes de analizar",
+   "subtitulo": "Estructuras de datos con Pandas: tratamiento de valores perdidos y atípicos en registros clínicos",
+   "texto": "Hola. Empieza el Módulo tres, el procesado de datos. En este tema vas a trabajar con pandas, la herramienta de Python para tablas, y vas a aprender la regla más importante del análisis: primero se limpia, y después se analiza."
+  },
+  {
+   "titulo": "Un peso medio de 78 kg… con un paciente de 680 kg",
+   "ideas": [
+    "La media se calcula aunque los datos estén mal",
+    "Primero se limpia, y se documenta cada decisión"
+   ],
+   "fig": "video_100_caso.png",
+   "codigo_de": "1. Caso",
+   "texto": "Tres centros de salud reúnen un registro de riesgo cardiovascular con cuatrocientos pacientes. Una enfermera calcula el peso medio y obtiene setenta y ocho kilos. Parece razonable. Pero al revisar los datos aparecen problemas: un paciente pesa seiscientos ochenta kilos, otro siete coma cuatro, y hay tallas de uno coma seis centímetros. La media se calculó sin ningún error. Ningún error impide hacer la cuenta, aunque los datos estén mal."
+  },
+  {
+   "titulo": "Anatomía de un DataFrame",
+   "ideas": [
+    "Filas = pacientes · columnas = variables",
+    "Cada columna es una Series con su tipo",
+    "NaN marca un dato ausente"
+   ],
+   "fig": "tema_100_dataframe.png",
+   "texto": "En pandas, una tabla es un DataFrame. Cada fila es un paciente y cada columna es una variable, con su tipo. Un dato ausente se marca como NaN. Pandas lo excluye de las medias y lo cuenta con isna. La primera revisión de cualquier conjunto de datos son tres instrucciones: info, describe y value counts. Con ellas ves tipos, rangos y categorías raras en un minuto."
+  },
+  {
+   "titulo": "¿Por qué falta el dato?",
+   "ideas": [
+    "Completamente al azar",
+    "Al azar, según otras variables",
+    "No al azar: falta por su propio valor"
+   ],
+   "fig": "tema_100_esquema.png",
+   "texto": "Los valores perdidos se cuantifican y se tratan según por qué faltan. Si faltan completamente al azar, analizar solo los completos no sesga. Si faltan según otras variables, por ejemplo más en un centro, hay que tenerlo en cuenta. Y si faltan por su propio valor, por ejemplo porque no se pesa a los pacientes más graves, el problema es serio. Lo que nunca se hace es rellenarlos con cero."
+  },
+  {
+   "titulo": "¿Error de registro o valor atípico real?",
+   "ideas": [
+    "Error: imposible o incoherente → se corrige o se marca NaN",
+    "Atípico real: extremo pero posible → se conserva"
+   ],
+   "fig": "tema_100_plausible.png",
+   "texto": "Hay que distinguir dos cosas. Un error de registro es un valor imposible o incoherente, como seiscientos ochenta kilos o una talla de uno coma seis centímetros. Se corrige si se puede justificar, o se convierte en dato ausente. Un atípico real es extremo pero posible, como un paciente de ciento ochenta kilos. Ese se conserva: eliminarlo sesga el análisis."
+  },
+  {
+   "titulo": "Cada decisión, en el registro de limpieza",
+   "ideas": [
+    "Qué se cambió, por qué y cuántos casos",
+    "Otro investigador puede repetirlo",
+    "También si limpia un asistente de IA"
+   ],
+   "texto": "Cada decisión de limpieza se anota en un registro: qué se cambió, por qué y a cuántos pacientes afectó. Así, otro investigador puede repetir la limpieza y llegar a la misma tabla. Esto vale también cuando la limpieza la propone un asistente de inteligencia artificial: hay que auditar cada cambio, porque a veces borra atípicos reales sin avisar."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 100 en Colab",
+    "Misiones: error o atípico, EPOC, auditar al asistente"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema cien y limpia el registro cardiovascular paso a paso, con su registro de limpieza. Después, en la app Bioestadística, tienes tres misiones: decidir si un valor es un error de registro, un atípico real o un dato plausible; limpiar un registro de pacientes con EPOC; y auditar la limpieza que propone un asistente. Nos vemos en el tema ciento diez."
+  }
+ ]
+}

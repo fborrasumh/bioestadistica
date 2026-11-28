@@ -1,0 +1,70 @@
+{
+ "tema": 230,
+ "titulo": "Tablas de contingencia y medidas de asociación: RR, OR y NNT",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Reduce un 33 %… ¿de qué?",
+   "subtitulo": "Análisis de tablas de contingencia y medidas de asociación epidemiológica: riesgo relativo, odds ratio y número necesario a tratar",
+   "texto": "Hola. Los titulares de prensa y muchos folletos comunican los beneficios en términos relativos. En este tema vas a aprender a calcular y a comunicar las medidas que necesita un paciente para decidir."
+  },
+  {
+   "titulo": "«Reduce un 33 % el riesgo de infarto»",
+   "ideas": [
+    "Del 3 % al 2 % en 5 años",
+    "Reducción relativa 33 % · absoluta 1 punto",
+    "NNT = 100 durante 5 años"
+   ],
+   "pregunta": "¿Cuál de las dos cifras necesita vuestro paciente para decidir?",
+   "fig": "tema_230_caso.png",
+   "texto": "Un titular dice que un fármaco reduce un treinta y tres por ciento el riesgo de infarto. Un paciente de cincuenta y ocho años te pregunta si debería tomarlo. En el ensayo, a los cinco años, tuvieron un infarto el tres por ciento con placebo y el dos por ciento con el fármaco. De tres a dos es una reducción relativa del treinta y tres por ciento. Pero la reducción absoluta es de un punto: hay que tratar a cien personas durante cinco años para evitar un infarto."
+  },
+  {
+   "titulo": "Riesgo, odds y sus cocientes",
+   "ideas": [
+    "Riesgo = eventos / total de la fila",
+    "RR = riesgo expuestos / no expuestos",
+    "OR = cociente de odds"
+   ],
+   "fig": "tema_230_e2_1.png",
+   "texto": "En la tabla de dos por dos, el riesgo de cada grupo son sus eventos divididos entre su total. El riesgo relativo es el cociente de los dos riesgos. La diferencia de riesgos es su resta, y el número necesario a tratar es uno dividido entre esa diferencia. La odds ratio compara odds, no riesgos, y solo se parece al riesgo relativo cuando el evento es raro."
+  },
+  {
+   "titulo": "La misma reducción relativa, NNT muy distintos",
+   "ideas": [
+    "El efecto relativo suele ser parecido",
+    "El beneficio absoluto depende del riesgo basal"
+   ],
+   "fig": "tema_230_nnt.png",
+   "texto": "Esta es la idea más importante del tema. Un tratamiento suele reducir el riesgo en una proporción parecida en pacientes de distinto riesgo. Pero el beneficio absoluto, no. En un paciente de riesgo alto, la misma reducción relativa evita muchos más eventos, y el número necesario a tratar es pequeño. Por eso las guías deciden según el riesgo absoluto, con escalas como SCORE2, y no solo según el colesterol."
+  },
+  {
+   "titulo": "Cohortes frente a casos y controles",
+   "ideas": [
+    "Cohortes y ensayos: RR, DR, NNT",
+    "Casos y controles: solo la OR"
+   ],
+   "fig": "tema_230_disenos.png",
+   "texto": "La medida depende del diseño. En un estudio de cohortes o en un ensayo se sigue a los pacientes y se cuentan los eventos: se pueden calcular riesgos, su cociente, su diferencia y el número necesario a tratar. En un estudio de casos y controles, el investigador decide cuántos casos incluye. Los riesgos no se pueden estimar, y solo es válida la odds ratio."
+  },
+  {
+   "titulo": "¿Hay asociación? La ji cuadrado",
+   "ideas": [
+    "Observado frente a esperado",
+    "Esperado = fila × columna / N",
+    "Contrasta la independencia"
+   ],
+   "fig": "tema_230_esquema.png",
+   "texto": "Para contrastar si dos variables cualitativas son independientes se usa la ji cuadrado. Se compara la tabla observada con la que se esperaría si no hubiera asociación. Cuanto más se alejan, mayor es el estadístico. Pero recuerda: la ji cuadrado dice si hay asociación. El riesgo relativo, la diferencia de riesgos y el número necesario a tratar dicen cuánta, y eso es lo que importa al paciente."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 230 en Colab",
+    "Misiones: RR, OR, RAR y NNT; RR con IC; reescribir la relativa"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema doscientos treinta y calcula todas las medidas del ensayo y de la cohorte. Después, en la app Bioestadística, tienes tres misiones: el riesgo relativo, la odds ratio, la reducción absoluta y el número necesario a tratar de un ensayo; el riesgo relativo de evento cardiovascular con su intervalo; y pasar de la reducción relativa a la absoluta. Nos vemos en el tema doscientos cuarenta."
+  }
+ ]
+}

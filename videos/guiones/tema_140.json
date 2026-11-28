@@ -1,0 +1,70 @@
+{
+ "tema": 140,
+ "titulo": "Fundamentos de la teoría de la probabilidad y técnicas de recuento",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Cuantificar la incertidumbre",
+   "subtitulo": "Fundamentos de la teoría de la probabilidad y técnicas de recuento",
+   "texto": "Hola. Empieza el Módulo cuatro, la probabilidad. En este tema vas a aprender a cuantificar la incertidumbre con unas pocas reglas, y a comprobar tus cálculos con una simulación."
+  },
+  {
+   "titulo": "Consejo genético: dos portadores de fibrosis quística",
+   "ideas": [
+    "Cuatro combinaciones igual de probables",
+    "Afectado 1/4 · portador sano 1/2 · sano 1/4",
+    "No se predice un embarazo; se cuantifica"
+   ],
+   "fig": "tema_140_punnett.png",
+   "texto": "Una pareja acude a consejo genético. Los dos son portadores sanos de una mutación del gen CFTR, la de la fibrosis quística, que se hereda de forma autosómica recesiva. Cada hijo recibe un alelo de cada progenitor, al azar. Hay cuatro combinaciones igual de probables. La probabilidad de un hijo afectado es un cuarto; de un portador sano, un medio; y de un hijo sano no portador, un cuarto."
+  },
+  {
+   "titulo": "Tres formas de entender la probabilidad",
+   "ideas": [
+    "Clásica: casos favorables / posibles",
+    "Frecuentista: frecuencia a largo plazo",
+    "Subjetiva: grado de creencia"
+   ],
+   "fig": "tema_140_esquema.png",
+   "texto": "La probabilidad se puede entender de tres formas. La clásica cuenta casos favorables entre casos posibles, como en el cuadro de Punnett. La frecuentista es la proporción a largo plazo: si repites el experimento muchas veces, la frecuencia se acerca a la probabilidad. Es la ley de los grandes números. Y la subjetiva es un grado de creencia, como la sospecha clínica antes de una prueba."
+  },
+  {
+   "titulo": "Unión, intersección y complementario",
+   "ideas": [
+    "P(A o B) = P(A) + P(B) − P(A y B)",
+    "P(no A) = 1 − P(A)",
+    "Independientes: P(A y B) = P(A)·P(B)"
+   ],
+   "fig": "tema_140_venn.png",
+   "texto": "Tres reglas cubren casi todo. La probabilidad de A o B es la de A más la de B menos la de los dos a la vez; si no restas la intersección, la cuentas dos veces. La probabilidad de no A es uno menos la de A. Y si dos sucesos son independientes, la probabilidad de los dos a la vez es el producto de sus probabilidades."
+  },
+  {
+   "titulo": "Tres hijos: ¿al menos uno afectado?",
+   "ideas": [
+    "P(al menos uno) = 1 − P(ninguno)",
+    "1 − (3/4)³ ≈ 0,58"
+   ],
+   "pregunta": "¿Por qué no es 1/4 + 1/4 + 1/4 = 3/4?",
+   "fig": "tema_140_arbol.png",
+   "texto": "Si la pareja tiene tres hijos, ¿qué probabilidad hay de que al menos uno esté afectado? Sumar un cuarto tres veces da tres cuartos, y es un error: con cuatro hijos daría más de uno. El atajo es el complementario. La probabilidad de que ninguno esté afectado es tres cuartos al cubo. La de al menos uno es uno menos eso: alrededor de cero coma cincuenta y ocho."
+  },
+  {
+   "titulo": "Contar sin enumerar",
+   "ideas": [
+    "El orden no importa: combinaciones",
+    "El orden importa: variaciones",
+    "La simulación comprueba el cálculo"
+   ],
+   "texto": "Cuando los casos son muchos, se cuentan sin enumerarlos. Si el orden no importa, como elegir doce pacientes de un grupo de cuarenta, se usan combinaciones. Si el orden importa, como asignar tres turnos distintos, variaciones. Y cuando dudes de un cálculo, simúlalo: repite el experimento cien mil veces en el ordenador y compara."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 140 en Colab",
+    "Misiones: cruces genéticos, reglas en una cohorte, combinaciones"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema ciento cuarenta, calcula a mano las probabilidades del consejo genético y compruébalas con una simulación. Recuerda que el examen de este módulo es a mano. En la app Bioestadística tienes tres misiones: cruces genéticos; unión, intersección e independencia en una cohorte; y combinaciones en un ensayo clínico. Nos vemos en el tema ciento cincuenta."
+  }
+ ]
+}

@@ -1,0 +1,71 @@
+{
+ "tema": 110,
+ "titulo": "Integración de fuentes de datos clínicos y elaboración de tablas de frecuencias",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Unir tablas y contar bien",
+   "subtitulo": "Integración de fuentes de datos clínicos y elaboración de tablas de frecuencias",
+   "texto": "Hola. Los datos de un paciente casi nunca están en una sola tabla. En este tema vas a unir varias fuentes sin perder pacientes por el camino, y vas a construir tablas de frecuencias con el denominador correcto."
+  },
+  {
+   "titulo": "La información está repartida en tres tablas",
+   "ideas": [
+    "Cohorte, analíticas y centros",
+    "Se relacionan por una clave: id o centro",
+    "¿Pacientes sin analítica? ¿Analíticas sin paciente?"
+   ],
+   "fig": "tema_110_fuentes.png",
+   "texto": "La coordinadora quiere saber qué proporción de pacientes con diabetes tiene mal control, una HbA1c de ocho por ciento o más, en cada centro. Y si los centros rurales difieren de los urbanos. El problema es que la información está en tres sitios: la cohorte con los datos clínicos, las analíticas del laboratorio y una tabla con los centros. Se relacionan por una clave: el identificador del paciente o el nombre del centro."
+  },
+  {
+   "titulo": "Comprueba las claves antes de unir",
+   "ideas": [
+    "¿La clave es única?",
+    "¿Quién está en una tabla y no en la otra?",
+    "Cuenta las filas después de unir"
+   ],
+   "fig": "tema_110_esquema.png",
+   "texto": "Antes de unir, comprueba las claves. ¿Cada identificador aparece una sola vez? ¿Hay pacientes de la cohorte sin analítica? ¿Hay analíticas de pacientes que no están en la cohorte? Un diagrama de los identificadores lo deja claro. Y después de unir, cuenta las filas. Si una clave está duplicada, la unión multiplica pacientes sin avisar."
+  },
+  {
+   "titulo": "Tres formas de unir dos tablas",
+   "ideas": [
+    "inner: solo los que están en las dos",
+    "left: todos los de la izquierda",
+    "outer: todos"
+   ],
+   "pregunta": "Para el porcentaje de diabéticos con HbA1c ≥ 8 %, ¿qué unión usaríais?",
+   "fig": "tema_110_joins.png",
+   "texto": "Hay tres uniones principales. La unión interna conserva solo los pacientes que están en las dos tablas. La unión por la izquierda conserva todos los de la cohorte, tengan o no analítica. La unión externa conserva todos. La elección cambia el número de pacientes y, con él, los denominadores de tus porcentajes. Para describir la cohorte, normalmente usarás la unión por la izquierda."
+  },
+  {
+   "titulo": "Frecuencias absolutas y relativas",
+   "ideas": [
+    "value_counts(): cuántos hay en cada categoría",
+    "Relativa: proporción del total",
+    "Todo porcentaje necesita su denominador"
+   ],
+   "fig": "tema_110_e2_2.png",
+   "texto": "Una tabla de frecuencias cuenta cuántos pacientes hay en cada categoría. La frecuencia absoluta es el recuento. La relativa es la proporción sobre el total. Una variable cuantitativa, como la HbA1c, se puede pasar a categorías con puntos de corte clínicos para tabularla. Y una regla para todo el curso: cada porcentaje necesita su denominador. Dilo siempre."
+  },
+  {
+   "titulo": "Tabla de contingencia: dos variables cualitativas",
+   "ideas": [
+    "Cruza dos variables y cuenta cada combinación",
+    "Porcentajes por fila ≠ por columna"
+   ],
+   "fig": "tema_110_contingencia.png",
+   "texto": "Una tabla de contingencia cruza dos variables cualitativas, por ejemplo el centro y el control glucémico, y cuenta los pacientes de cada combinación. Los porcentajes por fila responden a una pregunta: qué proporción de cada centro tiene mal control. Los porcentajes por columna responden a otra: de los mal controlados, cuántos son de cada centro. Elige según la pregunta."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 110 en Colab",
+    "Misiones: filas por unión, filtrado glomerular, Tabla 1"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema ciento diez, une las tres fuentes y responde a la pregunta de la coordinadora. Después, en la app Bioestadística, tienes tres misiones: predecir cuántas filas da cada unión, unir la cohorte con las analíticas y tabular el filtrado glomerular, y construir la Tabla 1 de la cohorte por sexo. Nos vemos en el tema ciento veinte."
+  }
+ ]
+}

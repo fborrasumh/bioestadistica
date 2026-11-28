@@ -12,12 +12,13 @@ celdas = [
 
 **Autor:** Fernando Borrás Rocher · Universidad Miguel Hernández de Elche · ORCID [0000-0002-5519-4573](https://orcid.org/0000-0002-5519-4573) · CC BY 4.0
 
-Convierte el guion de cada tema (`videos/guiones/`) y sus diapositivas (`videos/diapos/`) en un vídeo MP4 de unos 3 minutos con voz y subtítulos, y lo guarda en tu Google Drive.
+Convierte el guion de cada tema (`videos/guiones/`, los 31 temas, del 0 al 300) y sus diapositivas (`videos/diapos/`) en un vídeo MP4 de unos 3 minutos con voz y subtítulos, y lo guarda en tu Google Drive.
 
 **Antes de empezar**
 
 1. Guarda tu clave de OpenAI en **Secrets** (icono de la llave, a la izquierda) con el nombre `OPENAI_API_KEY` y activa el acceso para este cuaderno. Nunca la escribas en una celda.
-2. **Entorno de ejecución → Ejecutar todo.** Colab pedirá permiso para usar tu Drive.
+2. En **Parámetros**, deja `todos` o escribe los temas separados por comas (por ejemplo `10, 150`).
+3. **Entorno de ejecución → Ejecutar todo.** Colab pedirá permiso para usar tu Drive.
 
 **A tener en cuenta**
 
@@ -26,7 +27,7 @@ Convierte el guion de cada tema (`videos/guiones/`) y sus diapositivas (`videos/
 - El audio de cada escena se guarda en Drive. Si vuelves a ejecutar el cuaderno, solo se paga la voz de las escenas cuyo texto haya cambiado.
 """),
     nbf.v4.new_code_cell("""#@title Parámetros
-TEMAS = "150"  #@param {type:"string"}
+TEMAS = "todos"  #@param {type:"string"}
 VOZ = "coral"  #@param ["coral", "marin", "cedar", "ash", "sage", "verse", "ballad", "alloy", "echo", "shimmer"]
 CARPETA = "Bioestadistica_videos"  #@param {type:"string"}
 INSTRUCCIONES = "Habla en español de España, como un profesor universitario cercano y claro que explica a estudiantes de Medicina. Ritmo pausado, entonación natural, pequeñas pausas tras cada idea."  #@param {type:"string"}
@@ -45,7 +46,7 @@ from openai import OpenAI
 cliente = OpenAI(api_key=userdata.get("OPENAI_API_KEY"))
 SALIDA = f"/content/drive/MyDrive/{{CARPETA}}"
 os.makedirs(f"{{SALIDA}}/audio", exist_ok=True)
-temas = [int(t) for t in TEMAS.replace(",", " ").split()]
+temas = video.temas_con_guion() if TEMAS.strip() == "todos" else [int(t) for t in TEMAS.replace(",", " ").split()]
 print("Temas:", temas, "· voz:", VOZ, "· carpeta:", SALIDA)
 """),
     nbf.v4.new_code_cell("""#@title Generar los vídeos

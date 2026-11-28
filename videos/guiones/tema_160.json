@@ -1,0 +1,69 @@
+{
+ "tema": 160,
+ "titulo": "Evaluación de pruebas diagnósticas y de cribado",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "¿Cuánto vale una prueba?",
+   "subtitulo": "Evaluación de pruebas diagnósticas y de cribado: sensibilidad, especificidad y valores predictivos",
+   "texto": "Hola. Cada día pides pruebas diagnósticas. En este tema vas a aprender a medir cuánto vale una prueba, a leer sus resultados y a elegir su punto de corte según para qué la usas."
+  },
+  {
+   "titulo": "NT-proBNP: ¿dónde ponemos el punto de corte?",
+   "ideas": [
+    "Enfermos y sanos se solapan",
+    "Bajar el corte: más sensibilidad, más falsos positivos",
+    "Subirlo: más especificidad, más falsos negativos"
+   ],
+   "fig": "tema_160_corte.png",
+   "texto": "En Atención Primaria se valora a pacientes con disnea reciente. El péptido natriurético NT-proBNP ayuda a decidir si la causa puede ser una insuficiencia cardiaca. Los valores altos apuntan a ella, pero los enfermos y los sanos se solapan. Si bajas el punto de corte, detectas casi todas las insuficiencias, a cambio de más falsos positivos. Si lo subes, te equivocas menos con los sanos, pero se te escapan enfermos."
+  },
+  {
+   "titulo": "La tabla 2 × 2 y sus cuatro índices",
+   "ideas": [
+    "Sensibilidad y especificidad: por columnas",
+    "Valores predictivos: por filas",
+    "Los predictivos dependen de la prevalencia"
+   ],
+   "fig": "tema_160_tabla.png",
+   "texto": "Para evaluar una prueba se compara con un patrón de referencia en una tabla de dos por dos. La sensibilidad es la proporción de enfermos que dan positivo. La especificidad, la de sanos que dan negativo. Las dos se leen por columnas y describen la prueba. Los valores predictivos se leen por filas: de los positivos, cuántos están enfermos. Y dependen de la prevalencia, como viste con Lucía en el tema ciento cincuenta."
+  },
+  {
+   "titulo": "Qué casillas usa cada índice",
+   "ideas": [
+    "Sensibilidad = VP / (VP + FN)",
+    "Especificidad = VN / (VN + FP)",
+    "VPP = VP / (VP + FP)"
+   ],
+   "fig": "tema_160_e2_2.png",
+   "texto": "Fíjate en qué casillas usa cada índice. La sensibilidad divide los verdaderos positivos entre todos los enfermos. La especificidad divide los verdaderos negativos entre todos los sanos. El valor predictivo positivo divide los verdaderos positivos entre todos los positivos. Si te equivocas de denominador, te equivocas de índice."
+  },
+  {
+   "titulo": "SpPIn y SnNOut",
+   "ideas": [
+    "Especificidad alta + positivo → confirma",
+    "Sensibilidad alta + negativo → descarta"
+   ],
+   "fig": "tema_160_esquema.png",
+   "texto": "Dos reglas para recordar. SpPIn: con una prueba muy específica, un resultado positivo confirma el diagnóstico. SnNOut: con una prueba muy sensible, un resultado negativo lo descarta. Por eso, para descartar un infarto en Urgencias, se buscan puntos de corte muy sensibles: un negativo permite enviar al paciente a casa con seguridad."
+  },
+  {
+   "titulo": "La curva ROC resume todos los puntos de corte",
+   "ideas": [
+    "Cada punto: sensibilidad frente a 1 − especificidad",
+    "AUC: P(enfermo > sano)"
+   ],
+   "fig": "tema_160_roc.png",
+   "texto": "La curva ROC muestra todos los puntos de corte a la vez. Cada punto de la curva es un corte, con su sensibilidad y su tasa de falsos positivos. El área bajo la curva es la probabilidad de que un enfermo tenga un valor mayor que un sano. Un área de cero coma cinco es el azar; de uno, la perfección. Pero el corte se elige según la finalidad clínica y el coste de cada error."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 160 en Colab",
+    "Misiones: tabla 2 × 2, troponina, AUC a mano"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema ciento sesenta, construye la tabla de dos por dos y dibuja la curva ROC del NT-proBNP. Después, en la app Bioestadística, tienes tres misiones: los índices de una tabla de dos por dos, un punto de corte de troponina para descartar infarto, y el área bajo la curva comprobada a mano. Nos vemos en el tema ciento setenta."
+  }
+ ]
+}

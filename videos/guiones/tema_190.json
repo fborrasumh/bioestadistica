@@ -1,0 +1,72 @@
+{
+ "tema": 190,
+ "titulo": "Simulación de Monte Carlo y distribuciones muestrales",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Cada muestra da otra media",
+   "subtitulo": "Simulación de Monte Carlo y distribuciones muestrales",
+   "texto": "Hola. Este tema es el puente entre la probabilidad y la inferencia. Vas a simular miles de muestras en el ordenador para ver algo que no se ve con una sola: cuánto varía un resultado de una muestra a otra."
+  },
+  {
+   "titulo": "Cada residente obtiene una media distinta",
+   "ideas": [
+    "30 historias cada uno: 6,2 y 7,9 días",
+    "La media varía: distribución muestral",
+    "Su DE es el error estándar"
+   ],
+   "fig": "video_190_caso.png",
+   "codigo_de": "1. Caso",
+   "texto": "Dos residentes estudian la estancia de los pacientes con neumonía. Cada uno revisa al azar treinta historias. El primero obtiene una media de seis coma dos días; el segundo, de siete coma nueve. ¿Se ha equivocado alguno? No necesariamente. Cada muestra es distinta, y también su media. Si cien residentes repitieran el estudio, sus medias formarían una distribución: la distribución muestral."
+  },
+  {
+   "titulo": "El método de Monte Carlo",
+   "ideas": [
+    "Modelo → simular → calcular → repetir",
+    "Estimar probabilidades sin fórmulas",
+    "Comprobar un cálculo"
+   ],
+   "fig": "tema_190_e2_1.png",
+   "texto": "El método de Monte Carlo consiste en repetir muchas veces un experimento simulado. Defines un modelo, simulas una muestra, calculas lo que te interesa y repites, por ejemplo, diez mil veces. La proporción de veces que ocurre algo estima su probabilidad, sin necesidad de fórmulas. Y cuando la simulación coincide con la teoría, tienes una comprobación de tu cálculo."
+  },
+  {
+   "titulo": "El tablero de Galton, simulado",
+   "ideas": [
+    "Cada bola: muchas decisiones al azar",
+    "El resultado: una campana"
+   ],
+   "fig": "video_190_galton.png",
+   "codigo_de": "2.1 El método",
+   "texto": "Un ejemplo clásico es el tablero de Galton. Cada bola cae rebotando a izquierda o derecha en muchos clavos, al azar. Ninguna bola sigue una campana, pero al acumular miles de bolas aparece la curva normal. Es una suma de muchos efectos pequeños e independientes, y eso, como verás ahora, es la clave del teorema central del límite."
+  },
+  {
+   "titulo": "Error estándar: cuánto se equivoca una muestra típica",
+   "ideas": [
+    "EE de la media = σ / √n",
+    "Pacientes: DE 15 mmHg",
+    "Medias de 30: mucho menos dispersas"
+   ],
+   "fig": "tema_190_esquema.png",
+   "texto": "La desviación típica de la distribución muestral tiene nombre propio: el error estándar. Para una media, es la desviación típica de la variable dividida entre la raíz del tamaño de la muestra. Si la presión sistólica de los pacientes tiene una desviación típica de quince, las medias de muestras de treinta varían mucho menos. Con muestras más grandes, el error estándar baja, pero despacio."
+  },
+  {
+   "titulo": "Teorema central del límite",
+   "ideas": [
+    "La media de muestras grandes es casi normal",
+    "Aunque la variable sea asimétrica",
+    "≈ 95 % de medias a menos de 1,96 EE"
+   ],
+   "fig": "tema_190_tcl.png",
+   "texto": "Y llegamos al resultado más importante del curso. Aunque la variable sea asimétrica, como la estancia, la media de muestras grandes se distribuye casi como una normal. Es el teorema central del límite. Por eso, alrededor del noventa y cinco por ciento de las medias muestrales está a menos de uno coma noventa y seis errores estándar de la media real. Es la base del intervalo de confianza del próximo tema."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 190 en Colab",
+    "Misiones: error estándar, prevalencia, 20 respuestas de una IA"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema ciento noventa y simula miles de muestras de la estancia hospitalaria. Después, en la app Bioestadística, tienes tres misiones: el error estándar de medias y proporciones, la distribución muestral de la prevalencia de hipertensión, y veinte respuestas de un modelo de IA a la misma pregunta. Nos vemos en el tema doscientos."
+  }
+ ]
+}

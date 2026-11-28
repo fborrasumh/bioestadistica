@@ -1,0 +1,69 @@
+{
+ "tema": 290,
+ "titulo": "Modelos predictivos e inteligencia artificial en la práctica clínica",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "¿Funciona este modelo de IA?",
+   "subtitulo": "Modelos predictivos e inteligencia artificial en la práctica clínica: desarrollo, validación y comunicación",
+   "texto": "Hola. Cada vez más hospitales compran sistemas de inteligencia artificial que predicen riesgos. En este tema vas a aprender a hacer las preguntas que el folleto comercial no responde."
+  },
+  {
+   "titulo": "«Exactitud del 89 %»: ¿impresiona?",
+   "ideas": [
+    "Si el evento ocurre en el 11 %…",
+    "decir siempre «no» acierta el 89 %",
+    "Pregunta por discriminación y calibración"
+   ],
+   "fig": "tema_290_exactitud.png",
+   "texto": "Una empresa ofrece un sistema que predice qué pacientes tendrán un evento cardiovascular en cinco años. El folleto dice: entrenado con seiscientos pacientes y dieciséis variables, exactitud del ochenta y nueve por ciento, área bajo la curva de cero coma noventa. ¿Impresiona? Si el evento ocurre en el once por ciento de los pacientes, un modelo que diga siempre no habrá evento acierta el ochenta y nueve por ciento. Sin servir para nada."
+  },
+  {
+   "titulo": "Explicar no es predecir",
+   "ideas": [
+    "Explicar: el efecto de X, ajustado por Z",
+    "Predecir: el mejor pronóstico con todo lo disponible"
+   ],
+   "fig": "tema_290_e2_1.png",
+   "texto": "Un modelo predictivo tiene un objetivo distinto del de los temas anteriores. En un modelo explicativo interesa el efecto de una variable, ajustado por los confusores. En un modelo predictivo interesa predecir bien el riesgo de un paciente nuevo, con las variables disponibles. Por eso un modelo predictivo se juzga por una sola cosa: cómo predice en pacientes que no ha visto."
+  },
+  {
+   "titulo": "El rendimiento aparente es optimista",
+   "ideas": [
+    "Con sus propios datos, el modelo se ajusta al ruido",
+    "Lo que cuenta: pacientes reservados",
+    "Mejor aún: otro centro"
+   ],
+   "fig": "tema_290_aparente.png",
+   "texto": "Un modelo evaluado con sus propios datos de entrenamiento se ha adaptado también a su ruido. Ese rendimiento aparente es optimista, más cuantas más variables y menos eventos tenga. Lo que cuenta es el rendimiento en pacientes reservados, que no se usaron para construirlo, y mejor aún en pacientes de otro centro. La validación cruzada, que reparte los datos en rondas, ayuda cuando hay pocos pacientes."
+  },
+  {
+   "titulo": "Discriminar no es estar bien calibrado",
+   "ideas": [
+    "Discriminación: ordenar por riesgo (AUC)",
+    "Calibración: 20 % predicho = 20 % observado"
+   ],
+   "fig": "tema_290_calibracion.png",
+   "texto": "Hay que evaluar dos propiedades. La discriminación es la capacidad de ordenar bien a los pacientes según su riesgo, y se mide con el área bajo la curva ROC. La calibración es que las probabilidades sean correctas: que de los pacientes con un veinte por ciento predicho, tenga el evento un veinte por ciento. Un modelo puede ordenar bien y, aun así, sobrestimar todos los riesgos. Al cambiar de población, la calibración suele empeorar."
+  },
+  {
+   "titulo": "TRIPOD+AI: qué preguntar",
+   "ideas": [
+    "Datos, participantes y resultado",
+    "Desarrollo y validación",
+    "Rendimiento, incertidumbre y equidad"
+   ],
+   "fig": "tema_290_e2_4.png",
+   "texto": "La guía TRIPOD más AI dice qué debe contar un estudio de predicción, también los de inteligencia artificial. De dónde salen los datos y quiénes son los pacientes. Cómo se desarrolló y cómo se validó el modelo. Y su rendimiento, con la incertidumbre y por subgrupos. Úsala como lista de preguntas antes de aceptar cualquier cifra de un folleto."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 290 en Colab",
+    "Misiones: rendimiento aparente, validar, preguntas TRIPOD+AI"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema doscientos noventa, desarrolla un modelo con parte de la cohorte y valídalo con los pacientes reservados. Después, en la app Bioestadística, tienes tres misiones: discriminación, calibración y rendimiento aparente; validar un modelo con pacientes reservados; y preparar las preguntas TRIPOD más AI para la empresa. Nos vemos en el último tema."
+  }
+ ]
+}

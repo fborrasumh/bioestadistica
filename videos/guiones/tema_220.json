@@ -1,0 +1,69 @@
+{
+ "tema": 220,
+ "titulo": "Inferencia sobre proporciones en una y dos poblaciones",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Comparar proporciones",
+   "subtitulo": "Inferencia sobre proporciones en una y dos poblaciones",
+   "texto": "Hola. Muchos resultados clínicos son proporciones: fumadores, controlados, curados. En este tema vas a comparar una proporción con un valor de referencia, y dos proporciones entre sí, eligiendo la prueba adecuada."
+  },
+  {
+   "titulo": "Tabaquismo en la cohorte",
+   "ideas": [
+    "¿Distinto del 22 % del plan de salud?",
+    "Hombres 28 % · mujeres 18 %: ¿diferencia real?"
+   ],
+   "fig": "tema_220_caso.png",
+   "texto": "La enfermera de prevención quiere diseñar una campaña antitabaco con la cohorte de cuatrocientos pacientes. Tiene dos preguntas. El plan de salud usa como referencia un veintidós por ciento de fumadores. ¿Es distinta la prevalencia de nuestra población? Y en la cohorte fuman el veintiocho por ciento de los hombres y el dieciocho por ciento de las mujeres. ¿Es real esa diferencia o puede ser azar?"
+  },
+  {
+   "titulo": "Una proporción frente a un valor de referencia",
+   "ideas": [
+    "Prueba binomial exacta",
+    "IC de Wilson",
+    "¿Es compatible el 22 %?"
+   ],
+   "fig": "tema_220_e2_1.png",
+   "texto": "Para la primera pregunta, una proporción frente a un valor de referencia, se usa la prueba binomial exacta. Supón que la prevalencia real fuera del veintidós por ciento. La distribución binomial dice cuántos fumadores esperarías en cuatrocientos pacientes, y con qué probabilidad saldría un número tan alejado como el observado. Se acompaña del intervalo de confianza de Wilson."
+  },
+  {
+   "titulo": "Dos proporciones: la diferencia con su intervalo",
+   "ideas": [
+    "Diferencia de proporciones con su IC",
+    "Prueba z, equivalente a la ji cuadrado",
+    "Diferencias pequeñas exigen muestras grandes"
+   ],
+   "fig": "tema_220_e2_2.png",
+   "texto": "Para la segunda pregunta se compara la proporción de fumadores en hombres y en mujeres. Lo más útil es la diferencia, con su intervalo de confianza. La prueba z para dos proporciones, equivalente a la ji cuadrado, da el valor p. Y una advertencia práctica: comparar proporciones parecidas exige muestras muy grandes."
+  },
+  {
+   "titulo": "Qué prueba usar con proporciones",
+   "ideas": [
+    "¿Mismos pacientes? → McNemar",
+    "Grupos distintos → z o ji cuadrado",
+    "Esperados pequeños → Fisher"
+   ],
+   "fig": "tema_220_decision.png",
+   "texto": "La pregunta clave para elegir es esta: ¿son los mismos pacientes medidos dos veces, o grupos distintos? Si son los mismos, los datos son apareados y se usa McNemar, que verás en el tema doscientos cuarenta. Si son grupos distintos, la prueba z o la ji cuadrado. Y si las frecuencias esperadas son pequeñas, la prueba exacta de Fisher."
+  },
+  {
+   "titulo": "Cuándo usar Fisher",
+   "ideas": [
+    "Esperado = total fila × total columna / N",
+    "Esperados < 5: la ji cuadrado no es fiable"
+   ],
+   "fig": "tema_220_esquema.png",
+   "texto": "¿Cómo sabes si las esperadas son pequeñas? En una tabla de dos por dos, la frecuencia esperada de cada casilla es el total de su fila por el total de su columna, dividido entre el total. En este ensayo piloto, dos casillas tienen esperados menores que cinco. Con esos números, la ji cuadrado no es fiable, y se usa Fisher."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 220 en Colab",
+    "Misiones: elegir prueba, diabetes rural, fumadores y eventos"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema doscientos veinte y responde a las dos preguntas de la enfermera. Después, en la app Bioestadística, tienes tres misiones: elegir la prueba para proporciones, comparar la prevalencia de diabetes del centro rural con la de los urbanos, y decidir la prueba adecuada para los eventos en fumadores y no fumadores. Nos vemos en el tema doscientos treinta."
+  }
+ ]
+}

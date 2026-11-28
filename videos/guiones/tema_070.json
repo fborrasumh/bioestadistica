@@ -1,0 +1,69 @@
+{
+ "tema": 70,
+ "titulo": "Gestión de ficheros y formatos de intercambio de datos sanitarios: CSV y JSON",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Datos que viajan: CSV y JSON",
+   "subtitulo": "Gestión de ficheros y formatos de intercambio de datos sanitarios: CSV y JSON",
+   "texto": "Hola. Los datos clínicos viajan entre el hospital, el laboratorio y los registros de investigación en ficheros. En este tema vas a leer y escribir los dos formatos más usados, CSV y JSON, sin perder información por el camino."
+  },
+  {
+   "titulo": "El CSV que se abrió mal",
+   "ideas": [
+    "Separador «;» y coma decimal",
+    "Tildes en UTF-8",
+    "Si no se indica al leer, los datos se estropean"
+   ],
+   "fig": "tema_070_csv_roto.png",
+   "texto": "Un grupo de investigación envía cada mes los datos de un registro de insuficiencia cardiaca en un fichero CSV. Un mes, alguien lo abre y todo aparece en una sola columna, las cifras con coma no son números y las tildes salen como símbolos raros. Los datos no estaban mal. Se leyeron mal. El fichero usaba punto y coma como separador, coma decimal y codificación UTF-8, y nadie lo indicó al leerlo."
+  },
+  {
+   "titulo": "CSV: una tabla escrita como texto",
+   "ideas": [
+    "Una línea por paciente",
+    "La primera línea: la cabecera",
+    "Un campo vacío es un dato ausente"
+   ],
+   "fig": "tema_070_csv.png",
+   "texto": "Un CSV es una tabla escrita como texto. Cada línea es un paciente y los campos van separados por un carácter, normalmente la coma o, en España, el punto y coma. La primera línea suele ser la cabecera, con los nombres de las variables. Un campo vacío es un dato ausente, no un cero. Y recuerda: al leerlo, todo llega como texto, y hay que comprobar el separador y la coma decimal."
+  },
+  {
+   "titulo": "Abrir, leer y escribir ficheros",
+   "ideas": [
+    "with open(…, encoding=\"utf-8\")",
+    "\"r\" lee · \"a\" añade · \"w\" sobrescribe"
+   ],
+   "fig": "tema_070_esquema.png",
+   "texto": "En Python, un fichero se abre con with open, indicando siempre la codificación UTF-8. El modo decide qué haces con él. Con r lo lees. Con a añades líneas al final. Con w lo escribes desde cero, y cuidado, porque w borra lo que hubiera antes. Un error de modo puede hacer desaparecer el trabajo de un mes."
+  },
+  {
+   "titulo": "JSON: datos anidados, como un resultado de laboratorio",
+   "ideas": [
+    "Diccionarios dentro de diccionarios, y listas",
+    "Formato de las API y de HL7 FHIR",
+    "obs[\"valueQuantity\"][\"value\"]"
+   ],
+   "fig": "tema_070_json.png",
+   "texto": "El laboratorio entrega sus resultados en JSON, siguiendo el estándar internacional HL7 FHIR. Un JSON guarda datos anidados: diccionarios dentro de diccionarios, y listas. Es el formato de la historia clínica electrónica y de las API, también de las de inteligencia artificial. Para llegar a un dato, sigues el camino de claves, por ejemplo, el valor dentro de la cantidad de la observación."
+  },
+  {
+   "titulo": "Antes de analizar, comprueba lo leído",
+   "ideas": [
+    "¿Cuántas filas y columnas?",
+    "¿Son números los números?",
+    "¿Cuántos datos ausentes?"
+   ],
+   "texto": "Después de leer un fichero, comprueba siempre lo que has leído. ¿Tiene el número de filas y columnas que esperabas? ¿Son números las columnas que deben serlo? ¿Cuántos datos ausentes hay? Estas tres preguntas detectan casi todos los problemas de lectura antes de que se conviertan en un resultado equivocado."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 70 en Colab",
+    "Misiones: CSV español, registro, recurso FHIR"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema setenta y lee el CSV a la española y el resultado de laboratorio en FHIR. Después, en la app Bioestadística, tienes tres misiones: separadores, coma decimal y datos ausentes en un CSV; leer un registro de insuficiencia cardiaca; y extraer los datos de un recurso FHIR Observation. Nos vemos en el tema ochenta."
+  }
+ ]
+}

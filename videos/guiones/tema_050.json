@@ -1,0 +1,69 @@
+{
+ "tema": 50,
+ "titulo": "Funciones en Python para la implementación de índices y escalas clínicas",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Escalas clínicas como funciones",
+   "subtitulo": "Funciones en Python para la implementación de índices y escalas clínicas",
+   "texto": "Hola. En este tema vas a convertir escalas clínicas en funciones de Python. Una función se escribe una vez y se usa siempre. Por eso, si está mal, se equivoca con todos los pacientes. Vas a aprender a escribirlas y, sobre todo, a probarlas."
+  },
+  {
+   "titulo": "Rosa: dos cálculos que se repiten cada día",
+   "ideas": [
+    "CHA₂DS₂-VASc orienta la anticoagulación",
+    "El aclaramiento de creatinina ajusta la dosis",
+    "Una función se escribe una vez y se usa siempre"
+   ],
+   "fig": "tema_050_caja.png",
+   "texto": "Rosa tiene setenta y ocho años y llega a Urgencias con una fibrilación auricular que no se conocía. Es hipertensa y diabética. El médico necesita dos cálculos. La escala CHA2DS2-VASc estima su riesgo de ictus y orienta la anticoagulación. El aclaramiento de creatinina decide la dosis del anticoagulante. Estos dos cálculos se repiten todos los días, en muchos pacientes. Son candidatos perfectos para una función."
+  },
+  {
+   "titulo": "Anatomía de una función",
+   "ideas": [
+    "def, nombre y parámetros",
+    "Cuerpo sangrado",
+    "return devuelve el resultado"
+   ],
+   "fig": "tema_050_anatomia.png",
+   "texto": "Una función empieza con def, su nombre y sus parámetros entre paréntesis: los datos que necesita, como la edad o el peso. Después viene el cuerpo, sangrado, con el cálculo. Y termina con return, que devuelve el resultado a quien llama a la función. Cuidado: print solo muestra el resultado en la pantalla. Sin return, quien llama a la función recibe None."
+  },
+  {
+   "titulo": "Una función, muchos usos",
+   "ideas": [
+    "Consulta, informe de alta, pruebas",
+    "Si se corrige, se corrige en todas partes"
+   ],
+   "fig": "tema_050_e2_2.png",
+   "texto": "Una vez escrita, la misma función sirve en la consulta, en el informe de alta y en un estudio con miles de pacientes. Si encuentras un error, lo corriges en un solo sitio y queda corregido en todas partes. Por eso las funciones llevan nombres claros, parámetros con unidades y un comentario que explica de qué guía clínica salen."
+  },
+  {
+   "titulo": "Los casos de prueba salen de la guía clínica",
+   "ideas": [
+    "Datos de entrada + resultado esperado, a mano",
+    "Los valores frontera descubren los errores"
+   ],
+   "fig": "tema_050_pruebas.png",
+   "texto": "Ninguna función se usa sin pasar sus casos de prueba. Un caso de prueba son unos datos de entrada y el resultado esperado, calculado a mano a partir de la guía, no del código. Los más útiles son los valores frontera. En CHA2DS2-VASc, la edad suma un punto desde los sesenta y cinco años y dos desde los setenta y cinco. Prueba con sesenta y cuatro, sesenta y cinco, setenta y cuatro y setenta y cinco."
+  },
+  {
+   "titulo": "Verifica la función del asistente",
+   "ideas": [
+    "El asistente da 100 con 120/80",
+    "Lo esperado es 93,3",
+    "Se corrige y se vuelve a probar"
+   ],
+   "fig": "tema_050_esquema.png",
+   "texto": "Esto vale el doble si la función la ha escrito un asistente de inteligencia artificial. En el cuaderno, el asistente propone una función de presión arterial media. Con ciento veinte, ochenta, devuelve cien. Pero el valor esperado es noventa y tres coma tres. La función parecía correcta y se ejecutaba sin errores. Solo el caso de prueba descubre el fallo."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 50 en Colab",
+    "Misiones: Mosteller, CURB-65, Glasgow"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema cincuenta y escribe las funciones de Rosa con sus casos de prueba. Después, en la app Bioestadística, tienes tres misiones: la superficie corporal de Mosteller, la escala CURB-65 como función, con sus valores frontera, y una escala de coma de Glasgow escrita por un asistente que tendrás que corregir. Nos vemos en el tema sesenta."
+  }
+ ]
+}

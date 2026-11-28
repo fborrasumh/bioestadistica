@@ -1,0 +1,73 @@
+{
+ "tema": 80,
+ "titulo": "Fundamentos de los modelos de lenguaje de gran tamaño",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Cómo piensa, y cómo no, un modelo de lenguaje",
+   "subtitulo": "Fundamentos de los modelos de lenguaje de gran tamaño: funcionamiento, limitaciones y uso seguro mediante API",
+   "texto": "Hola. Usas asistentes de inteligencia artificial casi a diario. En este tema vas a ver cómo generan el texto, por qué a veces inventan, y cómo usarlos desde Python de forma segura."
+  },
+  {
+   "titulo": "Cinco referencias con DOI… y dos no existen",
+   "ideas": [
+    "El modelo genera el texto más probable",
+    "Una referencia plausible lo es, exista o no",
+    "Todo se verifica en la fuente"
+   ],
+   "pregunta": "¿Cómo comprobaríais en dos minutos si una referencia existe?",
+   "fig": "tema_080_referencias.png",
+   "texto": "Un estudiante prepara una sesión clínica sobre hiponatremia. Pide a un asistente las cinco referencias más importantes, con su DOI. Recibe al instante cinco artículos perfectamente formateados. Al buscarlos, dos no existen. Los autores son reales y las revistas también, pero esos artículos nunca se publicaron. No es un fallo raro. Es una consecuencia directa de cómo funcionan estos modelos."
+  },
+  {
+   "titulo": "Un LLM predice la siguiente palabra",
+   "ideas": [
+    "Una probabilidad para cada palabra posible",
+    "Elige una y repite",
+    "No consulta una base de hechos"
+   ],
+   "fig": "tema_080_siguiente.png",
+   "texto": "Un modelo de lenguaje de gran tamaño hace una sola cosa: predice la siguiente palabra, o más exactamente, el siguiente token. Asigna una probabilidad a cada continuación posible, elige una y repite el proceso. No consulta una base de datos de hechos. Por eso una referencia inventada pero plausible tiene mucha probabilidad: se parece a miles de referencias reales."
+  },
+  {
+   "titulo": "La temperatura reparte la probabilidad",
+   "ideas": [
+    "Baja: casi siempre la más probable",
+    "Alta: más variedad e incoherencias",
+    "Ninguna garantiza la verdad"
+   ],
+   "fig": "video_080_temperatura.png",
+   "codigo_de": "2.2 La temperatura",
+   "texto": "La temperatura controla cómo se elige la siguiente palabra. Con una temperatura baja, el modelo elige casi siempre la más probable, y las respuestas son estables. Con una temperatura alta, reparte más la probabilidad, y hay más variedad y más riesgo de incoherencias. Para tareas clínicas o de código, temperatura baja. Pero ninguna temperatura garantiza que la respuesta sea verdadera."
+  },
+  {
+   "titulo": "Seis limitaciones que obligan a verificar",
+   "ideas": [
+    "Alucinación y fecha de corte",
+    "Variabilidad y sesgos",
+    "Complacencia y cálculo poco fiable"
+   ],
+   "fig": "tema_080_esquema.png",
+   "texto": "Hay seis limitaciones que debes conocer. Las alucinaciones, como las referencias inventadas. La fecha de corte: el modelo no sabe lo que se publicó después de su entrenamiento. La variabilidad: la misma pregunta puede dar respuestas distintas. Los sesgos de los textos con los que aprendió. La complacencia: tiende a darte la razón. Y el cálculo poco fiable: un modelo de lenguaje no es una calculadora. Todas llevan a la misma norma: toda respuesta se verifica."
+  },
+  {
+   "titulo": "Una API: tu código habla con el modelo",
+   "ideas": [
+    "Petición: prompt + clave",
+    "Respuesta en JSON con texto y tokens",
+    "Nunca datos de pacientes"
+   ],
+   "fig": "tema_080_api.png",
+   "texto": "Desde Python, hablas con el modelo a través de una API. Tu programa envía una petición con el texto y tu clave de acceso, y recibe la respuesta en JSON, con el texto y los tokens consumidos. Cada llamada cuesta dinero o cuota. Y lo que envías sale de tu ordenador. Por eso la clave va en Secretos, y nunca se envían datos de pacientes."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 80 en Colab",
+    "Misiones: temperatura, verificar IMC, verificar referencias"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema ochenta, construye un modelo de juguete que elige la siguiente palabra y haz tu primera llamada a la API. Después, en la app Bioestadística, tienes tres misiones: la temperatura y las distribuciones de probabilidad, verificar las clasificaciones de índice de masa corporal que devuelve un modelo, y verificar las referencias que propone. Nos vemos en el tema noventa."
+  }
+ ]
+}

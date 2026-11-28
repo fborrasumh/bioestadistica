@@ -1,0 +1,70 @@
+{
+ "tema": 40,
+ "titulo": "Estructuras iterativas para el procesamiento de series de pacientes",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Repetir sin equivocarse",
+   "subtitulo": "Estructuras iterativas para el procesamiento de series de pacientes",
+   "texto": "Hola. En este tema vas a aprender a repetir una misma operación con todos los pacientes, sin cansarte y sin equivocarte. Es lo que hacen los bucles, y son la base de casi todo el análisis de datos."
+  },
+  {
+   "titulo": "Ocho pacientes, 40 glucemias",
+   "ideas": [
+    "¿Quién ha tenido hipoglucemia (< 70 mg/dL)?",
+    "Revisar a mano es lento y propenso a errores",
+    "Para cada paciente, para cada glucemia…"
+   ],
+   "fig": "video_040_caso.png",
+   "codigo_de": "1. Caso",
+   "texto": "La supervisora de una planta de Endocrinología pide un informe al final del turno. Hay ocho pacientes con diabetes, y cada uno tiene entre cuatro y seis glucemias capilares. ¿Cuántos han tenido alguna hipoglucemia, es decir, una glucemia por debajo de setenta? Revisarlas una a una es lento, propenso a errores, y mañana habrá que repetirlo. La instrucción, en cambio, es siempre la misma."
+  },
+  {
+   "titulo": "El bucle for recorre la serie",
+   "ideas": [
+    "En cada vuelta, la variable toma el siguiente valor",
+    "El cuerpo sangrado se repite"
+   ],
+   "fig": "tema_040_for.png",
+   "texto": "El bucle for recorre una serie elemento a elemento. En cada vuelta, la variable toma el siguiente valor de la lista, y se ejecuta el cuerpo del bucle, las líneas sangradas. Si la lista tiene cinco glucemias, el cuerpo se repite cinco veces. Si tiene cinco mil, también funciona, sin cambiar ni una línea."
+  },
+  {
+   "titulo": "Acumuladores y contadores",
+   "ideas": [
+    "Se inicializan antes del bucle",
+    "Se actualizan dentro",
+    "Media = total / n"
+   ],
+   "fig": "tema_040_esquema.png",
+   "texto": "Para calcular dentro de un bucle se usan acumuladores y contadores. Antes del bucle, el total vale cero y el contador de hipoglucemias también. En cada vuelta, el total suma la glucemia, y si la glucemia es menor que setenta, el contador sube uno. Al terminar, la media es el total dividido entre el número de valores. Un error típico es inicializar dentro del bucle: entonces se borra en cada vuelta."
+  },
+  {
+   "titulo": "Prevalencia = casos / total",
+   "ideas": [
+    "Un contador dentro de un bucle",
+    "Proporción entre 0 y 1, en un momento dado"
+   ],
+   "fig": "tema_040_prevalencia.png",
+   "texto": "Con un contador dentro de un bucle calculas tu primera medida epidemiológica: la prevalencia. Cuentas los pacientes que tienen la condición y divides entre el total. Es una proporción, entre cero y uno, o entre cero y cien por cien, y siempre se refiere a un momento dado. La usarás en todo el curso."
+  },
+  {
+   "titulo": "while: repetir mientras se cumpla",
+   "ideas": [
+    "Cuando no se sabe cuántas vueltas hacen falta",
+    "Algo debe cambiar dentro, o no termina"
+   ],
+   "fig": "video_040_while.png",
+   "codigo_de": "2.3 El bucle while",
+   "texto": "A veces no sabes cuántas vueltas hacen falta. Por ejemplo, ¿cuántas horas tarda un fármaco en bajar de una concentración dada? Para eso está while: repite mientras se cumpla una condición. Dentro del bucle, algo debe cambiar, aquí la concentración, que se divide entre dos en cada semivida. Si nada cambia, la condición se cumple siempre, y el bucle no termina nunca."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 40 en Colab",
+    "Misiones: vueltas, prevalencia, estado estacionario"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema cuarenta y prepara el informe de hipoglucemias de la supervisora. Después, en la app Bioestadística, tienes tres misiones: predecir cuántas vueltas da un bucle, calcular la prevalencia de hipertensión y el índice de masa corporal de una serie, y calcular con while la dosis hasta el estado estacionario. Nos vemos en el tema cincuenta."
+  }
+ ]
+}

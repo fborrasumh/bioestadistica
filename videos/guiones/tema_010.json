@@ -1,0 +1,71 @@
+{
+ "tema": 10,
+ "titulo": "Introducción a la bioestadística computacional en ciencias de la salud",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "De una paciente a 3.000",
+   "subtitulo": "Introducción a la bioestadística computacional en ciencias de la salud: entorno Google Colab y asistentes de inteligencia artificial",
+   "texto": "Hola. Bienvenido a Bioestadística. En este primer tema vas a ver por qué un médico necesita estadística, por qué en esta asignatura la haremos con código, y cuáles son las tres normas para trabajar con un asistente de inteligencia artificial."
+  },
+  {
+   "titulo": "De Carmen a 3.000 pacientes",
+   "ideas": [
+    "Una paciente: decide el juicio clínico",
+    "3.000 pacientes: ¿qué proporción está controlada?"
+   ],
+   "pregunta": "¿Cómo sabríais si el control de la hipertensión ha mejorado este año?",
+   "fig": "tema_010_escala.png",
+   "texto": "Carmen tiene cincuenta y ocho años y una presión arterial de ciento cuarenta y ocho, noventa y dos. Con una sola paciente, decide el juicio clínico: es hipertensión. Pero el centro de salud atiende a tres mil pacientes con hipertensión. Ahora las preguntas son otras. ¿Qué proporción está controlada? ¿Ha mejorado este año? ¿Funciona el programa? Responderlas exige datos, estadística y, hoy, código."
+  },
+  {
+   "titulo": "Población y muestra, parámetro y estadístico",
+   "ideas": [
+    "Población: todo el grupo que interesa",
+    "Muestra: la parte que se mide",
+    "El estadístico estima el parámetro"
+   ],
+   "fig": "tema_010_poblacion.png",
+   "texto": "Casi nunca se puede medir a toda la población. Por eso se mide una muestra. De la muestra sale un estadístico, por ejemplo una media o una proporción. Con él estimamos el parámetro de la población, que no conocemos. Toda la segunda mitad de la asignatura trata de cómo hacer esa estimación y de cuánto nos podemos equivocar."
+  },
+  {
+   "titulo": "Qué tipo de variable es cada dato",
+   "ideas": [
+    "El tipo decide el resumen, el gráfico y la prueba",
+    "Ordinal no es cuantitativa"
+   ],
+   "fig": "tema_010_variables.png",
+   "texto": "Cada dato clínico es un tipo de variable. El sexo es cualitativa nominal. La clase funcional de la NYHA es cualitativa ordinal: tiene orden, pero entre la clase dos y la tres no hay una unidad. El número de ingresos es cuantitativa discreta, y la presión arterial, cuantitativa continua. El tipo de variable decide cómo se resume, cómo se representa y qué prueba estadística se usa."
+  },
+  {
+   "titulo": "Por qué programar",
+   "ideas": [
+    "Reproducibilidad",
+    "Escalabilidad",
+    "Trazabilidad"
+   ],
+   "fig": "tema_010_e2_4.png",
+   "texto": "Una hoja de cálculo basta para treinta pacientes. Para tres mil, o para repetir el mismo análisis cada mes, el código ofrece tres ventajas. Reproducibilidad: otra persona repite el análisis y obtiene el mismo resultado. Escalabilidad: el mismo código sirve para treinta o para trescientos mil pacientes. Trazabilidad: cada paso queda escrito y se puede revisar, como un protocolo."
+  },
+  {
+   "titulo": "Tres normas para trabajar con IA",
+   "ideas": [
+    "Nunca datos reales de pacientes",
+    "La clave de acceso, en Secretos",
+    "Toda respuesta se verifica"
+   ],
+   "fig": "tema_010_normas_ia.png",
+   "texto": "Usaremos asistentes de inteligencia artificial todos los días. Escriben y explican código muy deprisa, pero se pueden equivocar con total seguridad. Por eso hay tres normas. Primera: nunca introduzcas datos reales de pacientes. Segunda: la clave de acceso es personal y se guarda en Secretos, nunca en el código. Tercera: toda respuesta se verifica, se ejecuta, se comprueba con un caso conocido y se entiende línea a línea."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 10 en Colab",
+    "Misiones: variables, IMC y PAM, clave de API",
+    "Las tres normas, en todos los temas"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema diez y calcula con Python el índice de masa corporal, la presión arterial media y la superficie corporal de Carmen. Después, en la app Bioestadística, tienes tres misiones: clasificar las variables de una historia clínica, repetir esos cálculos y trabajar con un asistente de IA y una clave de acceso. Nos vemos en el tema veinte."
+  }
+ ]
+}

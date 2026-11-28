@@ -1,0 +1,69 @@
+{
+ "tema": 180,
+ "titulo": "Variables aleatorias continuas y distribución normal: intervalos de referencia",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Fuera de rango no es enfermo",
+   "subtitulo": "Variables aleatorias continuas y distribución normal: intervalos de referencia clínicos",
+   "texto": "Hola. Todos los informes de laboratorio traen intervalos de referencia. En este tema vas a entender de dónde salen, qué significan, y por qué casi todo el mundo tiene algún valor fuera de rango."
+  },
+  {
+   "titulo": "Javier, sano, con dos valores «fuera de rango»",
+   "ideas": [
+    "El intervalo contiene al 95 % central de los sanos",
+    "Un 5 % de sanos queda fuera",
+    "Fuera = poco frecuente en sanos, no enfermo"
+   ],
+   "fig": "tema_180_intervalo.png",
+   "texto": "Javier tiene treinta y cinco años y se encuentra bien. En su analítica de empresa, dos de los veinte parámetros salen marcados en negrita, ligeramente por encima del intervalo de referencia. Está preocupado. Pero un intervalo de referencia contiene, por definición, al noventa y cinco por ciento central de las personas sanas. Un cinco por ciento de sanos queda fuera. Fuera significa poco frecuente en sanos, no enfermo."
+  },
+  {
+   "titulo": "En una variable continua, la probabilidad es un área",
+   "ideas": [
+    "Curva de densidad",
+    "P(120 ≤ PAS ≤ 140) = área bajo la curva",
+    "Un valor exacto tiene probabilidad 0"
+   ],
+   "fig": "tema_180_e2_1.png",
+   "texto": "En una variable continua, como la presión arterial, la probabilidad es el área bajo la curva de densidad. La probabilidad de que la sistólica esté entre ciento veinte y ciento cuarenta es el área sombreada entre esos dos valores. Y la probabilidad de un valor exacto, por ejemplo de ciento treinta coma cero cero cero, es cero."
+  },
+  {
+   "titulo": "La regla 68 – 95 – 99,7",
+   "ideas": [
+    "La normal: media μ y desviación típica σ",
+    "μ ± 1,96 σ contiene el 95 %"
+   ],
+   "fig": "tema_180_regla.png",
+   "texto": "La distribución normal es simétrica y queda definida por su media y su desviación típica. Entre la media más y menos una desviación típica está el sesenta y ocho por ciento de los valores. Entre más y menos uno coma noventa y seis, el noventa y cinco por ciento. Y entre más y menos tres, el noventa y nueve coma siete."
+  },
+  {
+   "titulo": "Tipificar: ¿a cuántas desviaciones de la media está?",
+   "ideas": [
+    "z = (x − μ) / σ",
+    "Misma escala para unidades distintas",
+    "|z| > 1,96 → fuera del 95 % central"
+   ],
+   "fig": "tema_180_z.png",
+   "texto": "Tipificar es medir a cuántas desviaciones típicas de la media está un valor. Se resta la media y se divide entre la desviación típica. Así, variables con unidades distintas quedan en la misma escala, y basta una sola tabla para cualquier normal. Un valor con z mayor que uno coma noventa y seis, en valor absoluto, queda fuera del noventa y cinco por ciento central."
+  },
+  {
+   "titulo": "20 parámetros: lo raro es que todo salga normal",
+   "ideas": [
+    "P(al menos uno fuera) = 1 − 0,95²⁰ ≈ 64 %",
+    "Un valor aislado y leve en un sano suele no importar"
+   ],
+   "fig": "tema_180_veinte.png",
+   "texto": "Volvamos a Javier. Si cada parámetro deja fuera al cinco por ciento de los sanos, y los veinte fueran independientes, la probabilidad de que al menos uno salga fuera es uno menos cero coma noventa y cinco elevado a veinte: alrededor del sesenta y cuatro por ciento. Lo raro es que todo salga normal. Y si la variable no es normal, el intervalo se calcula con percentiles, no con la media."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 180 en Colab",
+    "Misiones: hemoglobina, TSH, triglicéridos asimétricos"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema ciento ochenta y calcula probabilidades e intervalos de referencia con la normal. Después, en la app Bioestadística, tienes tres misiones: probabilidades y percentiles de la hemoglobina en mujeres sanas, el intervalo de referencia de la TSH, y el de los triglicéridos, teniendo en cuenta su asimetría. Nos vemos en el tema ciento noventa."
+  }
+ ]
+}

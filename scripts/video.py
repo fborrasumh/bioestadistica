@@ -93,7 +93,7 @@ def dibuja(tema):
                 f = Image.open(ruta).convert("RGB")
             abajo = f is not None and f.width / f.height > 1.7      # figura apaisada: debajo del texto
             lado = f is not None and not abajo
-            ancho_txt = 700 if lado else 1600
+            ancho_txt = 700 if lado else (920 if abajo and e.get("pregunta") else 1600)   # la pregunta va a la derecha
             y = _parrafo(d, e["titulo"], 120, 148, (720 if lado else 1680), _fuente("Bold", 62 if lado else 68), TINTA, 1.15) + 40
             fb = _fuente("Regular", 44 if f else 54)
             y_ideas = y

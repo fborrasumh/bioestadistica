@@ -1,0 +1,70 @@
+{
+ "tema": 300,
+ "titulo": "Lectura crítica de la evidencia científica y evaluación de la mejora recursiva",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Leer la evidencia con criterio",
+   "subtitulo": "Lectura crítica de la evidencia científica y evaluación de la mejora recursiva",
+   "texto": "Hola. Este es el último tema. Vas a reunir todo lo aprendido para leer un estudio con criterio y para evaluar con datos tu propia mejora, y la de un modelo de inteligencia artificial."
+  },
+  {
+   "titulo": "«El café reduce un 30 % la mortalidad»",
+   "ideas": [
+    "Estudio observacional: «se asoció con»",
+    "HR 0,70 en 10 años",
+    "En absoluto: unos 2 puntos"
+   ],
+   "fig": "tema_300_cafe.png",
+   "texto": "Un paciente llega con un titular en el móvil: un estudio demuestra que tomar café reduce un treinta por ciento la mortalidad. El resumen dice que es un estudio de cohortes con cincuenta y dos mil adultos seguidos diez años, con un hazard ratio ajustado de cero coma setenta. Es un estudio observacional: el café se asoció con menos mortalidad, no la redujo. Y aunque fuera causal, la diferencia absoluta sería de unos dos puntos en diez años."
+  },
+  {
+   "titulo": "El diseño decide qué se puede concluir",
+   "ideas": [
+    "El investigador asigna al azar → ensayo",
+    "Observa → cohortes, casos y controles, transversal"
+   ],
+   "fig": "tema_300_esquema.png",
+   "texto": "La primera pregunta ante un estudio es su diseño. Si el investigador asignó la exposición al azar, es un ensayo clínico aleatorizado, y permite hablar de causa. Si solo observó, es un estudio observacional: de cohortes, de casos y controles o transversal. Con él se habla de asociación, y hay que pensar en la confusión, como en los temas ciento treinta y doscientos setenta."
+  },
+  {
+   "titulo": "Precisión no es validez",
+   "ideas": [
+    "El tamaño muestral controla el azar",
+    "Los sesgos no se arreglan con más pacientes",
+    "Enorme y sesgado: preciso y equivocado"
+   ],
+   "fig": "tema_300_diana.png",
+   "texto": "Hay tres grandes fuentes de sesgo: la selección de los participantes, la información, es decir, cómo se miden las variables, y la confusión. El tamaño de la muestra controla el azar, es decir, la precisión. Pero los sesgos afectan a la validez, y no se arreglan con más pacientes. Un estudio enorme y sesgado da una respuesta muy precisa y equivocada. Cincuenta y dos mil participantes no protegen frente a la confusión."
+  },
+  {
+   "titulo": "Diez preguntas de lectura crítica",
+   "ideas": [
+    "Pregunta PICO y diseño",
+    "Sesgos y efecto absoluto con su IC",
+    "CONSORT, STROBE, STARD, TRIPOD+AI, PRISMA"
+   ],
+   "fig": "tema_300_e2_3.png",
+   "texto": "El cuaderno propone diez preguntas agrupadas en cuatro bloques: la pregunta del estudio en formato PICO, el diseño, los sesgos y el efecto, en medidas absolutas y con su intervalo. Las guías de publicación, como CONSORT para ensayos, STROBE para observacionales o TRIPOD más AI para modelos predictivos, son también listas de lectura crítica. Un asistente de IA te ayuda a leer, pero todo lo que afirma se verifica."
+  },
+  {
+   "titulo": "Para mejorar y para medir: dos conjuntos de casos",
+   "ideas": [
+    "Se mejora con unos casos",
+    "Se mide una vez con otros reservados",
+    "También tu aprendizaje en la app"
+   ],
+   "fig": "tema_300_mejora.png",
+   "texto": "Y la última idea vale para un prompt, para un modelo de inteligencia artificial y para ti. Para evaluar una mejora hacen falta dos conjuntos de casos. Con uno se mejora. Con otro, reservado, se mide una sola vez al final. Así lo hiciste en el tema noventa. Ahora lo aplicarás a tus propios informes de la app, con datos apareados: tu primer intento frente al resultado tras la pista."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 300 en Colab",
+    "Misiones: diez preguntas, nota de prensa, tu mejora recursiva"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema trescientos y lee críticamente el estudio del café. En la app Bioestadística tienes las tres últimas misiones: las diez preguntas de lectura crítica, reescribir una nota de prensa con medidas absolutas, y analizar tu propia mejora recursiva con tus informes. Gracias por llegar hasta aquí. Ahora ya sabes leer la evidencia con tus propios ojos."
+  }
+ ]
+}

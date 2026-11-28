@@ -1,0 +1,69 @@
+{
+ "tema": 130,
+ "titulo": "Análisis bivariante y representación gráfica: asociación y correlación",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Asociación no es causalidad",
+   "subtitulo": "Análisis bivariante y representación gráfica de datos clínicos: asociación y correlación",
+   "texto": "Hola. En este tema vas a estudiar dos variables a la vez: cómo representarlas, cómo medir su asociación y, sobre todo, cómo no sacar conclusiones causales que los datos no permiten."
+  },
+  {
+   "titulo": "Chocolate y premios Nobel; presión arterial y creatinina",
+   "ideas": [
+    "Una correlación real puede deberse a una tercera variable",
+    "La edad eleva la PAS y la creatinina"
+   ],
+   "pregunta": "¿Qué otra variable podría explicar que dos medidas clínicas suban juntas?",
+   "fig": "tema_130_confusion.png",
+   "texto": "En dos mil doce, una revista médica publicó, con ironía, que los países que más chocolate consumen tienen más premios Nobel. La correlación es real, pero nadie cree que el chocolate haga ganar un Nobel: las dos cosas se asocian a la riqueza del país. En nuestro registro pasa algo parecido. La presión sistólica y la creatinina suben juntas. Pero la edad eleva las dos."
+  },
+  {
+   "titulo": "Qué gráfico y qué resumen según las variables",
+   "ideas": [
+    "Cuantitativa × cuantitativa: dispersión",
+    "Cualitativa × cuantitativa: cajas",
+    "Cualitativa × cualitativa: tabla"
+   ],
+   "fig": "tema_130_que_grafico.png",
+   "texto": "El tipo de las dos variables decide el gráfico y el resumen. Dos cuantitativas, como la edad y la presión sistólica, se ven en un gráfico de dispersión y se resumen con un coeficiente de correlación. Una cualitativa y una cuantitativa, como el sexo y el HDL, se comparan con diagramas de caja. Dos cualitativas, como la diabetes y el evento cardiovascular, van en una tabla de contingencia."
+  },
+  {
+   "titulo": "Cómo se ve cada coeficiente de correlación",
+   "ideas": [
+    "Pearson: relación lineal, de −1 a 1",
+    "Spearman: monótona, robusta a atípicos",
+    "Una U puede dar r ≈ 0"
+   ],
+   "fig": "tema_130_r.png",
+   "texto": "El coeficiente de Pearson mide solo la relación lineal, y va de menos uno a uno. El de Spearman usa rangos: mide si la relación es monótona y resiste a los valores atípicos. Pero un coeficiente nunca sustituye al gráfico. Una relación en forma de U perfecta puede dar una correlación cercana a cero, y un solo punto extremo puede crear una correlación que no existe."
+  },
+  {
+   "titulo": "Cuatro explicaciones para una asociación",
+   "ideas": [
+    "X causa Y · Y causa X",
+    "Z causa las dos: confusión",
+    "El azar"
+   ],
+   "fig": "tema_130_esquema.png",
+   "texto": "Cuando dos variables se asocian, hay cuatro explicaciones posibles. Que X cause Y. Que Y cause X, la causalidad inversa. Que una tercera variable cause las dos, la confusión. O el azar. Antes de hablar de causa, piensa en las otras tres. El primer paso para controlar una posible confusión es estratificar: mirar la asociación dentro de cada grupo de edad, por ejemplo."
+  },
+  {
+   "titulo": "Estratificar por la edad",
+   "ideas": [
+    "Toda la cohorte: PAS y creatinina se asocian",
+    "Dentro de cada grupo de edad, mucho menos"
+   ],
+   "texto": "En el cuaderno lo comprobarás con el registro. En toda la cohorte, la presión sistólica y la creatinina parecen claramente asociadas. Pero si separas a los pacientes por grupos de edad y miras dentro de cada grupo, la asociación casi desaparece. La edad era la que movía las dos variables. Lo retomarás en el tema doscientos setenta, con la regresión."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 130 en Colab",
+    "Misiones: emparejar gráficos, IMC y PA por sexo, conclusiones causales"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema ciento treinta y explora las relaciones del registro con gráficos y coeficientes. Después, en la app Bioestadística, tienes tres misiones: emparejar gráficos de dispersión con su correlación, estudiar el índice de masa corporal y la presión arterial por separado en hombres y mujeres, y detectar conclusiones causales injustificadas. Nos vemos en el tema ciento cuarenta."
+  }
+ ]
+}

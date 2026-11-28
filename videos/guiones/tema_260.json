@@ -1,0 +1,70 @@
+{
+ "tema": 260,
+ "titulo": "Comparación de más de dos grupos: ANOVA y pruebas no paramétricas",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Más de dos grupos, sin trampas",
+   "subtitulo": "Comparación de más de dos grupos: análisis de la varianza y pruebas no paramétricas",
+   "texto": "Hola. Cuando hay más de dos grupos, o muchas variables, aparece un problema: cuantas más comparaciones haces, más falsos positivos encuentras. En este tema vas a ver cómo evitarlo."
+  },
+  {
+   "titulo": "Buscar hasta encontrar algo «significativo»",
+   "ideas": [
+    "20 comparaciones sin efecto real",
+    "P(algún p < 0,05) ≈ 64 %",
+    "Buscar sin plan da hipótesis, no conclusiones"
+   ],
+   "fig": "tema_260_multiples.png",
+   "texto": "Un residente compara la presión sistólica de tres grupos de peso con tres pruebas t, dos a dos. Otro ha comparado entre los tres centros de salud la glucemia, el colesterol, el HDL, el índice de masa corporal, la presión, y mucho más, hasta encontrar algo significativo. Con veinte comparaciones sin ningún efecto real, la probabilidad de obtener al menos un p menor que cero coma cero cinco es del sesenta y cuatro por ciento."
+  },
+  {
+   "titulo": "Más comparaciones, más falsos positivos",
+   "ideas": [
+    "P(al menos uno) = 1 − 0,95ᵏ",
+    "k = 20 → 64 %"
+   ],
+   "fig": "tema_260_e2_1.png",
+   "texto": "Es el mismo cálculo que el de la analítica de Javier en el tema ciento ochenta. Con cada comparación hay un cinco por ciento de riesgo de un falso positivo. Con k comparaciones independientes, la probabilidad de al menos uno es uno menos cero coma noventa y cinco elevado a k. Crece muy deprisa. Lo que se encuentra buscando sin plan es una hipótesis para un nuevo estudio, no una conclusión."
+  },
+  {
+   "titulo": "ANOVA: entre grupos frente a dentro de los grupos",
+   "ideas": [
+    "F = varianza entre / varianza dentro",
+    "Una sola prueba para k grupos",
+    "Tukey dice qué parejas difieren"
+   ],
+   "fig": "tema_260_anova.png",
+   "texto": "El análisis de la varianza resuelve el primer problema con una sola prueba. Compara la variabilidad entre los grupos con la variabilidad dentro de los grupos. Si las medias de los grupos se separan mucho más de lo que varían los pacientes dentro de cada grupo, el estadístico F es grande. Un ANOVA significativo dice que alguna media difiere. La prueba de Tukey dice cuáles."
+  },
+  {
+   "titulo": "Corregir por comparaciones múltiples",
+   "ideas": [
+    "Bonferroni: α / k",
+    "Holm: por pasos, más potente",
+    "Mismos 4 valores p: 1 frente a 3"
+   ],
+   "fig": "tema_260_esquema.png",
+   "texto": "Cuando hay que hacer muchas comparaciones, se corrige el umbral. Bonferroni divide alfa entre el número de comparaciones: es sencillo, pero muy estricto. Holm ordena los valores p y los corrige por pasos: protege igual frente a los falsos positivos y es más potente. Con estos cuatro valores p, Bonferroni declara significativo uno, y Holm, tres."
+  },
+  {
+   "titulo": "Las pruebas no paramétricas trabajan con rangos",
+   "ideas": [
+    "Ordenan los valores y usan su posición",
+    "Sin suponer normalidad",
+    "Mann-Whitney, Wilcoxon, Kruskal-Wallis"
+   ],
+   "fig": "tema_260_rangos.png",
+   "texto": "Las pruebas no paramétricas ordenan los valores y trabajan con su posición, el rango. No suponen normalidad y resisten a los atípicos. Son útiles con muestras pequeñas, datos muy asimétricos y escalas ordinales, como el dolor o la escala de Rankin. Mann-Whitney sustituye a la t independiente, Wilcoxon a la apareada y Kruskal-Wallis al ANOVA."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 260 en Colab",
+    "Misiones: falsos positivos, ANOVA por edad, corrección de Holm"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema doscientos sesenta y compara la presión sistólica de los grupos de peso con un ANOVA y la prueba de Tukey. Después, en la app Bioestadística, tienes tres misiones: los falsos positivos con k comparaciones, la presión sistólica en cuatro grupos de edad, y corregir con Holm una búsqueda de algo significativo. Nos vemos en el tema doscientos setenta."
+  }
+ ]
+}

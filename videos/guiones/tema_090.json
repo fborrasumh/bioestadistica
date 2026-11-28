@@ -1,0 +1,70 @@
+{
+ "tema": 90,
+ "titulo": "Programación asistida por inteligencia artificial: ciclo de mejora recursiva",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Funciona no es lo mismo que es correcto",
+   "subtitulo": "Programación asistida por inteligencia artificial: ciclo de mejora recursiva de generación, verificación y corrección",
+   "texto": "Hola. Un asistente de inteligencia artificial escribe código en segundos. En este tema vas a aprender a convertir esa velocidad en código fiable, con un método: el ciclo de mejora recursiva."
+  },
+  {
+   "titulo": "La escala CURB-65 del asistente",
+   "ideas": [
+    "El código se ejecuta sin errores",
+    "Se equivoca justo en las fronteras",
+    "Solo lo descubren las pruebas"
+   ],
+   "fig": "tema_090_curb.png",
+   "texto": "Urgencias quiere que la historia clínica calcule la escala CURB-65 de gravedad de la neumonía. Se pide el código a un asistente. Se ejecuta sin errores y da resultados razonables. Pero se equivoca en las fronteras: por ejemplo, con una frecuencia respiratoria de exactamente treinta, o con sesenta y cinco años justos. Solo lo descubre quien tiene casos de prueba escritos a partir de la definición clínica."
+  },
+  {
+   "titulo": "Primero la especificación y las pruebas",
+   "ideas": [
+    "1. Especificación",
+    "2. Casos de prueba, con fronteras",
+    "3. Después, pedir el código"
+   ],
+   "fig": "tema_090_e2_2.png",
+   "texto": "El orden importa. Primero escribes la especificación: qué recibe la función, qué devuelve y qué dice la guía clínica. Después escribes los casos de prueba, con atención especial a los valores frontera. Y solo entonces pides el código al asistente. Si escribes las pruebas después de ver el código, acabarás probando lo que el código hace, no lo que debería hacer."
+  },
+  {
+   "titulo": "El ciclo de mejora recursiva",
+   "ideas": [
+    "Generar, ejecutar, verificar, corregir",
+    "Hasta un criterio de parada",
+    "El humano decide qué es aceptable"
+   ],
+   "fig": "tema_090_ciclo.png",
+   "texto": "El ciclo tiene cuatro pasos. El modelo genera el código. Tú lo ejecutas con las pruebas. Si alguna falla, devuelves el fallo al modelo y le pides que corrija. Y repites. El ciclo termina cuando se superan todas las pruebas o cuando se agotan los intentos previstos. El modelo propone; tú decides la especificación y cuándo el resultado es aceptable."
+  },
+  {
+   "titulo": "Ley de Goodhart: cuando la prueba se convierte en objetivo",
+   "ideas": [
+    "Corregir siempre con las mismas pruebas ajusta el código a ellas",
+    "Mide con pruebas reservadas"
+   ],
+   "fig": "tema_090_goodhart.png",
+   "texto": "Hay una trampa, la ley de Goodhart: cuando una medida se convierte en objetivo, deja de ser una buena medida. Si corriges mirando siempre las mismas pruebas, el código acaba ajustado a ellas, y puede fallar con casos nuevos. La solución es guardar pruebas reservadas, que no se usan para corregir, y medir con ellas el rendimiento real al final."
+  },
+  {
+   "titulo": "Seguridad antes de ejecutar",
+   "ideas": [
+    "Lee el código antes de ejecutarlo",
+    "Entorno aislado, sin datos de pacientes",
+    "Desconfía de instalar o borrar ficheros"
+   ],
+   "fig": "tema_090_e2_5.png",
+   "texto": "Y una cuestión de seguridad. El código generado por inteligencia artificial se lee antes de ejecutarlo. Se ejecuta en un entorno aislado, como Colab, y nunca con datos de pacientes. Si el código instala paquetes, borra ficheros o se conecta a internet sin que lo hayas pedido, para y pregunta por qué."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 90 en Colab",
+    "Misiones: fronteras, escala de Wells, pruebas reservadas"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema noventa y completa un ciclo de mejora recursiva con la escala CURB-65. Después, en la app Bioestadística, tienes tres misiones: encontrar los valores frontera que faltan en unas pruebas, escribir la especificación y las pruebas de la escala de Wells para la trombosis venosa profunda, y un ciclo de mejora con pruebas reservadas. Nos vemos en el tema cien."
+  }
+ ]
+}

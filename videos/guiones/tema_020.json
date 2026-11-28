@@ -1,0 +1,71 @@
+{
+ "tema": 20,
+ "titulo": "Representación de datos clínicos en Python",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Cada dato tiene su tipo",
+   "subtitulo": "Representación de datos clínicos en Python: tipos numéricos, cadenas de texto y estructuras de datos",
+   "texto": "Hola. En este tema vas a aprender cómo guarda Python los datos de un paciente. Parece un detalle técnico, pero de él depende que un cálculo salga bien o que salga un error, o peor, un resultado falso."
+  },
+  {
+   "titulo": "Un paciente exportado de la historia clínica",
+   "ideas": [
+    "El peso llega como texto: \"81,5\"",
+    "La fracción de eyección no está registrada",
+    "Antes de calcular, cada dato necesita su tipo"
+   ],
+   "fig": "tema_020_caso.png",
+   "texto": "Un residente exporta los datos de un paciente de Medicina Interna. La edad es setenta y dos. Hay cinco glucemias capilares. El diagnóstico tiene espacios y mayúsculas sobrantes. El peso aparece como texto, ochenta y uno coma cinco, con coma decimal. Y la fracción de eyección no está registrada. Para un ordenador, cada uno de estos datos es de una naturaleza distinta, y hay que tratarlos así."
+  },
+  {
+   "titulo": "Cinco tipos de dato básicos",
+   "ideas": [
+    "int y float: números",
+    "str: texto · bool: sí o no",
+    "None: dato ausente, nunca cero"
+   ],
+   "fig": "tema_020_e2_1.png",
+   "texto": "Python tiene cinco tipos básicos. Los enteros, como la edad. Los decimales, como el peso. El texto, como el diagnóstico. Los valores lógicos, verdadero o falso, como tener diabetes. Y None, que significa dato ausente. Esto es muy importante: un dato que falta se registra como None, nunca como cero. Una fracción de eyección de cero sería un paciente sin latido."
+  },
+  {
+   "titulo": "Del texto al número",
+   "ideas": [
+    "\"81,5\" → replace → \"81.5\"",
+    "float(\"81.5\") → 81.5",
+    "int(81.9) corta: da 81"
+   ],
+   "fig": "tema_020_esquema.png",
+   "texto": "El peso exportado es un texto con coma decimal. Primero se cambia la coma por un punto, con replace. Después se convierte en número con float. Solo entonces se puede calcular. Cuidado con int: no redondea, corta los decimales. Ochenta y uno coma nueve se convierte en ochenta y uno. Comprueba siempre el tipo de un dato antes de usarlo."
+  },
+  {
+   "titulo": "Cuatro formas de agrupar datos",
+   "ideas": [
+    "Lista: serie que cambia (glucemias)",
+    "Tupla: valores fijos (PAS/PAD)",
+    "Diccionario: la ficha del paciente"
+   ],
+   "fig": "tema_020_estructuras.png",
+   "texto": "Los datos se agrupan en estructuras. Una lista guarda una serie ordenada que puede cambiar, como las glucemias del día. Una tupla guarda valores fijos que van juntos, como la sistólica y la diastólica. Un diccionario es una ficha con campos: edad, sexo, diagnóstico. Y un conjunto guarda valores únicos, como los diagnósticos distintos de una planta. Recuerda: los índices de una lista empiezan en cero."
+  },
+  {
+   "titulo": "Una cohorte es una lista de fichas",
+   "ideas": [
+    "Cada paciente: un diccionario",
+    "La cohorte: una lista de diccionarios",
+    "Filas = pacientes · columnas = variables"
+   ],
+   "fig": "tema_020_cohorte.png",
+   "texto": "Ahora junta las piezas. Cada paciente es un diccionario. La cohorte es una lista de diccionarios. Si lo piensas, es exactamente una tabla: cada fila es un paciente y cada columna es una variable. Es la estructura que usarás en el tema cien con la librería pandas, y la de casi todas las bases de datos clínicas."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 20 en Colab",
+    "Misiones: tipos, limpiar texto, valores ausentes"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema veinte y limpia los datos del paciente exportado. Después, en la app Bioestadística, tienes tres misiones: decir el tipo de dato de cada campo, limpiar un texto exportado de la historia clínica y calcular la media de una serie con valores ausentes. Nos vemos en el tema treinta."
+  }
+ ]
+}

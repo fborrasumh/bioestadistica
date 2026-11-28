@@ -1,0 +1,71 @@
+{
+ "tema": 250,
+ "titulo": "Inferencia sobre medias: pruebas t para muestras independientes y relacionadas",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Comparar medias",
+   "subtitulo": "Inferencia sobre medias: pruebas t para muestras independientes y relacionadas",
+   "texto": "Hola. En este tema vas a comparar medias con las pruebas t. Hay tres, y el diseño del estudio, no los datos, decide cuál usar."
+  },
+  {
+   "titulo": "HDL en hombres y mujeres de la cohorte",
+   "ideas": [
+    "Unos 49 mg/dL en hombres y 58 en mujeres",
+    "¿Es real? ¿De qué tamaño?",
+    "Dos grupos distintos: t de Welch"
+   ],
+   "fig": "video_250_caso.png",
+   "codigo_de": "1. Caso",
+   "texto": "En la cohorte, el colesterol HDL medio es de unos cuarenta y nueve miligramos por decilitro en los hombres y de unos cincuenta y ocho en las mujeres. Antes de proponer puntos de corte distintos por sexo, el equipo quiere saber si esa diferencia es real en la población y de qué tamaño es. Son dos grupos distintos de pacientes: se usa la prueba t de Welch, y se comunica la diferencia de medias con su intervalo, el valor p y el tamaño del efecto."
+  },
+  {
+   "titulo": "Tres pruebas t para tres diseños",
+   "ideas": [
+    "Una media frente a un valor",
+    "Dos grupos independientes",
+    "Los mismos pacientes dos veces"
+   ],
+   "fig": "tema_250_tres.png",
+   "texto": "Hay tres pruebas t. La de una muestra compara una media con un valor de referencia. La de dos muestras independientes compara dos grupos distintos, como hombres y mujeres. Y la de muestras relacionadas compara a los mismos pacientes medidos dos veces, por ejemplo antes y después de un tratamiento. El diseño, no los datos, decide la prueba."
+  },
+  {
+   "titulo": "Antes y después en los mismos pacientes",
+   "ideas": [
+    "La variabilidad entre pacientes es grande",
+    "La del cambio en cada paciente, pequeña",
+    "La t apareada analiza las diferencias"
+   ],
+   "fig": "tema_250_apareados.png",
+   "texto": "Una enfermera mide la presión arterial a treinta hipertensos antes y después de un programa. La presión varía mucho de un paciente a otro, pero el cambio dentro de cada paciente varía poco. La prueba apareada calcula la diferencia de cada paciente y analiza esas diferencias. Así elimina la variabilidad entre pacientes y gana potencia. En realidad, es una t de una muestra aplicada a las diferencias."
+  },
+  {
+   "titulo": "Antes de la prueba t, tres comprobaciones",
+   "ideas": [
+    "Independencia de las observaciones",
+    "Normalidad o n suficiente",
+    "Varianzas distintas: Welch"
+   ],
+   "fig": "tema_250_esquema.png",
+   "texto": "Antes de aplicar una t, comprueba tres cosas. Que las observaciones sean independientes, o que el apareamiento esté bien identificado. Que la variable sea aproximadamente normal o que la muestra sea suficiente: con un tamaño moderado, la t es robusta. Y que, si las varianzas son distintas, uses la versión de Welch. Con muestras pequeñas y muy asimétricas, logaritmos o pruebas no paramétricas."
+  },
+  {
+   "titulo": "El tamaño del efecto: d de Cohen",
+   "ideas": [
+    "d = diferencia / DE",
+    "0,2 pequeño · 0,5 medio · 0,8 grande"
+   ],
+   "fig": "tema_250_e2_5.png",
+   "texto": "El valor p no dice si la diferencia es grande. Para eso está el tamaño del efecto. La d de Cohen divide la diferencia de medias entre la desviación típica. Como orientación, cero coma dos es pequeño, cero coma cinco es medio y cero coma ocho es grande. Mira cuánto se solapan las curvas incluso con un efecto grande. Y recuerda: un antes y después sin grupo control no demuestra causalidad."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 250 en Colab",
+    "Misiones: elegir la t, IMC y diabetes, antes-después"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema doscientos cincuenta y aplica las tres pruebas t a la cohorte y al programa de la enfermera. Después, en la app Bioestadística, tienes tres misiones: elegir la prueba t, comparar el índice de masa corporal de diabéticos y no diabéticos, y descubrir si un ensayo antes y después usó la prueba equivocada. Nos vemos en el tema doscientos sesenta."
+  }
+ ]
+}

@@ -1,0 +1,70 @@
+{
+ "tema": 120,
+ "titulo": "Estadística descriptiva univariante: tendencia central, dispersión y forma",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "¿Media o mediana?",
+   "subtitulo": "Estadística descriptiva univariante: medidas de tendencia central, dispersión y forma",
+   "texto": "Hola. Describir una variable parece fácil: se calcula la media y ya está. En este tema vas a ver por qué eso a veces engaña, y cómo elegir el resumen adecuado según la forma de los datos."
+  },
+  {
+   "titulo": "Once estancias por neumonía",
+   "ideas": [
+    "3, 4, 4, 5, 5, 5, 6, 6, 7, 8 y 32 días",
+    "Media 7,7 días · mediana 5 días",
+    "La media se desplaza hacia el extremo"
+   ],
+   "fig": "video_120_caso.png",
+   "codigo_de": "1. Caso",
+   "texto": "Un hospital revisa once ingresos por neumonía. Las estancias son tres, cuatro, cuatro, cinco, cinco, cinco, seis, seis, siete, ocho y treinta y dos días. El paciente de treinta y dos días tuvo complicaciones y pasó por la UCI. La media es siete coma siete días; la mediana, cinco. Si la gerencia planifica camas con una estancia típica de casi ocho días, se equivoca. Diez de los once pacientes estuvieron ocho días o menos."
+  },
+  {
+   "titulo": "Tendencia central y dispersión",
+   "ideas": [
+    "Media: usa todos los datos, sensible a extremos",
+    "Mediana: robusta",
+    "DE con la media · RIC con la mediana"
+   ],
+   "texto": "La media usa todos los datos, pero se deja arrastrar por los valores extremos. La mediana es el valor central: es robusta, y un valor extremo apenas la mueve. Cada medida de centro va con su medida de dispersión. La desviación típica acompaña a la media. El rango intercuartílico, que va del primer al tercer cuartil, acompaña a la mediana."
+  },
+  {
+   "titulo": "El diagrama de caja resume la distribución",
+   "ideas": [
+    "La caja: del Q1 al Q3, el 50 % central",
+    "Puntos más allá de 1,5 RIC: posibles atípicos",
+    "Se revisan, no se borran"
+   ],
+   "fig": "tema_120_caja.png",
+   "texto": "El diagrama de caja lo resume todo en un gráfico. La caja va del primer al tercer cuartil y contiene la mitad central de los pacientes. La línea de dentro es la mediana. Los puntos que quedan a más de uno coma cinco rangos intercuartílicos de la caja se señalan como posibles atípicos. Recuerda el tema cien: se revisan, no se borran."
+  },
+  {
+   "titulo": "La forma decide el resumen",
+   "ideas": [
+    "Simétrica: media ≈ mediana → media y DE",
+    "Asimétrica: mediana y RIC"
+   ],
+   "fig": "tema_120_forma.png",
+   "texto": "La forma de la distribución decide el resumen. Si es simétrica, la media y la mediana casi coinciden, y se describe con la media y la desviación típica. Si es asimétrica, como la estancia, los triglicéridos o la creatinina, la media se va hacia la cola, y se describe con la mediana y el rango intercuartílico. Mira siempre el histograma antes de elegir."
+  },
+  {
+   "titulo": "La trampa de la desviación típica",
+   "ideas": [
+    "Muestra: dividir entre n − 1",
+    "numpy divide entre n por defecto",
+    "pandas y statistics, entre n − 1"
+   ],
+   "fig": "tema_120_esquema.png",
+   "texto": "Una trampa frecuente. La desviación típica de una muestra se calcula dividiendo entre n menos uno. Pandas y el módulo statistics lo hacen así. Pero numpy, por defecto, divide entre n. Con muestras pequeñas, la diferencia se nota. Comprueba siempre qué función usas, también en el código que te propone un asistente."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 120 en Colab",
+    "Misiones: 7 hemoglobinas, LDL y HbA1c, ¿n o n − 1?"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema ciento veinte, calcula a mano y con Python la media, la mediana y los cuartiles, y dibuja el histograma y el diagrama de caja. Después, en la app Bioestadística, tienes tres misiones: describir siete hemoglobinas, describir el LDL y la HbA1c de la cohorte, y corregir los resúmenes de un asistente que divide mal. Nos vemos en el tema ciento treinta."
+  }
+ ]
+}

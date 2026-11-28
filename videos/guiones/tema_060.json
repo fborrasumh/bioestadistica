@@ -1,0 +1,69 @@
+{
+ "tema": 60,
+ "titulo": "Módulos científicos, generación de números aleatorios y visualización básica con Matplotlib",
+ "escenas": [
+  {
+   "tipo": "portada",
+   "titulo": "Azar reproducible y buenos gráficos",
+   "subtitulo": "Módulos científicos, generación de números aleatorios y visualización básica con Matplotlib",
+   "texto": "Hola. En este tema vas a ampliar Python con módulos científicos, vas a usar el azar de forma reproducible para aleatorizar un ensayo y vas a dibujar tus primeros gráficos clínicos."
+  },
+  {
+   "titulo": "Los módulos amplían Python",
+   "ideas": [
+    "import math · import statistics",
+    "numpy y matplotlib: el cálculo científico",
+    "módulo.función()"
+   ],
+   "fig": "tema_060_esquema.png",
+   "texto": "Python trae de serie unas pocas herramientas. El resto llega con los módulos. Math y statistics vienen con Python. Numpy y matplotlib son librerías científicas que Colab ya tiene instaladas. Un módulo se importa una vez, al principio, con import. Después se usan sus funciones con el nombre del módulo, un punto y el nombre de la función."
+  },
+  {
+   "titulo": "Azar reproducible: la semilla",
+   "ideas": [
+    "Números pseudoaleatorios a partir de una semilla",
+    "Misma semilla → misma secuencia",
+    "La aleatorización se puede auditar"
+   ],
+   "fig": "tema_060_semilla.png",
+   "texto": "El ordenador no genera azar verdadero. Genera números pseudoaleatorios a partir de un valor inicial, la semilla. Con la misma semilla se obtiene siempre la misma secuencia. En ciencia esto es una ventaja: una aleatorización o una simulación con la semilla fija son reproducibles, y otra persona las puede comprobar."
+  },
+  {
+   "titulo": "Aleatorizar un ensayo clínico",
+   "ideas": [
+    "El azar reparte lo medido y lo no medido",
+    "Evita el sesgo de asignación",
+    "Fija la semilla y guarda la lista"
+   ],
+   "texto": "¿Por qué aleatorizar un ensayo clínico? Si el médico elige quién recibe el fármaco, puede dárselo, sin querer, a los pacientes con mejor pronóstico. El azar reparte por igual entre los grupos lo que se ha medido y también lo que no se ha medido. Eso evita el sesgo de asignación. En el cuaderno asignarás veinte pacientes a dos pautas, barajando la lista con la semilla fija."
+  },
+  {
+   "titulo": "Lo que no puede faltar en un gráfico clínico",
+   "ideas": [
+    "Título que diga qué se ve",
+    "Ejes con unidades; leyenda si hay series",
+    "Umbrales clínicos cuando ayudan"
+   ],
+   "fig": "tema_060_buen_grafico.png",
+   "texto": "Un buen gráfico clínico se entiende sin explicarlo. Tiene un título que dice qué se ve, ejes con sus unidades y una leyenda si hay varias series. Cuando ayuda, incluye la referencia clínica, por ejemplo una línea en treinta y ocho grados en una curva de temperatura. Y cada pregunta tiene su gráfico: líneas para la evolución, barras para categorías, histograma para una distribución y dispersión para dos variables."
+  },
+  {
+   "titulo": "Cómo engaña un gráfico",
+   "ideas": [
+    "Barras que no empiezan en cero",
+    "Ejes sin unidades",
+    "Escalas distintas al comparar"
+   ],
+   "texto": "Un gráfico también puede engañar, aunque los datos sean correctos. El caso más frecuente es un gráfico de barras cuyo eje no empieza en cero: una diferencia pequeña parece enorme. Otros son los ejes sin unidades o dos paneles con escalas distintas. Cuando leas un gráfico, mira primero los ejes. Cuando lo dibujes, piensa en quien lo va a leer."
+  },
+  {
+   "tipo": "cierre",
+   "titulo": "Ahora te toca a ti",
+   "ideas": [
+    "Cuaderno del Tema 60 en Colab",
+    "Misiones: elegir gráfico, aleatorizar, glucemia"
+   ],
+   "texto": "Ahora te toca a ti. Abre el cuaderno del tema sesenta, aleatoriza un ensayo y dibuja la curva de temperatura, las barras de ingresos y el histograma de la presión arterial. Después, en la app Bioestadística, tienes tres misiones: elegir el gráfico adecuado para cada pregunta clínica, aleatorizar treinta pacientes en tres brazos y dibujar la evolución de la glucemia. Nos vemos en el tema setenta."
+  }
+ ]
+}
