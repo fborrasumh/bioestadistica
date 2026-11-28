@@ -264,6 +264,35 @@ c.md("""
 **Dar la AUC sin la curva:** dos pruebas con la misma AUC pueden comportarse de forma muy distinta en la zona de interés clínico.
 """)
 
+c.titulo(3, "Ampliación: Dos pruebas en paralelo o en serie")
+c.md("""
+Dos pruebas se pueden combinar de dos formas:
+
+| Estrategia | El resultado es positivo si… | Sensibilidad | Especificidad | Uso |
+|---|---|---|---|---|
+| **En paralelo** | alguna prueba es positiva | sube | baja | descartar (Urgencias) |
+| **En serie** | las dos pruebas son positivas | baja | sube | confirmar |
+
+Las fórmulas del código suponen que las pruebas fallan de forma **independiente**. Si fallan en los mismos pacientes, la ganancia real es menor.
+
+**En tus materiales SIMUSTAT:** [Tema 280. Conceptos de probabilidad y su uso en la evaluación de pruebas diagnósticas](https://colab.research.google.com/drive/1Gp4XYiZjO1WChLRRTHugtbQziSoJOR7N), apartado 4.
+""")
+c.code("""
+se1, es1 = 0.85, 0.90     # prueba 1
+se2, es2 = 0.75, 0.95     # prueba 2
+
+se_par, es_par = 1 - (1 - se1) * (1 - se2), es1 * es2
+se_ser, es_ser = se1 * se2, 1 - (1 - es1) * (1 - es2)
+
+print(f"Prueba 1:    S = {se1:.1%}   E = {es1:.1%}")
+print(f"Prueba 2:    S = {se2:.1%}   E = {es2:.1%}")
+print(f"En paralelo: S = {se_par:.1%}   E = {es_par:.1%}")
+print(f"En serie:    S = {se_ser:.1%}   E = {es_ser:.1%}")
+""")
+c.md("""
+En paralelo se pierden menos enfermos (sensibilidad más alta), pero hay más falsos positivos. En serie ocurre lo contrario. Elige la estrategia según qué error es más grave para el paciente.
+""")
+
 c.titulo(2, "4. Práctica en la app Bioestadística (10 min)")
 c.md("""
 Abre la **[unidad 160 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:

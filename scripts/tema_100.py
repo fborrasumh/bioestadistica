@@ -312,6 +312,33 @@ c.md("""
 **No documentar** los cambios: el análisis deja de ser reproducible.
 """)
 
+c.titulo(3, "Ampliación: Fechas clínicas con pandas")
+c.md("""
+Las fechas suelen llegar como **texto** ("03/02/2026"). Con texto no se pueden restar fechas ni agrupar por mes. `pd.to_datetime()` las convierte en fechas reales.
+
+Indica siempre el formato (`format="%d/%m/%Y"`). Si no, pandas puede leer el 03/02 como 2 de marzo. Con `errors="coerce"`, una fecha imposible pasa a ser un valor perdido (`NaT`) y no detiene el análisis.
+
+**En tus materiales SIMUSTAT:** [Tema 70. Módulos math, random, time e instalación de módulos externos](https://colab.research.google.com/drive/1s8vuaHhH94JDhDjfMf2DbsdpK7d29usU), apartado 4. **En tus materiales SIMUSTAT:** [Tema 170. Gestión de datos con Pandas y tratamiento de valores anómalos](https://colab.research.google.com/drive/1f_m55KKTYuHCMu2ZrnnoDyw5lCkCgXhd), apartado 4 (series temporales).
+""")
+c.code("""
+ingresos = pd.DataFrame({
+    "id": ["H1", "H2", "H3", "H4"],
+    "ingreso": ["03/02/2026", "15/02/2026", "28/02/2026", "02/03/2026"],
+    "alta": ["10/02/2026", "16/02/2026", "31/02/2026", "09/03/2026"],   # 31/02 no existe
+})
+for col in ["ingreso", "alta"]:
+    ingresos[col] = pd.to_datetime(ingresos[col], format="%d/%m/%Y", errors="coerce")
+
+ingresos["estancia_dias"] = (ingresos["alta"] - ingresos["ingreso"]).dt.days
+ingresos["mes_ingreso"] = ingresos["ingreso"].dt.month
+print(ingresos)
+print("\\nFechas no válidas:", ingresos["alta"].isna().sum())
+print("Estancia media:", ingresos["estancia_dias"].mean().round(1), "días")
+""")
+c.md("""
+La fecha de alta de H3 no existe; queda como `NaT` y su estancia como valor perdido. Igual que con cualquier valor perdido, **regístralo y revísalo en la fuente**: no lo rellenes.
+""")
+
 c.titulo(2, "4. Práctica en la app Bioestadística (10 min)")
 c.md("""
 Abre la **[unidad 100 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:

@@ -231,6 +231,36 @@ c.md("""
 **Seleccionar las variables por su valor p.** Elígelas por conocimiento clínico, antes de ver los datos.
 """)
 
+c.titulo(3, "Ampliación: Comparar y elegir modelos")
+c.md("""
+Un modelo **anidado** es el mismo modelo con menos variables. Hay tres formas de compararlo con el modelo completo:
+
+| Criterio | Qué mide | Cómo se lee |
+|---|---|---|
+| **Prueba F parcial** | si las variables quitadas aportan algo | *p* < 0,05: el modelo completo es mejor |
+| **R² ajustado** | variabilidad explicada, penalizando cada variable | mayor es mejor |
+| **AIC** | ajuste penalizado por complejidad | menor es mejor |
+
+Los dos modelos se deben ajustar **con los mismos pacientes**. Por eso, quita antes los valores perdidos de todas las variables.
+
+**En tus materiales SIMUSTAT:** [Tema 440. Modelos de regresión lineal múltiple](https://colab.research.google.com/drive/1grLb-PnvbVToKJwhFBmElP4TwH4D4Na5), apartado 4.
+""")
+c.code("""
+from statsmodels.stats.anova import anova_lm
+
+variables = ["pas_mmHg", "edad", "imc", "sexo", "diabetes"]
+mismos = cohorte.dropna(subset=variables)
+completo = smf.ols("pas_mmHg ~ edad + imc + sexo + diabetes", data=mismos).fit()
+anidado = smf.ols("pas_mmHg ~ edad + imc + sexo", data=mismos).fit()
+
+print(anova_lm(anidado, completo).round(3))
+for nombre, m in [("Anidado (sin diabetes)", anidado), ("Completo", completo)]:
+    print(f"{nombre:24} R² ajustado = {m.rsquared_adj:.3f}   AIC = {m.aic:.1f}")
+""")
+c.md("""
+Si la prueba F no es significativa y el AIC apenas cambia, el modelo más sencillo es suficiente. Pero la elección final es también clínica. Una variable de confusión conocida se mantiene en el modelo, aunque no sea significativa (Tema 280).
+""")
+
 c.titulo(2, "4. Práctica en la app Bioestadística (10 min)")
 c.md("""
 Abre la **[unidad 270 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:

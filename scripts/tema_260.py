@@ -221,6 +221,24 @@ c.md("""
 **Usar pruebas no paramétricas por defecto** con muestras grandes y datos razonables: se pierde la estimación del efecto en unidades clínicas.
 """)
 
+c.titulo(3, "Ampliación: ¿Qué grupos difieren? La prueba de Tukey")
+c.md("""
+El ANOVA solo dice si **alguna** media es distinta. No dice cuál. La prueba **HSD de Tukey** compara todos los pares de grupos. Además, mantiene en el 5 % la probabilidad de **al menos un** falso positivo en el conjunto de comparaciones.
+
+Úsala después de un ANOVA, con grupos de tamaño parecido y variables aproximadamente normales.
+
+**En tus materiales SIMUSTAT:** [Tema 410. Comparación de k medias](https://colab.research.google.com/drive/1hIecxDRGXpjn11UQhI6Fou-cZyzPfjwB), apartado 3.
+""")
+c.code("""
+from statsmodels.stats.multicomp import pairwise_tukeyhsd
+
+tukey = pairwise_tukeyhsd(endog=datos["pas_mmHg"], groups=datos["categoria_imc"].astype(str), alpha=0.05)
+print(tukey.summary())
+""")
+c.md("""
+Lee cada fila así: `meandiff` es la diferencia de medias (segundo grupo menos primero). `lower` y `upper` dan su IC 95 % ajustado. `reject = True` indica que la diferencia es significativa después de ajustar por todas las comparaciones.
+""")
+
 c.titulo(2, "4. Práctica en la app Bioestadística (10 min)")
 c.md("""
 Abre la **[unidad 260 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:

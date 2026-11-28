@@ -242,6 +242,36 @@ c.md("""
 **Concluir que un riesgo es cero** porque no se ha observado ningún caso.
 """)
 
+c.titulo(3, "Ampliación: La distribución geométrica")
+c.md("""
+La **distribución geométrica** cuenta cuántos intentos hacen falta hasta el **primer éxito**. Cada intento es independiente y tiene la misma probabilidad de éxito *p*.
+
+- Probabilidad de acertar justo en el intento *k*: $(1-p)^{k-1}\\,p$.
+- Número medio de intentos: $1/p$.
+
+**Ejemplo:** una enfermera canaliza una vía periférica con éxito en el 60 % de los intentos (*p* = 0,6) en un paciente con venas difíciles.
+
+**En tus materiales SIMUSTAT:** [Tema 290. Variables aleatorias discretas](https://colab.research.google.com/drive/15moQecMrAv4YYAcljLCkNV0M9Z3apCVn), apartado 6.
+""")
+c.code("""
+p = 0.6
+X = stats.geom(p)                       # X = intentos hasta el primer éxito
+for k in range(1, 5):
+    print(f"P(X = {k}) = {X.pmf(k):.3f}")
+print(f"P(X ≤ 3) = {X.cdf(3):.3f}")
+print(f"Media = {X.mean():.2f} intentos")
+
+k = np.arange(1, 9)
+plt.bar(k, X.pmf(k), color="steelblue")
+plt.xlabel("Intento en que se consigue la vía")
+plt.ylabel("Probabilidad")
+plt.title("Distribución geométrica, p = 0,6")
+plt.show()
+""")
+c.md("""
+La probabilidad más alta está siempre en el primer intento y después baja. El modelo supone que *p* no cambia; en la práctica, tras varios fallos la vena puede empeorar y *p* baja.
+""")
+
 c.titulo(2, "4. Práctica en la app Bioestadística (10 min)")
 c.md("""
 Abre la **[unidad 170 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:

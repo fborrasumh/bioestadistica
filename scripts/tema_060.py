@@ -265,6 +265,54 @@ c.md("""
 **Recortar el eje** de un gráfico de barras, como en el ejemplo anterior.
 """)
 
+c.titulo(3, "Ampliación: Una imagen médica es una matriz de NumPy")
+c.md("""
+Una imagen en escala de grises es una **matriz 2D**: cada elemento es un píxel. En una tomografía computarizada (TAC), cada valor está en **unidades Hounsfield** (UH). El aire vale −1000, el agua 0 y el hueso cortical unos 700 o más.
+
+Un TAC completo es una **matriz 3D**: una pila de cortes. Su forma es `(cortes, filas, columnas)`.
+
+La **ventana** decide qué valores se ven. Los valores por debajo de la ventana salen negros y los de encima salen blancos. Con `np.clip()` se aplica una ventana a toda la matriz en una sola operación.
+
+**En tus materiales SIMUSTAT:** [Tema 140. Procesado de imágenes 2D con NumPy](https://colab.research.google.com/drive/1quCl69jOeY89qRlmjrMjFC-k-8s-8NMT), apartado 2. **En tus materiales SIMUSTAT:** [Tema 150. Procesado de imágenes 3D con NumPy](https://colab.research.google.com/drive/1eyZmZuo3DvMjGsdQ7m6W947P-v25a0z0), apartado 2 (los TAC).
+""")
+c.code("""
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Corte sintético de tórax: aire, tejido blando, dos pulmones y una costilla
+filas, columnas = np.mgrid[0:200, 0:200]
+corte = np.full((200, 200), -1000.0)                                     # aire
+cuerpo = ((filas - 100) / 80) ** 2 + ((columnas - 100) / 95) ** 2 < 1
+corte[cuerpo] = 40                                                       # tejido blando
+for centro in (60, 140):
+    pulmon = ((filas - 95) / 50) ** 2 + ((columnas - centro) / 28) ** 2 < 1
+    corte[pulmon] = -800                                                 # pulmón
+anillo = np.abs(np.sqrt((filas - 100) ** 2 + (columnas - 100) ** 2) - 76) < 3
+corte[anillo & cuerpo] = 700                                             # costilla
+for f, col in [(70, 50), (90, 70), (115, 55), (75, 150), (100, 130), (120, 148)]:
+    corte[(filas - f) ** 2 + (columnas - col) ** 2 < 12] = -600          # vasos pulmonares
+corte[(filas - 105) ** 2 + (columnas - 140) ** 2 < 30] = 40              # nódulo
+
+print("Forma del corte:", corte.shape, "| mínimo:", corte.min(), "UH | máximo:", corte.max(), "UH")
+
+def ventana(imagen, centro, anchura):
+    return np.clip(imagen, centro - anchura / 2, centro + anchura / 2)
+
+fig, ejes = plt.subplots(1, 2, figsize=(9, 4.5))
+for eje, (nombre, c_v, a_v) in zip(ejes, [("Ventana pulmonar", -600, 1500), ("Ventana de mediastino", 40, 400)]):
+    eje.imshow(ventana(corte, c_v, a_v), cmap="gray")
+    eje.set_title(f"{nombre} (C {c_v}, A {a_v})")
+    eje.axis("off")
+plt.tight_layout()
+plt.show()
+
+tac = np.stack([corte] * 30)          # 30 cortes iguales: un volumen 3D
+print("Forma del volumen:", tac.shape)
+""")
+c.md("""
+La misma matriz da dos imágenes distintas. La ventana pulmonar distingue los vasos dentro del pulmón. La de mediastino deja el pulmón en negro, pero el nódulo y el tejido blando se ven en gris. Los datos no cambian: cambia cómo se presentan.
+""")
+
 c.titulo(2, "4. Práctica en la app Bioestadística (10 min)")
 c.md("""
 Abre la **[unidad 60 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:

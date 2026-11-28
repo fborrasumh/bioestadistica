@@ -256,6 +256,36 @@ c.md("""
 **Olvidar que la simulación tiene su propio error:** con pocas repeticiones, el resultado de un Monte Carlo también varía.
 """)
 
+c.titulo(3, "Ampliación: Simulación de Monte Carlo y método de la transformación inversa")
+c.md("""
+Una **simulación de Monte Carlo** estima una probabilidad repitiendo un experimento aleatorio muchas veces en el ordenador. Es la técnica que usa este tema para estudiar la media muestral.
+
+Para simular una distribución cualquiera basta un generador uniforme entre 0 y 1. El **método de la transformación inversa** aplica a cada número uniforme *u* la inversa de la función de distribución. Para una exponencial de media μ: $t = -\\mu \\ln(1-u)$.
+
+**En tus materiales SIMUSTAT:** [Tema 320. Simulación de Monte Carlo y las distribuciones muestrales](https://colab.research.google.com/drive/1IMUU6YaylInQ_SiS6qfUGGpVSYLCcYDd), apartado 1 y 2.
+""")
+c.code("""
+import math
+
+rng = np.random.default_rng(320)
+u = rng.uniform(size=100_000)
+t = -6 * np.log(1 - u)                  # exponencial de media 6 min (Tema 180)
+
+print(f"Media simulada: {t.mean():.2f} min (teórica: 6)")
+print(f"P(T > 15) simulada: {(t > 15).mean():.4f} | exacta: {math.exp(-15 / 6):.4f}")
+
+plt.hist(t, bins=80, density=True, color="steelblue", alpha=0.7, label="Simulación")
+x = np.linspace(0, 40, 200)
+plt.plot(x, np.exp(-x / 6) / 6, color="orange", lw=2, label="Densidad teórica")
+plt.xlim(0, 40)
+plt.xlabel("Minutos")
+plt.legend()
+plt.show()
+""")
+c.md("""
+Con 100.000 repeticiones, la simulación difiere del cálculo exacto en menos de una milésima. Cuando no hay fórmula, la simulación da la respuesta; con más repeticiones, la estimación es más precisa.
+""")
+
 c.titulo(2, "4. Práctica en la app Bioestadística (10 min)")
 c.md("""
 Abre la **[unidad 190 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:

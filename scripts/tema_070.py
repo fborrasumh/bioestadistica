@@ -291,6 +291,33 @@ c.md("""
 **`FileNotFoundError`:** el fichero no existe en la carpeta actual, o la sesión se reinició y los ficheros temporales se borraron.
 """)
 
+c.titulo(3, "Ampliación: Gestionar carpetas y ficheros con os")
+c.md("""
+El módulo `os` crea carpetas, lista su contenido, comprueba si un fichero existe y lo borra. Es útil cuando hay muchos ficheros: por ejemplo, un informe por paciente.
+
+Usa `os.path.join()` para construir las rutas. Así el código funciona igual en Windows, macOS y Linux.
+
+**En tus materiales SIMUSTAT:** [Tema 100. Módulos para el tratamiento de ficheros](https://colab.research.google.com/drive/1q9hZcqKVktdQi5eDZGycieGFHDVABz2i), apartado 1.
+""")
+c.code("""
+import os
+
+os.makedirs("informes", exist_ok=True)        # no da error si ya existe
+for codigo in ["P01", "P02", "P03"]:
+    ruta = os.path.join("informes", f"{codigo}.txt")
+    with open(ruta, "w", encoding="utf-8") as f:
+        f.write(f"Paciente {codigo}: informe pendiente de revisar\\n")
+
+print("Contenido:", sorted(os.listdir("informes")))
+print("¿Existe P02?", os.path.exists(os.path.join("informes", "P02.txt")))
+
+os.remove(os.path.join("informes", "P03.txt"))
+print("Tras borrar P03:", sorted(os.listdir("informes")))
+""")
+c.md("""
+`os.remove()` borra el fichero sin pasar por la papelera. Antes de borrar en un bucle, imprime la lista de ficheros y compruébala.
+""")
+
 c.titulo(2, "4. Práctica en la app Bioestadística (10 min)")
 c.md("""
 Abre la **[unidad 70 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:

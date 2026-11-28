@@ -236,6 +236,38 @@ c.md("""
 **Representar dos categóricas con números absolutos** cuando los grupos tienen tamaños muy distintos: se comparan porcentajes.
 """)
 
+c.titulo(3, "Ampliación: Kendall y asociación entre variables cualitativas")
+c.md("""
+La **tau de Kendall** es otra correlación por rangos. Cuenta los pares de pacientes **concordantes** (los dos valores suben a la vez) y **discordantes**. Funciona bien con muestras pequeñas y con muchos empates.
+
+Para dos variables **cualitativas** no hay correlación; hay **asociación**. Se mide a partir de la ji cuadrado (Tema 230):
+
+| Medida | Tabla | Valores |
+|---|---|---|
+| Coeficiente φ (phi) | 2 × 2 | de 0 a 1 |
+| V de Cramér | cualquier tamaño | de 0 a 1 (0 = sin asociación) |
+
+**En tus materiales SIMUSTAT:** [Tema 210. Relación entre variables](https://colab.research.google.com/drive/1a9AGIVjIXXhIXdhwpWX0PiHnJdH212a4), apartado 1 (Kendall) y 2 (φ, V de Cramér).
+""")
+c.code("""
+from scipy import stats
+
+print("Edad y PAS:")
+for metodo in ["pearson", "spearman", "kendall"]:
+    print(f"  {metodo:9} r = {datos['edad'].corr(datos['pas_mmHg'], method=metodo):.2f}")
+
+def v_cramer(x, y):
+    tabla = pd.crosstab(x, y)
+    chi2 = stats.chi2_contingency(tabla, correction=False)[0]
+    return np.sqrt(chi2 / (tabla.values.sum() * (min(tabla.shape) - 1)))
+
+print("\\nφ tabaco × evento cardiovascular:", round(v_cramer(datos["fumador"], datos["evento_cv_5a"]), 3))
+print("V de Cramér centro × diabetes:  ", round(v_cramer(datos["centro"], datos["diabetes"]), 3))
+""")
+c.md("""
+Kendall da valores más bajos que Spearman con los mismos datos; es normal, porque mide otra cosa (pares). Compara siempre coeficientes del mismo tipo. En una tabla 2 × 2, φ y la V de Cramér coinciden.
+""")
+
 c.titulo(2, "4. Práctica en la app Bioestadística (10 min)")
 c.md("""
 Abre la **[unidad 130 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:

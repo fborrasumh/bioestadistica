@@ -254,6 +254,36 @@ c.md("""
 **Equivocar el sentido de la tabla:** P(Z > *z*) = 1 − P(Z ≤ *z*).
 """)
 
+c.titulo(3, "Ampliación: La distribución exponencial")
+c.md("""
+La **distribución exponencial** describe el tiempo hasta un suceso cuando la tasa es constante. Es la pareja continua de la Poisson (Tema 170). Si llegan λ pacientes por unidad de tiempo, el tiempo entre llegadas es exponencial con media 1/λ.
+
+- Probabilidad de esperar más de *t*: $P(T > t) = e^{-t/\\mu}$, con μ = tiempo medio.
+- **Falta de memoria:** haber esperado ya 10 minutos no cambia la probabilidad de esperar 5 más.
+
+**Ejemplo:** a Urgencias llega de media un paciente cada 6 minutos (10 por hora).
+
+**En tus materiales SIMUSTAT:** [Tema 300. Variables aleatorias continuas](https://colab.research.google.com/drive/1ZEHacTllQDLH3cAQhLf7x6l0WIk98clg), apartado 3.
+""")
+c.code("""
+T = stats.expon(scale=6)                # tiempo medio = 6 minutos
+print(f"P(T > 15 min) = {T.sf(15):.3f}")
+print(f"P(T ≤ 2 min)  = {T.cdf(2):.3f}")
+print(f"Mediana = {T.median():.1f} min (menor que la media: la distribución es asimétrica)")
+print(f"Falta de memoria: P(T > 15 | T > 10) = {T.sf(15) / T.sf(10):.3f} = P(T > 5) = {T.sf(5):.3f}")
+
+t = np.linspace(0, 30, 300)
+plt.plot(t, T.pdf(t), color="steelblue")
+plt.fill_between(t[t > 15], T.pdf(t[t > 15]), color="orange", alpha=0.6, label="P(T > 15)")
+plt.xlabel("Minutos hasta el siguiente paciente")
+plt.ylabel("Densidad")
+plt.legend()
+plt.show()
+""")
+c.md("""
+La tasa de llegadas a Urgencias no es constante a lo largo del día. Por eso el modelo exponencial vale para franjas cortas con un flujo estable, no para las 24 horas.
+""")
+
 c.titulo(2, "4. Práctica en la app Bioestadística (10 min)")
 c.md("""
 Abre la **[unidad 180 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:

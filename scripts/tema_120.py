@@ -263,6 +263,23 @@ c.md("""
 **Dar demasiados decimales:** una presión arterial media de 127,4183 mmHg aparenta una precisión que la medición no tiene.
 """)
 
+c.titulo(3, "Ampliación: La curtosis")
+c.md("""
+La asimetría dice hacia qué lado está la cola. La **curtosis** dice cuánto peso tienen las colas: cuántos valores extremos hay comparado con una normal.
+
+pandas calcula el **exceso de curtosis** (`.kurt()`). Vale 0 en una normal. Si es positivo, hay más valores extremos que en una normal (colas pesadas). Si es negativo, hay menos (colas ligeras).
+
+**En tus materiales SIMUSTAT:** [Tema 200. Análisis descriptivo de variables](https://colab.research.google.com/drive/1dfJOHT5wc2pnlZKbkqWTzqOQ0fLK7kdN), apartado 5 (medidas de forma).
+""")
+c.code("""
+for variable in ["pas_mmHg", "glucemia_mg_dl", "hdl_mg_dl"]:
+    x = cohorte[variable].dropna()
+    print(f"{variable:16}  asimetría = {x.skew():5.2f}   exceso de curtosis = {x.kurt():5.2f}")
+""")
+c.md("""
+Una curtosis alta avisa de que hay valores extremos. En ese caso, revisa si son errores (Tema 100). Si son reales, la media y la DE resumen mal la variable: usa la mediana y el RIC.
+""")
+
 c.titulo(2, "4. Práctica en la app Bioestadística (10 min)")
 c.md("""
 Abre la **[unidad 120 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:

@@ -309,6 +309,39 @@ c.md("""
 **Confiar en código que «funciona».** Que una función se ejecute sin errores no significa que sea correcta, como se ha visto con la presión arterial media.
 """)
 
+c.titulo(3, "Ampliación: Variables locales y objetos mutables")
+c.md("""
+Una variable que se crea **dentro** de una función es **local**: solo existe mientras la función se ejecuta. Si fuera hay otra variable con el mismo nombre, la función no la cambia.
+
+Con las listas y los diccionarios es distinto. Son objetos **mutables**: si la función los modifica, cambia el original. Los números, los textos y las tuplas son **inmutables**: una función no los puede cambiar.
+
+**En tus materiales SIMUSTAT:** [Tema 110. Definición de funciones I](https://colab.research.google.com/drive/1O6LhqoSghAkw55UWJRhejZOFiROFAqB5), apartado 4. **En tus materiales SIMUSTAT:** [Tema 120. Definición de funciones II](https://colab.research.google.com/drive/1kbhZnG7MAZft4-hQFFGxk-gyH3_1D_Z7), apartado 3.
+""")
+c.code("""
+dosis_mg = 500
+
+def ajustar_insuficiencia_renal(dosis_mg):
+    dosis_mg = dosis_mg / 2          # variable local: solo existe aquí dentro
+    return dosis_mg
+
+print("Dosis ajustada:", ajustar_insuficiencia_renal(dosis_mg), "mg")
+print("Variable de fuera, sin cambios:", dosis_mg, "mg")
+
+def anotar(glucemias, valor):
+    glucemias.append(valor)          # modifica la lista original
+
+glucemias = [110, 98]
+anotar(glucemias, 65)
+print("Lista original, modificada:", glucemias)
+
+copia = glucemias.copy()             # una copia protege el original
+anotar(copia, 240)
+print("Original:", glucemias, "| Copia:", copia)
+""")
+c.md("""
+**Regla práctica:** si una función no debe cambiar los datos del paciente, dale una copia (`.copy()`). Y devuelve el resultado con `return`; no lo dejes en una variable global.
+""")
+
 c.titulo(2, "4. Práctica en la app Bioestadística (10 min)")
 c.md("""
 Abre la **[unidad 50 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:

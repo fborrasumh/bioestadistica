@@ -250,6 +250,32 @@ c.md("""
 **Pensar que un IC del 99 % es «mejor» que uno del 95 %:** es más seguro, pero menos preciso.
 """)
 
+c.titulo(3, "Ampliación: Intervalos unilaterales e intervalo de una varianza")
+c.md("""
+**Intervalo unilateral.** A veces solo importa un lado. Por ejemplo: «el colesterol medio no supera X». El intervalo unilateral al 95 % pone todo el 5 % de error en un lado. Por eso usa el valor crítico de 0,05, no el de 0,025. Decide si es unilateral **antes** de ver los datos.
+
+**Intervalo de una varianza.** La precisión de una DE también se estima. Si la variable es normal, el intervalo usa la distribución ji cuadrado con *n* − 1 grados de libertad. Este intervalo es muy sensible a la falta de normalidad.
+
+**En tus materiales SIMUSTAT:** [Tema 340. Intervalos de confianza](https://colab.research.google.com/drive/1E3ZnSADV8illRxGCETQRZ5WWA3Q30vQ-), apartado 3. **En tus materiales SIMUSTAT:** [Tema 390. Inferencia de una media poblacional](https://colab.research.google.com/drive/1R4EMXLhHqQMuq9OxEzunVhHCPrcKFxkR), apartado 4.
+""")
+c.code("""
+col = cohorte["colesterol_mg_dl"].dropna()
+n, media, de = len(col), col.mean(), col.std()
+ee = de / np.sqrt(n)
+
+t_bil, t_uni = stats.t.ppf(0.975, n - 1), stats.t.ppf(0.95, n - 1)
+print(f"n = {n}, media = {media:.1f} mg/dL, DE = {de:.1f} mg/dL")
+print(f"IC 95 % bilateral: {media - t_bil * ee:.1f} a {media + t_bil * ee:.1f} mg/dL")
+print(f"Límite superior unilateral 95 %: la media es como máximo {media + t_uni * ee:.1f} mg/dL")
+
+chi_inf, chi_sup = stats.chi2.ppf([0.025, 0.975], n - 1)
+var_ic = ((n - 1) * de**2 / chi_sup, (n - 1) * de**2 / chi_inf)
+print(f"IC 95 % de la DE: {np.sqrt(var_ic[0]):.1f} a {np.sqrt(var_ic[1]):.1f} mg/dL")
+""")
+c.md("""
+El límite unilateral queda más cerca de la media que el límite superior bilateral. El intervalo de la DE no es simétrico, porque la ji cuadrado es asimétrica.
+""")
+
 c.titulo(2, "4. Práctica en la app Bioestadística (10 min)")
 c.md("""
 Abre la **[unidad 200 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:

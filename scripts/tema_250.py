@@ -225,6 +225,31 @@ c.md("""
 **Hacer muchas pruebas *t* entre varios grupos** en lugar de un análisis de la varianza (Tema 260).
 """)
 
+c.titulo(3, "Ampliación: Comparar las varianzas de dos grupos")
+c.md("""
+La *t* clásica supone que los dos grupos tienen la **misma varianza**. Hay dos pruebas para comprobarlo:
+
+- **Prueba F:** compara el cociente de las dos varianzas. Exige normalidad.
+- **Prueba de Levene:** es más robusta si los datos no son normales.
+
+En ambas, H₀ dice que las varianzas son iguales. Muchos autores recomiendan usar **Welch siempre**: funciona bien con varianzas iguales y con varianzas distintas. Así la decisión no depende de otra prueba previa.
+
+**En tus materiales SIMUSTAT:** [Tema 400. Contraste de dos medias poblacionales](https://colab.research.google.com/drive/1URRViPWC_adC8BGr6Kn_Z8fjV4UGjgcA), apartado 2.
+""")
+c.code("""
+f = mujeres.var() / hombres.var()
+gl1, gl2 = len(mujeres) - 1, len(hombres) - 1
+p_f = 2 * min(stats.f.sf(f, gl1, gl2), stats.f.cdf(f, gl1, gl2))
+lev = stats.levene(mujeres, hombres)
+
+print(f"DE del HDL: mujeres {mujeres.std():.1f} | hombres {hombres.std():.1f} mg/dL")
+print(f"Prueba F:   F = {f:.2f}, p = {p_f:.3f}")
+print(f"Levene:     W = {lev.statistic:.2f}, p = {lev.pvalue:.3f}")
+""")
+c.md("""
+Si las varianzas difieren, la *t* clásica puede dar un valor p erróneo. Welch, en cambio, sigue siendo válida. Usa la comparación de varianzas para describir los grupos, no para elegir la prueba.
+""")
+
 c.titulo(2, "4. Práctica en la app Bioestadística (10 min)")
 c.md("""
 Abre la **[unidad 250 de la app Bioestadística](https://fborrasumh.github.io/bioestadistica/)** y completa sus misiones:
